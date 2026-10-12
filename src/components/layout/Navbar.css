@@ -1,0 +1,162 @@
+/* El fondo es translúcido; el logo y el texto mantienen su opacidad. */
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 8px 16px 0;
+}
+.navbar-surface {
+  max-width: 1152px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 20px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 24px;
+  background: rgb(48 57 70 / 78%);
+  backdrop-filter: blur(12px);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+.navbar-header a {
+  text-decoration: none;
+}
+.navbar-brand {
+  flex-shrink: 0;
+}
+.navbar-brand img {
+  height: 44px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+}
+.navbar-desktop {
+  display: none;
+}
+.navbar-header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar-company,
+.navbar-primary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.navbar-company {
+  margin-bottom: 8px !important;
+  gap: 8px;
+}
+.navbar-company li + li::before {
+  content: '|';
+  color: #ffffff80;
+  margin-right: 8px;
+}
+.navbar-primary {
+  white-space: nowrap;
+}
+.navbar-header a:hover {
+  color: #fdba74;
+}
+.navbar-trigger,
+.navbar-mobile-heading button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+.navbar-trigger svg {
+  width: 24px;
+  height: 24px;
+}
+.navbar-header :focus-visible,
+.navbar-mobile-panel :focus-visible {
+  outline: 2px solid #fdba74;
+  outline-offset: 4px;
+}
+.navbar-disclosure {
+  position: relative;
+}
+.navbar-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  cursor: pointer;
+  list-style: none;
+}
+.navbar-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+.navbar-chevron {
+  transition: transform 160ms ease;
+}
+.navbar-disclosure[open] > summary .navbar-chevron {
+  transform: rotate(180deg);
+}
+.navbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 192px;
+  padding: 8px !important;
+  border-radius: 12px;
+  background: #131c2c;
+  border: 1px solid #ffffff26;
+  box-shadow: 0 12px 24px #0004;
+  animation: navbar-dropdown-enter 160ms ease-out;
+}
+.navbar-dropdown a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+.navbar-dropdown a:hover {
+  background: #ffffff12;
+}
+.navbar-actions {
+  display: flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+.navbar-actions a {
+  border-radius: 999px;
+  padding: 9px 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  transition: filter 160ms ease;
+}
+.navbar-actions .meeting {
+  background: #405e89;
+  color: white;
+}
+.navbar-actions .demo {
+  background: #ff8417;
+  color: #101010;
+}
+.navbar-actions a:hover {
+  filter: brightness(1.1);
+}
+
+
+@media (min-width: 1200px) {
+  .navbar-desktop { display: block; }
+}
+@keyframes navbar-dropdown-enter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navbar-chevron, .navbar-actions a { transition: none; }
+  .navbar-dropdown { animation: none; }
+}
