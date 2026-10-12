@@ -34,9 +34,22 @@ export function NavDropdown({
     >
       <summary>
         {label}
-        <span aria-hidden="true" className="navbar-chevron">
-          ⌄
-        </span>
+        <svg
+          aria-hidden="true"
+          className="navbar-chevron"
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.25"
+        >
+          <path
+            d="m3 4.5 3 3 3-3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </summary>
       <ul className="navbar-dropdown">
         {items.map((item) => (
