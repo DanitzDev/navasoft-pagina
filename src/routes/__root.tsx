@@ -1,9 +1,15 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Link,
+  Scripts,
+  createRootRoute,
+} from '@tanstack/react-router'
 
 import appCss from '../styles.css?url'
 import SiteLayout from '../components/layout/SiteLayout'
 
 export const Route = createRootRoute({
+  notFoundComponent: NotFound,
   head: () => ({
     meta: [
       {
@@ -42,5 +48,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
+  )
+}
+
+function NotFound() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-16">
+      <h1 className="text-3xl font-bold">Página no disponible</h1>
+      <p className="mt-4 text-slate-300">
+        Esta dirección todavía no tiene una página. Puedes volver al inicio para
+        continuar viendo el layout.
+      </p>
+      <Link to="/" className="mt-6 inline-block underline underline-offset-4">
+        Volver al inicio
+      </Link>
+    </section>
   )
 }
