@@ -64,7 +64,21 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       <div className="navbar-mobile-heading">
         <h2 id="navbar-mobile-title">Menú</h2>
         <button type="button" aria-label="Cerrar menú" onClick={closeMenu}>
-          ×
+          <svg
+            aria-hidden="true"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path
+              d="m6 6 12 12M6 18 18 6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       </div>
       <nav aria-label="Principal móvil">
