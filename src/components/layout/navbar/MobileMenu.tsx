@@ -29,12 +29,21 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     const closeOnDesktop = () => {
       if (desktop.matches) dialog.current?.close()
     }
+    closeOnDesktop()
     desktop.addEventListener('change', closeOnDesktop)
     return () => {
       document.body.style.overflow = previousOverflow
       desktop.removeEventListener('change', closeOnDesktop)
     }
   }, [open])
+
+  function handleClose() {
+    // Cada apertura empieza con los submenús cerrados.
+    dialog.current?.querySelectorAll('details').forEach((submenu) => {
+      submenu.open = false
+    })
+    onClose()
+  }
 
   function closeMenu() {
     dialog.current?.close()
@@ -58,7 +67,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       id="navbar-mobile-menu"
       aria-labelledby="navbar-mobile-title"
       className="navbar-mobile-panel"
-      onClose={onClose}
+      onClose={handleClose}
       onClick={handleBackdropClick}
     >
       <div className="navbar-mobile-heading">

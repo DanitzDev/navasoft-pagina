@@ -51,7 +51,7 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
-        <div className="navbar-desktop">
+        <div className="navbar-desktop navbar-desktop-actions">
           <ContactActions />
         </div>
         <button
@@ -82,7 +82,8 @@ export default function Navbar() {
         open={open}
         onClose={() => {
           setOpen(false)
-          trigger.current?.focus()
+          // Al pasar a escritorio el botón queda oculto; no debe recibir foco.
+          if (trigger.current?.getClientRects().length) trigger.current.focus()
         }}
       />
     </header>

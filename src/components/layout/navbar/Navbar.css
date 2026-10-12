@@ -13,7 +13,7 @@
   margin-inline: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
   padding: 8px 12px;
   border: 1px solid rgb(255 255 255 / 25%);
@@ -77,6 +77,10 @@
   color: white;
   cursor: pointer;
 }
+.navbar-trigger,
+.navbar-desktop-actions {
+  margin-left: auto;
+}
 .navbar-trigger svg {
   width: 24px;
   height: 24px;
@@ -111,6 +115,9 @@
   top: 100%;
   left: 0;
   min-width: 192px;
+  max-height: min(70dvh, 480px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 8px !important;
   border-radius: 12px;
   background: #131c2c;
@@ -162,6 +169,8 @@
   max-width: none;
   padding: 16px 20px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   border: 1px solid #ffffff26;
   background: #131c2c;
   color: white;

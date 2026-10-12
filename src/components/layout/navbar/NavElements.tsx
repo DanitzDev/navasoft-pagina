@@ -19,9 +19,12 @@ export function NavDropdown({
   return (
     <details
       ref={disclosure}
+      name={mobile ? 'navbar-mobile-submenus' : 'navbar-desktop-submenus'}
       className={mobile ? 'navbar-disclosure mobile' : 'navbar-disclosure'}
       onKeyDown={(event) => {
         if (event.key !== 'Escape' || !disclosure.current?.open) return
+        // Escape cierra primero el submenú, sin cancelar el diálogo móvil.
+        event.preventDefault()
         event.stopPropagation()
         disclosure.current.open = false
         disclosure.current.querySelector('summary')?.focus()
