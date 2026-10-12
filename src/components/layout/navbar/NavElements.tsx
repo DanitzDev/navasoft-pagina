@@ -1,8 +1,12 @@
 import { useRef } from 'react'
+import type { ReactNode } from 'react'
+import { useRouterState } from '@tanstack/react-router'
+import { isNavigationActive } from '../../../lib/navigation'
 import type { DropdownItem } from '../../../data/navigation'
 
 type DropdownProps = {
   label: string
+  sectionHref?: string
   items: DropdownItem[]
   mobile?: boolean
   onNavigate?: () => void
@@ -11,11 +15,19 @@ type DropdownProps = {
 // conserva la apertura por teclado.
 export function NavDropdown({
   label,
+  sectionHref,
   items,
   mobile = false,
   onNavigate,
 }: DropdownProps) {
   const disclosure = useRef<HTMLDetailsElement>(null)
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
+  const active = Boolean(
+    (sectionHref && isNavigationActive(pathname, sectionHref)) ||
+    items.some((item) => item.href && isNavigationActive(pathname, item.href)),
+  )
   return (
     <details
       ref={disclosure}
@@ -35,7 +47,7 @@ export function NavDropdown({
         }
       }}
     >
-      <summary>
+      <summary data-active={active || undefined}>
         {label}
         <svg
           aria-hidden="true"
@@ -58,9 +70,9 @@ export function NavDropdown({
         {items.map((item) => (
           <li key={item.label}>
             {item.href ? (
-              <a href={item.href} onClick={onNavigate}>
+              <NavLink href={item.href} onNavigate={onNavigate}>
                 {item.label}
-              </a>
+              </NavLink>
             ) : (
               <span className="block px-3 py-2">{item.label}</span>
             )}
@@ -85,5 +97,28 @@ export function ContactActions({ onNavigate }: { onNavigate?: () => void }) {
         Pedir una demo
       </a>
     </div>
+  )
+}
+
+type NavLinkProps = {
+  href: string
+  children: ReactNode
+  onNavigate?: () => void
+}
+
+export function NavLink({ href, children, onNavigate }: NavLinkProps) {
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  })
+  const active = isNavigationActive(pathname, href)
+
+  return (
+    <a
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? 'page' : undefined}
+    >
+      {children}
+    </a>
   )
 }

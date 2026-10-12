@@ -1,4 +1,4 @@
-/* El fondo es translúcido; el logo y el texto mantienen su opacidad. */
+/* El fondo es translúcido el logo y el texto mantienen su opacidad. */
 .navbar-header {
   --navbar-brand-orange: #d96627;
   --navbar-brand-blue: #415c85;
@@ -355,4 +355,17 @@
   .navbar-surface {
     padding-inline: 20px;
   }
+}
+
+/* La raya acompaña a la sección actual sin cambiar la altura del Navbar. */
+.navbar-desktop a[aria-current],
+.navbar-desktop summary[data-active],
+.navbar-desktop details[open] > summary {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+.navbar-mobile-panel a[aria-current],
+.navbar-mobile-panel summary[data-active] {
+  color: var(--navbar-brand-orange);
 }

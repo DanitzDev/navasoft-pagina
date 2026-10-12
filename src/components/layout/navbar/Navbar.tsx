@@ -6,7 +6,7 @@ import {
   sectors,
 } from '../../../data/navigation'
 import MobileMenu from './MobileMenu'
-import { ContactActions, NavDropdown } from './NavElements'
+import { ContactActions, NavDropdown, NavLink } from './NavElements'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -30,21 +30,25 @@ export default function Navbar() {
           <ul className="navbar-company">
             {companyLinks.map((item) => (
               <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
+                <NavLink href={item.href}>{item.label}</NavLink>
               </li>
             ))}
           </ul>
           <ul className="navbar-primary">
             {primaryLinks.map((item) => (
               <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
+                <NavLink href={item.href}>{item.label}</NavLink>
               </li>
             ))}
             <li>
-              <NavDropdown label="Productos" items={products} />
+              <NavDropdown
+                label="Productos"
+                sectionHref="/productos"
+                items={products}
+              />
             </li>
             <li>
-              <a href="/areas/navalav">Innovación</a>
+              <NavLink href="/areas/navalav">Innovación</NavLink>
             </li>
             <li>
               <NavDropdown label="Sectores que impulsamos" items={sectors} />

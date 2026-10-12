@@ -6,7 +6,7 @@ import {
   products,
   sectors,
 } from '../../../data/navigation'
-import { ContactActions, NavDropdown } from './NavElements'
+import { ContactActions, NavDropdown, NavLink } from './NavElements'
 
 type MobileMenuProps = { open: boolean; onClose: () => void }
 
@@ -94,23 +94,24 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         <ul className="navbar-mobile-links">
           {primaryLinks.map((item) => (
             <li key={item.href}>
-              <a href={item.href} onClick={closeMenu}>
+              <NavLink href={item.href} onNavigate={closeMenu}>
                 {item.label}
-              </a>
+              </NavLink>
             </li>
           ))}
           <li>
             <NavDropdown
               label="Productos"
+              sectionHref="/productos"
               items={products}
               mobile
               onNavigate={closeMenu}
             />
           </li>
           <li>
-            <a href="/areas/navalav" onClick={closeMenu}>
+            <NavLink href="/areas/navalav" onNavigate={closeMenu}>
               Innovación
-            </a>
+            </NavLink>
           </li>
           <li>
             <NavDropdown
@@ -124,9 +125,9 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         <ul className="navbar-mobile-company">
           {companyLinks.map((item) => (
             <li key={item.href}>
-              <a href={item.href} onClick={closeMenu}>
+              <NavLink href={item.href} onNavigate={closeMenu}>
                 {item.label}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>
