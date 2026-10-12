@@ -1,9 +1,9 @@
 import { useRef } from 'react'
-import type { NavigationItem } from '../../data/navigation'
+import type { DropdownItem } from '../../data/navigation'
 
 type DropdownProps = {
   label: string
-  items: NavigationItem[]
+  items: DropdownItem[]
   mobile?: boolean
   onNavigate?: () => void
 }
@@ -53,10 +53,14 @@ export function NavDropdown({
       </summary>
       <ul className="navbar-dropdown">
         {items.map((item) => (
-          <li key={item.href}>
-            <a href={item.href} onClick={onNavigate}>
-              {item.label}
-            </a>
+          <li key={item.label}>
+            {item.href ? (
+              <a href={item.href} onClick={onNavigate}>
+                {item.label}
+              </a>
+            ) : (
+              <span className="block px-3 py-2">{item.label}</span>
+            )}
           </li>
         ))}
       </ul>
