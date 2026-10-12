@@ -4,7 +4,7 @@ import {
   primaryLinks,
   products,
   sectors,
-} from '../../data/navigation'
+} from '../../../data/navigation'
 import MobileMenu from './MobileMenu'
 import { ContactActions, NavDropdown } from './NavElements'
 import './Navbar.css'

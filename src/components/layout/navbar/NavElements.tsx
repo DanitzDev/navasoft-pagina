@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import type { DropdownItem } from '../../data/navigation'
+import type { DropdownItem } from '../../../data/navigation'
 
 type DropdownProps = {
   label: string

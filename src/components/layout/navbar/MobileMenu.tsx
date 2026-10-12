@@ -5,7 +5,7 @@ import {
   primaryLinks,
   products,
   sectors,
-} from '../../data/navigation'
+} from '../../../data/navigation'
 import { ContactActions, NavDropdown } from './NavElements'
 
 type MobileMenuProps = { open: boolean; onClose: () => void }
