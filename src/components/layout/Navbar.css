@@ -150,15 +150,154 @@
   filter: brightness(1.1);
 }
 
-
-@media (min-width: 1200px) {
-  .navbar-desktop { display: block; }
+/* El diálogo nativo limita el foco al panel y proporciona cierre con Escape. */
+.navbar-mobile-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(88vw, 320px);
+  max-width: none;
+  padding: 16px 20px;
+  overflow-y: auto;
+  border: 1px solid #ffffff26;
+  background: #131c2c;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+.navbar-mobile-panel[open] {
+  opacity: 1;
+  transform: translateX(0);
+}
+.navbar-mobile-panel::backdrop {
+  background: rgb(0 0 0 / 60%);
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+.navbar-mobile-panel[open]::backdrop {
+  opacity: 1;
+}
+@starting-style {
+  .navbar-mobile-panel[open] {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  .navbar-mobile-panel[open]::backdrop {
+    opacity: 0;
+  }
+}
+.navbar-mobile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.navbar-mobile-heading h2 {
+  font-size: 14px;
+}
+.navbar-mobile-heading button {
+  font-size: 24px;
+}
+.navbar-mobile-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar-mobile-panel a {
+  color: inherit;
+  text-decoration: none;
+}
+.navbar-mobile-links a,
+.navbar-mobile-links summary {
+  display: flex;
+  padding: 12px 6px;
+}
+.navbar-mobile-company {
+  margin-top: 16px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #506176;
+}
+.navbar-mobile-company a {
+  display: block;
+  padding: 10px 6px;
+}
+.navbar-mobile-panel .navbar-actions {
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+.navbar-mobile-panel .navbar-actions a {
+  border-radius: 8px;
+  font-size: 12px;
+}
+.navbar-mobile-panel .meeting {
+  color: white;
+}
+.navbar-mobile-panel .demo {
+  color: #101010;
+}
+.navbar-disclosure.mobile .navbar-dropdown {
+  position: static;
+  min-width: 0;
+  margin-left: 8px;
+  border: 0;
+  border-left: 1px solid #ffffff26;
+  border-radius: 0;
+  box-shadow: none;
+}
+.navbar-skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px;
+  background: white;
+  color: black;
+  transform: translateY(-200%);
+}
+.navbar-skip-link:focus {
+  transform: translateY(0);
 }
 @keyframes navbar-dropdown-enter {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+@media (min-width: 1200px) {
+  .navbar-desktop {
+    display: block;
+  }
+  .navbar-trigger {
+    display: none;
+  }
+}
+/* No fuerza movimiento cuando el sistema solicita reducir animaciones. */
 @media (prefers-reduced-motion: reduce) {
-  .navbar-chevron, .navbar-actions a { transition: none; }
-  .navbar-dropdown { animation: none; }
+  .navbar-mobile-panel,
+  .navbar-mobile-panel::backdrop,
+  .navbar-chevron,
+  .navbar-actions a {
+    transition: none;
+  }
+  .navbar-dropdown {
+    animation: none;
+  }
 }
