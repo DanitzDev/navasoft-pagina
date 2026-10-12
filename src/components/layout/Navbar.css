@@ -1,5 +1,7 @@
 /* El fondo es translúcido; el logo y el texto mantienen su opacidad. */
 .navbar-header {
+  --navbar-brand-orange: #d96627;
+  --navbar-brand-blue: #415c85;
   position: sticky;
   top: 0;
   z-index: 40;
@@ -137,11 +139,11 @@
   transition: filter 160ms ease;
 }
 .navbar-actions .meeting {
-  background: #405e89;
+  background: var(--navbar-brand-blue);
   color: white;
 }
 .navbar-actions .demo {
-  background: #ff8417;
+  background: var(--navbar-brand-orange);
   color: #101010;
 }
 .navbar-actions a:hover {
