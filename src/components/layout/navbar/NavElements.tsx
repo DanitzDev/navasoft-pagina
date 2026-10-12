@@ -8,7 +8,7 @@ type DropdownProps = {
   onNavigate?: () => void
 }
 
-// conserva la apertura por teclado sin simular un menú ARIA.
+// conserva la apertura por teclado.
 export function NavDropdown({
   label,
   items,

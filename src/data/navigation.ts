@@ -19,7 +19,7 @@ export const products: NavigationItem[] = [
   { label: 'Factxia', href: '/productos/factxia' },
   { label: 'NavaStay', href: '/productos/navastay' },
 ]
-// Los destinos se agregarán cuando se definan las páginas de cada sector.
+// Los destinos se agregarán cuando se definan las páginas de cada sector
 export const sectors: DropdownItem[] = [
   { label: 'Fondos de Pensiones' },
   { label: 'Asociaciones' },
