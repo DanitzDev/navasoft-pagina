@@ -52,6 +52,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  color: #fdba74;
 }
 .footer-bottom {
   padding-block: 24px;
@@ -114,4 +115,51 @@
 .footer-contact-row a,
 .footer-contact-row > span {
   min-width: 0;
+}
+
+/* Listas de navegación compartidas por las columnas del footer. */
+.footer-links {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.footer-links a {
+  color: #bac5d4;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: #f5f7fb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-products {
+  gap: 12px;
+}
+.footer-product {
+  display: block;
+}
+.footer-product-name {
+  display: block;
+  color: #f5f7fb;
+  font-weight: 600;
+}
+.footer-product-description {
+  display: block;
+  color: #bac5d4;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.footer-products .footer-product:hover {
+  text-decoration: none;
+}
+.footer-product:hover .footer-product-name {
+  color: #fdba74;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

@@ -1,4 +1,4 @@
-import { siteContacts } from '../../../data/site'
+import { footerEcosystem, footerSolutions, siteContacts } from '../../../data/site'
 import ContactIcon from './ContactIcon'
 import './Footer.css'
 
@@ -39,12 +39,31 @@ export default function Footer() {
             </ul>
           </address>
         </div>
-        <div className="footer-column">
-          <h2>Soluciones</h2>
-        </div>
-        <div className="footer-column">
-          <h2>Ecosistema</h2>
-        </div>
+        <nav className="footer-column" aria-labelledby="footer-solutions-title">
+          <h2 id="footer-solutions-title">Soluciones</h2>
+          <ul className="footer-links">
+            {footerSolutions.map((solution) => (
+              <li key={solution.href}>
+                <a href={solution.href}>{solution.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav className="footer-column" aria-labelledby="footer-ecosystem-title">
+          <h2 id="footer-ecosystem-title">Ecosistema</h2>
+          <ul className="footer-links footer-products">
+            {footerEcosystem.map((product) => (
+              <li key={product.href}>
+                <a href={product.href} className="footer-product">
+                  <span className="footer-product-name">{product.label}</span>
+                  <span className="footer-product-description">
+                    {product.description}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div className="footer-column">
           <h2>Empresa</h2>
         </div>
