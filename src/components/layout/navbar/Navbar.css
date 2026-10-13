@@ -79,6 +79,15 @@
 .navbar-primary {
   white-space: nowrap;
 }
+/* Solo se animan colores; el tamaño y la posición permanecen estables. */
+.navbar-desktop a,
+.navbar-dropdown a,
+.navbar-mobile-links a,
+.navbar-mobile-company a {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
 .navbar-header a:hover {
   color: #fdba74;
 }
@@ -92,6 +101,11 @@
   background: transparent;
   color: white;
   cursor: pointer;
+  transition: background-color 160ms ease;
+}
+.navbar-trigger:hover,
+.navbar-mobile-heading button:hover {
+  background: rgb(255 255 255 / 10%);
 }
 .navbar-trigger,
 .navbar-desktop-actions {
@@ -342,7 +356,13 @@
   .navbar-mobile-panel,
   .navbar-mobile-panel::backdrop,
   .navbar-chevron,
-  .navbar-actions a {
+  .navbar-actions a,
+  .navbar-desktop a,
+  .navbar-dropdown a,
+  .navbar-mobile-links a,
+  .navbar-mobile-company a,
+  .navbar-trigger,
+  .navbar-mobile-heading button {
     transition: none;
   }
   .navbar-dropdown {
