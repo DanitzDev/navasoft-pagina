@@ -100,3 +100,18 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.footer-contact-icon {
+  color: #d96627;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.footer-contact-row a,
+.footer-contact-row > span {
+  min-width: 0;
+}

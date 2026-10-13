@@ -1,4 +1,5 @@
 import { siteContacts } from '../../../data/site'
+import ContactIcon from './ContactIcon'
 import './Footer.css'
 
 export default function Footer() {
@@ -26,7 +27,8 @@ export default function Footer() {
           <address className="footer-contact">
             <ul>
               {siteContacts.map((contact) => (
-                <li key={contact.label}>
+                <li key={contact.kind} className="footer-contact-row">
+                  <ContactIcon kind={contact.kind} />
                   {contact.href ? (
                     <a href={contact.href}>{contact.label}</a>
                   ) : (
