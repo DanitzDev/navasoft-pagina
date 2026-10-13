@@ -30,7 +30,7 @@
   width: 120px;
   height: auto;
 }
-.footer-brand:focus-visible {
+.site-footer a:focus-visible {
   outline: 2px solid #fdba74;
   outline-offset: 4px;
 }
@@ -74,4 +74,29 @@
     gap: 40px;
     padding-block: 64px;
   }
+}
+
+.footer-contact {
+  margin-top: 24px;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 1.6;
+  color: #bac5d4;
+  overflow-wrap: anywhere;
+}
+.footer-contact ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+.footer-contact a:hover {
+  color: #f5f7fb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }

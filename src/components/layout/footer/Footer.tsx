@@ -1,3 +1,4 @@
+import { siteContacts } from '../../../data/site'
 import './Footer.css'
 
 export default function Footer() {
@@ -22,6 +23,19 @@ export default function Footer() {
             Transformamos experiencia en plataformas tecnológicas que generan
             impacto para gobiernos, empresas e industrias.
           </p>
+          <address className="footer-contact">
+            <ul>
+              {siteContacts.map((contact) => (
+                <li key={contact.label}>
+                  {contact.href ? (
+                    <a href={contact.href}>{contact.label}</a>
+                  ) : (
+                    <span>{contact.label}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </address>
         </div>
         <div className="footer-column">
           <h2>Soluciones</h2>
