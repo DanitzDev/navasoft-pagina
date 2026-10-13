@@ -57,3 +57,12 @@ export const footerEcosystem: FooterProduct[] = [
     description: 'Gestión operativa y órdenes de trabajo.',
   },
 ]
+
+// Carreras comparte el destino de Oportunidades del navbar.
+export const footerCompany: NavigationItem[] = [
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Casos de éxito', href: '/casos-de-exito' },
+  { label: 'Contacto', href: '/contacto' },
+  { label: 'Soporte', href: '/soporte' },
+  { label: 'Carreras', href: '/oportunidades' },
+]

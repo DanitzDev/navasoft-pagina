@@ -1,4 +1,9 @@
-import { footerEcosystem, footerSolutions, siteContacts } from '../../../data/site'
+import {
+  footerCompany,
+  footerEcosystem,
+  footerSolutions,
+  siteContacts,
+} from '../../../data/site'
 import ContactIcon from './ContactIcon'
 import './Footer.css'
 
@@ -64,8 +69,30 @@ export default function Footer() {
             ))}
           </ul>
         </nav>
-        <div className="footer-column">
-          <h2>Empresa</h2>
+        <nav className="footer-column" aria-labelledby="footer-company-title">
+          <h2 id="footer-company-title">Empresa</h2>
+          <ul className="footer-links">
+            {footerCompany.map((link) => (
+              <li key={link.href}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="/contacto?motivo=reunion"
+                className="footer-meeting-link"
+              >
+                Solicitar reunión
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className="footer-statement">
+        <div className="footer-container">
+          <p>
+            Transformamos experiencia en plataformas que generan impacto real.
+          </p>
         </div>
       </div>
       <div className="footer-container footer-bottom">

@@ -56,7 +56,6 @@
 }
 .footer-bottom {
   padding-block: 24px;
-  border-top: 1px solid rgb(255 255 255 / 12%);
   color: #bac5d4;
   font-size: 12px;
   line-height: 1.6;
@@ -162,4 +161,31 @@
   color: #fdba74;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.footer-links .footer-meeting-link {
+  color: #d96627;
+  font-weight: 600;
+}
+.footer-links .footer-meeting-link:hover {
+  color: #fdba74;
+}
+
+/* Franja institucional, los separadores ocupan todo el ancho del footer. */
+.footer-statement {
+  padding-block: 32px;
+  border-block: 1px solid rgb(255 255 255 / 12%);
+  text-align: center;
+}
+.footer-statement p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 640px) {
+  .footer-statement p {
+    font-size: 24px;
+  }
 }
