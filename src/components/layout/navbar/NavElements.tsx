@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { useRouterState } from '@tanstack/react-router'
-import { isNavigationActive } from '../../../lib/navigation'
+import { getNavigationCurrent, isNavigationActive } from '../../../lib/navigation'
 import type { DropdownItem } from '../../../data/navigation'
 
 type DropdownProps = {
@@ -110,13 +110,13 @@ export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
-  const active = isNavigationActive(pathname, href)
+  const current = getNavigationCurrent(pathname, href)
 
   return (
     <a
       href={href}
       onClick={onNavigate}
-      aria-current={active ? 'page' : undefined}
+      aria-current={current}
     >
       {children}
     </a>
