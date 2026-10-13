@@ -21,3 +21,8 @@ body {
   color: #f5f7fb;
   font-family: var(--font-sans);
 }
+
+/* main es un destino de salto; los controles conservan su foco visible. */
+#contenido:focus {
+  outline: none;
+}
