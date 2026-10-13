@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+/* Evita saltos laterales al bloquear el scroll detrás del menú móvil. */
+html {
+  scrollbar-gutter: stable;
+}
+
 html,
 body,
 #app {
