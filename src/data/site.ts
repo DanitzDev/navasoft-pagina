@@ -66,3 +66,25 @@ export const footerCompany: NavigationItem[] = [
   { label: 'Soporte', href: '/soporte' },
   { label: 'Carreras', href: '/oportunidades' },
 ]
+
+export type SocialNetwork = 'linkedin' | 'facebook' | 'instagram'
+type SocialLink = NavigationItem & { network: SocialNetwork }
+
+// Perfiles de la empresa enlazados en el prototipo.
+export const footerSocialLinks: SocialLink[] = [
+  {
+    network: 'linkedin',
+    label: 'LinkedIn',
+    href: 'https://cr.linkedin.com/company/navasoft-soluciones',
+  },
+  {
+    network: 'facebook',
+    label: 'Facebook',
+    href: 'https://www.facebook.com/NavasoftSoluciones/',
+  },
+  {
+    network: 'instagram',
+    label: 'Instagram',
+    href: 'https://www.instagram.com/navasoftsoluciones/',
+  },
+]

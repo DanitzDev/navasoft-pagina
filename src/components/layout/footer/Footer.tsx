@@ -2,9 +2,11 @@ import {
   footerCompany,
   footerEcosystem,
   footerSolutions,
+  footerSocialLinks,
   siteContacts,
 } from '../../../data/site'
 import ContactIcon from './ContactIcon'
+import SocialIcon from './SocialIcon'
 import './Footer.css'
 
 export default function Footer() {
@@ -24,7 +26,8 @@ export default function Footer() {
               height="562"
             />
           </a>
-          <p className="footer-tagline">Tecnología que innova.</p>
+          <p className="footer-company-name">Navasoft</p>
+          <p className="footer-tagline">Tecnología que innova</p>
           <p className="footer-description">
             Transformamos experiencia en plataformas tecnológicas que generan
             impacto para gobiernos, empresas e industrias.
@@ -97,6 +100,23 @@ export default function Footer() {
       </div>
       <div className="footer-container footer-bottom">
         <p>© 2026 Navasoft Soluciones. Costa Rica y Centroamérica.</p>
+        <nav aria-label="Redes sociales de Navasoft">
+          <ul className="footer-social-links">
+            {footerSocialLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${link.label} (abre en una pestaña nueva)`}
+                  title={link.label}
+                >
+                  <SocialIcon network={link.network} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   )

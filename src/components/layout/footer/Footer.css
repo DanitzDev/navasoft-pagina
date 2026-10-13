@@ -34,10 +34,18 @@
   outline: 2px solid #fdba74;
   outline-offset: 4px;
 }
+.footer-company-name {
+  margin: 24px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
 .footer-tagline {
-  margin-top: 16px;
-  font-size: 16px;
+  margin: 2px 0 0;
+  color: #d96627;
+  font-size: 14px;
   font-weight: 600;
+  line-height: 1.6;
 }
 .footer-description {
   max-width: 360px;
@@ -55,7 +63,10 @@
   color: #fdba74;
 }
 .footer-bottom {
-  padding-block: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-block: 20px;
   color: #bac5d4;
   font-size: 12px;
   line-height: 1.6;
@@ -187,5 +198,38 @@
 @media (min-width: 640px) {
   .footer-statement p {
     font-size: 24px;
+  }
+}
+
+/* Redes en una fila; cada enlace conserva un área cómoda para el toque. */
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-social-links a {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+.footer-social-links a:hover {
+  color: #f5f7fb;
+  background: rgb(255 255 255 / 8%);
+}
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-bottom > nav {
+    flex-shrink: 0;
   }
 }
