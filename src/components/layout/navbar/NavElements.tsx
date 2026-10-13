@@ -1,7 +1,10 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { useRouterState } from '@tanstack/react-router'
-import { getNavigationCurrent, isNavigationActive } from '../../../lib/navigation'
+import {
+  getNavigationCurrent,
+  isNavigationActive,
+} from '../../../lib/navigation'
 import type { DropdownItem } from '../../../data/navigation'
 
 type DropdownProps = {
@@ -28,6 +31,36 @@ export function NavDropdown({
     (sectionHref && isNavigationActive(pathname, sectionHref)) ||
     items.some((item) => item.href && isNavigationActive(pathname, item.href)),
   )
+  useEffect(() => {
+    if (mobile) return
+    const desktop = window.matchMedia('(min-width: 1200px)')
+
+    function closeOutside(event: PointerEvent) {
+      const panel = disclosure.current
+      if (
+        panel?.open &&
+        event.target instanceof Node &&
+        !panel.contains(event.target)
+      ) {
+        panel.open = false
+      }
+    }
+
+    function closeOnMobile() {
+      if (!desktop.matches && disclosure.current)
+        disclosure.current.open = false
+    }
+
+    // Un panel oculto no debe reaparecer abierto al volver a escritorio.
+    closeOnMobile()
+    document.addEventListener('pointerdown', closeOutside)
+    desktop.addEventListener('change', closeOnMobile)
+    return () => {
+      document.removeEventListener('pointerdown', closeOutside)
+      desktop.removeEventListener('change', closeOnMobile)
+    }
+  }, [mobile])
+
   return (
     <details
       ref={disclosure}
@@ -113,11 +146,7 @@ export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   const current = getNavigationCurrent(pathname, href)
 
   return (
-    <a
-      href={href}
-      onClick={onNavigate}
-      aria-current={current}
-    >
+    <a href={href} onClick={onNavigate} aria-current={current}>
       {children}
     </a>
   )
