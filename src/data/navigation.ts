@@ -19,16 +19,25 @@ export const products: NavigationItem[] = [
   { label: 'Factxia', href: '/productos/factxia' },
   { label: 'NavaStay', href: '/productos/navastay' },
 ]
-// Los destinos se agregarán cuando se definan las páginas de cada sector
-export const sectors: DropdownItem[] = [
-  { label: 'Fondos de Pensiones' },
-  { label: 'Asociaciones' },
-  { label: 'Construcción' },
-  { label: 'Fondos de Ahorro y Préstamo' },
-  { label: 'Servicios' },
-  { label: 'Agroindustria' },
-  { label: 'Préstamos para la Educación' },
-  { label: 'Electricidad' },
-  { label: 'Telecomunicaciones' },
-  { label: 'Producción y Manufactura' },
+// Cada sector tiene un destino atendido por la ruta dinámica de TanStack.
+export const sectors: NavigationItem[] = [
+  { label: 'Fondos de Pensiones', href: '/sectores/fondos-de-pensiones' },
+  { label: 'Asociaciones', href: '/sectores/asociaciones' },
+  { label: 'Construcción', href: '/sectores/construccion' },
+  {
+    label: 'Fondos de Ahorro y Préstamo',
+    href: '/sectores/fondos-de-ahorro-y-prestamo',
+  },
+  { label: 'Servicios', href: '/sectores/servicios' },
+  { label: 'Agroindustria', href: '/sectores/agroindustria' },
+  {
+    label: 'Préstamos para la Educación',
+    href: '/sectores/prestamos-para-la-educacion',
+  },
+  { label: 'Electricidad', href: '/sectores/electricidad' },
+  { label: 'Telecomunicaciones', href: '/sectores/telecomunicaciones' },
+  {
+    label: 'Producción y Manufactura',
+    href: '/sectores/produccion-y-manufactura',
+  },
 ]
