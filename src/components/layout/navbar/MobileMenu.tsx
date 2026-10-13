@@ -6,7 +6,7 @@ import {
   products,
   sectors,
 } from '../../../data/navigation'
-import { ContactActions, NavDropdown, NavLink } from './NavElements'
+import { NavDropdown, NavLink } from './NavElements'
 
 type MobileMenuProps = { open: boolean; onClose: () => void }
 
@@ -132,7 +132,6 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           ))}
         </ul>
       </nav>
-      <ContactActions onNavigate={closeMenu} />
     </dialog>
   )
 }

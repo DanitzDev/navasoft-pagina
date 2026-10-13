@@ -1,7 +1,6 @@
 /* El fondo es translúcido el logo y el texto mantienen su opacidad. */
 .navbar-header {
   --navbar-brand-orange: #d96627;
-  --navbar-brand-blue: #415c85;
   --navbar-surface-background: rgb(255 255 255 / 15%);
   --navbar-surface-border: rgb(255 255 255 / 25%);
   --navbar-surface-radius: 24px;
@@ -107,8 +106,7 @@
 .navbar-mobile-heading button:hover {
   background: rgb(255 255 255 / 10%);
 }
-.navbar-trigger,
-.navbar-desktop-actions {
+.navbar-trigger {
   margin-left: auto;
 }
 .navbar-trigger svg {
@@ -179,31 +177,6 @@
 }
 .navbar-dropdown a:hover {
   background: #ffffff12;
-}
-.navbar-actions {
-  display: flex;
-  gap: 4px;
-  white-space: nowrap;
-}
-.navbar-actions a {
-  border-radius: 999px;
-  padding: 8px 16px;
-  line-height: 20px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 14px;
-  transition: filter 160ms ease;
-}
-.navbar-actions .meeting {
-  background: var(--navbar-brand-blue);
-  color: white;
-}
-.navbar-actions .demo {
-  background: var(--navbar-brand-orange);
-  color: #101010;
-}
-.navbar-actions a:hover {
-  filter: brightness(1.1);
 }
 
 /* El diálogo nativo limita el foco al panel y proporciona cierre con Escape. */
@@ -292,21 +265,6 @@
   display: block;
   padding: 10px 6px;
 }
-.navbar-mobile-panel .navbar-actions {
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 24px;
-}
-.navbar-mobile-panel .navbar-actions a {
-  border-radius: 8px;
-  font-size: 12px;
-}
-.navbar-mobile-panel .meeting {
-  color: white;
-}
-.navbar-mobile-panel .demo {
-  color: #101010;
-}
 .navbar-disclosure.mobile .navbar-dropdown {
   position: static;
   min-width: 0;
@@ -356,7 +314,6 @@
   .navbar-mobile-panel,
   .navbar-mobile-panel::backdrop,
   .navbar-chevron,
-  .navbar-actions a,
   .navbar-desktop a,
   .navbar-dropdown a,
   .navbar-mobile-links a,

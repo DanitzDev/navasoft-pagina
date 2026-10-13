@@ -116,23 +116,6 @@ export function NavDropdown({
   )
 }
 
-export function ContactActions({ onNavigate }: { onNavigate?: () => void }) {
-  return (
-    <div className="navbar-actions">
-      <a
-        href="/contacto?motivo=reunion"
-        onClick={onNavigate}
-        className="meeting"
-      >
-        Solicitar reunión
-      </a>
-      <a href="/contacto?motivo=demo" onClick={onNavigate} className="demo">
-        Pedir una demo
-      </a>
-    </div>
-  )
-}
-
 type NavLinkProps = {
   href: string
   children: ReactNode

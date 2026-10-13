@@ -6,7 +6,7 @@ import {
   sectors,
 } from '../../../data/navigation'
 import MobileMenu from './MobileMenu'
-import { ContactActions, NavDropdown, NavLink } from './NavElements'
+import { NavDropdown, NavLink } from './NavElements'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -55,9 +55,6 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
-        <div className="navbar-desktop navbar-desktop-actions">
-          <ContactActions />
-        </div>
         <button
           ref={trigger}
           type="button"
