@@ -1,5 +1,38 @@
-
 @import "tailwindcss";
+
+@font-face {
+  font-family: montserrat;
+  font-style: normal;
+  font-weight: 400;
+  src: url(/public/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: poppins;
+    font-style: normal;
+    font-weight: 700;
+    src: url(/public/poppins.bold.ttf);
+}
+
+@font-face {
+    font-family: montserratregular;
+    font-style: normal;
+    font-weight: 400;
+    src: url(/public/Montserrat-Regular.ttf);
+}
+
+@theme {
+    --font-montserrat: "montserrat", sans-serif;
+    --font-poppins: "poppins", sans-serif;
+    --font-montserratregular: "montserratregular", sans-serif;
+    
+    --color-primary: #405f8b;
+    --color-primary-hover: #4d70a1;
+    --color-accent: #f58220;
+    --color-accent-hover: #ff9638;
+
+    --color-text-eyebrow: #ffd4b0;
+}
 
 * {
   box-sizing: border-box;
