@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import Navbar from './navbar/Navbar'
+import Footer from './footer/Footer'
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return (
@@ -8,7 +9,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <main id="contenido" tabIndex={-1} className="flex-1">
         {children}
       </main>
-      <footer />
+      <Footer />
     </div>
   )
 }
