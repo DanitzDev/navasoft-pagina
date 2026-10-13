@@ -132,6 +132,10 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           ))}
         </ul>
       </nav>
+      {/* TODO: integrar Button compartido para las acciones móviles:
+          "Solicitar reunión" (/contacto?motivo=reunion) y
+          "Pedir una demo" (/contacto?motivo=demo).
+          Apilarlas y llamar a closeMenu al seleccionar cualquiera. */}
     </dialog>
   )
 }

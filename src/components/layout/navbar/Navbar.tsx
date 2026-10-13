@@ -55,6 +55,10 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
+        {/* TODO: integrar Button compartido para las acciones de escritorio:
+            "Solicitar reunión" (/contacto?motivo=reunion) y
+            "Pedir una demo" (/contacto?motivo=demo).
+            Mostrar ambas únicamente en el breakpoint de escritorio. */}
         <button
           ref={trigger}
           type="button"

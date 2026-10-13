@@ -91,6 +91,8 @@ export default function Footer() {
           </ul>
         </nav>
       </div>
+      {/* TODO: integrar el SectionTitle compartido en esta franja cuando esté
+          disponible, conservando la frase, la alineación y el diseño responsive. */}
       <div className="footer-statement">
         <div className="footer-container">
           <p>
