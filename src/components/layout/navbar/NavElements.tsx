@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { useRouterState } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import {
   getNavigationCurrent,
   isNavigationActive,
@@ -15,7 +15,8 @@ type DropdownProps = {
   onNavigate?: () => void
 }
 
-// conserva la apertura por teclado.
+// details/summary aporta apertura por teclado sin recrear un control nativo.
+// El atributo name permite tener un solo submenú abierto por grupo.
 export function NavDropdown({
   label,
   sectionHref,
@@ -27,12 +28,19 @@ export function NavDropdown({
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
+  // La categoría permanece activa también al visitar una de sus páginas hijas.
   const active = Boolean(
     (sectionHref && isNavigationActive(pathname, sectionHref)) ||
     items.some((item) => item.href && isNavigationActive(pathname, item.href)),
   )
+  // Con navegación cliente, el submenú se cierra al cambiar de página.
+  useEffect(() => {
+    if (disclosure.current) disclosure.current.open = false
+  }, [pathname])
+
   useEffect(() => {
     if (mobile) return
+    // Mantener este valor alineado con el breakpoint de Navbar.css.
     const desktop = window.matchMedia('(min-width: 1200px)')
 
     function closeOutside(event: PointerEvent) {
@@ -122,6 +130,8 @@ type NavLinkProps = {
   onNavigate?: () => void
 }
 
+// Centraliza el indicador activo y el cierre del panel móvil al navegar.
+// Link conserva la navegación cliente y genera un enlace HTML accesible.
 export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
@@ -129,8 +139,13 @@ export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   const current = getNavigationCurrent(pathname, href)
 
   return (
-    <a href={href} onClick={onNavigate} aria-current={current}>
+    <Link
+      to={href}
+      onClick={onNavigate}
+      aria-current={current}
+      activeOptions={{ exact: true }}
+    >
       {children}
-    </a>
+    </Link>
   )
 }

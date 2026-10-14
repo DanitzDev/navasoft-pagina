@@ -13,6 +13,8 @@ type MobileMenuProps = { open: boolean; onClose: () => void }
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const dialog = useRef<HTMLDialogElement>(null)
 
+  // showModal mantiene el foco dentro del diálogo y permite cerrarlo con Escape.
+  // Se sincroniza con React en un efecto porque el diálogo depende del navegador.
   useEffect(() => {
     const panel = dialog.current
     if (!panel) return
@@ -22,15 +24,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
   useEffect(() => {
     if (!open) return
-    // el componente no debe bloquear otras vistas.
+    // Guardar el valor previo evita sobrescribir el scroll de otros componentes.
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    // Este breakpoint debe coincidir con el de Navbar.css.
     const desktop = window.matchMedia('(min-width: 1200px)')
     const closeOnDesktop = () => {
       if (desktop.matches) dialog.current?.close()
     }
     closeOnDesktop()
     desktop.addEventListener('change', closeOnDesktop)
+    // Restaurar el scroll tanto al cerrar como al desmontar el panel.
     return () => {
       document.body.style.overflow = previousOverflow
       desktop.removeEventListener('change', closeOnDesktop)
@@ -49,6 +53,8 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     dialog.current?.close()
   }
 
+  // El backdrop pertenece al diálogo el target no basta para distinguirlo.
+  // Los límites permiten cerrar fuera del panel sin cerrar al pulsar su interior.
   function handleBackdropClick(event: MouseEvent<HTMLDialogElement>) {
     if (event.target !== event.currentTarget) return
     const { left, right, top, bottom } =

@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import {
   footerCompany,
   footerEcosystem,
@@ -9,13 +10,15 @@ import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
 import './Footer.css'
 
+// Los destinos internos usan Link; contactos y redes mantienen sus protocolos
+// externos (tel, mailto y https). Los datos se administran en src/data/site.ts.
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-container footer-columns">
         <div className="footer-about">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="footer-brand"
             aria-label="Navasoft Soluciones, inicio"
           >
@@ -25,7 +28,7 @@ export default function Footer() {
               width="1200"
               height="562"
             />
-          </a>
+          </Link>
           <p className="footer-company-name">Navasoft</p>
           <p className="footer-tagline">Tecnología que innova</p>
           <p className="footer-description">
@@ -52,7 +55,7 @@ export default function Footer() {
           <ul className="footer-links">
             {footerSolutions.map((solution) => (
               <li key={solution.href}>
-                <a href={solution.href}>{solution.label}</a>
+                <Link to={solution.href}>{solution.label}</Link>
               </li>
             ))}
           </ul>
@@ -62,12 +65,12 @@ export default function Footer() {
           <ul className="footer-links footer-products">
             {footerEcosystem.map((product) => (
               <li key={product.href}>
-                <a href={product.href} className="footer-product">
+                <Link to={product.href} className="footer-product">
                   <span className="footer-product-name">{product.label}</span>
                   <span className="footer-product-description">
                     {product.description}
                   </span>
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -77,16 +80,17 @@ export default function Footer() {
           <ul className="footer-links">
             {footerCompany.map((link) => (
               <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
+                <Link to={link.href}>{link.label}</Link>
               </li>
             ))}
             <li>
-              <a
-                href="/contacto?motivo=reunion"
+              <Link
+                to="/contacto"
+                search={{ motivo: 'reunion' }}
                 className="footer-meeting-link"
               >
                 Solicitar reunión
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

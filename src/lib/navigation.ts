@@ -7,6 +7,8 @@ export function isNavigationActive(pathname: string, href: string) {
   const current = normalizeNavigationPath(pathname)
   const target = normalizeNavigationPath(href)
 
+  // La barra distingue /productos/gridxia de un prefijo como /productos-extra.
+  // Inicio solo se activa en la raíz, no en todas las rutas del sitio.
   return (
     current === target || (target !== '/' && current.startsWith(target + '/'))
   )

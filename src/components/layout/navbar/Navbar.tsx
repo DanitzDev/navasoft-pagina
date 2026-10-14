@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { useRef, useState } from 'react'
 import {
   companyLinks,
@@ -16,8 +17,8 @@ export default function Navbar() {
   return (
     <header className="navbar-header">
       <div className="navbar-surface">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="navbar-brand"
           aria-label="Navasoft Soluciones, inicio"
         >
@@ -25,7 +26,7 @@ export default function Navbar() {
             src="/images/brand/navasoft-white.png"
             alt="Navasoft Soluciones"
           />
-        </a>
+        </Link>
         <nav aria-label="Principal" className="navbar-desktop">
           <ul className="navbar-company">
             {companyLinks.map((item) => (
