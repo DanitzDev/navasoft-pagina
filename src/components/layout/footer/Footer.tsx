@@ -19,20 +19,23 @@ export default function Footer() {
       {/* Footer.css adapta las cuatro columnas a cada tamaño de pantalla. */}
       <div className="footer-container footer-columns">
         <div className="footer-about">
-          <Link
-            to="/"
-            className="footer-brand"
-            aria-label="Navasoft Soluciones, inicio"
-          >
-            <img
-              src="/images/brand/navasoft-white.png"
-              alt="Navasoft Soluciones"
-              width="1200"
-              height="562"
-            />
-          </Link>
-          <p className="footer-company-name">Navasoft</p>
-          <p className="footer-tagline">Tecnología que innova</p>
+          {/* Solo la identidad de marca se centra en móvil. */}
+          <div className="footer-identity">
+            <Link
+              to="/"
+              className="footer-brand"
+              aria-label="Navasoft Soluciones, inicio"
+            >
+              <img
+                src="/images/brand/navasoft-white.png"
+                alt="Navasoft Soluciones"
+                width="1200"
+                height="562"
+              />
+            </Link>
+            <p className="footer-company-name">Navasoft</p>
+            <p className="footer-tagline">Tecnología que innova</p>
+          </div>
           <p className="footer-description">
             Transformamos experiencia en plataformas tecnológicas que generan
             impacto para gobiernos, empresas e industrias.

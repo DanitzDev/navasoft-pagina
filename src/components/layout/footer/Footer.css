@@ -217,6 +217,13 @@
 /* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
 /* Móvil: ampliar las áreas táctiles sin aumentar el tamaño de letra. */
 @media (max-width: 639px) {
+  .footer-identity {
+    text-align: center;
+  }
+  .footer-contact ul {
+    /* Compactar los contactos conserva el área táctil mínima de cada enlace. */
+    gap: 8px;
+  }
   .footer-links a,
   .footer-contact-row a {
     display: flex;
