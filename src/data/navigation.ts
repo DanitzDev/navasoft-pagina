@@ -1,3 +1,5 @@
+// Los menús de escritorio y móvil consumen las mismas etiquetas y destinos.
+// href es opcional para admitir elementos informativos aún sin página.
 export type DropdownItem = { label: string; href?: string }
 export type NavigationItem = DropdownItem & { href: string }
 
@@ -6,6 +8,7 @@ export const companyLinks: NavigationItem[] = [
   { label: 'Contacto', href: '/contacto' },
   { label: 'Soporte', href: '/soporte' },
   { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Casos de éxito', href: '/casos-de-exito' },
 ]
 export const primaryLinks: NavigationItem[] = [
   { label: 'Inicio', href: '/' },

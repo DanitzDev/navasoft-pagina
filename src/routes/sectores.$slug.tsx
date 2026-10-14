@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { sectors } from '../data/navigation'
 
 export const Route = createFileRoute('/sectores/$slug')({
+  // Los destinos del menú son también la lista de sectores permitidos.
   loader: ({ params }) => {
     const sector = sectors.find(
       (item) => item.href === `/sectores/${params.slug}`,

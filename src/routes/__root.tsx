@@ -37,6 +37,8 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
+// La raíz mantiene el documento y el layout también al mostrar una página 404.
+// HeadContent reúne los metadatos de las rutas; Scripts permite la hidratación.
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">

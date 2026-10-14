@@ -11,9 +11,8 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       router: {
-        // Activar estas rutas cuando exporten Route y tengan contenido.
-        routeFileIgnorePattern:
-          '^(api|productos|oportunidades|contacto|casos-de-exito)(\\.|$)',
+        // El endpoint de contacto sigue pendiente de implementación.
+        routeFileIgnorePattern: '^api(\\.|$)',
       },
     }),
     viteReact(),

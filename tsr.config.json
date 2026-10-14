@@ -1,4 +1,4 @@
 {
   "target": "react",
-  "routeFileIgnorePattern": "^(api|productos|oportunidades|contacto|casos-de-exito)(\\.|$)"
+  "routeFileIgnorePattern": "^api(\\.|$)"
 }
