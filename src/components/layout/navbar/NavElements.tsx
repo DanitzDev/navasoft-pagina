@@ -33,6 +33,20 @@ export function NavDropdown({
     (sectionHref && isNavigationActive(pathname, sectionHref)) ||
     items.some((item) => item.href && isNavigationActive(pathname, item.href)),
   )
+  function handleNavigate() {
+    const panel = disclosure.current
+    if (panel) {
+      // Cerrar incluso si se selecciona la ruta actual y pathname no cambia.
+      panel.open = false
+      // El enlace queda oculto; en escritorio el foco vuelve al disparador.
+      // En móvil, el diálogo restaura el foco al cerrar mediante onNavigate.
+      if (!mobile) panel.querySelector('summary')?.focus()
+    }
+    // El padre móvil usa este callback para cerrar el diálogo completo.
+    // En escritorio es opcional: solo se cierra el desplegable.
+    onNavigate?.()
+  }
+
   // Con navegación cliente, el submenú se cierra al cambiar de página.
   useEffect(() => {
     if (disclosure.current) disclosure.current.open = false
@@ -111,7 +125,7 @@ export function NavDropdown({
         {items.map((item) => (
           <li key={item.label}>
             {item.href ? (
-              <NavLink href={item.href} onNavigate={onNavigate}>
+              <NavLink href={item.href} onNavigate={handleNavigate}>
                 {item.label}
               </NavLink>
             ) : (
@@ -141,7 +155,21 @@ export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   return (
     <Link
       to={href}
-      onClick={onNavigate}
+      onClick={(event) => {
+        // TanStack procesa después la navegación del enlace. Este callback solo
+        // gestiona el menú en un clic principal sin modificadores.
+        // Abrir otra pestaña no debe cerrar ni mover el foco del menú actual.
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey
+        )
+          return
+        onNavigate?.()
+      }}
       aria-current={current}
       activeOptions={{ exact: true }}
     >
