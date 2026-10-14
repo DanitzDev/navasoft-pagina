@@ -55,14 +55,14 @@ body {
   src: url('/poppins.bold.ttf') format('truetype');
 }
 
-/* Tokens que consumen los componentes compartidos, con colores oficiales. */
+/* Paleta oficial: azul oscuro/claro y naranja vivo/oscuro de la guía de marca. */
 @theme {
   --font-montserrat: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
   --font-montserratregular: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
   --font-poppins: 'Poppins', ui-sans-serif, system-ui, sans-serif;
   --color-primary: #415c85;
-  --color-primary-hover: #4d70a1;
-  --color-accent: #d96627;
-  --color-accent-hover: #e67835;
-  --color-text-eyebrow: #ffd4b0;
+  --color-primary-hover: #5c7e98;
+  --color-accent: #f47e20;
+  --color-accent-hover: #d96627;
+  --color-text-eyebrow: var(--color-accent);
 }

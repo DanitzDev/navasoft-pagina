@@ -32,7 +32,7 @@
   height: auto;
 }
 .site-footer a:focus-visible {
-  outline: 2px solid #fdba74;
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 .footer-company-name {
@@ -43,7 +43,7 @@
 }
 .footer-tagline {
   margin: 2px 0 0;
-  color: #d96627;
+  color: var(--color-accent);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.6;
@@ -61,7 +61,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #fdba74;
+  color: var(--color-accent);
 }
 .footer-bottom {
   display: flex;
@@ -108,7 +108,7 @@
 }
 /* El SVG no se encoge cuando un correo largo ocupa varias líneas. */
 .footer-contact-icon {
-  color: #d96627;
+  color: var(--color-accent);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -160,17 +160,17 @@
   text-decoration: none;
 }
 .footer-product:hover .footer-product-name {
-  color: #fdba74;
+  color: var(--color-accent-hover);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .footer-links .footer-meeting-link {
-  color: #d96627;
+  color: var(--color-accent);
   font-weight: 600;
 }
 .footer-links .footer-meeting-link:hover {
-  color: #fdba74;
+  color: var(--color-accent-hover);
 }
 
 /* Franja institucional, los separadores ocupan todo el ancho del footer. */

@@ -16,13 +16,15 @@ interface StyleProps {
 // Estilos base para el botón
 const base =
   'inline-flex items-center justify-center rounded-xl transition-colors duration-200 ' +
-  'font-medium focus-visible:outline-none font-montserrat focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 ' +
+  'font-medium focus-visible:outline-none font-montserrat focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ' +
   'disabled:pointer-events-none disabled:opacity-50'
 
 // Record<K, T> (key, Type)
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-accent text-black shadow-sm hover:bg-accent-hover',
-  secondary: 'bg-primary text-white shadow-sm hover:bg-primary-hover',
+  // El azul claro del hover necesita texto negro para conservar el contraste.
+  secondary:
+    'bg-primary text-white shadow-sm hover:bg-primary-hover hover:text-black',
 }
 
 const sizes: Record<ButtonSize, string> = {

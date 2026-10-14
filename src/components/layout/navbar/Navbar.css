@@ -1,6 +1,5 @@
 /* El fondo es translúcido. El logo y el texto mantienen su opacidad. */
 .navbar-header {
-  --navbar-brand-orange: #d96627;
   --navbar-surface-background: rgb(255 255 255 / 15%);
   --navbar-surface-border: rgb(255 255 255 / 25%);
   --navbar-surface-radius: 24px;
@@ -88,7 +87,13 @@
     background-color 160ms ease;
 }
 .navbar-header a:hover {
-  color: #fdba74;
+  color: var(--color-accent);
+}
+/* En móvil, el naranja identifica la página activa; el hover usa solo fondo. */
+.navbar-mobile-links a:not([aria-current]):hover,
+.navbar-mobile-company a:not([aria-current]):hover {
+  color: inherit;
+  background: #ffffff12;
 }
 .navbar-trigger,
 .navbar-mobile-heading button {
@@ -115,7 +120,7 @@
 }
 .navbar-header :focus-visible,
 .navbar-mobile-panel :focus-visible {
-  outline: 2px solid #fdba74;
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 .navbar-disclosure {
@@ -316,7 +321,7 @@
 .navbar-mobile-links a[aria-current],
 .navbar-mobile-company a[aria-current],
 .navbar-mobile-panel summary[data-active] {
-  color: var(--navbar-brand-orange);
+  color: var(--color-accent);
 }
 
 /* ButtonLink aporta variantes y estados. Aquí solo se organiza el grupo. */
@@ -336,6 +341,9 @@
 /* Evitar que el hover general de los enlaces cambie el texto de las acciones. */
 .navbar-actions a.navbar-meeting-link {
   color: white;
+}
+.navbar-actions a.navbar-meeting-link:hover {
+  color: black;
 }
 .navbar-actions a.navbar-demo-link {
   color: #101010;
