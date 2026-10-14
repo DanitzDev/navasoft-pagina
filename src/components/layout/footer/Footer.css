@@ -1,4 +1,5 @@
-/* La estructura se completa con contactos y enlaces en el siguiente avance. */
+/* Distribución progresiva: una columna en móvil, dos en tablet y cuatro
+   en escritorio. minmax(0, ...) permite ajustar textos largos sin desbordar. */
 .site-footer {
   margin-top: auto;
   border-top: 1px solid rgb(255 255 255 / 12%);
@@ -202,10 +203,12 @@
 }
 
 /* Redes en una fila; cada enlace conserva un área cómoda para el toque. */
+/* En móvil, las redes se centran debajo del copyright. */
 .footer-social-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -231,5 +234,9 @@
   }
   .footer-bottom > nav {
     flex-shrink: 0;
+  }
+  .footer-social-links {
+    justify-content: flex-end;
+    gap: 8px;
   }
 }

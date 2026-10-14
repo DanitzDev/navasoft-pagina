@@ -19,7 +19,7 @@ export const siteContacts: ContactItem[] = [
   { kind: 'location', label: 'Costa Rica' },
 ]
 
-// Destinos del prototipo; las páginas se desarrollan en etapas posteriores.
+// Las rutas ya están habilitadas; el contenido definitivo se completa después.
 export const footerSolutions: NavigationItem[] = [
   { label: 'Sector Público', href: '/areas/gobierno' },
   { label: 'Sector Empresarial', href: '/areas/privado' },
@@ -29,7 +29,8 @@ export const footerSolutions: NavigationItem[] = [
 
 type FooterProduct = NavigationItem & { description: string }
 
-// Orden y descripciones de los productos mostrados en el footer del prototipo.
+// Catálogo compartido por el Footer, el índice de productos y sus rutas de detalle.
+// Mantener aquí nombres y descripciones evita diferencias entre esas vistas.
 export const footerEcosystem: FooterProduct[] = [
   {
     label: 'Gridxia',
@@ -58,13 +59,13 @@ export const footerEcosystem: FooterProduct[] = [
   },
 ]
 
-// Carreras comparte el destino de Oportunidades del navbar.
+// Los enlaces de empresa mantienen los mismos destinos que el Navbar.
 export const footerCompany: NavigationItem[] = [
   { label: 'Nosotros', href: '/nosotros' },
   { label: 'Casos de éxito', href: '/casos-de-exito' },
   { label: 'Contacto', href: '/contacto' },
   { label: 'Soporte', href: '/soporte' },
-  { label: 'Carreras', href: '/oportunidades' },
+  { label: 'Oportunidades', href: '/oportunidades' },
 ]
 
 export type SocialNetwork = 'linkedin' | 'facebook' | 'instagram'
