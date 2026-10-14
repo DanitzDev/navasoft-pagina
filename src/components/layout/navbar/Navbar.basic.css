@@ -1,0 +1,208 @@
+/* Vista básica para revisar funcionalidad. */
+.navbar-header {
+  position: relative;
+  z-index: 20;
+  padding: 12px 16px;
+  border-bottom: 1px solid #64748b;
+  background: #1f2937;
+  color: white;
+  font-size: 14px;
+}
+.navbar-surface {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1152px;
+  margin-inline: auto;
+}
+.navbar-brand img {
+  width: 96px;
+  height: auto;
+}
+.navbar-desktop {
+  display: none;
+}
+.navbar-header ul,
+.navbar-mobile-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navbar-company,
+.navbar-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.navbar-company {
+  margin-bottom: 8px !important;
+}
+.navbar-header a,
+.navbar-mobile-panel a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.navbar-header :focus-visible,
+.navbar-mobile-panel :focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+.navbar-trigger,
+.navbar-mobile-heading button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #94a3b8;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.navbar-trigger,
+.navbar-desktop-actions {
+  margin-left: auto;
+}
+.navbar-trigger svg {
+  width: 24px;
+  height: 24px;
+}
+.navbar-disclosure {
+  position: relative;
+}
+.navbar-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+}
+.navbar-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+.navbar-disclosure[open] .navbar-chevron {
+  transform: rotate(180deg);
+}
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 260px;
+  max-height: 60dvh;
+  overflow-y: auto;
+  border: 1px solid #94a3b8;
+  background: #1f2937;
+}
+.navbar-dropdown a {
+  display: block;
+  padding: 8px 12px;
+}
+.navbar-dropdown a:hover {
+  background: #374151;
+}
+/* El diálogo nativo conserva el foco, Escape y el cierre por fondo. */
+.navbar-mobile-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(90vw, 320px);
+  max-width: none;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding: 16px;
+  border: 1px solid #94a3b8;
+  background: #1f2937;
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+}
+.navbar-mobile-panel::backdrop {
+  background: rgb(0 0 0 / 50%);
+}
+.navbar-mobile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.navbar-mobile-links a,
+.navbar-mobile-links summary,
+.navbar-mobile-company a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px;
+  overflow-wrap: anywhere;
+}
+.navbar-mobile-company {
+  margin-top: 16px !important;
+  padding-top: 8px !important;
+  border-top: 1px solid #94a3b8;
+}
+.navbar-disclosure.mobile .navbar-dropdown {
+  position: static;
+  width: auto;
+  margin: 8px 0 8px 12px;
+}
+.navbar-actions {
+  display: flex;
+  gap: 8px;
+}
+/* ButtonLink sigue reutilizándose; la demostración solo simplifica su aspecto. */
+.navbar-actions a {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #94a3b8;
+  border-radius: 2px;
+  background: transparent;
+  color: white;
+  box-shadow: none;
+  font: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: none;
+}
+.navbar-actions a:hover {
+  background: #374151;
+  color: white;
+}
+.navbar-mobile-panel .navbar-actions {
+  flex-direction: column;
+  margin-top: 16px;
+}
+.navbar-mobile-panel .navbar-actions a {
+  min-height: 44px;
+}
+.navbar-header a[aria-current],
+.navbar-mobile-panel a[aria-current],
+.navbar-disclosure summary[data-active] {
+  font-weight: 700;
+}
+.navbar-skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px;
+  background: white;
+  color: black;
+  transform: translateY(-200%);
+}
+.navbar-skip-link:focus {
+  transform: translateY(0);
+}
+/* Coincide con el breakpoint utilizado por los efectos del menú móvil. */
+@media (min-width: 1200px) {
+  .navbar-desktop {
+    display: block;
+  }
+  .navbar-desktop:not(.navbar-desktop-actions) {
+    flex: 1;
+    min-width: 0;
+  }
+  .navbar-trigger {
+    display: none;
+  }
+}

@@ -9,7 +9,8 @@ import {
 import MobileMenu from './MobileMenu'
 import { NavDropdown, NavLink } from './NavElements'
 import NavbarActions from './NavbarActions'
-import './Navbar.css'
+// Presentación básica.
+import './Navbar.basic.css'
 
 // Coordina el menú móvil. Los enlaces y desplegables se delegan a NavElements,
 // las acciones a NavbarActions y el diálogo a MobileMenu.

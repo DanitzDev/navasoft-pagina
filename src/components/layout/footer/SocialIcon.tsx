@@ -2,7 +2,7 @@ import type { SocialNetwork } from '../../../data/site'
 
 // El enlace aporta el nombre accesible; el SVG solo representa la marca.
 // network elige una única marca; el tamaño visual es independiente del área
-// táctil de 44 px que Footer.css asigna al enlace que contiene este SVG.
+// táctil de 44 px que Footer.basic.css asigna al enlace que contiene este SVG.
 export default function SocialIcon({ network }: { network: SocialNetwork }) {
   return (
     <svg

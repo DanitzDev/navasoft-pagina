@@ -30,7 +30,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     // Guardar el valor previo evita sobrescribir el scroll de otros componentes.
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    // Este breakpoint debe coincidir con el de Navbar.css.
+    // Este breakpoint debe coincidir con el de Navbar.basic.css.
     const desktop = window.matchMedia('(min-width: 1200px)')
     const closeOnDesktop = () => {
       if (desktop.matches) dialog.current?.close()

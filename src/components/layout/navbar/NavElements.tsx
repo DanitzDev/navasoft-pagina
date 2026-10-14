@@ -54,7 +54,7 @@ export function NavDropdown({
 
   useEffect(() => {
     if (mobile) return
-    // Mantener este valor alineado con el breakpoint de Navbar.css.
+    // Mantener este valor alineado con el breakpoint de Navbar.basic.css.
     const desktop = window.matchMedia('(min-width: 1200px)')
 
     function closeOutside(event: PointerEvent) {

@@ -9,14 +9,15 @@ import {
 import { SectionTitle } from '../../ui/SectionTitle'
 import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
-import './Footer.css'
+// Presentación básica.
+import './Footer.basic.css'
 
 // Los destinos internos usan Link; contactos y redes mantienen sus protocolos
 // externos (tel, mailto y https). Los datos se administran en src/data/site.ts.
 export default function Footer() {
   return (
     <footer className="site-footer">
-      {/* Footer.css adapta las cuatro columnas a cada tamaño de pantalla. */}
+      {/* El CSS del Footer adapta las cuatro columnas a cada tamaño de pantalla. */}
       <div className="footer-container footer-columns">
         <div className="footer-about">
           {/* Solo la identidad de marca se centra en móvil. */}

@@ -1,0 +1,120 @@
+/* Vista básica para revisar funcionalidad. */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid #64748b;
+  background: #1f2937;
+  color: white;
+  font-size: 14px;
+}
+.footer-container {
+  max-width: 1152px;
+  margin-inline: auto;
+  padding: 20px 16px;
+}
+.footer-columns {
+  display: grid;
+  gap: 24px;
+}
+.footer-about,
+.footer-column {
+  min-width: 0;
+}
+.footer-brand {
+  display: inline-block;
+}
+.footer-brand img {
+  width: 96px;
+  height: auto;
+}
+.footer-company-name,
+.footer-column h2 {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.footer-tagline,
+.footer-description {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.site-footer ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.site-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.site-footer a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+.footer-contact {
+  margin-top: 16px;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+.footer-contact ul,
+.footer-links {
+  display: grid;
+  gap: 8px;
+}
+.footer-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-contact-icon {
+  flex-shrink: 0;
+}
+.footer-contact-row a,
+.footer-contact-row > span {
+  min-width: 0;
+}
+.footer-links a,
+.footer-contact-row a {
+  display: block;
+  min-height: 44px;
+  padding-block: 4px;
+  overflow-wrap: anywhere;
+}
+.footer-product-name,
+.footer-product-description {
+  display: block;
+}
+.footer-product-description {
+  font-size: 12px;
+}
+.footer-statement,
+.footer-bottom {
+  border-top: 1px solid #64748b;
+}
+.footer-statement-title h2 {
+  font-family: inherit;
+  font-size: 18px;
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-social-links a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+}
+@media (min-width: 640px) {
+  .footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1200px) {
+  .footer-columns {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

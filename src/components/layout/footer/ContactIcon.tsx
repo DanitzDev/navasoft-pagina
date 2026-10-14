@@ -23,7 +23,7 @@ const paths: Record<ContactKind, string> = {
     'M15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
 }
 
-// currentColor hereda el naranja de Footer.css y mantiene el SVG sin relleno.
+// currentColor hereda el color del Footer y mantiene el SVG sin relleno.
 // aria-hidden y focusable evitan leer el icono o crear una parada extra con Tab.
 export default function ContactIcon({ kind }: { kind: ContactKind }) {
   return (
