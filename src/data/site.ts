@@ -1,7 +1,16 @@
 import type { NavigationItem } from './navigation'
 
 export type ContactKind = 'phone' | 'message' | 'email' | 'location'
-type ContactItem = { kind: ContactKind; label: string; href?: string }
+type ContactItem = {
+  // Relaciona este contacto con uno de los cuatro SVG de ContactIcon.
+  kind: ContactKind
+  label: string
+  // Si falta el destino, Footer muestra el dato como texto sin simular un enlace.
+  href?: string
+  // Solo los destinos web que lo necesitan salen del sitio en otra pestaña.
+  // tel: y mailto: se mantienen sin target para abrir su aplicación asociada.
+  openInNewTab?: boolean
+}
 
 // Información de contacto mostrada en el prototipo de Navasoft.
 export const siteContacts: ContactItem[] = [
@@ -10,16 +19,22 @@ export const siteContacts: ContactItem[] = [
     kind: 'message',
     label: 'WhatsApp (506) 4070-0776',
     href: 'https://wa.me/50640700776',
+    openInNewTab: true,
   },
   {
     kind: 'email',
     label: 'comercial@navasoftsoluciones.com',
     href: 'mailto:comercial@navasoftsoluciones.com',
   },
-  { kind: 'location', label: 'Costa Rica' },
+  {
+    kind: 'location',
+    label: 'Costa Rica',
+    href: 'https://maps.app.goo.gl/ztdoY6kZ7C9PGNc79',
+    openInNewTab: true,
+  },
 ]
 
-// Las rutas ya están habilitadas; el contenido definitivo se completa después.
+// Las rutas ya están habilitadas el contenido definitivo se completa después.
 export const footerSolutions: NavigationItem[] = [
   { label: 'Sector Público', href: '/areas/gobierno' },
   { label: 'Sector Empresarial', href: '/areas/privado' },

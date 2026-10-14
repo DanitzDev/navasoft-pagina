@@ -15,6 +15,8 @@ import './Footer.css'
 export default function Footer() {
   return (
     <footer className="site-footer">
+      {/* Bloque superior marca y contactos, seguido de tres columnas de enlaces.
+          Footer.css adapta esta cuadrícula a móvil, tablet y escritorio. */}
       <div className="footer-container footer-columns">
         <div className="footer-about">
           <Link
@@ -35,13 +37,31 @@ export default function Footer() {
             Transformamos experiencia en plataformas tecnológicas que generan
             impacto para gobiernos, empresas e industrias.
           </p>
+          {/* kind selecciona el SVG; href distingue un enlace de un dato informativo.
+              WhatsApp y mapa abren otra pestaña; teléfono y correo usan sus apps. */}
           <address className="footer-contact">
             <ul>
               {siteContacts.map((contact) => (
                 <li key={contact.kind} className="footer-contact-row">
                   <ContactIcon kind={contact.kind} />
                   {contact.href ? (
-                    <a href={contact.href}>{contact.label}</a>
+                    <a
+                      href={contact.href}
+                      target={contact.openInNewTab ? '_blank' : undefined}
+                      rel={
+                        contact.openInNewTab ? 'noopener noreferrer' : undefined
+                      }
+                    >
+                      {contact.label}
+                      {/* El aviso se lee con tecnologías de asistencia,
+                          pero no se muestra ni altera la distribución visual. */}
+                      {contact.openInNewTab && (
+                        <span className="sr-only">
+                          {' '}
+                          (abre en una pestaña nueva)
+                        </span>
+                      )}
+                    </a>
                   ) : (
                     <span>{contact.label}</span>
                   )}
@@ -50,6 +70,8 @@ export default function Footer() {
             </ul>
           </address>
         </div>
+        {/* Cada nav toma el nombre de su h2 para distinguir las columnas
+            cuando se navega con un lector de pantalla. */}
         <nav className="footer-column" aria-labelledby="footer-solutions-title">
           <h2 id="footer-solutions-title">Soluciones</h2>
           <ul className="footer-links">
@@ -84,6 +106,7 @@ export default function Footer() {
               </li>
             ))}
             <li>
+              {/* search envía el motivo validado por la ruta de Contacto. */}
               <Link
                 to="/contacto"
                 search={{ motivo: 'reunion' }}
@@ -104,8 +127,12 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      {/* En móvil las redes se centran bajo el copyright; en escritorio,
+          ambos bloques se sitúan en una misma fila. */}
       <div className="footer-container footer-bottom">
         <p>© 2026 Navasoft Soluciones. Costa Rica y Centroamérica.</p>
+        {/* Los SVG son decorativos el nombre accesible está en cada enlace.
+            noopener separa la pestaña nueva del contexto de nuestra página. */}
         <nav aria-label="Redes sociales de Navasoft">
           <ul className="footer-social-links">
             {footerSocialLinks.map((link) => (

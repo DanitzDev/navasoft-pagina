@@ -82,7 +82,11 @@
 }
 @media (min-width: 1200px) {
   .footer-columns {
-    grid-template-columns: minmax(0, 1.8fr) repeat(3, minmax(0, 1fr));
+    /* las descripciones necesitan más ancho. */
+    grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr) minmax(
+        0,
+        3fr
+      );
     gap: 40px;
     padding-block: 64px;
   }
@@ -118,6 +122,7 @@
   align-items: flex-start;
   gap: 10px;
 }
+/* El SVG no se encoge cuando un correo largo ocupa varias líneas. */
 .footer-contact-icon {
   color: #d96627;
   flex-shrink: 0;
@@ -160,6 +165,7 @@
   color: #f5f7fb;
   font-weight: 600;
 }
+/* Jerarquía visual: descripción menor que el nombre, con altura legible. */
 .footer-product-description {
   display: block;
   color: #bac5d4;
@@ -238,5 +244,24 @@
   .footer-social-links {
     justify-content: flex-end;
     gap: 8px;
+  }
+}
+
+/* Solo en móvil: ampliar el área del enlace sin aumentar la tipografía. */
+@media (max-width: 639px) {
+  .footer-links a,
+  .footer-contact-row a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 44px;
+    padding-block: 6px;
+  }
+  /* Centrar el SVG también cuando el correo se divide en varias líneas. */
+  .footer-contact-row {
+    align-items: center;
+  }
+  .footer-contact-icon {
+    margin-top: 0;
   }
 }
