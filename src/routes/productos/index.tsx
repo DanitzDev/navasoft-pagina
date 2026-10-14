@@ -1,3 +1,4 @@
+import { SectionTitle } from '../../components/ui/SectionTitle'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { footerEcosystem } from '../../data/site'
 
@@ -9,8 +10,8 @@ export const Route = createFileRoute('/productos/')({
 function ProductsPage() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: integrar SectionTitle y la sección de productos definitivos. */}
-      <h1 className="text-3xl font-bold sm:text-4xl">Productos</h1>
+      {/* TODO: incorporar la sección de productos definitiva. */}
+      <SectionTitle as="h1" title="Productos" />
       <ul className="mt-6 grid gap-4">
         {footerEcosystem.map((product) => (
           <li key={product.href}>

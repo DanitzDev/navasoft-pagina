@@ -1,3 +1,4 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/nosotros')({
@@ -8,8 +9,8 @@ export const Route = createFileRoute('/nosotros')({
 function AboutPage() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: integrar SectionTitle compartido y el contenido aprobado. */}
-      <h1 className="text-3xl font-bold sm:text-4xl">Nosotros</h1>
+      {/* TODO: incorporar el contenido aprobado de esta página. */}
+      <SectionTitle as="h1" title="Nosotros" />
       <p className="mt-4 text-lg">
         El contenido de esta página estará disponible próximamente.
       </p>

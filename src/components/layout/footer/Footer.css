@@ -75,22 +75,6 @@
 .footer-bottom p {
   margin: 0;
 }
-@media (min-width: 640px) {
-  .footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 1200px) {
-  .footer-columns {
-    /* las descripciones necesitan más ancho. */
-    grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr) minmax(
-        0,
-        3fr
-      );
-    gap: 40px;
-    padding-block: 64px;
-  }
-}
 
 .footer-contact {
   margin-top: 24px;
@@ -195,21 +179,18 @@
   border-block: 1px solid rgb(255 255 255 / 12%);
   text-align: center;
 }
-.footer-statement p {
+/* Ajuste local sin modificar el SectionTitle que usa el resto del equipo. */
+.footer-statement-title h2 {
   margin: 0;
+  font-family: var(--font-sans);
+  letter-spacing: normal;
   font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
-@media (min-width: 640px) {
-  .footer-statement p {
-    font-size: 24px;
-  }
-}
 
-/* Redes en una fila; cada enlace conserva un área cómoda para el toque. */
-/* En móvil, las redes se centran debajo del copyright. */
+/* Redes centradas en móvil, con áreas táctiles de 44 px por enlace. */
 .footer-social-links {
   display: flex;
   flex-wrap: wrap;
@@ -232,22 +213,9 @@
   color: #f5f7fb;
   background: rgb(255 255 255 / 8%);
 }
-@media (min-width: 640px) {
-  .footer-bottom {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-bottom > nav {
-    flex-shrink: 0;
-  }
-  .footer-social-links {
-    justify-content: flex-end;
-    gap: 8px;
-  }
-}
 
-/* Solo en móvil: ampliar el área del enlace sin aumentar la tipografía. */
+/* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
+/* Móvil: ampliar las áreas táctiles sin aumentar el tamaño de letra. */
 @media (max-width: 639px) {
   .footer-links a,
   .footer-contact-row a {
@@ -263,5 +231,36 @@
   }
   .footer-contact-icon {
     margin-top: 0;
+  }
+}
+@media (min-width: 640px) {
+  .footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-statement-title h2 {
+    font-size: 24px;
+  }
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-bottom > nav {
+    flex-shrink: 0;
+  }
+  .footer-social-links {
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+@media (min-width: 1200px) {
+  .footer-columns {
+    /* Ecosistema y Empresa necesitan más ancho que la lista de Soluciones. */
+    grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr) minmax(
+        0,
+        3fr
+      );
+    gap: 40px;
+    padding-block: 64px;
   }
 }

@@ -6,6 +6,7 @@ import {
   footerSocialLinks,
   siteContacts,
 } from '../../../data/site'
+import { SectionTitle } from '../../ui/SectionTitle'
 import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
 import './Footer.css'
@@ -15,8 +16,7 @@ import './Footer.css'
 export default function Footer() {
   return (
     <footer className="site-footer">
-      {/* Bloque superior marca y contactos, seguido de tres columnas de enlaces.
-          Footer.css adapta esta cuadrícula a móvil, tablet y escritorio. */}
+      {/* Footer.css adapta las cuatro columnas a cada tamaño de pantalla. */}
       <div className="footer-container footer-columns">
         <div className="footer-about">
           <Link
@@ -37,8 +37,7 @@ export default function Footer() {
             Transformamos experiencia en plataformas tecnológicas que generan
             impacto para gobiernos, empresas e industrias.
           </p>
-          {/* kind selecciona el SVG; href distingue un enlace de un dato informativo.
-              WhatsApp y mapa abren otra pestaña; teléfono y correo usan sus apps. */}
+          {/* kind elige el SVG. Los destinos externos conservan sus protocolos. */}
           <address className="footer-contact">
             <ul>
               {siteContacts.map((contact) => (
@@ -53,8 +52,7 @@ export default function Footer() {
                       }
                     >
                       {contact.label}
-                      {/* El aviso se lee con tecnologías de asistencia,
-                          pero no se muestra ni altera la distribución visual. */}
+                      {/* Aviso de nueva pestaña exclusivo para lectores de pantalla. */}
                       {contact.openInNewTab && (
                         <span className="sr-only">
                           {' '}
@@ -70,8 +68,7 @@ export default function Footer() {
             </ul>
           </address>
         </div>
-        {/* Cada nav toma el nombre de su h2 para distinguir las columnas
-            cuando se navega con un lector de pantalla. */}
+        {/* aria-labelledby permite distinguir las columnas por su título. */}
         <nav className="footer-column" aria-labelledby="footer-solutions-title">
           <h2 id="footer-solutions-title">Soluciones</h2>
           <ul className="footer-links">
@@ -118,21 +115,23 @@ export default function Footer() {
           </ul>
         </nav>
       </div>
-      {/* TODO: integrar el SectionTitle compartido en esta franja cuando esté
-          disponible, conservando la frase, la alineación y el diseño responsive. */}
+      {/* SectionTitle es compartido; el Footer limita su tamaño y tipografía
+          para conservar las proporciones de la franja institucional. */}
       <div className="footer-statement">
         <div className="footer-container">
-          <p>
-            Transformamos experiencia en plataformas que generan impacto real.
-          </p>
+          <SectionTitle
+            title="Transformamos experiencia en plataformas que generan impacto real."
+            as="h2"
+            align="center"
+            className="footer-statement-title max-w-none"
+          />
         </div>
       </div>
       {/* En móvil las redes se centran bajo el copyright; en escritorio,
           ambos bloques se sitúan en una misma fila. */}
       <div className="footer-container footer-bottom">
         <p>© 2026 Navasoft Soluciones. Costa Rica y Centroamérica.</p>
-        {/* Los SVG son decorativos el nombre accesible está en cada enlace.
-            noopener separa la pestaña nueva del contexto de nuestra página. */}
+        {/* El enlace nombra la red y avisa de la apertura en otra pestaña. */}
         <nav aria-label="Redes sociales de Navasoft">
           <ul className="footer-social-links">
             {footerSocialLinks.map((link) => (

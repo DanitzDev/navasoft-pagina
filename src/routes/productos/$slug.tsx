@@ -1,3 +1,4 @@
+import { SectionTitle } from '../../components/ui/SectionTitle'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import { footerEcosystem } from '../../data/site'
 
@@ -24,8 +25,8 @@ function ProductPage() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: integrar SectionTitle compartido y la ficha de producto. */}
-      <h1 className="text-3xl font-bold sm:text-4xl">{product.label}</h1>
+      {/* TODO: incorporar la ficha de producto definitiva. */}
+      <SectionTitle as="h1" title={product.label} />
       <p className="mt-4 text-lg">{product.description}</p>
       <p className="mt-4">La ficha completa estará disponible próximamente.</p>
     </section>

@@ -1,3 +1,4 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { sectors } from '../data/navigation'
 
@@ -22,8 +23,7 @@ function SectorPage() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: integrar SectionTitle compartido cuando esté disponible. */}
-      <h1 className="text-3xl font-bold sm:text-4xl">{sector.label}</h1>
+      <SectionTitle as="h1" title={sector.label} />
       {/* TODO: incorporar el contenido aprobado para este sector. */}
       <p className="mt-4 text-lg">
         La información de este sector estará disponible próximamente.

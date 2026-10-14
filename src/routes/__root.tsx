@@ -1,3 +1,4 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import {
   HeadContent,
   Link,
@@ -56,7 +57,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 function NotFound() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="text-3xl font-bold">Página no disponible</h1>
+      <SectionTitle as="h1" title="Página no disponible" />
       <p className="mt-4 text-slate-300">
         Esta dirección todavía no tiene una página. Puedes volver al inicio para
         continuar viendo el layout.

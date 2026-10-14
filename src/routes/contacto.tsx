@@ -1,3 +1,4 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/contacto')({
@@ -24,8 +25,8 @@ function ContactPage() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: integrar SectionTitle y el formulario de contacto compartidos. */}
-      <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
+      {/* TODO: integrar el formulario de contacto cuando esté disponible. */}
+      <SectionTitle as="h1" title={title} />
       <p className="mt-4 text-lg">
         El formulario de contacto estará disponible próximamente.
       </p>
