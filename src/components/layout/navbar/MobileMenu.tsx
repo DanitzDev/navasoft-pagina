@@ -7,9 +7,12 @@ import {
   sectors,
 } from '../../../data/navigation'
 import { NavDropdown, NavLink } from './NavElements'
+import NavbarActions from './NavbarActions'
 
 type MobileMenuProps = { open: boolean; onClose: () => void }
 
+// Recibe el estado del Navbar. El evento close del diálogo notifica al padre
+// para que el botón de apertura no conserve un aria-expanded desactualizado.
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const dialog = useRef<HTMLDialogElement>(null)
 
@@ -49,11 +52,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     onClose()
   }
 
+  // close dispara handleClose mediante onClose del diálogo, unificando las salidas.
   function closeMenu() {
     dialog.current?.close()
   }
 
-  // El backdrop pertenece al diálogo el target no basta para distinguirlo.
+  // El backdrop pertenece al diálogo. El target no basta para distinguirlo.
   // Los límites permiten cerrar fuera del panel sin cerrar al pulsar su interior.
   function handleBackdropClick(event: MouseEvent<HTMLDialogElement>) {
     if (event.target !== event.currentTarget) return
@@ -138,10 +142,9 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           ))}
         </ul>
       </nav>
-      {/* TODO: integrar Button compartido para las acciones móviles:
-          "Solicitar reunión" (/contacto?motivo=reunion) y
-          "Pedir una demo" (/contacto?motivo=demo).
-          Apilarlas y llamar a closeMenu al seleccionar cualquiera. */}
+      {/* El mismo grupo de escritorio se apila mediante CSS y cierra el panel
+          al seguir un enlace, sin repetir el código de los botones compartidos. */}
+      <NavbarActions onNavigate={closeMenu} />
     </dialog>
   )
 }

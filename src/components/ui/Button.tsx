@@ -6,7 +6,8 @@ import type { LinkComponentProps } from '@tanstack/react-router'
 type ButtonVariant = 'primary' | 'secondary'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
-interface StyleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+// Las variantes son compartidas. Los eventos nativos pertenecen a Button o Link.
+interface StyleProps {
   variant?: ButtonVariant
   size?: ButtonSize
   className?: string

@@ -97,6 +97,8 @@ export function NavDropdown({
         disclosure.current.querySelector('summary')?.focus()
       }}
       onBlur={(event) => {
+        // relatedTarget es el siguiente elemento con foco. Moverse entre enlaces
+        // del mismo desplegable no debe cerrarlo; salir de él sí lo cierra.
         if (!mobile && !event.currentTarget.contains(event.relatedTarget)) {
           event.currentTarget.open = false
         }

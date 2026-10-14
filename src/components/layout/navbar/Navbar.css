@@ -1,4 +1,4 @@
-/* El fondo es translúcido el logo y el texto mantienen su opacidad. */
+/* El fondo es translúcido. El logo y el texto mantienen su opacidad. */
 .navbar-header {
   --navbar-brand-orange: #d96627;
   --navbar-surface-background: rgb(255 255 255 / 15%);
@@ -304,6 +304,60 @@
     transform: translateY(0);
   }
 }
+
+/* La raya acompaña a la sección actual sin cambiar la altura del Navbar. */
+.navbar-desktop:not(.navbar-desktop-actions) a[aria-current],
+.navbar-desktop summary[data-active],
+.navbar-desktop details[open] > summary {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+.navbar-mobile-links a[aria-current],
+.navbar-mobile-company a[aria-current],
+.navbar-mobile-panel summary[data-active] {
+  color: var(--navbar-brand-orange);
+}
+
+/* ButtonLink aporta variantes y estados. Aquí solo se organiza el grupo. */
+.navbar-desktop-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.navbar-actions {
+  display: flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+.navbar-actions a {
+  font-size: 14px;
+  line-height: 20px;
+}
+/* Evitar que el hover general de los enlaces cambie el texto de las acciones. */
+.navbar-actions a.navbar-meeting-link {
+  color: white;
+}
+.navbar-actions a.navbar-demo-link {
+  color: #101010;
+}
+.navbar-mobile-panel .navbar-actions {
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+.navbar-mobile-panel .navbar-actions a {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
+@media (min-width: 640px) {
+  .navbar-surface {
+    padding-inline: 20px;
+  }
+}
 @media (min-width: 1200px) {
   /* Altura de escritorio medida en la captura del prototipo. */
   .navbar-surface {
@@ -316,11 +370,12 @@
     display: none;
   }
 }
-/* No fuerza movimiento cuando el sistema solicita reducir animaciones. */
+/* Respetar la preferencia del sistema de reducir el movimiento. */
 @media (prefers-reduced-motion: reduce) {
   .navbar-mobile-panel,
   .navbar-mobile-panel::backdrop,
   .navbar-chevron,
+  .navbar-actions a,
   .navbar-desktop a,
   .navbar-dropdown a,
   .navbar-mobile-links a,
@@ -332,24 +387,4 @@
   .navbar-dropdown {
     animation: none;
   }
-}
-
-/* sm:px-5 del prototipo: amplía solo el espaciado horizontal. */
-@media (min-width: 640px) {
-  .navbar-surface {
-    padding-inline: 20px;
-  }
-}
-
-/* La raya acompaña a la sección actual sin cambiar la altura del Navbar. */
-.navbar-desktop a[aria-current],
-.navbar-desktop summary[data-active],
-.navbar-desktop details[open] > summary {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-thickness: 2px;
-}
-.navbar-mobile-panel a[aria-current],
-.navbar-mobile-panel summary[data-active] {
-  color: var(--navbar-brand-orange);
 }

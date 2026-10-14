@@ -8,9 +8,13 @@ import {
 } from '../../../data/navigation'
 import MobileMenu from './MobileMenu'
 import { NavDropdown, NavLink } from './NavElements'
+import NavbarActions from './NavbarActions'
 import './Navbar.css'
 
+// Coordina el menú móvil. Los enlaces y desplegables se delegan a NavElements,
+// las acciones a NavbarActions y el diálogo a MobileMenu.
 export default function Navbar() {
+  // React controla la apertura; trigger conserva el botón al que volverá el foco.
   const [open, setOpen] = useState(false)
   const trigger = useRef<HTMLButtonElement>(null)
 
@@ -27,6 +31,8 @@ export default function Navbar() {
             alt="Navasoft Soluciones"
           />
         </Link>
+        {/* Las dos filas de escritorio usan los mismos datos que el menú móvil.
+            CSS oculta este bloque por debajo del breakpoint de 1200 px. */}
         <nav aria-label="Principal" className="navbar-desktop">
           <ul className="navbar-company">
             {companyLinks.map((item) => (
@@ -56,10 +62,12 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
-        {/* TODO: integrar Button compartido para las acciones de escritorio:
-            "Solicitar reunión" (/contacto?motivo=reunion) y
-            "Pedir una demo" (/contacto?motivo=demo).
-            Mostrar ambas únicamente en el breakpoint de escritorio. */}
+        {/* Reutiliza ButtonLink aquí solo se coloca el grupo. */}
+        <div className="navbar-desktop navbar-desktop-actions">
+          <NavbarActions />
+        </div>
+        {/* aria-controls identifica el diálogo y aria-expanded refleja su estado.
+            El SVG es decorativo porque aria-label ya nombra este control. */}
         <button
           ref={trigger}
           type="button"
@@ -84,6 +92,8 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
+      {/* El diálogo informa del cierre por botón, Escape, fondo o navegación.
+          El padre sincroniza open y restaura el foco cuando el botón es visible. */}
       <MobileMenu
         open={open}
         onClose={() => {
