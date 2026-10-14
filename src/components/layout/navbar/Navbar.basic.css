@@ -1,52 +1,99 @@
-/* Vista básica para revisar funcionalidad. */
+/* El fondo es translúcido. El logo y el texto mantienen su opacidad. */
 .navbar-header {
-  position: relative;
-  z-index: 20;
-  padding: 12px 16px;
-  border-bottom: 1px solid #64748b;
-  background: #1f2937;
-  color: white;
-  font-size: 14px;
+  --navbar-surface-background: rgb(255 255 255 / 15%);
+  --navbar-surface-border: rgb(255 255 255 / 25%);
+  --navbar-surface-radius: 24px;
+  --navbar-surface-blur: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 12px 16px 0;
 }
 .navbar-surface {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  position: relative;
+  isolation: isolate;
+  pointer-events: auto;
   max-width: 1152px;
   margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--navbar-surface-border);
+  border-radius: var(--navbar-surface-radius);
+  background: transparent;
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+}
+/* El filtro queda en una capa hermana del menú, no en su ancestro. */
+.navbar-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: var(--navbar-surface-background);
+  backdrop-filter: blur(var(--navbar-surface-blur));
+}
+.navbar-header a {
+  text-decoration: none;
+}
+.navbar-brand {
+  flex-shrink: 0;
 }
 .navbar-brand img {
-  width: 96px;
-  height: auto;
+  height: 44px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
 }
 .navbar-desktop {
   display: none;
 }
-.navbar-header ul,
-.navbar-mobile-panel ul {
+.navbar-header ul {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 .navbar-company,
 .navbar-primary {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
+  align-items: center;
+  gap: 16px;
 }
 .navbar-company {
   margin-bottom: 8px !important;
+  gap: 8px;
 }
-.navbar-header a,
-.navbar-mobile-panel a {
+.navbar-company li + li::before {
+  content: '|';
+  color: #ffffff80;
+  margin-right: 8px;
+}
+.navbar-primary {
+  white-space: nowrap;
+}
+/* Solo se animan colores; el tamaño y la posición permanecen estables. */
+.navbar-desktop a,
+.navbar-dropdown a,
+.navbar-mobile-links a,
+.navbar-mobile-company a {
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+.navbar-header a:hover {
+  color: var(--color-accent);
+}
+/* En móvil, el naranja identifica la página activa; el hover usa solo fondo. */
+.navbar-mobile-links a:not([aria-current]):hover,
+.navbar-mobile-company a:not([aria-current]):hover {
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.navbar-header :focus-visible,
-.navbar-mobile-panel :focus-visible {
-  outline: 2px solid white;
-  outline-offset: 3px;
+  background: #ffffff12;
 }
 .navbar-trigger,
 .navbar-mobile-heading button {
@@ -54,18 +101,27 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid #94a3b8;
-  color: inherit;
+  border-radius: 8px;
   background: transparent;
+  color: white;
   cursor: pointer;
+  transition: background-color 160ms ease;
 }
-.navbar-trigger,
-.navbar-desktop-actions {
+.navbar-trigger:hover,
+.navbar-mobile-heading button:hover {
+  background: rgb(255 255 255 / 10%);
+}
+.navbar-trigger {
   margin-left: auto;
 }
 .navbar-trigger svg {
   width: 24px;
   height: 24px;
+}
+.navbar-header :focus-visible,
+.navbar-mobile-panel :focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 .navbar-disclosure {
   position: relative;
@@ -74,52 +130,110 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   cursor: pointer;
   list-style: none;
 }
 .navbar-disclosure summary::-webkit-details-marker {
   display: none;
 }
-.navbar-disclosure[open] .navbar-chevron {
+.navbar-chevron {
+  transition: transform 160ms ease;
+}
+.navbar-disclosure[open] > summary .navbar-chevron {
   transform: rotate(180deg);
 }
 .navbar-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
-  width: 260px;
-  max-height: 60dvh;
+  min-width: 192px;
+  max-height: min(70dvh, 480px);
   overflow-y: auto;
-  border: 1px solid #94a3b8;
-  background: #1f2937;
+  overscroll-behavior: contain;
+  padding: 8px !important;
+  border-radius: 12px;
+  background: #131c2c;
+  border: 1px solid #ffffff26;
+  box-shadow: 0 12px 24px #0004;
+  animation: navbar-dropdown-enter 160ms ease-out;
+}
+/* Los desplegables de escritorio comparten la superficie del Navbar. */
+.navbar-disclosure:not(.mobile) {
+  position: static;
+}
+.navbar-disclosure:not(.mobile) .navbar-dropdown {
+  top: calc(100% + 16px);
+  left: auto;
+  right: 0;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  padding: 8px !important;
+  color: white;
+  background: var(--navbar-surface-background);
+  border-color: var(--navbar-surface-border);
+  border-radius: var(--navbar-surface-radius);
+  backdrop-filter: blur(var(--navbar-surface-blur));
 }
 .navbar-dropdown a {
   display: block;
-  padding: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
 }
 .navbar-dropdown a:hover {
-  background: #374151;
+  background: #ffffff12;
 }
-/* El diálogo nativo conserva el foco, Escape y el cierre por fondo. */
+
+/* El diálogo nativo limita el foco al panel y proporciona cierre con Escape. */
 .navbar-mobile-panel {
   position: fixed;
   inset: 0 0 0 auto;
   margin: 0;
-  width: min(90vw, 320px);
-  max-width: none;
   height: 100dvh;
   max-height: 100dvh;
+  width: min(88vw, 320px);
+  max-width: none;
+  padding: 16px 20px;
   overflow-y: auto;
-  padding: 16px;
-  border: 1px solid #94a3b8;
-  background: #1f2937;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border: 1px solid #ffffff26;
+  background: #131c2c;
   color: white;
-  font-family: inherit;
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+.navbar-mobile-panel[open] {
+  opacity: 1;
+  transform: translateX(0);
 }
 .navbar-mobile-panel::backdrop {
-  background: rgb(0 0 0 / 50%);
+  background: rgb(0 0 0 / 60%);
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
+}
+.navbar-mobile-panel[open]::backdrop {
+  opacity: 1;
+}
+@starting-style {
+  .navbar-mobile-panel[open] {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  .navbar-mobile-panel[open]::backdrop {
+    opacity: 0;
+  }
 }
 .navbar-mobile-heading {
   display: flex;
@@ -127,58 +241,50 @@
   justify-content: space-between;
   margin-bottom: 16px;
 }
+.navbar-mobile-heading h2 {
+  font-size: 14px;
+}
+.navbar-mobile-heading button {
+  font-size: 24px;
+}
+.navbar-mobile-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar-mobile-panel a {
+  color: inherit;
+  text-decoration: none;
+}
 .navbar-mobile-links a,
-.navbar-mobile-links summary,
-.navbar-mobile-company a {
+.navbar-mobile-links summary {
   display: flex;
   align-items: center;
   min-height: 44px;
-  padding: 8px;
+  padding: 12px 6px;
   overflow-wrap: anywhere;
 }
 .navbar-mobile-company {
   margin-top: 16px !important;
-  padding-top: 8px !important;
-  border-top: 1px solid #94a3b8;
+  padding-top: 12px !important;
+  border-top: 1px solid #506176;
+}
+/* Los enlaces secundarios tienen la misma altura táctil que los controles. */
+.navbar-mobile-company a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 6px;
+  overflow-wrap: anywhere;
 }
 .navbar-disclosure.mobile .navbar-dropdown {
   position: static;
-  width: auto;
-  margin: 8px 0 8px 12px;
-}
-.navbar-actions {
-  display: flex;
-  gap: 8px;
-}
-/* ButtonLink sigue reutilizándose; la demostración solo simplifica su aspecto. */
-.navbar-actions a {
-  min-height: 36px;
-  padding: 6px 10px;
-  border: 1px solid #94a3b8;
-  border-radius: 2px;
-  background: transparent;
-  color: white;
+  min-width: 0;
+  margin-left: 8px;
+  border: 0;
+  border-left: 1px solid #ffffff26;
+  border-radius: 0;
   box-shadow: none;
-  font: inherit;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: none;
-}
-.navbar-actions a:hover {
-  background: #374151;
-  color: white;
-}
-.navbar-mobile-panel .navbar-actions {
-  flex-direction: column;
-  margin-top: 16px;
-}
-.navbar-mobile-panel .navbar-actions a {
-  min-height: 44px;
-}
-.navbar-header a[aria-current],
-.navbar-mobile-panel a[aria-current],
-.navbar-disclosure summary[data-active] {
-  font-weight: 700;
 }
 .navbar-skip-link {
   position: fixed;
@@ -193,16 +299,100 @@
 .navbar-skip-link:focus {
   transform: translateY(0);
 }
-/* Coincide con el breakpoint utilizado por los efectos del menú móvil. */
+@keyframes navbar-dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* La raya acompaña a la sección actual sin cambiar la altura del Navbar. */
+.navbar-desktop:not(.navbar-desktop-actions) a[aria-current],
+.navbar-desktop summary[data-active],
+.navbar-desktop details[open] > summary {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+.navbar-mobile-links a[aria-current],
+.navbar-mobile-company a[aria-current],
+.navbar-mobile-panel summary[data-active] {
+  color: var(--color-accent);
+}
+
+/* ButtonLink aporta variantes y estados. Aquí solo se organiza el grupo. */
+.navbar-desktop-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.navbar-actions {
+  display: flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+.navbar-actions a {
+  font-size: 14px;
+  line-height: 20px;
+}
+/* Evitar que el hover general de los enlaces cambie el texto de las acciones. */
+.navbar-actions a.navbar-meeting-link {
+  color: white;
+}
+.navbar-actions a.navbar-meeting-link:hover {
+  color: black;
+}
+.navbar-actions a.navbar-demo-link {
+  color: #101010;
+}
+.navbar-mobile-panel .navbar-actions {
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}
+.navbar-mobile-panel .navbar-actions a {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
+@media (min-width: 640px) {
+  .navbar-surface {
+    padding-inline: 20px;
+  }
+}
 @media (min-width: 1200px) {
+  /* Altura de escritorio medida en la captura del prototipo. */
+  .navbar-surface {
+    min-height: 72px;
+  }
   .navbar-desktop {
     display: block;
   }
-  .navbar-desktop:not(.navbar-desktop-actions) {
-    flex: 1;
-    min-width: 0;
-  }
   .navbar-trigger {
     display: none;
+  }
+}
+/* Respetar la preferencia del sistema de reducir el movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-mobile-panel,
+  .navbar-mobile-panel::backdrop,
+  .navbar-chevron,
+  .navbar-actions a,
+  .navbar-desktop a,
+  .navbar-dropdown a,
+  .navbar-mobile-links a,
+  .navbar-mobile-company a,
+  .navbar-trigger,
+  .navbar-mobile-heading button {
+    transition: none;
+  }
+  .navbar-dropdown {
+    animation: none;
   }
 }
