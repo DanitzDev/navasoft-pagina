@@ -12,10 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CasosDeExitoRouteImport } from './routes/casos-de-exito'
 import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as OportunidadesRouteImport } from './routes/oportunidades'
-import { Route as AreasAreaRouteImport } from './routes/areas/$area'
+import { Route as ProductosRouteImport } from './routes/productos'
+import { Route as SoporteRouteImport } from './routes/soporte'
+import { Route as AreasSlugRouteImport } from './routes/areas.$slug'
 import { Route as ProductosIndexRouteImport } from './routes/productos/index'
 import { Route as ProductosSlugRouteImport } from './routes/productos/$slug'
+import { Route as SectoresSlugRouteImport } from './routes/sectores.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,24 +36,44 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NosotrosRoute = NosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OportunidadesRoute = OportunidadesRouteImport.update({
   id: '/oportunidades',
   path: '/oportunidades',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AreasAreaRoute = AreasAreaRouteImport.update({
-  id: '/areas/$area',
-  path: '/areas/$area',
+const ProductosRoute = ProductosRouteImport.update({
+  id: '/productos',
+  path: '/productos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoporteRoute = SoporteRouteImport.update({
+  id: '/soporte',
+  path: '/soporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AreasSlugRoute = AreasSlugRouteImport.update({
+  id: '/areas/$slug',
+  path: '/areas/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductosIndexRoute = ProductosIndexRouteImport.update({
-  id: '/productos/',
-  path: '/productos/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductosRoute,
 } as any)
 const ProductosSlugRoute = ProductosSlugRouteImport.update({
-  id: '/productos/$slug',
-  path: '/productos/$slug',
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductosRoute,
+} as any)
+const SectoresSlugRoute = SectoresSlugRouteImport.update({
+  id: '/sectores/$slug',
+  path: '/sectores/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -57,18 +81,25 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/casos-de-exito': typeof CasosDeExitoRoute
   '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
-  '/areas/$area': typeof AreasAreaRoute
+  '/productos': typeof ProductosRouteWithChildren
+  '/soporte': typeof SoporteRoute
+  '/areas/$slug': typeof AreasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
+  '/sectores/$slug': typeof SectoresSlugRoute
   '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/casos-de-exito': typeof CasosDeExitoRoute
   '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
-  '/areas/$area': typeof AreasAreaRoute
+  '/soporte': typeof SoporteRoute
+  '/areas/$slug': typeof AreasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
+  '/sectores/$slug': typeof SectoresSlugRoute
   '/productos': typeof ProductosIndexRoute
 }
 export interface FileRoutesById {
@@ -76,9 +107,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/casos-de-exito': typeof CasosDeExitoRoute
   '/contacto': typeof ContactoRoute
+  '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
-  '/areas/$area': typeof AreasAreaRoute
+  '/productos': typeof ProductosRouteWithChildren
+  '/soporte': typeof SoporteRoute
+  '/areas/$slug': typeof AreasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
+  '/sectores/$slug': typeof SectoresSlugRoute
   '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,27 +122,38 @@ export interface FileRouteTypes {
     | '/'
     | '/casos-de-exito'
     | '/contacto'
+    | '/nosotros'
     | '/oportunidades'
-    | '/areas/$area'
+    | '/productos'
+    | '/soporte'
+    | '/areas/$slug'
     | '/productos/$slug'
+    | '/sectores/$slug'
     | '/productos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/casos-de-exito'
     | '/contacto'
+    | '/nosotros'
     | '/oportunidades'
-    | '/areas/$area'
+    | '/soporte'
+    | '/areas/$slug'
     | '/productos/$slug'
+    | '/sectores/$slug'
     | '/productos'
   id:
     | '__root__'
     | '/'
     | '/casos-de-exito'
     | '/contacto'
+    | '/nosotros'
     | '/oportunidades'
-    | '/areas/$area'
+    | '/productos'
+    | '/soporte'
+    | '/areas/$slug'
     | '/productos/$slug'
+    | '/sectores/$slug'
     | '/productos/'
   fileRoutesById: FileRoutesById
 }
@@ -115,10 +161,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CasosDeExitoRoute: typeof CasosDeExitoRoute
   ContactoRoute: typeof ContactoRoute
+  NosotrosRoute: typeof NosotrosRoute
   OportunidadesRoute: typeof OportunidadesRoute
-  AreasAreaRoute: typeof AreasAreaRoute
-  ProductosSlugRoute: typeof ProductosSlugRoute
-  ProductosIndexRoute: typeof ProductosIndexRoute
+  ProductosRoute: typeof ProductosRouteWithChildren
+  SoporteRoute: typeof SoporteRoute
+  AreasSlugRoute: typeof AreasSlugRoute
+  SectoresSlugRoute: typeof SectoresSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -144,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nosotros': {
+      id: '/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/oportunidades': {
       id: '/oportunidades'
       path: '/oportunidades'
@@ -151,38 +206,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OportunidadesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/areas/$area': {
-      id: '/areas/$area'
-      path: '/areas/$area'
-      fullPath: '/areas/$area'
-      preLoaderRoute: typeof AreasAreaRouteImport
+    '/productos': {
+      id: '/productos'
+      path: '/productos'
+      fullPath: '/productos'
+      preLoaderRoute: typeof ProductosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/soporte': {
+      id: '/soporte'
+      path: '/soporte'
+      fullPath: '/soporte'
+      preLoaderRoute: typeof SoporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/areas/$slug': {
+      id: '/areas/$slug'
+      path: '/areas/$slug'
+      fullPath: '/areas/$slug'
+      preLoaderRoute: typeof AreasSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/productos/': {
       id: '/productos/'
-      path: '/productos'
+      path: '/'
       fullPath: '/productos/'
       preLoaderRoute: typeof ProductosIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ProductosRoute
     }
     '/productos/$slug': {
       id: '/productos/$slug'
-      path: '/productos/$slug'
+      path: '/$slug'
       fullPath: '/productos/$slug'
       preLoaderRoute: typeof ProductosSlugRouteImport
+      parentRoute: typeof ProductosRoute
+    }
+    '/sectores/$slug': {
+      id: '/sectores/$slug'
+      path: '/sectores/$slug'
+      fullPath: '/sectores/$slug'
+      preLoaderRoute: typeof SectoresSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface ProductosRouteChildren {
+  ProductosSlugRoute: typeof ProductosSlugRoute
+  ProductosIndexRoute: typeof ProductosIndexRoute
+}
+
+const ProductosRouteChildren: ProductosRouteChildren = {
+  ProductosSlugRoute: ProductosSlugRoute,
+  ProductosIndexRoute: ProductosIndexRoute,
+}
+
+const ProductosRouteWithChildren = ProductosRoute._addFileChildren(
+  ProductosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CasosDeExitoRoute: CasosDeExitoRoute,
   ContactoRoute: ContactoRoute,
+  NosotrosRoute: NosotrosRoute,
   OportunidadesRoute: OportunidadesRoute,
-  AreasAreaRoute: AreasAreaRoute,
-  ProductosSlugRoute: ProductosSlugRoute,
-  ProductosIndexRoute: ProductosIndexRoute,
+  ProductosRoute: ProductosRouteWithChildren,
+  SoporteRoute: SoporteRoute,
+  AreasSlugRoute: AreasSlugRoute,
+  SectoresSlugRoute: SectoresSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
