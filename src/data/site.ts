@@ -36,10 +36,10 @@ export const siteContacts: ContactItem[] = [
 
 // Las rutas ya están habilitadas el contenido definitivo se completa después.
 export const footerSolutions: NavigationItem[] = [
-  { label: 'Sector Público', href: '/areas/gobierno' },
-  { label: 'Sector Empresarial', href: '/areas/privado' },
-  { label: 'Ecosistema SaaS', href: '/productos' },
-  { label: 'Innovation Lab', href: '/areas/navalav' },
+  { label: 'Gobierno', href: '/areas/gobierno' },
+  { label: 'Empresas', href: '/areas/privado' },
+  { label: 'Productos', href: '/productos' },
+  { label: 'Innovación', href: '/areas/navalav' },
 ]
 
 type FooterProduct = NavigationItem & { description: string }
@@ -53,7 +53,7 @@ export const footerEcosystem: FooterProduct[] = [
     description: 'Gestión de abonados y servicios.',
   },
   {
-    label: 'NavaStay',
+    label: 'Navastay',
     href: '/productos/navastay',
     description: 'Administración inteligente de comunidades.',
   },
@@ -68,7 +68,7 @@ export const footerEcosystem: FooterProduct[] = [
     description: 'Facturación electrónica.',
   },
   {
-    label: 'ORDEXIA',
+    label: 'Ordexia',
     href: '/productos/ordexia',
     description: 'Gestión operativa y órdenes de trabajo.',
   },

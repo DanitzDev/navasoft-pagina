@@ -4,10 +4,10 @@ export type DropdownItem = { label: string; href?: string }
 export type NavigationItem = DropdownItem & { href: string }
 
 export const companyLinks: NavigationItem[] = [
+  { label: 'Nosotros', href: '/nosotros' },
   { label: 'Oportunidades', href: '/oportunidades' },
   { label: 'Contacto', href: '/contacto' },
   { label: 'Soporte', href: '/soporte' },
-  { label: 'Nosotros', href: '/nosotros' },
   { label: 'Casos de éxito', href: '/casos-de-exito' },
 ]
 export const primaryLinks: NavigationItem[] = [
@@ -20,7 +20,7 @@ export const products: NavigationItem[] = [
   { label: 'Tracxia', href: '/productos/tracxia' },
   { label: 'Ordexia', href: '/productos/ordexia' },
   { label: 'Factxia', href: '/productos/factxia' },
-  { label: 'NavaStay', href: '/productos/navastay' },
+  { label: 'Navastay', href: '/productos/navastay' },
 ]
 // Cada sector tiene un destino atendido por la ruta dinámica de TanStack.
 export const sectors: NavigationItem[] = [
