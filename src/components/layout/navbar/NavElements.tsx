@@ -15,7 +15,8 @@ type DropdownProps = {
   onNavigate?: () => void
 }
 
-// details/summary aporta apertura por teclado sin recrear un control nativo.
+// details/summary comunica el estado expandido y abre con Enter o Espacio.
+// Escape se maneja abajo para cerrar el submenú antes que el diálogo móvil.
 // El atributo name permite tener un solo submenú abierto por grupo.
 export function NavDropdown({
   label,

@@ -28,19 +28,23 @@ export default function NavbarActions({ onNavigate }: NavbarActionsProps) {
       <ButtonLink
         to="/contacto"
         search={{ motivo: 'reunion' }}
-        variant="secondary"
+        variant="primary"
         size="sm"
         className="navbar-meeting-link rounded-full font-semibold shadow-none"
         onClick={handleClick}
       >
         Solicitar reunión
       </ButtonLink>
+      {/* Partir del azul original y suavizar solo el fondo, sin atenuar el texto. */}
       <ButtonLink
         to="/contacto"
         search={{ motivo: 'demo' }}
-        variant="primary"
+        variant="secondary"
         size="sm"
-        className="navbar-demo-link rounded-full font-semibold shadow-none"
+        className={
+          'navbar-demo-link rounded-full bg-primary/80 ' +
+          'font-semibold shadow-none hover:bg-primary hover:text-white'
+        }
         onClick={handleClick}
       >
         Pedir una demo

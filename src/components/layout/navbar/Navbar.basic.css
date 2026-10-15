@@ -69,16 +69,20 @@
   align-items: center;
   gap: 16px;
 }
+/* La fila institucional es secundaria: menor tamaño, peso y contraste. */
 .navbar-company {
-  margin-bottom: 8px !important;
-  gap: 8px;
-}
-.navbar-company li + li::before {
-  content: '|';
-  color: #ffffff80;
-  margin-right: 8px;
+  margin-bottom: 10px !important;
+  gap: 16px;
+  color: #e1e7ef;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
 }
 .navbar-primary {
+  color: #f5f7fb;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
   white-space: nowrap;
 }
 /* Solo se animan colores; el tamaño y la posición permanecen estables. */
@@ -155,6 +159,10 @@
   max-height: min(70dvh, 480px);
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* Si falta altura, conservar el scroll con una barra acorde al panel oscuro. */
+  scrollbar-width: thin;
+  scrollbar-color: #aebacc transparent;
+  color-scheme: dark;
   padding: 8px !important;
   border-radius: 12px;
   background: #131c2c;
@@ -172,7 +180,9 @@
   right: 0;
   width: 320px;
   max-width: calc(100vw - 32px);
-  padding: 8px !important;
+  /* Reservar espacio para el Navbar, la separación y el margen inferior. */
+  max-height: min(560px, calc(100dvh - 140px));
+  padding: 12px !important;
   color: white;
   background: var(--navbar-surface-background);
   border-color: var(--navbar-surface-border);
@@ -181,7 +191,8 @@
 }
 .navbar-dropdown a {
   display: block;
-  padding: 10px 12px;
+  min-height: 44px;
+  padding: 12px;
   border-radius: 8px;
 }
 .navbar-dropdown a:hover {
@@ -314,7 +325,24 @@
   }
 }
 
+/* El subrayado parte transparente; aparece sin mover el texto ni el layout. */
+.navbar-desktop:not(.navbar-desktop-actions) a,
+.navbar-desktop summary {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    text-decoration-color 160ms ease;
+}
 /* La raya acompaña a la sección actual sin cambiar la altura del Navbar. */
+/* El mismo subrayado acompaña al hover y al foco en ambas filas. */
+.navbar-desktop:not(.navbar-desktop-actions) a:hover,
+.navbar-desktop:not(.navbar-desktop-actions) a:focus-visible,
+.navbar-desktop summary:hover,
+.navbar-desktop summary:focus-visible,
 .navbar-desktop:not(.navbar-desktop-actions) a[aria-current],
 .navbar-desktop summary[data-active],
 .navbar-desktop details[open] > summary {
@@ -335,22 +363,23 @@
 }
 .navbar-actions {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   white-space: nowrap;
 }
 .navbar-actions a {
+  min-height: 44px;
   font-size: 14px;
   line-height: 20px;
 }
 /* Evitar que el hover general de los enlaces cambie el texto de las acciones. */
 .navbar-actions a.navbar-meeting-link {
-  color: white;
-}
-.navbar-actions a.navbar-meeting-link:hover {
-  color: black;
+  color: #101010;
 }
 .navbar-actions a.navbar-demo-link {
-  color: #101010;
+  color: white;
+}
+.navbar-actions a.navbar-demo-link:hover {
+  color: white;
 }
 .navbar-mobile-panel .navbar-actions {
   flex-direction: column;
@@ -361,7 +390,7 @@
   width: 100%;
   min-height: 44px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
@@ -371,9 +400,10 @@
   }
 }
 @media (min-width: 1200px) {
-  /* Altura de escritorio medida en la captura del prototipo. */
+  /* Más aire entre las filas; el logo sigue centrado con align-items. */
   .navbar-surface {
-    min-height: 72px;
+    min-height: 88px;
+    padding-block: 16px;
   }
   /* Separar el logo de los enlaces sin desplazar su alineación izquierda. */
   .navbar-brand {
@@ -386,6 +416,23 @@
     display: none;
   }
 }
+/* Respuesta breve al pulsar; la elevación por hover solo se usa con ratón. */
+@media (prefers-reduced-motion: no-preference) {
+  .navbar-actions a {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      transform 160ms ease;
+  }
+  .navbar-actions a:active {
+    transform: translateY(1px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .navbar-actions a:hover:not(:active) {
+    transform: translateY(-1px);
+  }
+}
 /* Respetar la preferencia del sistema de reducir el movimiento. */
 @media (prefers-reduced-motion: reduce) {
   .navbar-mobile-panel,
@@ -393,6 +440,7 @@
   .navbar-chevron,
   .navbar-actions a,
   .navbar-desktop a,
+  .navbar-desktop summary,
   .navbar-dropdown a,
   .navbar-mobile-links a,
   .navbar-mobile-company a,
