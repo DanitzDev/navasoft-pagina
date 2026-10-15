@@ -57,10 +57,11 @@
 }
 .footer-column h2 {
   margin: 0;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  font-weight: 700;
+  /* Respetar la escritura del título: Soluciones, Ecosistema y Empresa. */
+  text-transform: none;
+  letter-spacing: normal;
   color: var(--color-accent);
 }
 .footer-bottom {
@@ -68,8 +69,8 @@
   flex-direction: column;
   gap: 12px;
   padding-block: 20px;
-  color: #bac5d4;
-  font-size: 12px;
+  color: #d3dbe6;
+  font-size: 14px;
   line-height: 1.6;
 }
 .footer-bottom p {
@@ -152,15 +153,18 @@
 /* Jerarquía visual: descripción menor que el nombre, con altura legible. */
 .footer-product-description {
   display: block;
-  color: #bac5d4;
-  font-size: 12px;
-  line-height: 1.4;
+  color: #d3dbe6;
+  font-size: 14px;
+  line-height: 1.55;
 }
-.footer-products .footer-product:hover {
+/* Resaltar solo el nombre del producto, también al navegar con teclado. */
+.footer-products .footer-product:hover,
+.footer-products .footer-product:focus-visible {
   text-decoration: none;
 }
-.footer-product:hover .footer-product-name {
-  color: var(--color-accent-hover);
+.footer-product:hover .footer-product-name,
+.footer-product:focus-visible .footer-product-name {
+  color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -209,14 +213,23 @@
   color: inherit;
   text-decoration: none;
 }
-.footer-social-links a:hover {
-  color: #f5f7fb;
-  background: rgb(255 255 255 / 8%);
+.footer-social-links a:hover,
+.footer-social-links a:focus-visible {
+  color: #ffffff;
+  background: rgb(255 255 255 / 12%);
 }
 
 /* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
 /* Móvil: ampliar las áreas táctiles sin aumentar el tamaño de letra. */
 @media (max-width: 639px) {
+  /* Centrar únicamente el texto legal en la vista móvil. */
+  .footer-bottom > p {
+    text-align: center;
+  }
+  /* Separar productos sin alejar la descripción de su nombre. */
+  .footer-products {
+    gap: 18px;
+  }
   .footer-identity {
     text-align: center;
   }
@@ -267,7 +280,25 @@
         0,
         3fr
       );
-    gap: 40px;
+    gap: 32px;
     padding-block: 64px;
+  }
+}
+
+/* La página actual se reconoce por color y subrayado, sin cambiar el tamaño. */
+.footer-links a[aria-current='page']:not(.footer-product),
+.footer-product[aria-current='page'] .footer-product-name {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Animar solo propiedades visuales evita movimientos en la distribución. */
+@media (prefers-reduced-motion: no-preference) {
+  .site-footer a,
+  .footer-product-name {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
   }
 }

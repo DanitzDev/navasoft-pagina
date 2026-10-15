@@ -72,13 +72,20 @@ export default function Footer() {
             </ul>
           </address>
         </div>
+        {/* TanStack marca con aria-current la página exacta; los parámetros
+            no alteran la selección de los enlaces de navegación. */}
         {/* aria-labelledby permite distinguir las columnas por su título. */}
         <nav className="footer-column" aria-labelledby="footer-solutions-title">
           <h2 id="footer-solutions-title">Soluciones</h2>
           <ul className="footer-links">
             {footerSolutions.map((solution) => (
               <li key={solution.href}>
-                <Link to={solution.href}>{solution.label}</Link>
+                <Link
+                  to={solution.href}
+                  activeOptions={{ exact: true, includeSearch: false }}
+                >
+                  {solution.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -88,7 +95,11 @@ export default function Footer() {
           <ul className="footer-links footer-products">
             {footerEcosystem.map((product) => (
               <li key={product.href}>
-                <Link to={product.href} className="footer-product">
+                <Link
+                  to={product.href}
+                  className="footer-product"
+                  activeOptions={{ exact: true, includeSearch: false }}
+                >
                   <span className="footer-product-name">{product.label}</span>
                   <span className="footer-product-description">
                     {product.description}
@@ -103,7 +114,12 @@ export default function Footer() {
           <ul className="footer-links">
             {footerCompany.map((link) => (
               <li key={link.href}>
-                <Link to={link.href}>{link.label}</Link>
+                <Link
+                  to={link.href}
+                  activeOptions={{ exact: true, includeSearch: false }}
+                >
+                  {link.label}
+                </Link>
               </li>
             ))}
             <li>
@@ -112,6 +128,7 @@ export default function Footer() {
                 to="/contacto"
                 search={{ motivo: 'reunion' }}
                 className="footer-meeting-link"
+                activeOptions={{ exact: true, includeSearch: true }}
               >
                 Solicitar reunión
               </Link>
