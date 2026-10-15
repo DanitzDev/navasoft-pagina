@@ -74,15 +74,6 @@ export const footerEcosystem: FooterProduct[] = [
   },
 ]
 
-// Los enlaces de empresa mantienen los mismos destinos que el Navbar.
-export const footerCompany: NavigationItem[] = [
-  { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Casos de éxito', href: '/casos-de-exito' },
-  { label: 'Contacto', href: '/contacto' },
-  { label: 'Soporte', href: '/soporte' },
-  { label: 'Oportunidades', href: '/oportunidades' },
-]
-
 export type SocialNetwork = 'linkedin' | 'facebook' | 'instagram'
 type SocialLink = NavigationItem & { network: SocialNetwork }
 

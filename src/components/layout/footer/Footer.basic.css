@@ -6,11 +6,13 @@
   background: #0d1522;
   color: #f5f7fb;
 }
+/* Mismo margen exterior de 16 px y ancho máximo que el Navbar.
+   El padding incluye el píxel de su borde para alinear los contenidos. */
 .footer-container {
-  width: 100%;
+  width: calc(100% - 32px);
   max-width: 1152px;
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: 13px;
 }
 .footer-columns {
   display: grid;
@@ -28,32 +30,21 @@
 }
 .footer-brand img {
   display: block;
-  width: 120px;
-  height: auto;
+  width: auto;
+  height: 44px;
+  max-width: 110px;
+  object-fit: contain;
 }
 .site-footer a:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
-.footer-company-name {
-  margin: 24px 0 0;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.4;
-}
 .footer-tagline {
-  margin: 2px 0 0;
-  color: var(--color-accent);
+  margin: 12px 0 0;
+  color: #d3dbe6;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.6;
-}
-.footer-description {
-  max-width: 360px;
-  margin-top: 12px;
-  color: #bac5d4;
-  font-size: 14px;
-  line-height: 1.75;
 }
 .footer-column h2 {
   margin: 0;
@@ -62,7 +53,8 @@
   /* Respetar la escritura del título: Soluciones, Ecosistema y Empresa. */
   text-transform: none;
   letter-spacing: normal;
-  color: var(--color-accent);
+  /* Naranja suavizado para distinguir los títulos de la acción principal. */
+  color: color-mix(in srgb, var(--color-accent) 55%, #f5f7fb);
 }
 .footer-bottom {
   display: flex;
@@ -148,14 +140,18 @@
 .footer-product-name {
   display: block;
   color: #f5f7fb;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1.5;
 }
 /* Jerarquía visual: descripción menor que el nombre, con altura legible. */
 .footer-product-description {
   display: block;
-  color: #d3dbe6;
-  font-size: 14px;
-  line-height: 1.55;
+  margin-top: 2px;
+  color: #bac5d4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
 }
 /* Resaltar solo el nombre del producto, también al navegar con teclado. */
 .footer-products .footer-product:hover,
@@ -254,6 +250,9 @@
   }
 }
 @media (min-width: 640px) {
+  .footer-container {
+    padding-inline: 21px;
+  }
   .footer-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

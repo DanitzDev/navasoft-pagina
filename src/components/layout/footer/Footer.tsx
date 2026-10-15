@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
+import { companyLinks } from '../../../data/navigation'
 import {
-  footerCompany,
   footerEcosystem,
   footerSolutions,
   footerSocialLinks,
@@ -9,7 +9,7 @@ import {
 import { SectionTitle } from '../../ui/SectionTitle'
 import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
-// Presentación básica.
+// Presentación responsive del Footer.
 import './Footer.basic.css'
 
 // Los destinos internos usan Link; contactos y redes mantienen sus protocolos
@@ -34,13 +34,8 @@ export default function Footer() {
                 height="562"
               />
             </Link>
-            <p className="footer-company-name">Navasoft</p>
             <p className="footer-tagline">Tecnología que innova</p>
           </div>
-          <p className="footer-description">
-            Transformamos experiencia en plataformas tecnológicas que generan
-            impacto para gobiernos, empresas e industrias.
-          </p>
           {/* kind elige el SVG. Los destinos externos conservan sus protocolos. */}
           <address className="footer-contact">
             <ul>
@@ -74,7 +69,8 @@ export default function Footer() {
         </div>
         {/* TanStack marca con aria-current la página exacta; los parámetros
             no alteran la selección de los enlaces de navegación. */}
-        {/* aria-labelledby permite distinguir las columnas por su título. */}
+        {/* Empresa comparte los datos del Navbar para mantener el mismo orden.
+            aria-labelledby distingue las columnas por su título. */}
         <nav className="footer-column" aria-labelledby="footer-solutions-title">
           <h2 id="footer-solutions-title">Soluciones</h2>
           <ul className="footer-links">
@@ -112,7 +108,7 @@ export default function Footer() {
         <nav className="footer-column" aria-labelledby="footer-company-title">
           <h2 id="footer-company-title">Empresa</h2>
           <ul className="footer-links">
-            {footerCompany.map((link) => (
+            {companyLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   to={link.href}
