@@ -43,9 +43,13 @@
   text-decoration: none;
 }
 .navbar-brand {
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
+  padding-block: 4px;
 }
 .navbar-brand img {
+  display: block;
   height: 44px;
   width: auto;
   max-width: 110px;
@@ -370,6 +374,10 @@
   /* Altura de escritorio medida en la captura del prototipo. */
   .navbar-surface {
     min-height: 72px;
+  }
+  /* Separar el logo de los enlaces sin desplazar su alineación izquierda. */
+  .navbar-brand {
+    margin-inline-end: 8px;
   }
   .navbar-desktop {
     display: block;
