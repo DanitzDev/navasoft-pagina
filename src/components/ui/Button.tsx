@@ -67,8 +67,7 @@ type ButtonLinkProps = Omit<LinkComponentProps<'a'>, 'className'> & StyleProps
 
 // Componente de enlace con estilo de botón
 export function ButtonLink({
-  variant,
-  size,
+  variant, size,
   className,
   ...props
 }: ButtonLinkProps) {
@@ -76,3 +75,5 @@ export function ButtonLink({
     <Link className={buttonStyles({ variant, size, className })} {...props} />
   )
 }
+
+// Reciben variant y size, y se les asigna un valor por defecto. Se pueden pasar otras props como className, onClick, etc.

@@ -17,7 +17,7 @@ export function SectionTitle({
   align = 'left',
   as: Heading = 'h2',
   className,
-}: SectionTitleProps) {
+}: SectionTitleProps) { // Recibe props para personalizar el título de la sección, incluyendo un "eyebrow", el título principal, una descripción opcional, alineación, el tipo de encabezado y clases adicionales
   const isCenter = align === 'center'
 
   return (
