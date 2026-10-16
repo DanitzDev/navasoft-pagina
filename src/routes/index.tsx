@@ -1,14 +1,17 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/')({ component: Home })
+
+export const Route = createFileRoute("/")({
+  component: Home,
+});
 
 function Home() {
+
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold">Welcome to TanStack Start</h1>
-      <p className="mt-4 text-lg">
-        Edit <code>src/routes/index.tsx</code> to get started.
-      </p>
-    </div>
+    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+      <SectionTitle as="h1" title="Navasoft Soluciones" />
+      <p className="mt-4 text-lg">Tecnología que innova.</p>
+    </section>
   )
 }
