@@ -76,3 +76,5 @@ export function ButtonLink({
     <Link className={buttonStyles({ variant, size, className })} {...props} />
   )
 }
+
+// Reciben variant y size, y se les asigna un valor por defecto. Se pueden pasar otras props como className, onClick, etc.

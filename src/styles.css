@@ -64,5 +64,7 @@ body {
   --color-primary-hover: #5c7e98;
   --color-accent: #f47e20;
   --color-accent-hover: #d96627;
+  --color-field: #3f5b88; /* fondo de los campos */
+  --color-panel: #1f3354; /* fondo del panel "Agenda" */
   --color-text-eyebrow: var(--color-accent);
 }
