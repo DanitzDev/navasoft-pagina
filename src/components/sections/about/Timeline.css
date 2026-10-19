@@ -1,0 +1,326 @@
+/* Estilos de Historia aislados del Navbar, Footer y componentes compartidos. */
+.history-section {
+  padding-block: 48px;
+}
+.history-selector-scroll {
+  margin-block: 28px 24px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-hover) transparent;
+}
+.history-rail {
+  position: relative;
+  min-width: calc(var(--history-count) * 96px);
+  height: 140px;
+}
+.history-wave {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  overflow: visible;
+  pointer-events: none;
+}
+.history-wave path {
+  fill: none;
+  stroke: #465165;
+  stroke-width: 14px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.history-wave .history-wave-progress {
+  stroke: var(--color-accent);
+}
+.history-mobile-track {
+  display: none;
+}
+.history-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--history-count), minmax(0, 1fr));
+  margin: 0;
+  padding: 32px 0 0;
+  list-style: none;
+}
+.history-step {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+.history-step:nth-child(even) {
+  transform: translateY(22px);
+}
+.history-step-button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 64px;
+  min-height: 62px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #c1cad7;
+  cursor: pointer;
+}
+/* Mantener el centro del punto alineado con el trazado al ampliar el botón. */
+.history-step-dot-area {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+.history-step-dot {
+  width: 22px;
+  height: 22px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  background: #182334;
+}
+.history-step-button[data-complete] {
+  color: var(--color-accent);
+}
+.history-step-button[data-complete] .history-step-dot {
+  background: var(--color-accent);
+}
+.history-step-button[aria-pressed='true'] {
+  color: #ffd1b1;
+}
+.history-step-button[aria-pressed='true'] .history-step-dot {
+  border-width: 5px;
+  background: var(--color-accent);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 7px rgb(244 126 32 / 22%);
+}
+.history-step-button:hover {
+  color: #f5f7fb;
+}
+.history-step-button:hover .history-step-dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 6px rgb(244 126 32 / 16%);
+}
+.history-step-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+.history-step-year {
+  font-size: 13px;
+  font-weight: 600;
+  color: #d3dbe6;
+}
+.history-placeholder {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: #bac5d426;
+}
+.history-step-label {
+  width: 42px;
+}
+.history-step:has([aria-pressed='true']) .history-step-label {
+  background: var(--color-accent);
+}
+.history-step:has([aria-pressed='true']) .history-step-year,
+.history-step:has(.history-step-button:hover) .history-step-year,
+.history-step:has(.history-step-button:focus-visible) .history-step-year {
+  color: #f5f7fb;
+}
+.history-detail-transition {
+  position: relative;
+  --history-enter-x: 12px;
+  --history-exit-x: -12px;
+}
+.history-detail-transition[data-direction='backward'] {
+  --history-enter-x: -12px;
+  --history-exit-x: 12px;
+}
+.history-detail-outgoing {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.history-detail {
+  display: grid;
+  gap: 24px;
+  padding: 20px;
+  border: 1px solid #ffffff26;
+  border-radius: 20px;
+  background: #ffffff04;
+}
+.history-detail-copy {
+  min-width: 0;
+  align-self: center;
+}
+.history-year {
+  margin: 0 0 12px;
+  color: #bac5d4;
+  font-size: 13px;
+}
+.history-detail h3 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.history-description {
+  margin: 0;
+  color: #d3dbe6;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.history-copy-placeholder {
+  display: grid;
+  gap: 12px;
+}
+.history-placeholder-year {
+  width: 52px;
+  height: 22px;
+  margin-bottom: 6px;
+}
+.history-placeholder-title {
+  width: 90%;
+  height: 18px;
+}
+.history-placeholder-title-short {
+  width: 65%;
+  height: 18px;
+}
+.history-placeholder-paragraph {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+.history-placeholder-short {
+  width: 70%;
+}
+.history-image {
+  min-width: 0;
+  aspect-ratio: 8 / 5;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.history-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.history-image-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed #ffffff40;
+  border-radius: inherit;
+  background: #415c851f;
+}
+.history-image-placeholder span {
+  width: 36%;
+  height: 30%;
+  border-radius: 8px;
+  background: #5c7e9826;
+}
+@media (max-width: 639px) {
+  /* En móvil el recorrido se simplifica y permite desplazar los años. */
+  .history-wave {
+    display: none;
+  }
+  .history-mobile-track {
+    display: block;
+    position: absolute;
+    top: 53px;
+    left: calc(50% / var(--history-count));
+    right: calc(50% / var(--history-count));
+    height: 3px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #465165;
+  }
+  .history-mobile-track::after {
+    content: '';
+    display: block;
+    width: calc(var(--history-progress) * 100%);
+    height: 100%;
+    background: var(--color-accent);
+  }
+  .history-step:nth-child(even) {
+    transform: none;
+  }
+  .history-rail {
+    height: 110px;
+  }
+  .history-detail {
+    padding: 16px;
+  }
+}
+@media (min-width: 768px) {
+  .history-section {
+    padding-block: 64px;
+  }
+  .history-detail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 24px;
+  }
+}
+/* No hay avance automático ni efectos de carga: solo responde a la selección. */
+@media (prefers-reduced-motion: no-preference) {
+  .history-step-button {
+    transition: color 180ms ease;
+  }
+  .history-step-dot {
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+  .history-step-year,
+  .history-step-label {
+    transition:
+      color 180ms ease,
+      background-color 180ms ease;
+  }
+  .history-progress-clip {
+    transition: width 360ms ease;
+  }
+  .history-mobile-track::after {
+    transition: width 360ms ease;
+  }
+  .history-detail-current {
+    animation: history-detail-enter 260ms ease both;
+  }
+  .history-detail-outgoing {
+    display: block;
+    animation: history-detail-exit 180ms ease both;
+  }
+}
+@keyframes history-detail-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--history-enter-x));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes history-detail-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(var(--history-exit-x));
+  }
+}
+/* El escalado también se omite cuando se solicita reducir el movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .history-step-button .history-step-dot {
+    transform: none;
+  }
+}
