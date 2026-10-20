@@ -32,7 +32,12 @@ export default function Timeline({
   const selector = useRef<HTMLDivElement>(null)
   const stepButtons = useRef<Array<HTMLButtonElement | null>>([])
   const instanceId = useId()
-  const steps = items.length ? items : preview ? previewSteps : []
+  // Ordenar una copia conserva el catálogo original y la selección por id.
+  const steps = items.length
+    ? [...items].sort((first, second) => first.year - second.year)
+    : preview
+      ? previewSteps
+      : []
   const selected = steps.find((step) => step.id === selectedId) ?? steps.at(0)
 
   // La vista provisional se activa explícitamente; no publicar una sección vacía.

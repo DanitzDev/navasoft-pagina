@@ -4,6 +4,9 @@ type MilestoneProps = { milestone?: HistoryMilestone }
 
 // Una imagen ausente conserva su espacio sin solicitar un archivo inexistente.
 export default function Milestone({ milestone }: MilestoneProps) {
+  const image = milestone?.image
+  const imageSource = image?.src.trim()
+
   return (
     <div className="history-detail">
       <div className="history-detail-copy">
@@ -31,10 +34,10 @@ export default function Milestone({ milestone }: MilestoneProps) {
         )}
       </div>
       <div className="history-image">
-        {milestone?.image ? (
+        {image && imageSource ? (
           <img
-            src={milestone.image.src}
-            alt={milestone.image.alt}
+            src={imageSource}
+            alt={image.alt}
             loading="lazy"
             width="640"
             height="400"
