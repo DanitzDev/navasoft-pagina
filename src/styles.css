@@ -1,8 +1,17 @@
+@import 'tailwindcss';
 
-@import "tailwindcss";
+/* Fuente compartida por el sitio y los componentes del Navbar. */
+@theme {
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+}
 
 * {
   box-sizing: border-box;
+}
+
+/* Evita saltos laterales al bloquear el scroll detrás del menú móvil. */
+html {
+  scrollbar-gutter: stable;
 }
 
 html,

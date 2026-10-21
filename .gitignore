@@ -11,3 +11,6 @@ dist-ssr
 .vinxi
 __unconfig*
 todos.json
+
+# Registro local de ejecución, sin contenido del proyecto.
+salida.txt

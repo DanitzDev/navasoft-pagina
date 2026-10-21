@@ -1,11 +1,14 @@
+import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute } from '@tanstack/react-router'
 import { Hero } from "@/components/sections/home/Hero";
 import { GovernmentSection } from "@/components/sections/home/GovernmentSection";
 import { AreasSection } from "@/components/sections/home/AreasSection";
 
-export const Route = createFileRoute("/")({
+
+export const Route = createFileRoute('/')({
   component: Home,
-});
+})
+
 
 function Home() {
   return (
