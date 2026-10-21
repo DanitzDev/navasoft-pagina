@@ -10,33 +10,111 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CasosDeExitoRouteImport } from './routes/casos-de-exito'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as OportunidadesRouteImport } from './routes/oportunidades'
+import { Route as ProductosRouteImport } from './routes/productos'
+import { Route as ProductosIndexRouteImport } from './routes/productos/index'
+import { Route as ProductosSlugRouteImport } from './routes/productos/slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CasosDeExitoRoute = CasosDeExitoRouteImport.update({
+  id: '/casos-de-exito',
+  path: '/casos-de-exito',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OportunidadesRoute = OportunidadesRouteImport.update({
+  id: '/oportunidades',
+  path: '/oportunidades',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductosRoute = ProductosRouteImport.update({
+  id: '/productos',
+  path: '/productos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductosIndexRoute = ProductosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductosRoute,
+} as any)
+const ProductosSlugRoute = ProductosSlugRouteImport.update({
+  id: '/slug',
+  path: '/slug',
+  getParentRoute: () => ProductosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/contacto': typeof ContactoRoute
+  '/oportunidades': typeof OportunidadesRoute
+  '/productos': typeof ProductosRouteWithChildren
+  '/productos/slug': typeof ProductosSlugRoute
+  '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/contacto': typeof ContactoRoute
+  '/oportunidades': typeof OportunidadesRoute
+  '/productos/slug': typeof ProductosSlugRoute
+  '/productos': typeof ProductosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/contacto': typeof ContactoRoute
+  '/oportunidades': typeof OportunidadesRoute
+  '/productos': typeof ProductosRouteWithChildren
+  '/productos/slug': typeof ProductosSlugRoute
+  '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/casos-de-exito'
+    | '/contacto'
+    | '/oportunidades'
+    | '/productos'
+    | '/productos/slug'
+    | '/productos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/casos-de-exito'
+    | '/contacto'
+    | '/oportunidades'
+    | '/productos/slug'
+    | '/productos'
+  id:
+    | '__root__'
+    | '/'
+    | '/casos-de-exito'
+    | '/contacto'
+    | '/oportunidades'
+    | '/productos'
+    | '/productos/slug'
+    | '/productos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CasosDeExitoRoute: typeof CasosDeExitoRoute
+  ContactoRoute: typeof ContactoRoute
+  OportunidadesRoute: typeof OportunidadesRoute
+  ProductosRoute: typeof ProductosRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,12 +126,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/casos-de-exito': {
+      id: '/casos-de-exito'
+      path: '/casos-de-exito'
+      fullPath: '/casos-de-exito'
+      preLoaderRoute: typeof CasosDeExitoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oportunidades': {
+      id: '/oportunidades'
+      path: '/oportunidades'
+      fullPath: '/oportunidades'
+      preLoaderRoute: typeof OportunidadesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/productos': {
+      id: '/productos'
+      path: '/productos'
+      fullPath: '/productos'
+      preLoaderRoute: typeof ProductosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/productos/': {
+      id: '/productos/'
+      path: '/'
+      fullPath: '/productos/'
+      preLoaderRoute: typeof ProductosIndexRouteImport
+      parentRoute: typeof ProductosRoute
+    }
+    '/productos/slug': {
+      id: '/productos/slug'
+      path: '/slug'
+      fullPath: '/productos/slug'
+      preLoaderRoute: typeof ProductosSlugRouteImport
+      parentRoute: typeof ProductosRoute
+    }
   }
 }
 
+interface ProductosRouteChildren {
+  ProductosSlugRoute: typeof ProductosSlugRoute
+  ProductosIndexRoute: typeof ProductosIndexRoute
+}
+
+const ProductosRouteChildren: ProductosRouteChildren = {
+  ProductosSlugRoute: ProductosSlugRoute,
+  ProductosIndexRoute: ProductosIndexRoute,
+}
+
+const ProductosRouteWithChildren = ProductosRoute._addFileChildren(
+  ProductosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CasosDeExitoRoute: CasosDeExitoRoute,
+  ContactoRoute: ContactoRoute,
+  OportunidadesRoute: OportunidadesRoute,
+  ProductosRoute: ProductosRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
