@@ -1,9 +1,9 @@
 /* Estilos de Historia aislados del Navbar, Footer y componentes compartidos. */
 .history-section {
-  padding-block: 48px;
+  padding-block: 36px;
 }
 .history-selector-scroll {
-  margin-block: 28px 24px;
+  margin-block: 20px;
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary-hover) transparent;
@@ -49,15 +49,16 @@
   flex-direction: column;
   gap: 8px;
 }
-.history-step:nth-child(even) {
+/* Solo los puntos siguen la onda; las fechas comparten una línea base. */
+.history-step:nth-child(even) .history-step-dot-area {
   transform: translateY(22px);
 }
 .history-step-button {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 8px;
-  min-width: 64px;
+  gap: 30px;
+  min-width: 88px;
   min-height: 62px;
   padding: 0;
   border: 0;
@@ -81,36 +82,49 @@
   border-radius: 50%;
   background: #182334;
 }
+/* Los puntos recorridos son más suaves; el borde separa el círculo del trazado. */
 .history-step-button[data-complete] {
-  color: var(--color-accent);
+  color: color-mix(in srgb, var(--color-accent) 70%, #c1cad7);
 }
 .history-step-button[data-complete] .history-step-dot {
-  background: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 35%, #182334);
+  box-shadow: 0 0 0 3px #0d1522;
 }
 .history-step-button[aria-pressed='true'] {
   color: #ffd1b1;
 }
 .history-step-button[aria-pressed='true'] .history-step-dot {
   border-width: 5px;
-  background: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 75%, #182334);
   transform: scale(1.15);
   box-shadow: 0 0 0 7px rgb(244 126 32 / 22%);
 }
-.history-step-button:hover {
-  color: #f5f7fb;
-}
-.history-step-button:hover .history-step-dot {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 6px rgb(244 126 32 / 16%);
+/* El hover solo se aplica con ratón para evitar resaltados persistentes al tocar. */
+@media (hover: hover) and (pointer: fine) {
+  .history-step-button:hover {
+    color: #f5f7fb;
+  }
+  .history-step-button:hover .history-step-dot {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgb(244 126 32 / 16%);
+  }
+  .history-step:has(.history-step-button:hover) .history-step-year {
+    color: #f5f7fb;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
 }
 .history-step-button:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 .history-step-year {
-  font-size: 13px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
   font-weight: 600;
-  color: #d3dbe6;
+  line-height: 22px;
+  color: #e1e7ef;
 }
 .history-placeholder {
   display: block;
@@ -125,12 +139,14 @@
   background: var(--color-accent);
 }
 .history-step:has([aria-pressed='true']) .history-step-year,
-.history-step:has(.history-step-button:hover) .history-step-year,
 .history-step:has(.history-step-button:focus-visible) .history-step-year {
   color: #f5f7fb;
 }
 .history-detail-transition {
   position: relative;
+  /* Evitar que un hito saliente más largo invada las secciones inferiores al cambiar. */
+  overflow: clip;
+  border-radius: 20px;
   --history-enter-x: 12px;
   --history-exit-x: -12px;
 }
@@ -154,24 +170,26 @@
 }
 .history-detail-copy {
   min-width: 0;
-  align-self: center;
+  overflow-wrap: anywhere;
+  /* El texto comienza junto a la imagen, incluso en hitos de pocas líneas. */
+  align-self: start;
 }
 .history-year {
   margin: 0 0 12px;
-  color: #bac5d4;
-  font-size: 13px;
+  color: #d3dbe6;
+  font-size: 14px;
 }
 .history-detail h3 {
   margin: 0 0 16px;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.4;
 }
 .history-description {
   margin: 0;
-  color: #d3dbe6;
-  font-size: 14px;
-  line-height: 1.7;
+  color: #e1e7ef;
+  font-size: 16px;
+  line-height: 1.75;
 }
 .history-copy-placeholder {
   display: grid;
@@ -200,6 +218,7 @@
 }
 .history-image {
   min-width: 0;
+  align-self: start;
   aspect-ratio: 8 / 5;
   overflow: hidden;
   border-radius: 12px;
@@ -219,6 +238,14 @@
   border-radius: inherit;
   background: #415c851f;
 }
+.history-image-error {
+  margin: 0;
+  padding: 16px;
+  color: #d3dbe6;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
 .history-image-placeholder span {
   width: 36%;
   height: 30%;
@@ -226,6 +253,10 @@
   background: #5c7e9826;
 }
 @media (max-width: 639px) {
+  /* En móvil los períodos largos necesitan más separación; escritorio conserva su ancho. */
+  .history-rail {
+    min-width: calc(var(--history-count) * 120px);
+  }
   /* En móvil el recorrido se simplifica y permite desplazar los años. */
   .history-wave {
     display: none;
@@ -248,11 +279,14 @@
     height: 100%;
     background: var(--color-accent);
   }
-  .history-step:nth-child(even) {
+  .history-step:nth-child(even) .history-step-dot-area {
     transform: none;
   }
+  .history-step-button {
+    gap: 8px;
+  }
   .history-rail {
-    height: 110px;
+    height: 118px;
   }
   .history-detail {
     padding: 16px;
@@ -260,11 +294,17 @@
 }
 @media (min-width: 768px) {
   .history-section {
-    padding-block: 64px;
+    padding-block: 44px;
   }
   .history-detail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  .history-detail {
+    /* Fracciones para repartir el espacio disponible sin sumar el gap al 100%. */
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
   }
 }
 /* No hay avance automático ni efectos de carga: solo responde a la selección. */
@@ -322,5 +362,124 @@
 @media (prefers-reduced-motion: reduce) {
   .history-step-button .history-step-dot {
     transform: none;
+  }
+}
+
+/* Solo se muestra cuando el recorrido supera el ancho disponible. */
+.history-scroll-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: -12px 0 24px;
+  color: #bac5d4;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.history-scroll-hint span {
+  color: var(--color-accent);
+  font-size: 18px;
+}
+
+/* Listas del material recibido; el detalle de 2026 crece sin recortar el contenido. */
+.history-highlights {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+  color: #e1e7ef;
+  font-size: 16px;
+  line-height: 1.75;
+  list-style: disc;
+}
+.history-highlights li::marker {
+  color: var(--color-accent);
+}
+.history-subsections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.history-subsections > li {
+  min-width: 0;
+  padding-left: 12px;
+  border-left: 2px solid rgb(244 126 32 / 45%);
+}
+.history-subsections h4,
+.history-recognition h4 {
+  margin: 0 0 6px;
+  color: #f5f7fb;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.history-subsections h4 {
+  font-size: 18px;
+}
+/* El reconocimiento cierra el hito a todo lo ancho, separado del catálogo de productos. */
+.history-recognition {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #ffffff26;
+}
+.history-recognition > div {
+  min-width: 0;
+}
+.history-recognition > svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.history-instructions {
+  margin: 16px 0 0;
+  color: #d3dbe6;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+.history-step-button[aria-pressed='true'] .history-step-year,
+.history-step-button:focus-visible .history-step-year {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+/* El lanzamiento tiene una cabecera común y una lista vertical junto a su imagen. */
+.history-detail-products .history-detail-copy {
+  display: contents;
+}
+.history-detail-products .history-detail-heading {
+  grid-column: 1 / -1;
+}
+.history-detail-products .history-detail-heading h3 {
+  margin-bottom: 0;
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.3;
+}
+.history-detail-products .history-recognition h4 {
+  font-size: 18px;
+}
+@media (min-width: 768px) {
+  .history-detail-products .history-image {
+    position: relative;
+    align-self: stretch;
+    min-height: 320px;
+    aspect-ratio: auto;
+  }
+  .history-detail-products .history-image img,
+  .history-detail-products .history-image-placeholder {
+    position: absolute;
+    inset: 0;
   }
 }

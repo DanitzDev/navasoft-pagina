@@ -1,11 +1,14 @@
-import { useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { CSSProperties, KeyboardEvent } from 'react'
-import { history } from '../../../data/history'
-import type { HistoryMilestone } from '../../../data/history'
-import { Container } from '../../ui/Container'
-import { SectionTitle } from '../../ui/SectionTitle'
+import { history } from '../../../../data/history'
+import { historyPreview } from '../../../../data/history-preview'
+import type { HistoryMilestone } from '../../../../data/history'
+import { Container } from '../../../ui/Container'
+import { SectionTitle } from '../../../ui/SectionTitle'
 import Milestone from './Milestone'
+import { formatHistoryPeriod } from './history-period'
 import { createTimelinePath, getTimelineProgress } from './timeline-geometry'
+import { centerTimelineStep } from './timeline-scroll'
 import './Timeline.css'
 
 type TimelineProps = {
@@ -13,16 +16,11 @@ type TimelineProps = {
   preview?: boolean
 }
 
-// Estos puntos son espacios de maquetación: no representan años ni hitos reales.
-const previewSteps = Array.from({ length: 5 }, (_, index) => ({
-  id: `pending-${index}`,
-  year: undefined,
-}))
-
 export default function Timeline({
   items = history,
   preview = false,
 }: TimelineProps) {
+  const [hasOverflow, setHasOverflow] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward')
   const [outgoing, setOutgoing] = useState<{
@@ -30,21 +28,54 @@ export default function Timeline({
     milestone?: HistoryMilestone
   } | null>(null)
   const selector = useRef<HTMLDivElement>(null)
+  const rail = useRef<HTMLDivElement>(null)
   const stepButtons = useRef<Array<HTMLButtonElement | null>>([])
   const instanceId = useId()
+  // Priorizar el catálogo oficial. La muestra solo se usa si no hay datos y se pide preview.
+  const milestones = items.length ? items : preview ? historyPreview : []
   // Ordenar una copia conserva el catálogo original y la selección por id.
-  const steps = items.length
-    ? [...items].sort((first, second) => first.year - second.year)
-    : preview
-      ? previewSteps
-      : []
+  const steps = [...milestones].sort(
+    (first, second) => first.year - second.year,
+  )
   const selected = steps.find((step) => step.id === selectedId) ?? steps.at(0)
+
+  // Medir el ancho real evita mostrar una instrucción innecesaria en tablet o escritorio.
+  useEffect(() => {
+    const panel = selector.current
+    const track = rail.current
+    if (!panel || !track) return
+    let previousWidth = panel.clientWidth
+    const measure = () => {
+      // Medir el recorrido, no el desbordamiento visual del SVG y sus efectos.
+      setHasOverflow(
+        track.getBoundingClientRect().width > panel.clientWidth + 1,
+      )
+      // Al rotar o reducir la pantalla, mantener visible el año seleccionado.
+      if (previousWidth !== panel.clientWidth) {
+        const activeButton = panel.querySelector<HTMLButtonElement>(
+          '[aria-pressed="true"]',
+        )
+        if (activeButton) centerTimelineStep(panel, activeButton, 'auto')
+        previousWidth = panel.clientWidth
+      }
+    }
+    measure()
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', measure)
+      return () => window.removeEventListener('resize', measure)
+    }
+    const observer = new ResizeObserver(measure)
+    observer.observe(panel)
+    observer.observe(track)
+    return () => observer.disconnect()
+  }, [steps.length])
 
   // La vista provisional se activa explícitamente; no publicar una sección vacía.
   if (!selected) return null
 
   const activeId = selected.id
-  const milestone = items.find((item) => item.id === activeId)
+  // El registro seleccionado ya incluye texto e imagen; no volver a buscar en ambos catálogos.
+  const milestone = selected
   const detailId = `${instanceId}-detail`
   const selectedIndex = steps.findIndex((step) => step.id === activeId)
   const { progress, clipWidth } = getTimelineProgress(
@@ -80,17 +111,8 @@ export default function Timeline({
 
     // Desplazar solo el selector horizontal, sin mover la página hacia arriba.
     const panel = selector.current
-    if (panel && button && panel.scrollWidth > panel.clientWidth) {
-      const panelBounds = panel.getBoundingClientRect()
-      const buttonBounds = button.getBoundingClientRect()
-      panel.scrollTo({
-        left:
-          panel.scrollLeft +
-          buttonBounds.left +
-          buttonBounds.width / 2 -
-          (panelBounds.left + panelBounds.width / 2),
-        behavior: reduceMotion ? 'auto' : 'smooth',
-      })
+    if (panel && button) {
+      centerTimelineStep(panel, button, reduceMotion ? 'auto' : 'smooth')
     }
   }
 
@@ -126,11 +148,18 @@ export default function Timeline({
     <Container
       as="section"
       className="history-section max-w-6xl lg:px-6"
-      aria-label="Historia de Navasoft"
+      aria-label="Historia de Navasoft Soluciones"
     >
       <SectionTitle title="Nuestra historia" align="center" />
-      <div ref={selector} className="history-selector-scroll">
-        <div className="history-rail" style={style}>
+      <p id={`${instanceId}-instructions`} className="history-instructions">
+        Selecciona un año para conocer sus acontecimientos.
+      </p>
+      <div
+        ref={selector}
+        className="history-selector-scroll"
+        aria-describedby={`${instanceId}-instructions${hasOverflow ? ` ${instanceId}-scroll-hint` : ''}`}
+      >
+        <div ref={rail} className="history-rail" style={style}>
           <div className="history-mobile-track" aria-hidden="true" />
           <svg
             className="history-wave"
@@ -160,46 +189,44 @@ export default function Timeline({
           </svg>
           <ol
             className="history-steps"
-            aria-label="Acontecimientos de Navasoft"
+            aria-label="Acontecimientos de Navasoft Soluciones"
           >
-            {steps.map((step, index) => (
-              <li key={step.id} className="history-step">
-                {/* Tab, Enter y Espacio siguen siendo nativos; las flechas son un atajo. */}
-                <button
-                  ref={(button) => {
-                    stepButtons.current[index] = button
-                  }}
-                  type="button"
-                  className="history-step-button"
-                  data-complete={index < selectedIndex || undefined}
-                  aria-pressed={step.id === activeId}
-                  aria-controls={detailId}
-                  aria-label={
-                    step.year !== undefined
-                      ? `Ver acontecimiento de ${step.year}`
-                      : `Espacio ${index + 1}, contenido pendiente`
-                  }
-                  onClick={() => selectStep(index)}
-                  onKeyDown={(event) => handleStepKeyDown(event, index)}
-                >
-                  {/* El punto y su fecha forman una única zona de selección. */}
-                  <span className="history-step-dot-area" aria-hidden="true">
-                    <span className="history-step-dot" />
-                  </span>
-                  {step.year !== undefined ? (
-                    <span className="history-step-year">{step.year}</span>
-                  ) : (
-                    <span
-                      className="history-placeholder history-step-label"
-                      aria-hidden="true"
-                    />
-                  )}
-                </button>
-              </li>
-            ))}
+            {steps.map((step, index) => {
+              const eventTitle = step.title
+              const period = formatHistoryPeriod(step)
+              return (
+                <li key={step.id} className="history-step">
+                  {/* Tab, Enter y Espacio siguen siendo nativos; las flechas son un atajo. */}
+                  <button
+                    ref={(button) => {
+                      stepButtons.current[index] = button
+                    }}
+                    type="button"
+                    className="history-step-button"
+                    data-complete={index < selectedIndex || undefined}
+                    aria-pressed={step.id === activeId}
+                    aria-controls={detailId}
+                    aria-label={`Ver acontecimiento de ${period}${eventTitle ? `: ${eventTitle}` : ''}`}
+                    onClick={() => selectStep(index)}
+                    onKeyDown={(event) => handleStepKeyDown(event, index)}
+                  >
+                    {/* El punto y su fecha forman una única zona de selección. */}
+                    <span className="history-step-dot-area" aria-hidden="true">
+                      <span className="history-step-dot" />
+                    </span>
+                    <span className="history-step-year">{period}</span>
+                  </button>
+                </li>
+              )
+            })}
           </ol>
         </div>
       </div>
+      {hasOverflow && (
+        <p id={`${instanceId}-scroll-hint`} className="history-scroll-hint">
+          Desliza para ver todos los años <span aria-hidden="true">↔</span>
+        </p>
+      )}
       <div
         id={detailId}
         className="history-detail-transition"

@@ -1,19 +1,44 @@
+import InstitutionalBanner from '../components/shared/institutional-banner/InstitutionalBanner'
+import { companyIntroduction } from '../data/about'
+import { contactBanner } from '../data/site'
+import BusinessAreas from '../components/sections/about/business/BusinessAreas'
+import Timeline from '../components/sections/about/timeline/Timeline'
+import CompanyPurpose from '../components/sections/about/purpose/CompanyPurpose'
+import CompanyValues from '../components/sections/about/values/CompanyValues'
+import { Container } from '../components/ui/Container'
+import '../components/sections/about/styles/About.css'
 import { SectionTitle } from '../components/ui/SectionTitle'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/nosotros')({
-  head: () => ({ meta: [{ title: 'Nosotros · Navasoft Soluciones' }] }),
+  head: () => ({
+    meta: [
+      { title: 'Nosotros · Navasoft Soluciones' },
+      { name: 'description', content: companyIntroduction.metaDescription },
+    ],
+  }),
   component: AboutPage,
 })
 
 function AboutPage() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: incorporar el contenido aprobado de esta página. */}
-      <SectionTitle as="h1" title="Nosotros" />
-      <p className="mt-4 text-lg">
-        El contenido de esta página estará disponible próximamente.
-      </p>
-    </section>
+    <>
+      <Container className="about-page max-w-6xl lg:px-6">
+        <SectionTitle
+          as="h1"
+          title="Nosotros"
+          description={companyIntroduction.text}
+          className="about-page-heading"
+        />
+        <CompanyPurpose />
+      </Container>
+      {/* Trayectoria recibida; las imágenes de los hitos permanecen como referencia. */}
+      <Timeline />
+      <Container className="about-page-bottom max-w-6xl lg:px-6">
+        <CompanyValues />
+        <BusinessAreas />
+      </Container>
+      <InstitutionalBanner {...contactBanner} />
+    </>
   )
 }

@@ -20,7 +20,11 @@ export const companyPurpose = [
     description:
       'Ser una empresa líder en soluciones tecnológicas innovadoras, reconocida como un aliado estratégico en la transformación digital de las organizaciones, generando valor sostenible, eficiencia y competitividad.',
   },
-]
+] as const
+
+// Compartir estos tipos evita aceptar identificadores que no existen en el catálogo.
+export type CompanyPurposeItem = (typeof companyPurpose)[number]
+export type CompanyPurposeId = CompanyPurposeItem['id']
 
 export const companyValues = [
   { id: 'commitment-innovation', title: 'Compromiso e innovación' },
@@ -31,3 +35,7 @@ export const companyValues = [
 ] as const
 
 export type CompanyValueId = (typeof companyValues)[number]['id']
+
+// Eslogan incluido en el material institucional recibido.
+export const institutionalPhrase =
+  'Tecnología que innova, soluciones que transforman.'
