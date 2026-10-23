@@ -3,8 +3,8 @@ import { cn } from '@/lib/cn'
 import { Link } from '@tanstack/react-router'
 import type { LinkComponentProps } from '@tanstack/react-router'
 
-type ButtonVariant = 'primary' | 'secondary'
-type ButtonSize = 'sm' | 'md' | 'lg'
+type ButtonVariant = "primary" | "secondary" | "outline";
+type ButtonSize = 'sm' | 'md' | 'lg';
 
 // Las variantes son compartidas. Los eventos nativos pertenecen a Button o Link.
 interface StyleProps {
@@ -21,11 +21,12 @@ const base =
 
 // Record<K, T> (key, Type)
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-accent text-black shadow-sm hover:bg-accent-hover',
+  primary: "bg-accent text-black shadow-sm hover:bg-accent-hover",
   // El azul claro del hover necesita texto negro para conservar el contraste.
-  secondary:
-    'bg-primary text-white shadow-sm hover:bg-primary-hover hover:text-black',
-}
+  secondary: "bg-primary text-white shadow-sm hover:bg-primary-hover",
+
+  outline: "border border-white/40 bg-transparent text-white hover:bg-white/10",
+};
 
 const sizes: Record<ButtonSize, string> = {
   sm: 'px-4 py-2 text-sm',

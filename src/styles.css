@@ -71,6 +71,9 @@ body {
   --color-panel: #1f3354;
   /* fondo del panel "Agenda" */
   --color-text-eyebrow: var(--color-accent);
-  
+  --color-text-eyebrow2: #ffd4b0;
+
+
   --color-night: #131a2b;
+  --color-deep: #0f1626;
 }

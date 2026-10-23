@@ -3,6 +3,7 @@ export type Product = {
     name: string;
     category: string;
     tagline: string;
+    detail?: string;
     image: string;
     features: string[];
 };

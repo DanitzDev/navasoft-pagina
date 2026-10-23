@@ -6,7 +6,7 @@ import { institutions } from "@/data/government";
 
 export function GovernmentSection() {
     return (
-        <section className="bg-night py-20 text-white">
+        <section className="py-20 text-white border-y border-primary/60 bg-deep"> 
             <Container>
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <SectionTitle
@@ -15,7 +15,7 @@ export function GovernmentSection() {
                         description="Trabajamos junto a organizaciones públicas para modernizar procesos, optimizar la gestión y generar mejores servicios para la ciudadanía."
                         className="max-w-2xl"
                     />
-                    <ArrowLink to="/areas/$slug" params={{ slug: "gobierno" }} className="shrink-0">
+                    <ArrowLink to="/areas/$slug" params={{ slug: "gobierno" }} className="shrink-0 text-text-eyebrow2">
                         Ver proyectos de gobierno
                     </ArrowLink>
                 </div>

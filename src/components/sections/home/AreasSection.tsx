@@ -43,11 +43,13 @@ export function AreasSection() {
     return (
         <section className="bg-night py-20 text-white">
             <Container>
-                <SectionTitle
-                    eyebrow="Nuestras áreas"
-                    title="Cuatro áreas. Una misma visión de innovación."
-                    description="Transformamos experiencia, conocimiento y tecnología en soluciones que generan impacto para gobiernos, empresas, comunidades e industrias."
-                />
+                <div className="[&_span]:text-text-eyebrow"> {/* o [&_span]:text-accent según qué etiqueta use para el eyebrow */}
+                    <SectionTitle
+                        eyebrow="Nuestras áreas"
+                        title="Cuatro áreas. Una misma visión de innovación."
+                        description="Transformamos experiencia, conocimiento y tecnología en..."
+                    />
+                </div>
 
                 {/* Navegador por pasos */}
                 <nav aria-label="Áreas" className="mt-10 flex flex-wrap items-center gap-y-3">
