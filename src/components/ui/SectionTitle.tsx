@@ -8,6 +8,8 @@ type SectionTitleProps = {
   align?: 'left' | 'center'
   as?: 'h1' | 'h2' | 'h3'
   className?: string
+  titleClassName?: string;
+  descriptionClassName?: string;
 }
 
 export function SectionTitle({
@@ -17,6 +19,8 @@ export function SectionTitle({
   align = 'left',
   as: Heading = 'h2',
   className,
+  titleClassName,
+  descriptionClassName,
 }: SectionTitleProps) {
   // Recibe props para personalizar el título de la sección, incluyendo un "eyebrow", el título principal, una descripción opcional, alineación, el tipo de encabezado y clases adicionales
   const isCenter = align === 'center'
@@ -32,8 +36,8 @@ export function SectionTitle({
       {eyebrow && (
         <span
           className={cn(
-            'font-montserratregular font-normal text-sm uppercase tracking-widest',
-            'text-text-eyebrow',
+            'font-montserratregular font-semibold text-sm uppercase tracking-widest',
+            'text-text-eyebrow2',
           )}
         >
           {eyebrow}
@@ -43,7 +47,7 @@ export function SectionTitle({
       <Heading
         className={cn(
           'font-poppins text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl',
-          'text-white',
+          'text-white', titleClassName,
         )}
       >
         {title}
@@ -52,8 +56,9 @@ export function SectionTitle({
       {description && (
         <p
           className={cn(
-            'font-montserratregular font-normal text-base leading-relaxed sm:text-lg',
+            'font-montserratregular font-medium text-base leading-relaxed sm:text-lg',
             'text-slate-300',
+            descriptionClassName,
           )}
         >
           {description}
