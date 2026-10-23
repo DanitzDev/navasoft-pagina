@@ -9,7 +9,7 @@ type CompanyValue = (typeof companyValues)[number]
 function ValueItem({ value }: { value: CompanyValue }) {
   return (
     <li>
-      <Card className="about-value-card border-white/10 bg-transparent shadow-none">
+      <Card className="about-value-card">
         <CardContent className="about-value-content items-center text-center">
           <span className="about-value-icon">
             <ValueIcon value={value.id} />

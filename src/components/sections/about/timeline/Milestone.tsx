@@ -14,6 +14,13 @@ export default function Milestone({ milestone }: MilestoneProps) {
 
   return (
     <div
+      role="region"
+      aria-label={
+        milestone
+          ? `Detalle de ${formatHistoryPeriod(milestone)}`
+          : 'Detalle del acontecimiento'
+      }
+      tabIndex={0}
       className={
         milestone?.sections?.length
           ? 'history-detail history-detail-products'

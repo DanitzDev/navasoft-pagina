@@ -1,13 +1,34 @@
-/* Ritmo y jerarquía de Nosotros; Historia mantiene sus estilos independientes. */
+/* Una misma escala organiza las secciones; la tarjeta de Historia conserva sus efectos. */
+.about-content {
+  --about-section-space: clamp(64px, 8vw, 112px);
+  --about-card-border: #ffffff14;
+  --about-card-surface: #121d2c;
+  --about-text-secondary: #d3dbe6;
+}
 .about-page {
   padding-block: clamp(32px, 5vw, 56px) 0;
 }
+.about-introduction {
+  display: grid;
+  gap: 16px;
+  max-width: 80ch;
+  margin-bottom: var(--about-section-space);
+}
 .about-page-heading {
-  margin-bottom: clamp(28px, 4vw, 40px);
+  max-width: none;
+}
+.about-page-heading h1 {
+  color: var(--color-accent);
+}
+.about-introduction-detail {
+  margin: 0;
+  color: var(--about-text-secondary);
+  font-size: 16px;
+  line-height: 1.7;
 }
 .about-page-heading p {
-  max-width: 68ch;
-  font-size: 16px;
+  max-width: none;
+  font-size: clamp(18px, 2vw, 22px);
   line-height: 1.7;
 }
 
@@ -15,32 +36,45 @@
 .about-purpose-flow {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
+  gap: 24px;
+}
+.about-purpose-panel,
+.about-value-card {
+  border: 1px solid var(--about-card-border);
+  border-radius: 18px;
+  background: var(--about-card-surface);
+  box-shadow: inset 0 1px 0 #ffffff04;
 }
 .about-purpose-panel {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 20px;
+  padding: clamp(24px, 3.5vw, 40px);
+}
+.about-purpose-header {
+  display: flex;
+  align-items: center;
   gap: 16px;
-  padding: 24px;
-  border: 1px solid #ffffff26;
-  border-radius: 12px;
-  background: #ffffff03;
+  width: 100%;
 }
 .about-purpose-copy {
   min-width: 0;
 }
 .about-purpose-title {
-  margin-bottom: 16px;
+  min-width: 0;
+  margin: 0;
 }
 .about-purpose-title h2 {
-  font-size: 24px;
+  font-size: clamp(24px, 2.5vw, 30px);
   line-height: 1.3;
 }
 .about-purpose-symbol {
-  display: block;
-  width: 48px;
-  height: 48px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
   color: var(--color-accent);
 }
 .about-purpose-symbol svg {
@@ -54,25 +88,33 @@
 }
 .about-purpose-description {
   margin: 0;
-  color: #d3dbe6;
+  color: var(--about-text-secondary);
   font-size: 16px;
   line-height: 1.75;
   overflow-wrap: anywhere;
 }
 
 .about-page-bottom {
-  padding-bottom: 48px;
+  padding-bottom: var(--about-section-space);
 }
-/* Con Historia oculta por falta de datos, conservar el espacio antes de Valores. */
-.about-page + .about-page-bottom {
-  padding-top: 40px;
+/* Valores acompaña a Misión y Visión antes del recorrido histórico. */
+.about-page-values {
+  padding-top: var(--about-section-space);
+}
+/* Con Historia oculta por falta de datos, conservar la separación entre secciones. */
+.about-page-values + .about-page-bottom {
+  padding-top: var(--about-section-space);
+}
+.about-page-bottom .about-business {
+  margin-top: 0;
 }
 .about-values-title,
 .about-business-title {
-  margin-bottom: 24px;
+  margin-bottom: clamp(28px, 3vw, 40px);
 }
 .about-values-title h2,
-.about-business-title h2 {
+.about-business-title h2,
+.about-content .history-heading h2 {
   font-size: clamp(28px, 3vw, 36px);
   line-height: 1.3;
 }
@@ -85,14 +127,19 @@
   padding: 0;
   list-style: none;
 }
+.about-values-list > li {
+  min-width: 0;
+}
 .about-value-card {
+  min-width: 0;
   height: 100%;
-  border-radius: 12px;
-  background: #ffffff03;
 }
 .about-value-content {
   justify-content: flex-start;
-  gap: 16px;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 20px;
+  text-align: center;
 }
 .about-value-icon {
   display: grid;
@@ -111,22 +158,47 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 /* Los destinos siguen funcionando con una presentación sencilla de enlaces. */
 .about-business {
   margin-top: clamp(40px, 5vw, 64px);
 }
+/* Cada fila conserva la misma altura y el mismo borde entre ambas columnas. */
+.about-business-list > li {
+  display: flex;
+  min-width: 0;
+}
 .about-business-link {
   display: flex;
+  width: 100%;
+  min-width: 0;
   align-items: center;
   gap: 16px;
   min-height: 48px;
-  padding: 12px 0;
+  padding: 24px 0;
   border-bottom: 1px solid #ffffff26;
   color: #f5f7fb;
   font-size: 16px;
   text-decoration: none;
+}
+.about-business-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+  gap: 8px;
+}
+.about-business-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.about-business-description {
+  color: #b7c3d4;
+  font-size: 15px;
+  line-height: 1.65;
 }
 .about-business-link svg {
   width: 20px;
@@ -139,9 +211,16 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.about-business-link:hover {
+/* El énfasis pertenece al nombre del destino; su descripción permanece tranquila. */
+.about-business-link:focus-visible .about-business-name {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .about-business-link:hover .about-business-name {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 }
 .about-business-link:focus-visible {
   outline: 2px solid var(--color-accent);
@@ -167,8 +246,8 @@
     column-gap: 32px;
     row-gap: 0;
   }
-  .about-purpose-panel {
-    padding: 28px;
+  .about-purpose-flow {
+    column-gap: 24px;
   }
 }
 @media (min-width: 1024px) {
@@ -185,7 +264,34 @@
     padding: 20px;
     text-align: left;
   }
-  .about-purpose-panel {
-    padding: 20px;
+}
+
+/* Un brillo discreto responde al ratón; el contenido siempre permanece visible. */
+@media (hover: hover) and (pointer: fine) {
+  .about-purpose-panel:hover,
+  .about-value-card:hover {
+    border-color: #f5823266;
+    background: #162131;
+    box-shadow:
+      inset 0 0 28px #f5823208,
+      0 0 24px #f5823209;
   }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .about-purpose-panel,
+  .about-value-card {
+    transition:
+      border-color 220ms ease,
+      background-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+}
+
+/* Historia se alinea con Valores y Áreas de negocio, sin otro estilo de encabezado. */
+.about-content .history-section {
+  padding-block: var(--about-section-space);
+}
+.about-content .history-instructions {
+  margin-top: 12px;
+  text-align: left;
 }

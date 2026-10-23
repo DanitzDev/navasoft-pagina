@@ -150,7 +150,7 @@ export default function Timeline({
       className="history-section max-w-6xl lg:px-6"
       aria-label="Historia de Navasoft Soluciones"
     >
-      <SectionTitle title="Nuestra historia" align="center" />
+      <SectionTitle title="Nuestra historia" className="history-heading" />
       <p id={`${instanceId}-instructions`} className="history-instructions">
         Selecciona un año para conocer sus acontecimientos.
       </p>

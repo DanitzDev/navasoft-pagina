@@ -1,9 +1,18 @@
-// Presentación literal del sitio original; la fuente permite revisar futuras correcciones.
+// Presentación y capacidades basadas en el sitio original.
 export const companyIntroduction = {
   source: 'https://www.navasoftsoluciones.com/nosotros/',
   metaDescription:
     'Conoce Navasoft Soluciones: software a la medida, misión, visión y valores que orientan nuestro trabajo.',
-  text: 'Somos una innovadora fábrica de software que se destaca por el desarrollo de sistemas informáticos y la oferta de servicios de outsourcing y outtasking',
+  text: 'Desarrollamos software a la medida para mejorar los procesos de las empresas y acompañarlas en sus necesidades tecnológicas.',
+  capabilities:
+    'Trabajamos desde el análisis y el diseño hasta el desarrollo y la implementación de sistemas. Ofrecemos servicios de outsourcing y outtasking, además de migración, optimización y control de calidad de software.',
+}
+
+export const aboutAreaDescriptions: Record<string, string> = {
+  '/areas/gobierno': 'Soluciones tecnológicas para instituciones públicas.',
+  '/areas/privado': 'Software a la medida para los procesos de tu empresa.',
+  '/productos': 'Conoce las plataformas del ecosistema Navasoft.',
+  '/areas/navalav': 'Explora nuestra área de innovación tecnológica.',
 }
 
 // Misión, visión y valores corresponden al material recibido de la empresa.

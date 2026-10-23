@@ -55,3 +55,34 @@
     max-width: none;
   }
 }
+
+/* La respuesta pertenece al banner; el componente ButtonLink compartido no cambia. */
+.institutional-banner .institutional-banner-action:focus-visible {
+  outline: 2px solid #f5f7fb;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .institutional-banner .institutional-banner-action {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+  /* El hover se limita al ratón para evitar efectos persistentes tras tocar. */
+  @media (hover: hover) and (pointer: fine) {
+    .institutional-banner .institutional-banner-action:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgb(0 0 0 / 20%);
+    }
+  }
+  .institutional-banner .institutional-banner-action:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .institutional-banner .institutional-banner-action {
+    transition: none;
+  }
+}

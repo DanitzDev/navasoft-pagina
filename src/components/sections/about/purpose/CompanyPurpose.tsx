@@ -7,13 +7,13 @@ import PurposeIcon from './PurposeIcon'
 function PurposeBlock({ purpose }: { purpose: CompanyPurposeItem }) {
   return (
     <article className="about-purpose-panel" data-purpose={purpose.id}>
-      <div className="about-purpose-illustration" aria-hidden="true">
-        <span className="about-purpose-symbol">
+      <div className="about-purpose-header">
+        <span className="about-purpose-symbol" aria-hidden="true">
           <PurposeIcon purpose={purpose.id} />
         </span>
+        <SectionTitle title={purpose.title} className="about-purpose-title" />
       </div>
       <div className="about-purpose-copy">
-        <SectionTitle title={purpose.title} className="about-purpose-title" />
         <p className="about-purpose-description">{purpose.description}</p>
       </div>
     </article>

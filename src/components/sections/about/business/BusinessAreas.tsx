@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { footerSolutions } from '../../../../data/site'
+import { aboutAreaDescriptions } from '../../../../data/about'
 import { SectionTitle } from '../../../ui/SectionTitle'
 
 // Reutilizar los destinos existentes evita crear rutas o contenido comercial provisional.
@@ -11,7 +12,12 @@ export default function BusinessAreas() {
         {footerSolutions.map((area) => (
           <li key={area.href}>
             <Link to={area.href} className="about-business-link">
-              <span>{area.label}</span>
+              <span className="about-business-copy">
+                <span className="about-business-name">{area.label}</span>
+                <span className="about-business-description">
+                  {aboutAreaDescriptions[area.href]}
+                </span>
+              </span>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"

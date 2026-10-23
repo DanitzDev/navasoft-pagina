@@ -7,6 +7,7 @@ type InstitutionalBannerProps = {
   title: string
   description?: string
   eyebrow?: string
+  showDemo?: boolean
 }
 
 // Cierre institucional reutilizable. Las acciones conservan los motivos de Contacto.
@@ -14,6 +15,7 @@ export default function InstitutionalBanner({
   title,
   description,
   eyebrow,
+  showDemo = true,
 }: InstitutionalBannerProps) {
   const content = title.trim()
   if (!content) return null
@@ -38,15 +40,17 @@ export default function InstitutionalBanner({
           >
             Solicitar reunión
           </ButtonLink>
-          <ButtonLink
-            to="/contacto"
-            search={{ motivo: 'demo' }}
-            variant="secondary"
-            size="lg"
-            className="institutional-banner-action bg-primary/80 font-semibold shadow-none hover:bg-primary hover:text-white"
-          >
-            Pedir una demo
-          </ButtonLink>
+          {showDemo && (
+            <ButtonLink
+              to="/contacto"
+              search={{ motivo: 'demo' }}
+              variant="secondary"
+              size="lg"
+              className="institutional-banner-action bg-primary/80 font-semibold shadow-none hover:bg-primary hover:text-white"
+            >
+              Pedir una demo
+            </ButtonLink>
+          )}
         </div>
       </Container>
     </section>
