@@ -95,3 +95,11 @@ export const footerSocialLinks: SocialLink[] = [
     href: 'https://www.instagram.com/navasoftsoluciones/',
   },
 ]
+
+// Texto del banner de contacto tomado del prototipo, con un único párrafo de apoyo.
+export const contactBanner = {
+  eyebrow: 'Socio tecnológico',
+  title: 'Transformemos juntos el siguiente desafío.',
+  description:
+    'Gobierno, empresa, plataformas SaaS e innovación. Una misma visión para construir soluciones que generan resultados reales.',
+}

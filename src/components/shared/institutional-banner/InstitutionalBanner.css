@@ -1,0 +1,57 @@
+/* Cierre con una sola idea y dos acciones; el fondo acompaña sin formar otra tarjeta. */
+.institutional-banner {
+  margin-top: 24px;
+  padding-block: clamp(48px, 6vw, 80px);
+  border-top: 1px solid #ffffff1f;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(244 126 32 / 7%), transparent 60%),
+    linear-gradient(120deg, rgb(65 92 133 / 12%), rgb(65 92 133 / 2%));
+}
+.institutional-banner-heading {
+  gap: 20px;
+}
+.institutional-banner-heading > span {
+  color: #f6b480;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+.institutional-banner-heading h2 {
+  max-width: 22ch;
+  margin: 0;
+  color: #f5f7fb;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.institutional-banner-heading p {
+  max-width: 66ch;
+  margin: 0;
+  color: #d3dbe6;
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.7;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.institutional-banner-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+  max-width: 360px;
+  margin: 32px auto 0;
+}
+.institutional-banner-action {
+  min-width: 184px;
+  min-height: 48px;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .institutional-banner-actions {
+    flex-direction: row;
+    max-width: none;
+  }
+}
