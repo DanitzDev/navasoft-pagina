@@ -1,4 +1,4 @@
-import { SectionTitle } from '../components/ui/SectionTitle'
+import PageHeader from '../components/shared/page-header/PageHeader'
 import {
   HeadContent,
   Link,
@@ -25,6 +25,11 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: '/Logo-Favicon.png',
+      },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap',
@@ -56,15 +61,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 
 function NotFound() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16">
-      <SectionTitle as="h1" title="Página no disponible" />
-      <p className="mt-4 text-slate-300">
-        Esta dirección todavía no tiene una página. Puedes volver al inicio para
-        continuar viendo el layout.
-      </p>
+    <PageHeader
+      title="Página no disponible"
+      description="No encontramos la página que buscas. Revisa la dirección o vuelve al inicio."
+    >
       <Link to="/" className="mt-6 inline-block underline underline-offset-4">
         Volver al inicio
       </Link>
-    </section>
+    </PageHeader>
   )
 }

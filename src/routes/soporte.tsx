@@ -1,4 +1,4 @@
-import { SectionTitle } from '../components/ui/SectionTitle'
+import PageHeader from '../components/shared/page-header/PageHeader'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/soporte')({
@@ -7,13 +7,11 @@ export const Route = createFileRoute('/soporte')({
 })
 
 function SupportPage() {
+  // TODO: incorporar el contenido aprobado de esta página.
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: incorporar el contenido aprobado de esta página. */}
-      <SectionTitle as="h1" title="Soporte" />
-      <p className="mt-4 text-lg">
-        El contenido de esta página estará disponible próximamente.
-      </p>
-    </section>
+    <PageHeader
+      title="Soporte"
+      description="El contenido de esta página estará disponible próximamente."
+    />
   )
 }

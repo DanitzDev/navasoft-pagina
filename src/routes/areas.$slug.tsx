@@ -1,4 +1,4 @@
-import { SectionTitle } from '../components/ui/SectionTitle'
+import PageHeader from '../components/shared/page-header/PageHeader'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
 // Se mantienen los destinos que ya utilizan el Navbar y el Footer.
@@ -24,13 +24,11 @@ export const Route = createFileRoute('/areas/$slug')({
 function AreaPage() {
   const area = Route.useLoaderData()
 
+  // TODO: incorporar el contenido aprobado de esta área.
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: incorporar el contenido aprobado de esta área. */}
-      <SectionTitle as="h1" title={area.title} />
-      <p className="mt-4 text-lg">
-        La información de esta área estará disponible próximamente.
-      </p>
-    </section>
+    <PageHeader
+      title={area.title}
+      description="La información de esta área estará disponible próximamente."
+    />
   )
 }
