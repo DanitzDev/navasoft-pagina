@@ -14,11 +14,13 @@ import './Timeline.css'
 type TimelineProps = {
   items?: readonly HistoryMilestone[]
   preview?: boolean
+  className?: string
 }
 
 export default function Timeline({
   items = history,
   preview = false,
+  className = '',
 }: TimelineProps) {
   const [hasOverflow, setHasOverflow] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -147,10 +149,14 @@ export default function Timeline({
   return (
     <Container
       as="section"
-      className="history-section max-w-6xl lg:px-6"
+      className={`history-section max-w-6xl lg:px-6 ${className}`}
       aria-label="Historia de Navasoft Soluciones"
     >
-      <SectionTitle title="Nuestra historia" className="history-heading" />
+      <SectionTitle
+        title="Nuestra historia"
+        align="center"
+        className="history-heading"
+      />
       <p id={`${instanceId}-instructions`} className="history-instructions">
         Selecciona un año para conocer sus acontecimientos.
       </p>

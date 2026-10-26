@@ -18,7 +18,9 @@ function Home() {
       <GovernmentSection />
       <AreasSection />
       <EcosystemSection />
-      <Timeline />
+      <div className="bg-night">
+        <Timeline className="history-section--home max-w-7xl lg:px-8" />
+      </div>
       <InstitutionalBanner {...contactBanner} />
     </>
   )

@@ -478,7 +478,7 @@
 }
 
 .history-instructions {
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   color: #d3dbe6;
   font-size: 14px;
   line-height: 1.6;
@@ -527,4 +527,9 @@
   .history-image:hover img {
     transform: scale(1.03);
   }
+}
+
+/* Ecosistema ya aporta el espacio superior; evitar sumar dos paddings entre secciones. */
+.history-section.history-section--home {
+  padding-block: 0 80px;
 }

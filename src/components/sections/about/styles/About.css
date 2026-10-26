@@ -291,7 +291,3 @@
 .about-content .history-section {
   padding-block: var(--about-section-space);
 }
-.about-content .history-instructions {
-  margin-top: 12px;
-  text-align: left;
-}
