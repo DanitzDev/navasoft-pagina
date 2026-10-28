@@ -8,7 +8,7 @@ export const products: Product[] = [
     tagline: "La operación comercial del servicio, de punta a punta.",
     detail:
       "Abonados, facturación, recaudación y órdenes de trabajo para ASADAS, cooperativas y empresas de servicios.",
-    image: "/images/eco-gridxia.jpg",
+    image: "/images/eco-gridxia.jpeg",
     features: [
       "Gestión de abonados",
       "Facturación electrónica",
@@ -22,7 +22,7 @@ export const products: Product[] = [
     name: "NavaStay",
     category: "Comunidades",
     tagline: "Cuotas, amenidades y comunicación con residentes — web y móvil.",
-    image: "/images/eco-navastay.jpg",
+    image: "/images/eco-navastay.jpeg",
     features: [
       "Gestión de condominios",
       "Cuotas y pagos",
@@ -37,7 +37,7 @@ export const products: Product[] = [
     category: "Agroindustria",
     tagline:
       "Trazabilidad de productos para plantas, empaques y comercializadoras agroindustriales.",
-    image: "/images/tracxia.jpg",
+    image: "/images/tracxia.jpeg",
     features: ["Lotes de producción", "Origen y calidad", "Inventario", "Despacho", "Trazabilidad"],
   },
   {
@@ -46,7 +46,7 @@ export const products: Product[] = [
     category: "Preventas y cobros",
     tagline: "La ruta, el pedido y el cobro, en la misma mano.",
     detail: "App móvil para control de preventas, pedidos y recaudo en campo.",
-    image: "/images/ordexia.jpg",
+    image: "/images/ordexia.jpeg",
     features: ["Preventas", "Pedidos en ruta", "Cobros", "Cartera", "App móvil"],
   },
   {
@@ -55,7 +55,7 @@ export const products: Product[] = [
     category: "Facturación",
     tagline: "El comprobante y la cartera, en un expediente.",
     detail: "Facturación electrónica, cobros y estados de cuenta para la operación comercial.",
-    image: "/images/factxia.jpg",
+    image: "/images/factxia.jpeg",
     features: [
       "Facturación electrónica",
       "Cartera",

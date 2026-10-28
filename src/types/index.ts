@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
 export type Product = {
-    slug: string;
+    slug: ProductSlug;
     name: string;
     category: string;
     tagline: string;
@@ -23,4 +23,24 @@ export type Area = {
     image: string;
     icon: LucideIcon;
     page?: "gobierno" | "privado" | "navalav";
+};
+
+export type ProductSlug = "gridxia" | "navastay" | "tracxia" | "ordexia" | "factxia";
+export type ContactMotive = "reunion" | "demo";
+export type ContactTopic = ProductSlug | "gobierno" | "privado";
+
+export type Capability = { icon: LucideIcon; title: string; text: string };
+
+export type ProductDetail = {
+    kicker?: string;
+    heroTagline?: string;
+    problem?: {
+        intro: string;
+        audience: string;
+        pairs: { before: string; after: string }[];
+    };
+    capabilities?: Capability[];
+    steps?: { title: string; text: string }[];
+    faqs?: { question: string; answer: string }[];
+    ecosystem: { kicker: string; blurb: string };
 };
