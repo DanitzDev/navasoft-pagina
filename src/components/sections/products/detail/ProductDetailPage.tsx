@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import { ProductHero } from "@/components/sections/products/detail/ProductHero";
-import { ProductSubnav, type SubnavItem } from "@/components/sections/products/detail/ProductSubnav";
-import { ProblemSection } from "@/components/sections/products/detail/ProblemSection";
+import { ProductSideNav, type SubnavItem } from "@/components/sections/products/detail/ProductSideNav"; import { ProblemSection } from "@/components/sections/products/detail/ProblemSection";
 import { CapabilitiesSection } from "@/components/sections/products/detail/CapabilitiesSection";
 import { StepsSection } from "@/components/sections/products/detail/StepsSection";
 import { FaqSection } from "@/components/sections/products/detail/FaqSection";
@@ -26,7 +25,7 @@ export function ProductDetailPage({ product }: { product: Product }) {
     return (
         <div style={{ "--product": productAccent[product.slug] } as CSSProperties} className="bg-night text-white">
             <ProductHero product={product} detail={detail} />
-            <ProductSubnav items={subnav} topic={product.slug} />
+            <ProductSideNav items={subnav} />
 
             {detail.problem && <ProblemSection name={product.name} problem={detail.problem} />}
             {detail.capabilities && <CapabilitiesSection name={product.name} capabilities={detail.capabilities} />}

@@ -37,7 +37,7 @@ export type ProductDetail = {
     problem?: {
         intro: string;
         audience: string;
-        pairs: { before: string; after: string }[];
+        pairs: { before?: string; after: string }[];
     };
     capabilities?: Capability[];
     steps?: { title: string; text: string }[];
