@@ -35,12 +35,38 @@ export const companyPurpose = [
 export type CompanyPurposeItem = (typeof companyPurpose)[number]
 export type CompanyPurposeId = CompanyPurposeItem['id']
 
+// Descripciones propuestas para revisión; los nombres son los valores institucionales.
 export const companyValues = [
-  { id: 'commitment-innovation', title: 'Compromiso e innovación' },
-  { id: 'teamwork', title: 'Trabajo en equipo' },
-  { id: 'process-excellence', title: 'Excelencia en los procesos' },
-  { id: 'transparency', title: 'Transparencia' },
-  { id: 'efficiency', title: 'Eficiencia' },
+  {
+    id: 'commitment-innovation',
+    title: 'Compromiso e innovación',
+    description:
+      'Buscamos nuevas formas de resolver cada reto y acompañamos su puesta en práctica.',
+  },
+  {
+    id: 'teamwork',
+    title: 'Trabajo en equipo',
+    description:
+      'Compartimos conocimientos y coordinamos esfuerzos con el equipo y nuestros clientes.',
+  },
+  {
+    id: 'process-excellence',
+    title: 'Excelencia en los procesos',
+    description:
+      'Cuidamos cada etapa del trabajo, desde el análisis hasta la entrega de la solución.',
+  },
+  {
+    id: 'transparency',
+    title: 'Transparencia',
+    description:
+      'Comunicamos con claridad los avances, las decisiones y los aspectos que requieren atención.',
+  },
+  {
+    id: 'efficiency',
+    title: 'Eficiencia',
+    description:
+      'Optimizamos tiempo y recursos para simplificar procesos y facilitar el trabajo diario.',
+  },
 ] as const
 
 export type CompanyValueId = (typeof companyValues)[number]['id']

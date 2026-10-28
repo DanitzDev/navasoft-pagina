@@ -3,11 +3,14 @@ import { footerSolutions } from '../../../../data/site'
 import { aboutAreaDescriptions } from '../../../../data/about'
 import { SectionTitle } from '../../../ui/SectionTitle'
 
-// Reutilizar los destinos existentes evita crear rutas o contenido comercial provisional.
 export default function BusinessAreas() {
   return (
     <section className="about-business" aria-label="Áreas de negocio">
-      <SectionTitle title="Áreas de negocio" className="about-business-title" />
+      <SectionTitle
+        eyebrow="Cómo nos organizamos"
+        title="Cuatro áreas, una sola fábrica."
+        className="about-business-title"
+      />
       <ul className="about-business-list">
         {footerSolutions.map((area) => (
           <li key={area.href}>

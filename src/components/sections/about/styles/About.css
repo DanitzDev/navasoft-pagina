@@ -1,9 +1,9 @@
 /* Una misma escala organiza las secciones; la tarjeta de Historia conserva sus efectos. */
 .about-content {
-  --about-section-space: clamp(64px, 8vw, 112px);
+  --about-section-space: clamp(40px, 5vw, 64px);
   --about-card-border: #ffffff14;
   --about-card-surface: #121d2c;
-  --about-text-secondary: #d3dbe6;
+  --about-text-secondary: #e2e8f0;
 }
 .about-page {
   padding-block: clamp(32px, 5vw, 56px) 0;
@@ -89,8 +89,8 @@
 .about-purpose-description {
   margin: 0;
   color: var(--about-text-secondary);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 17px;
+  line-height: 1.8;
   overflow-wrap: anywhere;
 }
 
@@ -137,20 +137,22 @@
 .about-value-content {
   justify-content: flex-start;
   align-items: center;
-  gap: 24px;
-  padding: 32px 20px;
+  gap: 16px;
+  padding: 28px 24px;
   text-align: center;
 }
 .about-value-icon {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   color: var(--color-accent);
 }
 .about-value-icon svg {
   display: block;
+  width: 48px;
+  height: 48px;
 }
 .about-value-card h3 {
   margin: 0;
@@ -197,7 +199,7 @@
 }
 .about-business-description {
   color: #b7c3d4;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
 }
 .about-business-link svg {
@@ -252,17 +254,20 @@
 }
 @media (min-width: 1024px) {
   .about-values-list {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .about-values-list > li {
+    grid-column: span 2;
+  }
+  .about-values-list > li:nth-last-child(2) {
+    grid-column: 2 / span 2;
   }
 }
 
 /* En pantallas estrechas, icono y nombre comparten fila sin altura de relleno. */
 @media (max-width: 479px) {
   .about-value-content {
-    flex-direction: row;
-    gap: 16px;
-    padding: 20px;
-    text-align: left;
+    padding: 24px;
   }
 }
 
@@ -290,4 +295,390 @@
 /* Historia se alinea con Valores y Áreas de negocio, sin otro estilo de encabezado. */
 .about-content .history-section {
   padding-block: var(--about-section-space);
+}
+
+/* Adaptación del prototipo: presentación, confianza y perfil institucional. */
+.about-hero {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+.about-hero-copy {
+  min-width: 0;
+}
+.about-hero-heading h1 {
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.1;
+}
+.about-hero-heading p {
+  font-size: 17px;
+  line-height: 1.8;
+}
+.about-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.about-hero-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 24px;
+}
+.about-confidence {
+  margin-top: var(--about-section-space);
+}
+.about-confidence-heading {
+  max-width: 760px;
+}
+.about-confidence-heading h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  line-height: 1.15;
+}
+.about-confidence-heading p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 32px 0 24px;
+}
+.about-facts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 8px;
+  border: 1px solid #ffffff26;
+  border-radius: 18px;
+  padding: 24px 20px;
+}
+.about-facts dt {
+  color: #e2e8f0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.about-facts dd {
+  color: var(--color-accent);
+  font:
+    700 36px/1.1 Poppins,
+    sans-serif;
+  margin: 0;
+}
+.about-logo-strips {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  margin-top: 32px;
+}
+.about-logo-strips .logo-carousel-item {
+  display: grid;
+  grid-template-rows: 64px 20px;
+  align-content: center;
+  justify-items: center;
+  height: 124px;
+  gap: 8px;
+  background: #fff;
+  border-radius: 12px;
+}
+.about-logo-strips .logo-carousel-item img {
+  width: 136px;
+  height: 64px;
+}
+.about-logo-strips .logo-carousel-item span {
+  color: #374151;
+}
+.about-logo-strips .logo-carousel-item[data-surface='dark'] {
+  background: #20314d;
+}
+.about-profile {
+  display: grid;
+  gap: 32px;
+  margin-top: var(--about-section-space);
+}
+.about-profile-copy {
+  color: #d3dbe6;
+  font-size: 16px;
+  line-height: 1.8;
+}
+.about-profile-copy p {
+  margin: 0 0 16px;
+}
+.about-page-bottom .about-business-link {
+  align-items: flex-start;
+  padding: 28px;
+  background: #121d2c;
+  border: 1px solid #ffffff14;
+  border-radius: 20px;
+}
+.about-page-bottom .about-business-list {
+  gap: 20px;
+}
+.about-page-bottom .about-business-link svg {
+  margin-top: 6px;
+}
+.about-careers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 56px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #121d2c;
+}
+.about-careers h2 {
+  margin: 0 0 12px;
+  font:
+    700 24px/1.3 Poppins,
+    sans-serif;
+  color: #f5f7fb;
+}
+.about-careers p {
+  margin: 0;
+  color: #d3dbe6;
+  line-height: 1.7;
+}
+.about-careers .about-hero-actions {
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .about-hero {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+  .about-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 479px) {
+  .about-facts > div {
+    padding: 20px 14px;
+  }
+  .about-facts dd {
+    font-size: 30px;
+  }
+  .about-careers {
+    padding: 24px;
+  }
+  .about-page-bottom .about-business-link {
+    padding: 24px;
+  }
+}
+
+.about-logo-strips {
+  --logo-edge-color: #0d1522;
+}
+
+.about-value-description {
+  margin: 0;
+  color: var(--about-text-secondary);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.about-value-card h3 {
+  min-height: 3em;
+  display: grid;
+  align-items: center;
+}
+
+/* Logos de Nosotros: cuatro tarjetas legibles en escritorio, dos en móvil. */
+.about-logo-strips .logo-carousel {
+  container-type: inline-size;
+  --logo-fade-width: 24px;
+}
+.about-logo-strips .logo-carousel-group {
+  gap: 24px;
+  padding-right: 24px;
+}
+.about-logo-strips .logo-carousel-item {
+  flex-basis: calc((100cqw - 72px) / 4);
+  height: 160px;
+  min-height: 160px;
+  padding: 16px;
+  grid-template-rows: 100px 20px;
+}
+.about-logo-strips .logo-carousel-item img {
+  width: 100%;
+  max-width: 192px;
+  height: 100px;
+  object-fit: contain;
+}
+.about-logo-strips .logo-carousel-item[data-logo='jasec'] img,
+.about-logo-strips .logo-carousel-item[data-logo='municipalidad-la-union'] img {
+  max-width: 150px;
+}
+.about-logo-strips .logo-carousel::before,
+.about-logo-strips .logo-carousel::after {
+  width: 24px;
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .about-logo-strips .logo-carousel-item {
+    flex-basis: calc((100cqw - 48px) / 3);
+  }
+}
+@media (max-width: 639px) {
+  .about-logo-strips .logo-carousel-group {
+    gap: 16px;
+    padding-right: 16px;
+  }
+  .about-logo-strips .logo-carousel-item {
+    flex-basis: calc((100cqw - 16px) / 2);
+    padding: 12px;
+  }
+  .about-logo-strips .logo-carousel::before,
+  .about-logo-strips .logo-carousel::after {
+    width: 12px;
+  }
+}
+
+@media (max-width: 639px) {
+  .about-logo-strips .logo-carousel {
+    --logo-fade-width: 12px;
+  }
+}
+
+/* Una columna ocupa toda la tarjeta: el contenido intrínseco no la desplaza. */
+.about-logo-strips .logo-carousel-item {
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: stretch;
+}
+.about-logo-strips .logo-carousel-item img {
+  justify-self: center;
+  width: 100%;
+}
+
+/* Acciones visibles tras la presentación y al cerrar las áreas. */
+.about-mid-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-top: 32px;
+  padding: clamp(28px, 3.5vw, 40px);
+  border: 1px solid #ffffff24;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at right bottom, #f47e2012, transparent 65%),
+    linear-gradient(120deg, #20314d, #162236);
+  box-shadow:
+    inset 0 1px 0 #ffffff08,
+    0 12px 28px #00000012;
+}
+.about-mid-cta > div {
+  flex: 1 1 360px;
+}
+.about-mid-cta h2 {
+  margin: 0 0 12px;
+  color: #f5f7fb;
+  font:
+    700 clamp(22px, 2.5vw, 28px)/1.3 Poppins,
+    sans-serif;
+}
+.about-mid-cta p {
+  max-width: 60ch;
+  margin: 0;
+  color: #e2e8f0;
+  font-size: 16px;
+  line-height: 1.75;
+}
+.about-careers {
+  border: 1px solid #f47e2055;
+  background: #20314d;
+}
+@media (max-width: 479px) {
+  .about-mid-cta {
+    padding: 24px;
+  }
+  .about-mid-cta > a {
+    width: 100%;
+  }
+}
+
+/* Interacciones de Nosotros: respuesta clara al ratón y al teclado. */
+.about-page-bottom .about-business-link:focus-visible {
+  border-color: #f6b480;
+  outline: 2px solid #f6b480;
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .about-page-bottom .about-business-link:hover {
+    border-color: #f47e2080;
+    background: #1a293d;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .about-page-bottom .about-business-link,
+  .about-hero-actions a,
+  .about-mid-cta > a {
+    transition:
+      transform 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .about-page-bottom .about-business-link > svg {
+    transition: transform 200ms ease;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .about-page-bottom .about-business-link:hover {
+    transform: translateY(-3px);
+  }
+  .about-page-bottom .about-business-link:hover > svg {
+    transform: translateX(4px);
+  }
+  .about-hero-actions a:hover,
+  .about-mid-cta > a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px #00000026;
+  }
+}
+
+.about-mid-cta > a {
+  min-height: 52px;
+  flex-shrink: 0;
+  padding-inline: 28px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px #f47e201c;
+}
+.about-mid-cta > div {
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .about-mid-cta {
+    flex-wrap: nowrap;
+    gap: 40px;
+  }
+}
+
+/* El cierre de oportunidades mantiene una sola columna clara en móvil. */
+@media (max-width: 639px) {
+  .about-careers {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+    padding: 24px;
+  }
+  .about-careers h2 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  .about-careers .about-hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  .about-careers .about-hero-actions a {
+    width: 100%;
+    min-height: 52px;
+    text-align: center;
+  }
 }
