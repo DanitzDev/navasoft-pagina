@@ -15,7 +15,7 @@ export function ProblemSection({ name, problem }: ProblemSectionProps) {
                 <div className="space-y-5">
                     <p className={label}>El problema</p>
                     <p className="text-xl leading-relaxed text-white/90 lg:text-2xl">{problem.intro}</p>
-                    <p className="text-sm text-white/60">{problem.audience}</p>
+                    {problem.audience && <p className="text-sm text-white/60">{problem.audience}</p>}
                 </div>
 
                 <div className="space-y-3">

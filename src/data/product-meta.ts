@@ -1,19 +1,18 @@
-import { Boxes, Building2, Droplets, Receipt, Smartphone, type LucideIcon } from "lucide-react";
+import { Boxes, Building2, Receipt, Smartphone, Zap, type LucideIcon } from "lucide-react";
 import type { ProductSlug } from "@/types";
 
 export const productIcons: Record<ProductSlug, LucideIcon> = {
-    gridxia: Droplets,
+    gridxia: Zap,
     navastay: Building2,
     tracxia: Boxes,
     ordexia: Smartphone,
     factxia: Receipt,
 };
 
-// Propuesta mía: cámbialos aquí y se actualiza toda la página del producto
 export const productAccent: Record<ProductSlug, string> = {
-    gridxia: "#38bdf8",
-    navastay: "#a78bfa",
-    tracxia: "#4ade80",
-    ordexia: "#2dd4bf",
+    gridxia: "#d96627",
+    navastay: "#d16229",
+    tracxia: "#d46424", 
+    ordexia: "#d36220",
     factxia: "#fb7185",
 };

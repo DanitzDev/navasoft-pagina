@@ -6,11 +6,26 @@ import { ConsultButton } from "@/components/sections/products/ConsultButton";
 import { ProductMockup } from "@/components/sections/products/detail/ProductMockup";
 import type { Product, ProductDetail } from "@/types";
 
+function HeroPhoto({ src, alt }: { src: string; alt: string }) {
+    return (
+        <figure className="relative">
+            <div aria-hidden="true" className="absolute -inset-6 -z-10 rounded-full bg-product-soft blur-3xl" />
+            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-panel shadow-2xl shadow-black/40">
+                <img src={src} alt={alt} className="aspect-4/3 w-full object-cover" />
+                <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-linear-to-t from-night/60 via-transparent to-transparent"
+                />
+            </div>
+        </figure>
+    );
+}
+
 export function ProductHero({ product, detail }: { product: Product; detail: ProductDetail }) {
     const kicker = detail.kicker ?? detail.ecosystem.kicker;
     const description =
         detail.heroTagline ?? [product.tagline, product.detail].filter(Boolean).join(" ");
-    const menu = (detail.capabilities?.map((c) => c.title) ?? product.features).slice(0, 5);
+    const menu = (detail.mockupMenu ?? detail.capabilities?.map((c) => c.title) ?? product.features).slice(0, 5);
     const name = product.name.toUpperCase();
 
     return (
@@ -33,6 +48,10 @@ export function ProductHero({ product, detail }: { product: Product; detail: Pro
                         <span aria-hidden="true"> / </span>
                         <span className="text-white">{product.name}</span>
                     </nav>
+
+                    {detail.logo && (
+                        <img src={detail.logo} alt={`Logo de ${product.name}`} className="h-16 w-auto" />
+                    )}
 
                     <SectionTitle
                         as="h1"
@@ -62,7 +81,11 @@ export function ProductHero({ product, detail }: { product: Product; detail: Pro
                     </div>
                 </div>
 
-                <ProductMockup name={product.name} menu={menu} />
+                {detail.heroVisual === "mockup" ? (
+                    <ProductMockup name={product.name} menu={menu} device={detail.mockupDevice} />
+                ) : (
+                    <HeroPhoto src={detail.heroImage ?? product.image} alt={`Plataforma ${product.name}`} />
+                )}
             </Container>
         </section>
     );

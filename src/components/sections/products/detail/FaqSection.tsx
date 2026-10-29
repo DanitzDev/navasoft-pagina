@@ -6,7 +6,7 @@ type Faq = { question: string; answer: string };
 
 export function FaqSection({ faqs }: { faqs: Faq[] }) {
     return (
-        <section id="preguntas" className="scroll-mt-40 border-y border-primary/40 bg-deep py-20">
+        <section id="preguntas" className="scroll-mt-40 py-20">
             <Container size="md">
                 <SectionTitle title="Preguntas frecuentes" />
                 <div className="mt-8 space-y-3">

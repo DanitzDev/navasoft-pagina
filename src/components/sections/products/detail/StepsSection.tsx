@@ -3,13 +3,14 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 
 type Step = { title: string; text: string };
 
-export function StepsSection({ name, steps }: { name: string; steps: Step[] }) {
+export function StepsSection({ name, steps, title }: { name: string; steps: Step[]; title?: string }) {
     return (
-        <section id="como-funciona" className="scroll-mt-40 py-20">
+        <section id="como-funciona" className="scroll-mt-28 py-20">
             <Container>
-                <SectionTitle eyebrow="Flujo de operación" title={`Cómo funciona ${name}`} />
+                <SectionTitle eyebrow="Flujo de operación" title={title ?? `Cómo funciona ${name}`} />
 
-                <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                <ol className={`mt-12 grid gap-10 sm:grid-cols-2 ${steps.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}
+                >
                     {steps.map((step, i) => (
                         <li key={step.title} className="relative pt-14">
                             <span
