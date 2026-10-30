@@ -5,6 +5,7 @@ export type NavigationItem = DropdownItem & { href: string }
 
 export const companyLinks: NavigationItem[] = [
   { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Clientes', href: '/clientes' },
   { label: 'Oportunidades', href: '/oportunidades' },
   { label: 'Contacto', href: '/contacto' },
   { label: 'Soporte', href: '/soporte' },

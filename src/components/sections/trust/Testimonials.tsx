@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import type { Testimonial } from '../../../types/trust'
 
 type TestimonialsProps = {
@@ -33,6 +33,7 @@ export function Testimonials({
   const railId = useId()
   const hintId = useId()
   const [position, setPosition] = useState({ index: 0, visible: 1 })
+  const [paused, setPaused] = useState(false)
   const measure = useCallback(() => {
     const list = rail.current
     const first = list?.children.item(0)
@@ -117,8 +118,10 @@ export function Testimonials({
         !visible ||
         document.hidden ||
         motion.matches ||
+        paused ||
         drag.current ||
-        area.querySelector(':focus-visible') !== null
+        area.contains(document.activeElement) ||
+        (window.matchMedia('(hover: hover)').matches && area.matches(':hover'))
       ) {
         resumeAt.current = now + 8000
         return
@@ -137,11 +140,6 @@ export function Testimonials({
           left: card.offsetLeft - first.offsetLeft,
           behavior: next === 0 ? 'auto' : 'smooth',
         })
-        if (next === 0)
-          list.animate([{ opacity: 0.3 }, { opacity: 1 }], {
-            duration: 450,
-            easing: 'ease-out',
-          })
       }
       resumeAt.current = now + 8000
     }, 500)
@@ -149,7 +147,7 @@ export function Testimonials({
       window.clearInterval(timer)
       observer.disconnect()
     }
-  }, [entries.length])
+  }, [entries.length, paused])
 
   function goTo(index: number) {
     resumeAt.current = performance.now() + 8000
@@ -194,7 +192,7 @@ export function Testimonials({
       aria-roledescription="carrusel"
     >
       <div className="trust-testimonial-controls">
-        <p aria-live="off" aria-atomic="true">
+        <p aria-live={paused ? 'polite' : 'off'} aria-atomic="true">
           {position.index + 1}
           {position.visible > 1
             ? '–' + Math.min(entries.length, position.index + position.visible)
@@ -203,9 +201,20 @@ export function Testimonials({
           <span className="sr-only"> testimonios</span>
         </p>
         {hasMore && (
-          <span className="trust-testimonial-drag-hint">
-            Arrastra o desliza para explorar
-          </span>
+          <button
+            className="trust-testimonial-toggle"
+            type="button"
+            aria-controls={railId}
+            aria-label={paused ? 'Reanudar testimonios' : 'Pausar testimonios'}
+            onClick={() => setPaused((current) => !current)}
+          >
+            {paused ? (
+              <Play size={16} aria-hidden="true" />
+            ) : (
+              <Pause size={16} aria-hidden="true" />
+            )}
+            {paused ? 'Reanudar' : 'Pausar'}
+          </button>
         )}
       </div>
       <p id={hintId} className="sr-only">

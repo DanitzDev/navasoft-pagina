@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import type { OrganizationLogo } from '../../types/trust'
 import './LogoCarousel.css'
 
@@ -14,7 +15,7 @@ export function LogoCarousel({
   showPlaceholders = false,
 }: LogoCarouselProps) {
   const railRef = useRef<HTMLDivElement>(null)
-  const paused = useRef(false)
+  const [paused, setPaused] = useState(false)
   const resumeAt = useRef(0)
   const drag = useRef<{ x: number; left: number } | null>(null)
   const hintId = useId()
@@ -42,10 +43,10 @@ export function LogoCarousel({
         visible &&
         !document.hidden &&
         !motion.matches &&
-        !paused.current &&
+        !paused &&
         !drag.current &&
         now >= resumeAt.current &&
-        !rail.matches(':focus-visible') &&
+        !rail.contains(document.activeElement) &&
         !(window.matchMedia('(hover: hover)').matches && rail.matches(':hover'))
       ) {
         const length =
@@ -64,7 +65,22 @@ export function LogoCarousel({
       cancelAnimationFrame(frame)
       observer.disconnect()
     }
-  }, [count, isCarousel])
+  }, [count, isCarousel, paused])
+
+  function move(direction: number) {
+    const rail = railRef.current
+    const group = rail?.firstElementChild
+    if (!rail || !group) return
+    setPaused(true)
+    const step = group.querySelector('li')?.getBoundingClientRect().width ?? 184
+    const gap = parseFloat(getComputedStyle(group).columnGap) || 0
+    rail.scrollBy({
+      left: direction * (step + gap),
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'auto'
+        : 'smooth',
+    })
+  }
 
   if (!count) return null
   return (
@@ -75,12 +91,14 @@ export function LogoCarousel({
     >
       {isCarousel && (
         <p id={hintId} className="sr-only">
-          Cinta automática. Enfoca para detenerla y usa las flechas para
-          recorrer los logos. Espacio permite pausar o reanudar el movimiento.
+          Usa los botones anterior y siguiente o las flechas del teclado para
+          recorrer los logos. Espacio permite pausar o reanudar el movimiento
+          automático.
         </p>
       )}
       <div
         ref={railRef}
+        id={`${hintId}-rail`}
         className="logo-carousel-rail"
         tabIndex={isCarousel ? 0 : undefined}
         aria-label={label}
@@ -124,9 +142,13 @@ export function LogoCarousel({
           resumeAt.current = performance.now() + 3000
         }}
         onKeyDown={(event) => {
+          if (event.altKey || event.ctrlKey || event.metaKey) return
           if (event.key === ' ') {
             event.preventDefault()
-            paused.current = !paused.current
+            setPaused((current) => !current)
+          } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault()
+            move(event.key === 'ArrowLeft' ? -1 : 1)
           }
         }}
       >
@@ -171,6 +193,44 @@ export function LogoCarousel({
           </ul>
         ))}
       </div>
+      {isCarousel && (
+        <div
+          className="logo-carousel-controls"
+          role="group"
+          aria-label={`Controles de ${label.toLowerCase()}`}
+        >
+          <button
+            className="logo-carousel-toggle"
+            type="button"
+            aria-controls={`${hintId}-rail`}
+            aria-label={`${paused ? 'Reanudar' : 'Pausar'} ${label.toLowerCase()}`}
+            onClick={() => setPaused((current) => !current)}
+          >
+            {paused ? (
+              <Play size={16} aria-hidden="true" />
+            ) : (
+              <Pause size={16} aria-hidden="true" />
+            )}
+            {paused ? 'Reanudar' : 'Pausar'}
+          </button>
+          <button
+            type="button"
+            aria-label={`Anterior en ${label.toLowerCase()}`}
+            aria-controls={`${hintId}-rail`}
+            onClick={() => move(-1)}
+          >
+            <ChevronLeft size={20} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            aria-label={`Siguiente en ${label.toLowerCase()}`}
+            aria-controls={`${hintId}-rail`}
+            onClick={() => move(1)}
+          >
+            <ChevronRight size={20} aria-hidden="true" />
+          </button>
+        </div>
+      )}
     </div>
   )
 }

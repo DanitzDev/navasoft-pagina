@@ -555,3 +555,48 @@
 .trust-directory-link a {
   min-height: 44px;
 }
+
+/* Los controles mantienen un tamaño cómodo en pantallas pequeñas. */
+.trust-testimonial-pagination {
+  border-radius: 20px;
+}
+.trust-testimonial-dots {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.trust-testimonial-dot {
+  flex: 0 0 24px;
+  min-width: 24px;
+  height: 32px;
+}
+.trust-testimonial-pagination .trust-testimonial-arrow {
+  flex-basis: 44px;
+}
+
+.trust-testimonial-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #52637b;
+  border-radius: 8px;
+  background: #152238;
+  color: #dce5ef;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.trust-testimonial-toggle:hover {
+  background: #24354c;
+}
+.trust-testimonial-toggle:focus-visible {
+  outline: 2px solid #ffb574;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .trust-testimonial-toggle {
+    display: none;
+  }
+}
