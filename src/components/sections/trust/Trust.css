@@ -28,10 +28,16 @@
 }
 .trust-testimonials {
   display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
   gap: 28px;
   margin: 0;
-  padding: 0;
+  padding: 0 0 8px;
   list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 .trust-feedback {
   margin-top: 40px;
@@ -96,11 +102,6 @@
 .trust-section h3,
 .trust-testimonial {
   overflow-wrap: anywhere;
-}
-@media (min-width: 768px) {
-  .trust-testimonials {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 .trust-group {
@@ -294,4 +295,263 @@
     height: 80px;
     max-height: 80px;
   }
+}
+/* Lectura manual: las citas nunca avanzan mientras una persona las está leyendo. */
+.trust-testimonial-carousel {
+  min-width: 0;
+}
+.trust-testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.trust-testimonial-controls p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+.trust-testimonials::-webkit-scrollbar {
+  display: none;
+}
+.trust-testimonials > li {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.trust-testimonials:focus-visible {
+  outline: 2px solid #f6b480;
+  outline-offset: 4px;
+}
+
+.trust-testimonial-drag-hint {
+  color: #cbd5e1;
+  font-size: 13px;
+  text-align: right;
+}
+.trust-testimonials[tabindex='0'] {
+  cursor: grab;
+}
+.trust-testimonials[data-dragging='true'] {
+  cursor: grabbing;
+  user-select: none;
+  scroll-snap-type: none;
+}
+
+/* Entrada única: el contenido permanece visible sin JavaScript o con movimiento reducido. */
+.trust-testimonials {
+  padding-top: 8px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .trust-testimonials > li[data-reveal] {
+    transition:
+      opacity 420ms ease,
+      transform 420ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  .trust-testimonials > li[data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .trust-testimonials > li[data-reveal='visible'] {
+    opacity: 1;
+    transform: none;
+  }
+  .trust-testimonial {
+    transition: transform 220ms ease;
+  }
+  .trust-testimonial-bubble {
+    transition:
+      background-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .trust-testimonials:not([data-dragging])
+    > li:hover
+    .trust-testimonial-bubble {
+    background-color: #263b59;
+    box-shadow: inset 0 0 0 1px #5c7e9859;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .trust-testimonials:not([data-dragging]) > li:hover .trust-testimonial {
+    transform: translateY(-3px);
+  }
+}
+
+/* Una tarjeta centrada por testimonio, integrada con el fondo de la sección. */
+.trust-testimonial-carousel {
+  container-type: inline-size;
+}
+.trust-testimonials {
+  grid-auto-columns: 100%;
+  gap: 32px;
+  padding: 24px 0;
+}
+.trust-testimonials > li {
+  scroll-snap-align: start;
+}
+.trust-testimonial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 12px;
+}
+.trust-testimonial-body {
+  position: relative;
+  z-index: 1;
+  margin-left: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 18px;
+  border: 1px solid #ffffff1f;
+  background: linear-gradient(135deg, #233650, #19283e);
+  box-shadow: 0 14px 32px #00000033;
+}
+.trust-testimonial-body .trust-testimonial-bubble {
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.75;
+}
+.trust-testimonial-body .trust-testimonial-bubble::after {
+  display: none;
+}
+.trust-testimonial-body .trust-testimonial-quote {
+  color: #f6b480;
+  height: 36px;
+  font-size: 56px;
+}
+.trust-testimonial-body .trust-testimonial-draft {
+  color: #b9c7da;
+  font-size: 13px;
+}
+.trust-section .trust-testimonial-body figcaption {
+  display: grid;
+  gap: 4px;
+  margin-top: 28px;
+  padding: 20px 0 0;
+  border-top: 1px solid #ffffff24;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+.trust-testimonial-body .trust-testimonial-author {
+  color: #f5f7fb;
+  font-size: 18px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .trust-testimonials:not([data-dragging])
+    > li:hover
+    .trust-testimonial-bubble {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+@media (max-width: 639px) {
+  .trust-testimonials {
+    padding-block: 12px;
+  }
+  .trust-testimonial {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 8px;
+  }
+  .trust-testimonial-body {
+    margin: 0;
+    padding: 24px;
+  }
+}
+
+/* Control compacto integrado con la superficie navy de la sección. */
+.trust-testimonial-pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 420px);
+  margin: 24px auto 0;
+  padding: 6px 12px;
+  border: 1px solid #ffffff26;
+  border-radius: 999px;
+  background: #1a293e;
+  box-shadow: 0 6px 20px #00000020;
+}
+.trust-testimonial-arrow,
+.trust-testimonial-dot {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.trust-testimonial-arrow {
+  flex: 0 0 36px;
+  color: #dce5ef;
+}
+.trust-testimonial-dots {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+.trust-testimonial-dot {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.trust-testimonial-dot span {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7a8ba4;
+}
+.trust-testimonial-dot[aria-pressed='true'] span {
+  background: #f47e20;
+}
+.trust-testimonial-arrow:hover {
+  color: #f6b480;
+  background: #2b405c;
+}
+.trust-testimonial-dot:hover span {
+  background: #94a3b8;
+}
+.trust-testimonial-pagination button:focus-visible {
+  outline: 2px solid #f6b480;
+  outline-offset: 1px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .trust-testimonial-dot span {
+    transition:
+      background-color 200ms ease,
+      transform 200ms ease;
+  }
+  .trust-testimonial-dot[aria-pressed='true'] span {
+    transform: scale(1.2);
+  }
+}
+@media (max-width: 479px) {
+  .trust-testimonial-pagination {
+    gap: 4px;
+    padding-inline: 8px;
+  }
+  .trust-testimonial-arrow {
+    flex-basis: 32px;
+  }
+}
+
+.trust-group--clients {
+  scroll-margin-top: 120px;
+}
+.trust-directory-link {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.trust-directory-link a {
+  min-height: 44px;
 }

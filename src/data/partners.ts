@@ -21,21 +21,9 @@ export const partners: readonly OrganizationLogo[] = [
     relationship: 'Partner',
   },
   {
-    id: 'inlab',
-    name: 'INLAB',
-    image: '/images/partners/inlab.jpg',
-    relationship: 'Partner',
-  },
-  {
     id: 'oracle',
     name: 'ORACLE',
     image: '/images/partners/oracle.svg',
-    relationship: 'Partner',
-  },
-  {
-    id: 'eset',
-    name: 'ESET',
-    image: '/images/partners/eset.svg',
     relationship: 'Partner',
   },
   {
@@ -43,12 +31,6 @@ export const partners: readonly OrganizationLogo[] = [
     name: 'RED HAT',
     image: '/images/partners/red-hat.svg',
     relationship: 'Partner',
-  },
-  {
-    id: 'nosforce',
-    name: 'NOSFORCE',
-    image: '/images/partners/nosforce.png',
-    relationship: 'Strategic Partner',
   },
   {
     id: 'microsoft',
