@@ -14,8 +14,10 @@ function ValueItem({ value }: { value: CompanyValue }) {
           <span className="about-value-icon" aria-hidden="true">
             <ValueIcon value={value.id} />
           </span>
-          <h3>{value.title}</h3>
-          <p className="about-value-description">{value.description}</p>
+          <div className="about-value-copy">
+            <h3>{value.title}</h3>
+            <p className="about-value-description">{value.description}</p>
+          </div>
         </CardContent>
       </Card>
     </li>

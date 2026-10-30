@@ -33,7 +33,9 @@ function AboutPage() {
           <CompanyValues />
         </Container>
         {/* La trayectoria sigue a los valores; sus imágenes permanecen como referencia. */}
-        <Timeline />
+        <div className="about-history-wrap">
+          <Timeline />
+        </div>
         <Container className="about-page-bottom max-w-6xl lg:px-6">
           <BusinessAreas />
           <section

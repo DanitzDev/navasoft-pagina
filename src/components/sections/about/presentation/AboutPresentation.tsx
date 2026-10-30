@@ -31,6 +31,7 @@ export default function AboutPresentation() {
                 to="/contacto"
                 search={{ motivo: 'reunion' }}
                 variant="primary"
+                size="lg"
               >
                 Solicitar reunión
               </ButtonLink>
@@ -39,14 +40,37 @@ export default function AboutPresentation() {
               </ButtonLink>
             </div>
           </div>
-          <img
-            className="about-hero-image"
-            src="/images/hero-trust.jpeg"
-            alt=""
-            width="1792"
-            height="1008"
-          />
+          <figure className="about-hero-visual">
+            <img
+              className="about-hero-image"
+              src="/images/hero-trust.jpeg"
+              alt=""
+              width="1792"
+              height="1008"
+            />
+            <div className="about-hero-brand">
+              <img
+                src="/images/brand/navasoft-white.png"
+                alt="Navasoft · Tecnología que innova"
+                width="1200"
+                height="558"
+              />
+            </div>
+            <figcaption>
+              Desde 2011, construyendo soluciones a la medida.
+            </figcaption>
+          </figure>
         </section>
+        <div className="about-hero-facts" aria-label="Navasoft en cifras">
+          <dl className="about-facts">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
         <section
           className="about-confidence"
           aria-label="Experiencia de Navasoft"
@@ -57,48 +81,11 @@ export default function AboutPresentation() {
             description="Desde 2011 acompañamos a instituciones públicas y empresas en el desarrollo de soluciones tecnológicas, la integración de procesos y la transformación digital."
             className="about-confidence-heading"
           />
-          <dl className="about-facts">
-            {facts.map((fact) => (
-              <div key={fact.label}>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-        <section
-          className="about-profile"
-          aria-label="Nuestra experiencia y especialidad"
-        >
-          <div className="about-profile-copy">
-            <p>
-              Nacimos en 2011. A lo largo de nuestra trayectoria hemos
-              desarrollado soluciones para instituciones públicas,
-              municipalidades, empresas de electrificación, producción y gestión
-              empresarial.
-            </p>
-            <p>{companyIntroduction.capabilities}</p>
+          <div className="about-confidence-body">
+            <div className="about-profile-copy">
+              <p>{companyIntroduction.capabilities}</p>
+            </div>
           </div>
-        </section>
-        <section
-          className="about-mid-cta"
-          aria-label="Conversar sobre tu proyecto"
-        >
-          <div>
-            <h2>Tu próximo desafío puede empezar aquí.</h2>
-            <p>
-              Conversemos sobre lo que necesita tu organización y cómo podemos
-              acompañarte.
-            </p>
-          </div>
-          <ButtonLink
-            to="/contacto"
-            search={{ motivo: 'reunion' }}
-            variant="primary"
-            size="lg"
-          >
-            Solicitar reunión
-          </ButtonLink>
         </section>
       </Container>
     </>

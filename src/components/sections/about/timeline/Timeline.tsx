@@ -8,12 +8,14 @@ import { SectionTitle } from '../../../ui/SectionTitle'
 import Milestone from './Milestone'
 import { formatHistoryPeriod } from './history-period'
 import { createTimelinePath, getTimelineProgress } from './timeline-geometry'
+import type { TimelineVariant } from './timeline-geometry'
 import { centerTimelineStep } from './timeline-scroll'
 import './Timeline.css'
 
 type TimelineProps = {
   items?: readonly HistoryMilestone[]
   preview?: boolean
+  variant?: TimelineVariant
   className?: string
 }
 
@@ -21,6 +23,7 @@ export default function Timeline({
   items = history,
   preview = false,
   className = '',
+  variant = 'straight',
 }: TimelineProps) {
   const [hasOverflow, setHasOverflow] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -84,7 +87,7 @@ export default function Timeline({
     selectedIndex,
     steps.length,
   )
-  const path = createTimelinePath(steps.length)
+  const path = createTimelinePath(steps.length, variant)
   const progressId = `${instanceId}-progress`
   const style = {
     '--history-count': steps.length,
@@ -150,6 +153,7 @@ export default function Timeline({
     <Container
       as="section"
       className={`history-section max-w-6xl lg:px-6 ${className}`}
+      data-variant={variant}
       aria-label="Historia de Navasoft Soluciones"
     >
       <SectionTitle
