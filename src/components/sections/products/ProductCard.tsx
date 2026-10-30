@@ -9,7 +9,9 @@ export function ProductCard({ product }: { product: Product }) {
       interactive
       className="border-primary/15 bg-surface hover:border-primary/40"
     >
-      <CardImage src={product.image} alt={`Plataforma ${product.name}`} />
+      {product.image && (
+        <CardImage src={product.image} alt={`Plataforma ${product.name}`} />
+      )}
 
       <CardContent>
         <span className="text-xs font-semibold uppercase tracking-widest text-accent">
