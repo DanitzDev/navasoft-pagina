@@ -1,5 +1,4 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import type { OrganizationLogo } from '../../types/trust'
 import './LogoCarousel.css'
 
@@ -91,9 +90,8 @@ export function LogoCarousel({
     >
       {isCarousel && (
         <p id={hintId} className="sr-only">
-          Usa los botones anterior y siguiente o las flechas del teclado para
-          recorrer los logos. Espacio permite pausar o reanudar el movimiento
-          automático.
+          Usa las flechas del teclado para recorrer los logos. Espacio permite
+          pausar o reanudar el movimiento automático.
         </p>
       )}
       <div
@@ -193,44 +191,6 @@ export function LogoCarousel({
           </ul>
         ))}
       </div>
-      {isCarousel && (
-        <div
-          className="logo-carousel-controls"
-          role="group"
-          aria-label={`Controles de ${label.toLowerCase()}`}
-        >
-          <button
-            className="logo-carousel-toggle"
-            type="button"
-            aria-controls={`${hintId}-rail`}
-            aria-label={`${paused ? 'Reanudar' : 'Pausar'} ${label.toLowerCase()}`}
-            onClick={() => setPaused((current) => !current)}
-          >
-            {paused ? (
-              <Play size={16} aria-hidden="true" />
-            ) : (
-              <Pause size={16} aria-hidden="true" />
-            )}
-            {paused ? 'Reanudar' : 'Pausar'}
-          </button>
-          <button
-            type="button"
-            aria-label={`Anterior en ${label.toLowerCase()}`}
-            aria-controls={`${hintId}-rail`}
-            onClick={() => move(-1)}
-          >
-            <ChevronLeft size={20} aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            aria-label={`Siguiente en ${label.toLowerCase()}`}
-            aria-controls={`${hintId}-rail`}
-            onClick={() => move(1)}
-          >
-            <ChevronRight size={20} aria-hidden="true" />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

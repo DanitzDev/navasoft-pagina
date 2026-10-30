@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import type { Testimonial } from '../../../types/trust'
 
 type TestimonialsProps = {
@@ -191,35 +190,9 @@ export function Testimonials({
       aria-label="Testimonios de clientes"
       aria-roledescription="carrusel"
     >
-      <div className="trust-testimonial-controls">
-        <p aria-live={paused ? 'polite' : 'off'} aria-atomic="true">
-          {position.index + 1}
-          {position.visible > 1
-            ? '–' + Math.min(entries.length, position.index + position.visible)
-            : ''}{' '}
-          de {entries.length}
-          <span className="sr-only"> testimonios</span>
-        </p>
-        {hasMore && (
-          <button
-            className="trust-testimonial-toggle"
-            type="button"
-            aria-controls={railId}
-            aria-label={paused ? 'Reanudar testimonios' : 'Pausar testimonios'}
-            onClick={() => setPaused((current) => !current)}
-          >
-            {paused ? (
-              <Play size={16} aria-hidden="true" />
-            ) : (
-              <Pause size={16} aria-hidden="true" />
-            )}
-            {paused ? 'Reanudar' : 'Pausar'}
-          </button>
-        )}
-      </div>
       <p id={hintId} className="sr-only">
         Desliza para leer más testimonios. Usa las flechas del teclado, Inicio o
-        Fin para recorrerlos.
+        Fin para recorrerlos. Espacio permite pausar o reanudar el avance.
       </p>
       <ul
         ref={rail}
@@ -264,6 +237,11 @@ export function Testimonials({
             event.metaKey
           )
             return
+          if (event.key === ' ') {
+            event.preventDefault()
+            setPaused((current) => !current)
+            return
+          }
           const next =
             event.key === 'ArrowRight'
               ? position.index + 1
@@ -311,49 +289,6 @@ export function Testimonials({
           </li>
         ))}
       </ul>
-      {hasMore && (
-        <div
-          className="trust-testimonial-pagination"
-          role="group"
-          aria-label="Elegir testimonio"
-        >
-          <button
-            type="button"
-            className="trust-testimonial-arrow"
-            aria-label="Testimonio anterior"
-            aria-controls={railId}
-            onClick={() =>
-              goTo((position.index - 1 + entries.length) % entries.length)
-            }
-          >
-            <ChevronLeft size={22} aria-hidden="true" />
-          </button>
-          <div className="trust-testimonial-dots">
-            {entries.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                className="trust-testimonial-dot"
-                aria-label={'Ir al testimonio ' + (index + 1)}
-                aria-pressed={index === position.index}
-                aria-controls={railId}
-                onClick={() => goTo(index)}
-              >
-                <span />
-              </button>
-            ))}
-          </div>
-          <button
-            type="button"
-            className="trust-testimonial-arrow"
-            aria-label="Testimonio siguiente"
-            aria-controls={railId}
-            onClick={() => goTo((position.index + 1) % entries.length)}
-          >
-            <ChevronRight size={22} aria-hidden="true" />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

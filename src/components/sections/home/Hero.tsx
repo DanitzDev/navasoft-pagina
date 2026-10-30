@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ButtonLink } from '@/components/ui/Button'
@@ -8,18 +6,9 @@ import { useInView } from '@/hooks/useInView'
 import { heroSlides } from '@/data/hero'
 import { cn } from '@/lib/cn'
 
-const arrowButton =
-  'flex size-11 items-center justify-center rounded-full border border-white/40 text-white ' +
-  'transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60'
-
 export function Hero() {
   const { ref, inView } = useInView<HTMLElement>(0.3)
-  const [manualPaused, setManualPaused] = useState(false)
-  const { index, goTo, next, prev, setPaused } = useCarousel(
-    heroSlides.length,
-    5000,
-    inView && !manualPaused,
-  )
+  const { index, setPaused } = useCarousel(heroSlides.length, 5000, inView)
 
   return (
     <section
@@ -89,72 +78,9 @@ export function Hero() {
           Respuesta en horario hábil · WhatsApp (506) 4070-0776
         </p>
 
-        {/* Etiqueta de la imagen + controles */}
-        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-            {heroSlides[index].label}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <div
-              role="group"
-              aria-label="Seleccionar imagen"
-              className="flex items-center gap-1"
-            >
-              {heroSlides.map((slide, i) => (
-                <button
-                  key={slide.src}
-                  type="button"
-                  onClick={() => goTo(i)}
-                  aria-label={`Ir a la imagen ${i + 1}: ${slide.label}`}
-                  aria-current={i === index}
-                  className="grid size-8 place-items-center rounded-full focus-visible:outline-2 focus-visible:outline-white"
-                >
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      'h-1.5 rounded-full',
-                      i === index ? 'w-6 bg-white' : 'w-1.5 bg-white/60',
-                    )}
-                  />
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                className={cn(arrowButton, 'motion-reduce:hidden')}
-                aria-label={
-                  manualPaused ? 'Reanudar imágenes' : 'Pausar imágenes'
-                }
-                onClick={() => setManualPaused((current) => !current)}
-              >
-                {manualPaused ? (
-                  <Play size={18} aria-hidden="true" />
-                ) : (
-                  <Pause size={18} aria-hidden="true" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={prev}
-                aria-label="Imagen anterior"
-                className={arrowButton}
-              >
-                <ChevronLeft aria-hidden="true" className="size-5" />
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                aria-label="Imagen siguiente"
-                className={arrowButton}
-              >
-                <ChevronRight aria-hidden="true" className="size-5" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <p className="mt-12 text-xs font-semibold uppercase tracking-widest text-accent">
+          {heroSlides[index].label}
+        </p>
       </Container>
     </section>
   )
