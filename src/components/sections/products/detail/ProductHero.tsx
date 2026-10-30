@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/ui/Container";
-import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Badge } from "@/components/ui/Badge";
 import { ConsultButton } from "@/components/sections/products/ConsultButton";
+import { ProductMark } from "@/components/sections/products/detail/ProductMark";
 import { ProductMockup } from "@/components/sections/products/detail/ProductMockup";
 import type { Product, ProductDetail } from "@/types";
 
@@ -49,17 +49,16 @@ export function ProductHero({ product, detail }: { product: Product; detail: Pro
                         <span className="text-white">{product.name}</span>
                     </nav>
 
-                    {detail.logo && (
-                        <img src={detail.logo} alt={`Logo de ${product.name}`} className="h-16 w-auto" />
-                    )}
+                    <header className="max-w-3xl space-y-5">
+                        <p className="text-sm font-semibold uppercase tracking-widest text-accent">{kicker}</p>
 
-                    <SectionTitle
-                        as="h1"
-                        eyebrow={kicker}
-                        title={name}
-                        description={description}
-                        titleClassName="lg:text-6xl"
-                    />
+                        <div className="flex items-center gap-5">
+                            <ProductMark slug={product.slug} name={product.name} logo={detail.logo} />
+                            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{name}</h1>
+                        </div>
+
+                        <p className="text-base leading-relaxed text-slate-300 sm:text-lg">{description}</p>
+                    </header>
 
                     <ul className="flex flex-wrap gap-2">
                         {product.features.slice(0, 3).map((feature) => (

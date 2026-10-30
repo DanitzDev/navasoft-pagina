@@ -572,6 +572,7 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
 
     ordexia: {
         kicker: "Fuerza de ventas",
+        logo: "/images/ordexia-icon.png",
         heroTagline: "La plataforma que impulsa a su equipo de ventas en cada visita.",
         mockupMenu: ["Pedidos", "Cobros", "Clientes", "Rutas", "Ventas"],
         mockupDevice: "phone",
