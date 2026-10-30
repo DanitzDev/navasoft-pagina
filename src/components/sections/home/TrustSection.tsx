@@ -1,3 +1,4 @@
+import { ButtonLink } from '../../ui/Button'
 import { Users, Handshake } from 'lucide-react'
 import { Container } from '../../ui/Container'
 import { SectionTitle } from '../../ui/SectionTitle'
@@ -26,7 +27,10 @@ export function TrustSection() {
           />
           <div className="trust-groups">
             {(clients.length > 0 || showPlaceholders) && (
-              <div className="trust-group trust-group--clients">
+              <div
+                className="trust-group trust-group--clients"
+                id="clientes-destacados"
+              >
                 <div className="trust-group-heading">
                   <Users aria-hidden="true" />
                   <div>
@@ -39,6 +43,11 @@ export function TrustSection() {
                   label="Logos de clientes"
                   showPlaceholders={showPlaceholders}
                 />
+                <div className="trust-directory-link">
+                  <ButtonLink to="/clientes" variant="outline">
+                    Ver todos los clientes
+                  </ButtonLink>
+                </div>
               </div>
             )}
             {(partners.length > 0 || showPlaceholders) && (
