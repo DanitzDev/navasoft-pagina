@@ -47,3 +47,16 @@ Comprobaciones técnicas:
 - Testimonios aprobados: el catálogo sigue vacío; las muestras solo se muestran en desarrollo.
 
 Los cambios pendientes de Contacto permanecen fuera de estos commits. No se ha hecho push ni despliegue.
+
+## Integración posterior de productos
+
+Se integró `origin/feature/productos-section` (hasta `a1c65ca`) en la rama de clientes y partners.
+
+- Se conservaron las páginas, el contenido y las imágenes `.jpeg` aportadas en productos. Las cinco imágenes de productos dejan de estar pendientes.
+- Se resolvieron los conflictos en `src/data/products.ts` y `src/types/index.ts`, conservando los tipos nuevos y el soporte de imágenes opcionales.
+- Se ajustó el hero para usar el mockup existente si no hay fotografía.
+- Se corrigió el desbordamiento móvil de las etiquetas largas y el tamaño del título.
+- Tracxia referencia su marca alternativa existente: el logo `/images/logos/tracxia-icon.png` no estaba incluido en la rama.
+- Las cinco páginas se comprobaron a 320 y 1440 px; los casos con desbordamiento a 320 px se corrigieron y volvieron a verificar.
+- Se comprobó la apertura de preguntas frecuentes y la regresión de Inicio, Nosotros y Clientes. Clientes mantiene 12 organizaciones.
+- TypeScript y compilación final correctos, con los cambios locales de Contacto resguardados fuera de la integración.

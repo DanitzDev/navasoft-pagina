@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Boxes, Building2, Droplets, Receipt, Smartphone } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Boxes, Building2, Receipt, Smartphone, Zap, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { EcosystemCard } from "@/components/sections/products/EcosystemCard";
@@ -13,9 +12,9 @@ type CardLayout = {
   className: string;
 };
 
-// Cómo se acomoda cada producto en la grilla de 6 columnas
+// Cpmo se acomoda cada producto en la grilla de 6 columnas
 const layout: Partial<Record<string, CardLayout>> = {
-  gridxia: { variant: "featured", icon: Droplets, className: "lg:col-span-4 lg:row-span-2" },
+  gridxia: { variant: "featured", icon: Zap, className: "lg:col-span-4 lg:row-span-2" },
   navastay: { variant: "stacked", icon: Building2, className: "lg:col-span-2" },
   tracxia: { variant: "stacked", icon: Boxes, className: "lg:col-span-2" },
   ordexia: { variant: "horizontal", icon: Smartphone, className: "lg:col-span-3" },

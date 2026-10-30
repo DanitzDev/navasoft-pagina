@@ -77,3 +77,36 @@ body {
   --color-night: #131a2b;
   --color-deep: #0f1626;
 }
+
+/* Cuatro utilidades para el color de cada producto, más el scroll suave de las anclas */
+@utility text-product {
+  color: var(--product, var(--color-accent));
+}
+
+@utility bg-product {
+  background-color: var(--product, var(--color-accent));
+}
+
+@utility bg-product-soft {
+  background-color: color-mix(in oklab, var(--product, var(--color-accent)) 15%, transparent);
+}
+
+@utility border-product {
+  border-color: color-mix(in oklab, var(--product, var(--color-accent)) 45%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+/* Las etiquetas largas no deben ensanchar la página en pantallas pequeñas. */
+.product-detail-page .grid > *,
+.product-detail-page .flex > * {
+  min-width: 0;
+}
+.product-detail-page .rounded-full.whitespace-nowrap {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
