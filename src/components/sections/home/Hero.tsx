@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ButtonLink } from '@/components/ui/Button'
@@ -8,7 +9,11 @@ import { cn } from '@/lib/cn'
 
 export function Hero() {
   const { ref, inView } = useInView<HTMLElement>(0.3)
-  const { index, setPaused } = useCarousel(heroSlides.length, 5000, inView)
+  const { index, goTo, next, prev, setPaused } = useCarousel(
+    heroSlides.length,
+    5000,
+    inView,
+  )
 
   return (
     <section
@@ -78,9 +83,55 @@ export function Hero() {
           Respuesta en horario hábil · WhatsApp (506) 4070-0776
         </p>
 
-        <p className="mt-12 text-xs font-semibold uppercase tracking-widest text-accent">
-          {heroSlides[index].label}
-        </p>
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+            {heroSlides[index].label}
+          </p>
+          <div
+            role="group"
+            aria-label="Cambiar imagen del hero"
+            className="flex flex-wrap items-center gap-3"
+          >
+            <div className="flex items-center gap-1">
+              {heroSlides.map((slide, i) => (
+                <button
+                  key={slide.src}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Ir a la imagen ${i + 1}: ${slide.label}`}
+                  aria-current={i === index ? 'true' : undefined}
+                  className="grid size-8 place-items-center rounded-full focus-visible:outline-2 focus-visible:outline-white"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      'h-1.5 rounded-full',
+                      i === index ? 'w-6 bg-white' : 'w-1.5 bg-white/60',
+                    )}
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={prev}
+                aria-label="Imagen anterior"
+                className="flex size-11 items-center justify-center rounded-full border border-white/40 text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white"
+              >
+                <ChevronLeft size={20} aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Imagen siguiente"
+                className="flex size-11 items-center justify-center rounded-full border border-white/40 text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white"
+              >
+                <ChevronRight size={20} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
       </Container>
     </section>
   )
