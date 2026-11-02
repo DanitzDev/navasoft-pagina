@@ -1,4 +1,4 @@
-import { caseStudies, casesIntroduction } from '../../../data/cases'
+import { featuredCaseStudies, casesIntroduction } from '../../../data/cases'
 import { Container } from '../../ui/Container'
 import { SectionTitle } from '../../ui/SectionTitle'
 import { ButtonLink } from '../../ui/Button'
@@ -27,8 +27,8 @@ export default function CasesSection() {
             Ver todos los casos
           </ButtonLink>
         </div>
-        <ul className="success-cases-grid">
-          {caseStudies.map((caseStudy) => (
+        <ul className="success-cases-grid success-cases-editorial">
+          {featuredCaseStudies.map((caseStudy) => (
             <li key={caseStudy.id}>
               <CaseCard caseStudy={caseStudy} />
             </li>

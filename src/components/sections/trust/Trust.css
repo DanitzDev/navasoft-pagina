@@ -459,3 +459,82 @@
 .trust-directory-link a {
   min-height: 44px;
 }
+
+/* Control compacto integrado con la paleta oscura de la sección. */
+.testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 12px auto 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #20314d;
+  border: 1px solid #526079;
+  box-shadow: 0 6px 24px #00000024;
+}
+.testimonial-controls button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.testimonial-control-arrow {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #e2eaf5;
+  border-radius: 50%;
+}
+.testimonial-control-dots {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow-x: auto;
+}
+.testimonial-control-dot {
+  width: 28px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+.testimonial-control-dot span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+.testimonial-control-dot[aria-current='true'] span {
+  background: #f6b480;
+}
+.testimonial-control-arrow:hover {
+  background: #314865;
+  color: #ffc89b;
+}
+.testimonial-control-dot:hover span {
+  background: #e2eaf5;
+}
+.testimonial-control-dot[aria-current='true']:hover span {
+  background: #ffc89b;
+}
+.testimonial-controls button:focus-visible {
+  outline: 2px solid #ffc89b;
+  outline-offset: -2px;
+}
+@media (max-width: 639px) {
+  .testimonial-controls {
+    gap: 0;
+    padding: 6px;
+  }
+  .testimonial-control-dot {
+    width: 24px;
+  }
+  .testimonial-control-dot span {
+    width: 8px;
+    height: 8px;
+  }
+}

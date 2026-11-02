@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { MouseEvent } from 'react'
 import {
-  companyLinks,
+  navbarCompanyLinks,
   primaryLinks,
   products,
   sectors,
@@ -104,7 +104,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
         <ul className="navbar-mobile-links">
           {primaryLinks.map((item) => (
             <li key={item.href}>
-              <NavLink href={item.href} onNavigate={closeMenu}>
+              <NavLink href={item.href} hash={item.hash} onNavigate={closeMenu}>
                 {item.label}
               </NavLink>
             </li>
@@ -133,9 +133,9 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           </li>
         </ul>
         <ul className="navbar-mobile-company">
-          {companyLinks.map((item) => (
+          {navbarCompanyLinks.map((item) => (
             <li key={item.href}>
-              <NavLink href={item.href} onNavigate={closeMenu}>
+              <NavLink href={item.href} hash={item.hash} onNavigate={closeMenu}>
                 {item.label}
               </NavLink>
             </li>

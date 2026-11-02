@@ -289,6 +289,77 @@ export function Testimonials({
           </li>
         ))}
       </ul>
+      {hasMore && (
+        <div
+          className="testimonial-controls"
+          role="group"
+          aria-label="Controles de testimonios"
+        >
+          <button
+            type="button"
+            className="testimonial-control-arrow"
+            aria-label="Testimonio anterior"
+            aria-controls={railId}
+            onClick={() =>
+              goTo((position.index - 1 + entries.length) % entries.length)
+            }
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path
+                d="m14 6-6 6 6 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <div className="testimonial-control-dots">
+            {entries.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                className="testimonial-control-dot"
+                aria-label={`Ver testimonio ${index + 1} de ${entries.length}`}
+                aria-current={index === position.index ? 'true' : undefined}
+                aria-controls={railId}
+                onClick={() => goTo(index)}
+              >
+                <span aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="testimonial-control-arrow"
+            aria-label="Testimonio siguiente"
+            aria-controls={railId}
+            onClick={() => goTo((position.index + 1) % entries.length)}
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
+              <path
+                d="m10 6 6 6-6 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   )
 }

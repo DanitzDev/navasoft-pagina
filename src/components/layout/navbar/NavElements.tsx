@@ -128,7 +128,11 @@ export function NavDropdown({
         {items.map((item) => (
           <li key={item.label}>
             {item.href ? (
-              <NavLink href={item.href} onNavigate={handleNavigate}>
+              <NavLink
+                href={item.href}
+                hash={item.hash}
+                onNavigate={handleNavigate}
+              >
                 {item.label}
               </NavLink>
             ) : (
@@ -143,13 +147,14 @@ export function NavDropdown({
 
 type NavLinkProps = {
   href: string
+  hash?: string
   children: ReactNode
   onNavigate?: () => void
 }
 
 // Centraliza el indicador activo y el cierre del panel móvil al navegar.
 // Link conserva la navegación cliente y genera un enlace HTML accesible.
-export function NavLink({ href, children, onNavigate }: NavLinkProps) {
+export function NavLink({ href, hash, children, onNavigate }: NavLinkProps) {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
@@ -158,6 +163,7 @@ export function NavLink({ href, children, onNavigate }: NavLinkProps) {
   return (
     <Link
       to={href}
+      hash={hash}
       onClick={(event) => {
         // TanStack procesa después la navegación del enlace. Este callback solo
         // gestiona el menú en un clic principal sin modificadores.

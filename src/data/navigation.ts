@@ -1,20 +1,24 @@
 // Los menús de escritorio y móvil consumen las mismas etiquetas y destinos.
 // href es opcional para admitir elementos informativos aún sin página.
-export type DropdownItem = { label: string; href?: string }
+export type DropdownItem = { label: string; href?: string; hash?: string }
 export type NavigationItem = DropdownItem & { href: string }
 
 export const companyLinks: NavigationItem[] = [
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Clientes', href: '/clientes' },
+  { label: 'Clientes', href: '/areas/soluciones', hash: 'clientes' },
   { label: 'Oportunidades', href: '/oportunidades' },
   { label: 'Contacto', href: '/contacto' },
   { label: 'Soporte', href: '/soporte' },
   { label: 'Casos de éxito', href: '/casos-de-exito' },
 ]
+
+// Clientes se consulta dentro de Soluciones; el acceso secundario queda en el pie.
+export const navbarCompanyLinks = companyLinks.filter(
+  (link) => link.hash !== 'clientes',
+)
 export const primaryLinks: NavigationItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Gobierno', href: '/areas/gobierno' },
-  { label: 'Empresas', href: '/areas/privado' },
+  { label: 'Gobierno y Empresas', href: '/areas/soluciones' },
 ]
 export const products: NavigationItem[] = [
   { label: 'Gridxia', href: '/productos/gridxia' },

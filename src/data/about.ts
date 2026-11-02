@@ -9,8 +9,8 @@ export const companyIntroduction = {
 }
 
 export const aboutAreaDescriptions: Record<string, string> = {
-  '/areas/gobierno': 'Soluciones tecnológicas para instituciones públicas.',
-  '/areas/privado': 'Software a la medida para los procesos de tu empresa.',
+  '/areas/soluciones':
+    'Software a la medida para instituciones públicas y empresas.',
   '/productos': 'Conoce las plataformas del ecosistema Navasoft.',
   '/areas/navalav': 'Explora nuestra área de innovación tecnológica.',
 }

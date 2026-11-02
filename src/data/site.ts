@@ -36,8 +36,7 @@ export const siteContacts: ContactItem[] = [
 
 // Las rutas ya están habilitadas el contenido definitivo se completa después.
 export const footerSolutions: NavigationItem[] = [
-  { label: 'Gobierno', href: '/areas/gobierno' },
-  { label: 'Empresas', href: '/areas/privado' },
+  { label: 'Gobierno y Empresas', href: '/areas/soluciones' },
   { label: 'Productos', href: '/productos' },
   { label: 'Innovación', href: '/areas/navalav' },
 ]

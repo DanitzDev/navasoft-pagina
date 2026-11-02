@@ -22,7 +22,8 @@ export type Area = {
   highlights?: string[]
   image: string
   icon: LucideIcon
-  page?: 'gobierno' | 'privado' | 'navalav'
+  page?: 'soluciones' | 'navalav'
+  pageHash?: string
 }
 
 export type ProductSlug =

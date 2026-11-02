@@ -22,3 +22,19 @@ export const clientDirectory: readonly ClientLogo[] = [
   { id: 'ina', name: 'INA', image: '/images/clientes/Logo-INA.webp' },
   { id: 'ficohsa', name: 'Ficohsa' },
 ]
+
+const publicClientIds = new Set([
+  'conape',
+  'jasec',
+  'cosevi',
+  'municipalidad-la-union',
+  'banco-nacional',
+  'ina',
+])
+
+export const businessClients = clientDirectory.filter(
+  (client) => !publicClientIds.has(client.id),
+)
+export const publicClients = clientDirectory.filter((client) =>
+  publicClientIds.has(client.id),
+)

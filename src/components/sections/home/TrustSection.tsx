@@ -44,7 +44,12 @@ export function TrustSection() {
                   showPlaceholders={showPlaceholders}
                 />
                 <div className="trust-directory-link">
-                  <ButtonLink to="/clientes" variant="outline">
+                  <ButtonLink
+                    to="/areas/$slug"
+                    params={{ slug: 'soluciones' }}
+                    hash="clientes"
+                    variant="outline"
+                  >
                     Ver todos los clientes
                   </ButtonLink>
                 </div>
@@ -71,7 +76,7 @@ export function TrustSection() {
           </div>
         </div>
         {(testimonials.length > 0 || showPlaceholders) && (
-          <div className="trust-feedback">
+          <div id="testimonios" className="trust-feedback">
             <h3>Testimonios</h3>
             <Testimonials
               items={testimonials}
