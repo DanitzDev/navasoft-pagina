@@ -7,6 +7,7 @@ import { clientDirectory } from '../../../data/client-directory'
 import { sectorPages } from '../../../data/sector-pages'
 import { products } from '../../../data/products'
 import { contactBanner } from '../../../data/site'
+import SolutionsNavigation from './SolutionsNavigation'
 import './SolutionsArea.css'
 
 const sectors = [
@@ -21,19 +22,22 @@ function ClientList({ clients }: { clients: typeof clientDirectory }) {
   return (
     <ul className="business-client-list">
       {clients.map((client) => (
-        <li key={client.id}>
+        <li
+          key={client.id}
+          className={client.image ? undefined : 'business-client-text-only'}
+        >
           {client.image && (
             <div className="business-client-logo">
               <img
                 src={client.image}
-                alt=""
+                alt={client.name}
                 width="160"
                 height="72"
                 loading="lazy"
               />
             </div>
           )}
-          <span>{client.name}</span>
+          {!client.image && <span>{client.name}</span>}
         </li>
       ))}
     </ul>
@@ -46,17 +50,14 @@ export default function SolutionsArea() {
       <section className="business-hero" aria-labelledby="solutions-title">
         <Container className="business-hero-layout">
           <div>
-            <p className="business-kicker">Para Gobierno y Empresas</p>
+            <p className="business-kicker">Gobierno y Empresas</p>
             <h1 id="solutions-title">
-              Desarrollamos software e integramos sus procesos.
+              Software a la medida para su operación.
             </h1>
-            <p className="business-lead">
-              De la planta y la bodega a los trámites institucionales.
-            </p>
             <p className="business-hero-description">
-              Conectamos inventarios, facturación, expedientes y finanzas con
-              sus sistemas actuales para reducir tareas manuales y facilitar el
-              seguimiento de cada proceso.
+              Desarrollamos y modernizamos sistemas para instituciones públicas
+              y empresas. Conectamos inventarios, facturación, expedientes y
+              finanzas con sus herramientas actuales.
             </p>
             <div className="business-actions">
               <ButtonLink
@@ -67,7 +68,8 @@ export default function SolutionsArea() {
                 Solicitar reunión
               </ButtonLink>
               <a href="#productos-relacionados" className="business-text-link">
-                Ver productos <span aria-hidden="true">↗</span>
+                <span>Explorar productos</span>
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -83,7 +85,25 @@ export default function SolutionsArea() {
                 height="1008"
               />
               <span className="solutions-access-caption">
-                Gobierno <span aria-hidden="true">↓</span>
+                <span>
+                  <strong>Gobierno</strong>
+                  <small>Trámites y gestión institucional</small>
+                </span>
+                <svg
+                  aria-hidden="true"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                >
+                  <path
+                    d="M7 17 17 7M7 7h10v10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
             </a>
             <a href="#empresas" className="solutions-sector-access">
@@ -94,7 +114,25 @@ export default function SolutionsArea() {
                 height="1008"
               />
               <span className="solutions-access-caption">
-                Empresas <span aria-hidden="true">↓</span>
+                <span>
+                  <strong>Empresas</strong>
+                  <small>Producción, logística y administración</small>
+                </span>
+                <svg
+                  aria-hidden="true"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                >
+                  <path
+                    d="M7 17 17 7M7 7h10v10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
             </a>
           </nav>
@@ -103,20 +141,7 @@ export default function SolutionsArea() {
 
       <div id="clientes" className="solutions-content">
         <Container>
-          <nav
-            className="solutions-navigation"
-            aria-label="Explorar soluciones por sector"
-          >
-            <a href="#empresas">
-              Empresas <span aria-hidden="true">↓</span>
-            </a>
-            <a href="#gobierno">
-              Gobierno <span aria-hidden="true">↓</span>
-            </a>
-            <a href="#productos-relacionados">
-              Productos relacionados <span aria-hidden="true">↓</span>
-            </a>
-          </nav>
+          <SolutionsNavigation />
         </Container>
         {sectors.map((sector) => (
           <section
@@ -177,6 +202,7 @@ export default function SolutionsArea() {
 
       <section
         id="productos-relacionados"
+        tabIndex={-1}
         className="business-products"
         aria-labelledby="solutions-products-title"
       >

@@ -59,7 +59,7 @@ export function AreasSection() {
           <SectionTitle
             eyebrow="Nuestras áreas"
             title="Cuatro áreas. Una misma visión de innovación."
-            description="Transformamos experiencia, conocimiento y tecnología en..."
+            description="Desarrollamos soluciones para instituciones públicas y empresas, plataformas propias e innovación aplicada a la operación."
           />
         </div>
 
