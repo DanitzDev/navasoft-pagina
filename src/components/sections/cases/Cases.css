@@ -177,22 +177,18 @@
 .cases-project-link {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 14px 4px;
   min-height: 44px;
-  border: 1px solid #526079;
-  border-radius: 12px;
+  border-bottom: 2px solid transparent;
   color: #f5f7fb;
   font-size: 16px;
   font-weight: 600;
 }
-.cases-project-link > span:last-child {
-  color: #ffc89b;
-}
 .cases-project-link:hover,
-.cases-project-link[data-status='active'] {
-  border-color: #ffc89b;
-  background: #20314d;
+.cases-project-link[aria-current='location'] {
+  border-bottom-color: #ffc89b;
+  color: #ffc89b;
 }
 .cases-project-link:focus-visible,
 .cases-page-return:focus-visible {
@@ -200,10 +196,38 @@
   outline-offset: 4px;
 }
 .cases-group-count {
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: #20314d;
-  color: #e2eaf5;
+  color: #b9c6da;
+  font-size: 14px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.cases-page-return {
+  padding-block: 12px;
+  color: #c5cfdf;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.cases-page-return:hover {
+  color: #ffc89b;
+}
+.cases-page-navigation nav {
+  min-width: 0;
+}
+.cases-project-links {
+  column-gap: 28px;
+}
+@media (max-width: 599px) {
+  .cases-project-links {
+    column-gap: 16px;
+  }
+  .cases-project-link {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .cases-page-navigation {
+    gap: 8px;
+  }
 }
 .cases-catalog {
   display: grid;

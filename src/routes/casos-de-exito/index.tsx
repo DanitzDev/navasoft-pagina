@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Link,
   createFileRoute,
@@ -6,7 +6,6 @@ import {
   useLocation,
   useNavigate,
 } from '@tanstack/react-router'
-import { ButtonLink } from '../../components/ui/Button'
 import { Container } from '../../components/ui/Container'
 import { SectionTitle } from '../../components/ui/SectionTitle'
 import CaseCard from '../../components/sections/cases/CaseCard'
@@ -38,6 +37,36 @@ export const Route = createFileRoute('/casos-de-exito/')({
 })
 
 function SuccessCasesPage() {
+  const [activeGroup, setActiveGroup] = useState(caseGroups[0].id)
+  useEffect(() => {
+    let frame = 0
+    const measure = () => {
+      let current = caseGroups[0].id
+      for (const group of caseGroups) {
+        const section = document.getElementById(group.id)
+        if (
+          section &&
+          section.getBoundingClientRect().top <=
+            Math.max(150, window.innerHeight * 0.3)
+        ) {
+          current = group.id
+        }
+      }
+      setActiveGroup(current)
+    }
+    const schedule = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(measure)
+    }
+    measure()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [])
   const hash = useLocation({ select: (location) => location.hash })
   const navigate = useNavigate()
   // El fragmento no llega al servidor; también se resuelve tras hidratar.
@@ -69,31 +98,25 @@ function SuccessCasesPage() {
               <ul className="cases-project-links">
                 {caseGroups.map((group) => (
                   <li key={group.id}>
-                    <Link
-                      to="/casos-de-exito"
-                      hash={group.id}
+                    <a
+                      href={`#${group.id}`}
                       className="cases-project-link"
-                      activeOptions={{ exact: true, includeHash: true }}
+                      aria-current={
+                        activeGroup === group.id ? 'location' : undefined
+                      }
                     >
                       {group.title}{' '}
                       <span className="cases-group-count">
                         {group.cases.length}
                       </span>
-                      <span aria-hidden="true">↓</span>
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
             </nav>
-            <ButtonLink
-              to="/"
-              hash="casos-de-exito"
-              variant="outline"
-              size="sm"
-              className="cases-page-return"
-            >
-              Volver a los casos de Inicio
-            </ButtonLink>
+            <Link to="/" hash="casos-de-exito" className="cases-page-return">
+              Volver a Inicio
+            </Link>
           </div>
           <div className="cases-catalog">
             {caseGroups.map((group) => (
