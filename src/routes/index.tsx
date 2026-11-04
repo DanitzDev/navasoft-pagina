@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Hero } from '@/components/sections/home/Hero'
+import CompanyVideo from '../components/sections/home/CompanyVideo'
 import { GovernmentSection } from '@/components/sections/home/GovernmentSection'
 import { AreasSection } from '@/components/sections/home/AreasSection'
 import { EcosystemSection } from '@/components/sections/home/EcosystemSection'
@@ -19,6 +20,7 @@ function Home() {
       <Hero />
       <GovernmentSection />
       <AreasSection />
+      <CompanyVideo />
       <EcosystemSection />
       <CasesSection />
       <div className="bg-night">

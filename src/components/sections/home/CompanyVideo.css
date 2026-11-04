@@ -1,0 +1,92 @@
+.company-video-section {
+  padding-block: clamp(40px, 6vw, 80px);
+  background: var(--color-deep);
+  color: #f5f7fb;
+  scroll-margin-top: 130px;
+}
+.company-video-frame {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 480px;
+  aspect-ratio: 16 / 8;
+  border: 1px solid #40506a;
+  border-radius: 18px;
+  background: #080c14;
+}
+.company-video-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.company-video-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #080c14f2 0%, #080c14c9 46%, #080c1440 100%),
+    linear-gradient(0deg, #080c1499, transparent 50%);
+}
+.company-video-heading {
+  position: relative;
+  z-index: 2;
+  width: min(72%, 770px);
+  padding: clamp(32px, 5vw, 64px);
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.company-video-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  color: #ffc89b;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.company-video-heading h2 {
+  margin: 0;
+  font-family: var(--font-poppins);
+  font-size: clamp(30px, 3.8vw, 52px);
+  font-weight: 600;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.company-video-heading p {
+  margin: 24px 0 0;
+  max-width: 48ch;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #e3eaf4;
+}
+@media (max-width: 699px) {
+  .company-video-frame {
+    aspect-ratio: auto;
+    min-height: 460px;
+  }
+  .company-video-heading {
+    width: 100%;
+    padding: 32px 24px;
+  }
+  .company-video-heading h2 {
+    font-size: clamp(28px, 6.8vw, 40px);
+  }
+  .company-video-heading p {
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .company-video-eyebrow {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .company-video-frame::after {
+    background: linear-gradient(90deg, #080c14e6, #080c1499);
+  }
+}
