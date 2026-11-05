@@ -69,7 +69,7 @@ export const careersCopy = {
             "Proyectos en Centroamérica", // MAQUETA
             "Modalidad según el rol y el proyecto", // MAQUETA
         ],
-        image: "/images/nosotros.jpg", // MAQUETA
+        image: "/images/nosotros.jpeg", // MAQUETA
         imageAlt: "Sala de una fábrica de software", // MAQUETA
     },
 
