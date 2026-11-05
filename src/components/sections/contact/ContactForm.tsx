@@ -35,6 +35,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
   >({})
   const [errors, setErrors] = useState<ContactErrors>({})
   const [pending, setPending] = useState(false)
+  const [ready, setReady] = useState(false)
   const [notice, setNotice] = useState('')
   const [sent, setSent] = useState(false)
   const [attempted, setAttempted] = useState(false)
@@ -44,6 +45,10 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
   const busy = useRef(false)
   const form = useRef<HTMLFormElement>(null)
   const status = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setReady(true)
+  }, [])
 
   useEffect(() => {
     if (sent) status.current?.focus()
@@ -217,6 +222,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     <form
       ref={form}
       className="contact-form"
+      method="post"
       noValidate
       onSubmit={handleSubmit}
       aria-labelledby="contact-form-title"
@@ -246,7 +252,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
           autoComplete="off"
         />
       </div>
-      <fieldset disabled={pending}>
+      <fieldset disabled={!ready || pending}>
         <legend className="sr-only">Tus datos de contacto</legend>
         <div className="contact-fields contact-details">
           <Input
@@ -280,7 +286,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
           />
         </div>
       </fieldset>
-      <fieldset disabled={pending}>
+      <fieldset disabled={!ready || pending}>
         <legend className="sr-only">¿En qué podemos ayudarte?</legend>
         <div className="contact-fields">
           <div className="contact-field-wide">
@@ -324,7 +330,11 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       </noscript>
       <div className="contact-submit">
         <p>Usaremos tus datos para responder a tu consulta.</p>
-        <Button type="submit" size="lg" disabled={pending || retrySeconds > 0}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={!ready || pending || retrySeconds > 0}
+        >
           {pending
             ? 'Procesando…'
             : retrySeconds > 0

@@ -40,8 +40,7 @@ test('rechaza tipos incorrectos incluso en teléfono y organización opcionales'
         },
       )
       assert.equal(result.status, 'invalid')
-      if (result.status === 'invalid')
-        assert.ok(result.errors[field as keyof ContactData])
+      assert.ok(result.errors[field as keyof ContactData])
     }
   }
 })
@@ -157,7 +156,7 @@ test('solo transmite campos permitidos y normalizados', async () => {
   )
   assert.deepEqual(result, { status: 'sent' })
   assert.equal(received?.name, 'María Pérez')
-  assert.deepEqual(Object.keys(received!).sort(), [
+  assert.deepEqual(Object.keys(received).sort(), [
     'email',
     'message',
     'name',

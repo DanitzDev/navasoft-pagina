@@ -1,6 +1,6 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ProductDetailPage } from "@/components/sections/products/detail/ProductDetailPage";
-import { products } from "@/data/products";
+import { createFileRoute, notFound } from '@tanstack/react-router'
+import { ProductDetailPage } from '@/components/sections/products/detail/ProductDetailPage'
+import { products } from '@/data/products'
 
 export const Route = createFileRoute('/productos/$slug')({
   // El mismo catálogo alimenta los enlaces y valida los productos existentes.
@@ -11,12 +11,14 @@ export const Route = createFileRoute('/productos/$slug')({
     return product
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: `${loaderData?.name ?? 'Producto'} · Navasoft Soluciones` }],
+    meta: [
+      { title: `${loaderData?.name ?? 'Producto'} · Navasoft Soluciones` },
+    ],
   }),
   component: ProductPage,
 })
 
 function ProductPage() {
-  const product = Route.useLoaderData();
-  return <ProductDetailPage product={product} />;
+  const product = Route.useLoaderData()
+  return <ProductDetailPage product={product} />
 }

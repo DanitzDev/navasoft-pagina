@@ -546,6 +546,14 @@
   }
 }
 /* Formulario compacto: la información relacionada comparte una fila. */
+.contact-layout--channels {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 720px;
+  margin: 40px auto 0;
+}
+.contact-layout--channels .contact-info {
+  padding-top: 0;
+}
 .contact-form {
   padding: clamp(20px, 2.4vw, 28px);
 }

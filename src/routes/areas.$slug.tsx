@@ -1,6 +1,6 @@
-import PageHeader from '../components/shared/page-header/PageHeader'
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 import SolutionsArea from '../components/sections/areas/SolutionsArea'
+import InnovationPage from '../components/sections/innovation/InnovationPage'
 
 // Una página reúne ambos sectores; las direcciones anteriores redirigen por ancla.
 const areas = [
@@ -40,7 +40,13 @@ export const Route = createFileRoute('/areas/$slug')({
                 'Soluciones a la medida para Gobierno y Empresas: modernización Oracle, integración de procesos, clientes y proyectos de Navasoft Soluciones.',
             },
           ]
-        : []),
+        : [
+            {
+              name: 'description',
+              content:
+                'Innovación aplicada de Navasoft: exploramos IoT, inteligencia artificial y nube, desde una prueba de concepto hasta su integración con la operación.',
+            },
+          ]),
     ],
   }),
   component: AreaPage,
@@ -51,11 +57,5 @@ function AreaPage() {
 
   if (area.slug === 'soluciones') return <SolutionsArea />
 
-  // TODO: incorporar el contenido aprobado de esta área.
-  return (
-    <PageHeader
-      title={area.title}
-      description="La información de esta área estará disponible próximamente."
-    />
-  )
+  return <InnovationPage />
 }

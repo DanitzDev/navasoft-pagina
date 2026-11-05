@@ -44,8 +44,11 @@ export function validateContact(input: unknown): {
     message: read('message'),
   }
   const errors: ContactErrors = {}
+  // Los controles se buscan explícitamente para rechazar entradas malformadas.
+  /* eslint-disable no-control-regex */
   const singleLineControls = /[\u0000-\u001f\u007f]/
   const messageControls = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/
+  /* eslint-enable no-control-regex */
   if (
     data.name.length < 2 ||
     data.name.length > contactLimits.name ||
