@@ -1,45 +1,30 @@
-import PageHeader from '../components/shared/page-header/PageHeader'
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { footerSocialLinks } from '../data/site'
+import { createFileRoute } from '@tanstack/react-router'
+import { CareersPage } from '@/components/sections/careers/CareersPage'
+import { areas, profiles } from '@/data/opportunities'
+import type { AreaId, ProfileId } from '@/data/opportunities'
 
 export const Route = createFileRoute('/oportunidades')({
-  head: () => ({ meta: [{ title: 'Oportunidades · Navasoft Soluciones' }] }),
-  component: OpportunitiesPage,
+  // Permite enlaces como /oportunidades?perfil=practicante&area=desarrollo que dejan el formulario preelegido
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { perfil?: ProfileId; area?: AreaId } => ({
+    perfil: profiles.find((profile) => profile.id === search.perfil)?.id,
+    area: areas.find((area) => area.id === search.area)?.id,
+  }),
+  head: () => ({
+    meta: [
+      { title: 'Oportunidades · Navasoft Soluciones' },
+      {
+        name: 'description',
+        content:
+          'Navasoft busca profesionales y practicantes en desarrollo, datos, IoT, implementación y administración. Consulte cómo postularse.',
+      },
+    ],
+  }),
+  component: OportunidadesPage,
 })
 
-function OpportunitiesPage() {
-  const linkedIn = footerSocialLinks.find(
-    ({ network }) => network === 'linkedin',
-  )
-
-  return (
-    <PageHeader
-      title="Oportunidades"
-      description="Conoce a Navasoft Soluciones y sigue las novedades de nuestro equipo."
-    >
-      <ul className="mt-6 space-y-3">
-        {linkedIn && (
-          <li>
-            <a href={linkedIn.href} className="underline underline-offset-4">
-              Seguir a Navasoft en LinkedIn
-            </a>
-          </li>
-        )}
-        <li>
-          <Link to="/nosotros" className="underline underline-offset-4">
-            Conocer nuestro equipo y trayectoria
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/contacto"
-            search={{ motivo: undefined }}
-            className="underline underline-offset-4"
-          >
-            Consultar por oportunidades
-          </Link>
-        </li>
-      </ul>
-    </PageHeader>
-  )
+function OportunidadesPage() {
+  const { perfil, area } = Route.useSearch()
+  return <CareersPage initialProfile={perfil} initialArea={area} />
 }
