@@ -1,0 +1,156 @@
+/* Dos grupos idénticos mantienen el recorrido continuo sin anunciar duplicados. */
+.logo-carousel {
+  min-width: 0;
+  isolation: isolate;
+  position: relative;
+}
+.logo-carousel-rail {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.logo-carousel-rail::-webkit-scrollbar {
+  display: none;
+}
+/* El outline de foco se recortaría con la máscara. */
+.logo-carousel-rail:focus-visible {
+  outline: 2px solid #f6b480;
+  outline-offset: 4px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.logo-carousel-group {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: 100%;
+  gap: 32px;
+  margin: 0;
+  padding: 16px 32px 16px 0;
+  list-style: none;
+}
+.logo-carousel-item,
+.logo-carousel-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 0 0 184px;
+  min-height: 128px;
+  gap: 16px;
+}
+.logo-carousel-item {
+  padding: 12px;
+}
+.logo-carousel-item img {
+  display: block;
+  width: 160px;
+  height: 72px;
+  object-fit: contain;
+}
+.logo-carousel-item span {
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+.logo-carousel-placeholder {
+  color: #cbd5e1;
+  font-size: 13px;
+  text-align: center;
+  border-bottom: 1px solid rgb(211 219 230 / 25%);
+}
+/* En móvil caben dos marcas sin comprimir los logos ni sus etiquetas. */
+@media (max-width: 639px) {
+  .logo-carousel-item,
+  .logo-carousel-placeholder {
+    flex-basis: 144px;
+    min-height: 116px;
+    padding-inline: 4px;
+  }
+  .logo-carousel-item img {
+    width: 136px;
+    height: 64px;
+  }
+  .logo-carousel-group {
+    gap: 24px;
+    padding-right: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-carousel-group[aria-hidden='true'] {
+    display: none;
+  }
+  .logo-carousel-rail {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Una lista corta se muestra completa, sin duplicados ni recorte lateral. */
+.logo-carousel--static .logo-carousel-rail {
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.logo-carousel--static .logo-carousel-group {
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+  padding-right: 0;
+}
+
+/* Se eleva la tarjeta completa; el logo conserva su tamaño y proporciones. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .logo-carousel-item {
+    transition:
+      transform 240ms ease,
+      box-shadow 240ms ease;
+  }
+  .logo-carousel-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 16%);
+  }
+}
+
+.logo-carousel:not(.logo-carousel--static) .logo-carousel-rail {
+  cursor: grab;
+}
+.logo-carousel-rail[data-dragging='true'] {
+  cursor: grabbing !important;
+  user-select: none;
+}
+.logo-carousel-item img {
+  user-select: none;
+}
+/* El fondo cubre los extremos sin modificar la opacidad de las tarjetas. */
+.logo-carousel:not(.logo-carousel--static)::before,
+.logo-carousel:not(.logo-carousel--static)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: var(--logo-fade-width, clamp(32px, 5vw, 72px));
+  pointer-events: none;
+}
+.logo-carousel:not(.logo-carousel--static)::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--logo-edge-color, #131a2b),
+    transparent
+  );
+}
+.logo-carousel:not(.logo-carousel--static)::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--logo-edge-color, #131a2b),
+    transparent
+  );
+}
+.logo-carousel:focus-within::before,
+.logo-carousel:focus-within::after {
+  opacity: 0;
+}

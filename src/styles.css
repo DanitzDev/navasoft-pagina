@@ -1,8 +1,17 @@
+@import 'tailwindcss';
 
-@import "tailwindcss";
+/* Fuente compartida por el sitio y los componentes del Navbar. */
+@theme {
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+}
 
 * {
   box-sizing: border-box;
+}
+
+/* Evita saltos laterales al bloquear el scroll detrás del menú móvil. */
+html {
+  scrollbar-gutter: stable;
 }
 
 html,
@@ -13,5 +22,98 @@ body,
 
 body {
   margin: 0;
+  background: #0d1522;
+  color: #f5f7fb;
+  font-family: var(--font-sans);
 }
 
+/* main es un destino de salto; los controles conservan su foco visible. */
+#contenido:focus {
+  outline: none;
+}
+
+/* Las fuentes de public se sirven desde la raíz, sin el prefijo /public. */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/Montserrat-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/poppins.bold.ttf') format('truetype');
+}
+
+/* Paleta oficial: azul oscuro/claro y naranja vivo/oscuro de la guía de marca. */
+@theme {
+  --font-montserrat: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-montserratregular: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-poppins: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #415c85;
+  --color-primary-hover: #5c7e98;
+  --color-accent: #f47e20;
+  --color-accent-hover: #d96627;
+  --color-field: #3f5b88;
+  /* fondo de los campos */
+  --color-panel: #1f3354;
+  /* fondo del panel "Agenda" */
+  --color-text-eyebrow: var(--color-accent);
+  --color-text-eyebrow2: #ffd4b0;
+
+  --color-night: #131a2b;
+  --color-deep: #0f1626;
+}
+
+/* Cuatro utilidades para el color de cada producto, más el scroll suave de las anclas */
+@utility text-product {
+  color: var(--product, var(--color-accent));
+}
+
+@utility bg-product {
+  background-color: var(--product, var(--color-accent));
+}
+
+@utility bg-product-soft {
+  background-color: color-mix(
+    in oklab,
+    var(--product, var(--color-accent)) 15%,
+    transparent
+  );
+}
+
+@utility border-product {
+  border-color: color-mix(
+    in oklab,
+    var(--product, var(--color-accent)) 45%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+/* Las etiquetas largas no deben ensanchar la página en pantallas pequeñas. */
+.product-detail-page .grid > *,
+.product-detail-page .flex > * {
+  min-width: 0;
+}
+.product-detail-page .rounded-full.whitespace-nowrap {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

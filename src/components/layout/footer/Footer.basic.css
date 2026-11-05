@@ -1,0 +1,303 @@
+/* Distribución progresiva: una columna en móvil, dos en tablet y cuatro
+   en escritorio. minmax(0, ...) permite ajustar textos largos sin desbordar. */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  background: #0d1522;
+  color: #f5f7fb;
+}
+/* Mismo margen exterior de 16 px y ancho máximo que el Navbar.
+   El padding incluye el píxel de su borde para alinear los contenidos. */
+.footer-container {
+  width: calc(100% - 32px);
+  max-width: 1152px;
+  margin-inline: auto;
+  padding-inline: 13px;
+}
+.footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  padding-block: 48px;
+}
+.footer-about,
+.footer-column {
+  min-width: 0;
+}
+.footer-brand {
+  display: inline-block;
+  border-radius: 4px;
+}
+.footer-brand img {
+  display: block;
+  width: auto;
+  height: 44px;
+  max-width: 110px;
+  object-fit: contain;
+}
+.site-footer a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+.footer-tagline {
+  margin: 12px 0 0;
+  color: #d3dbe6;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.footer-column h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  /* Respetar la escritura del título: Soluciones, Ecosistema y Empresa. */
+  text-transform: none;
+  letter-spacing: normal;
+  /* Naranja suavizado para distinguir los títulos de la acción principal. */
+  color: color-mix(in srgb, var(--color-accent) 55%, #f5f7fb);
+}
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-block: 20px;
+  color: #d3dbe6;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-contact {
+  margin-top: 24px;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 1.6;
+  color: #bac5d4;
+  overflow-wrap: anywhere;
+}
+.footer-contact ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+.footer-contact a:hover {
+  color: #f5f7fb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+/* El SVG no se encoge cuando un correo largo ocupa varias líneas. */
+.footer-contact-icon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.footer-contact-row a,
+.footer-contact-row > span {
+  min-width: 0;
+}
+
+/* Listas de navegación compartidas por las columnas del footer. */
+.footer-links {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.footer-links a {
+  color: #bac5d4;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  color: #f5f7fb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-products {
+  gap: 12px;
+}
+.footer-product {
+  display: block;
+}
+.footer-product-name {
+  display: block;
+  color: #f5f7fb;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+/* Jerarquía visual: descripción menor que el nombre, con altura legible. */
+.footer-product-description {
+  display: block;
+  margin-top: 2px;
+  color: #bac5d4;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+/* Resaltar solo el nombre del producto, también al navegar con teclado. */
+.footer-products .footer-product:hover,
+.footer-products .footer-product:focus-visible {
+  text-decoration: none;
+}
+.footer-product:hover .footer-product-name,
+.footer-product:focus-visible .footer-product-name {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-links .footer-meeting-link {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.footer-links .footer-meeting-link:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Franja institucional, los separadores ocupan todo el ancho del footer. */
+.footer-statement {
+  padding-block: 32px;
+  border-block: 1px solid rgb(255 255 255 / 12%);
+  text-align: center;
+}
+/* Ajuste local sin modificar el SectionTitle que usa el resto del equipo. */
+.footer-statement-title h2 {
+  margin: 0;
+  font-family: var(--font-sans);
+  letter-spacing: normal;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* Redes centradas en móvil, con áreas táctiles de 44 px por enlace. */
+.footer-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-social-links a {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+.footer-social-links a:hover,
+.footer-social-links a:focus-visible {
+  color: #ffffff;
+  background: rgb(255 255 255 / 12%);
+}
+
+/* Adaptación responsive: mantener aquí los ajustes de cada breakpoint. */
+/* Móvil: ampliar las áreas táctiles sin aumentar el tamaño de letra. */
+@media (max-width: 639px) {
+  /* Centrar únicamente el texto legal en la vista móvil. */
+  .footer-bottom > p {
+    text-align: center;
+  }
+  /* Separar productos sin alejar la descripción de su nombre. */
+  .footer-products {
+    gap: 18px;
+  }
+  .footer-identity {
+    text-align: center;
+  }
+  .footer-contact ul {
+    /* Compactar los contactos conserva el área táctil mínima de cada enlace. */
+    gap: 8px;
+  }
+  .footer-links a,
+  .footer-contact-row a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 44px;
+    padding-block: 6px;
+  }
+  /* Centrar el SVG también cuando el correo se divide en varias líneas. */
+  .footer-contact-row {
+    align-items: center;
+  }
+  .footer-contact-icon {
+    margin-top: 0;
+  }
+}
+@media (min-width: 640px) {
+  .footer-container {
+    padding-inline: 21px;
+  }
+  .footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-statement-title h2 {
+    font-size: 24px;
+  }
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-bottom > nav {
+    flex-shrink: 0;
+  }
+  .footer-social-links {
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+@media (min-width: 1200px) {
+  .footer-columns {
+    /* Ecosistema y Empresa necesitan más ancho que la lista de Soluciones. */
+    grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 3fr) minmax(
+        0,
+        3fr
+      );
+    gap: 32px;
+    padding-block: 64px;
+  }
+}
+
+/* La página actual se reconoce por color y subrayado, sin cambiar el tamaño. */
+.footer-links a[aria-current='page']:not(.footer-product),
+.footer-product[aria-current='page'] .footer-product-name {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Animar solo propiedades visuales evita movimientos en la distribución. */
+@media (prefers-reduced-motion: no-preference) {
+  .site-footer a,
+  .footer-product-name {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease;
+  }
+}
