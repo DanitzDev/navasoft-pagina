@@ -1,14 +1,33 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Hero } from '@/components/sections/home/Hero'
+import CompanyVideo from '../components/sections/home/CompanyVideo'
+import { GovernmentSection } from '@/components/sections/home/GovernmentSection'
+import { AreasSection } from '@/components/sections/home/AreasSection'
+import { EcosystemSection } from '@/components/sections/home/EcosystemSection'
+import CasesSection from '../components/sections/home/CasesSection'
+import { TrustSection } from '../components/sections/home/TrustSection'
+import Timeline from '../components/sections/about/timeline/Timeline'
+import InstitutionalBanner from '../components/shared/institutional-banner/InstitutionalBanner'
+import { contactBanner } from '../data/site'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  component: Home,
+})
 
 function Home() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold">Welcome to TanStack Start</h1>
-      <p className="mt-4 text-lg">
-        Edit <code>src/routes/index.tsx</code> to get started.
-      </p>
-    </div>
+    <>
+      <Hero />
+      <GovernmentSection />
+      <AreasSection />
+      <CompanyVideo />
+      <EcosystemSection />
+      <CasesSection />
+      <div className="bg-night">
+        <Timeline className="history-section--home max-w-7xl lg:px-8" />
+      </div>
+      <TrustSection />
+      <InstitutionalBanner {...contactBanner} />
+    </>
   )
 }

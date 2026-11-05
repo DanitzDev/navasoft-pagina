@@ -1,0 +1,502 @@
+.innovation-page {
+  --innovation-text: #f5f7fb;
+  --innovation-muted: #c4cfdf;
+  --innovation-line: #3a4b63;
+  background: #0f1626;
+  color: var(--innovation-text);
+  padding-bottom: 80px;
+}
+.innovation-page h1,
+.innovation-page h2,
+.innovation-page h3 {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+}
+.innovation-page h2 {
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.innovation-page p {
+  margin: 0;
+}
+.innovation-page a:focus-visible,
+.innovation-page button:focus-visible {
+  outline: 2px solid #ffc89b;
+  outline-offset: 5px;
+}
+.innovation-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  padding-block: 56px 72px;
+}
+.innovation-label {
+  color: #ffc89b;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 22px !important;
+}
+.innovation-hero h1 {
+  font-size: clamp(38px, 4.8vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 0;
+  text-wrap: balance;
+  max-width: 13ch;
+}
+.innovation-lead {
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 44ch;
+  color: var(--innovation-muted);
+  margin-top: 26px !important;
+}
+.innovation-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 32px;
+}
+.innovation-actions > a:last-child {
+  color: #f5f7fb;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  font-size: 15px;
+  padding-block: 12px;
+}
+.innovation-actions > a:last-child:hover {
+  color: #ffc89b;
+}
+.innovation-hero-visual {
+  position: relative;
+  margin: 0;
+  align-self: stretch;
+  min-height: 470px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #17243a;
+}
+.innovation-hero-visual > img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  object-position: 65% center;
+}
+.innovation-hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: 30% 0 0;
+  background: linear-gradient(transparent, #080f1aeb);
+  pointer-events: none;
+}
+.innovation-hero-visual figcaption {
+  position: absolute;
+  z-index: 1;
+  bottom: 32px;
+  left: 32px;
+  right: 24px;
+  border-left: 3px solid #f47e20;
+  padding-left: 20px;
+}
+.innovation-hero-visual figcaption > span {
+  color: #ffc89b;
+  font-size: 14px;
+}
+.innovation-hero-visual figcaption p {
+  font-family: var(--font-poppins);
+  font-size: clamp(22px, 2.3vw, 30px);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 10px;
+}
+.innovation-intro-band {
+  background: #17243a;
+}
+.innovation-intro {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 64px;
+  padding-block: 48px;
+  align-items: center;
+}
+.innovation-intro h2 {
+  font-size: clamp(25px, 2.8vw, 34px);
+  max-width: 22ch;
+}
+.innovation-intro p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #d6dfec;
+  max-width: 64ch;
+}
+.innovation-capabilities,
+.innovation-contexts {
+  padding-block: 88px;
+  scroll-margin-top: 125px;
+}
+.innovation-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.innovation-section-heading h2 {
+  max-width: 27ch;
+}
+.innovation-section-heading > p {
+  max-width: 35ch;
+  color: var(--innovation-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.innovation-explorer {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+}
+.innovation-capability-options {
+  display: grid;
+}
+.innovation-capability-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+  border-top: 1px solid var(--innovation-line);
+  padding: 28px 12px 28px 0;
+  background: transparent;
+  color: #c4cfdf;
+  text-align: left;
+  cursor: pointer;
+}
+.innovation-capability-option:last-child {
+  border-bottom: 1px solid var(--innovation-line);
+}
+.innovation-capability-option > svg {
+  flex: 0 0 auto;
+  margin-top: 4px;
+}
+.innovation-capability-option > svg:last-child {
+  margin-left: auto;
+}
+.innovation-capability-option > span {
+  display: grid;
+  gap: 10px;
+}
+.innovation-capability-option strong {
+  font-family: var(--font-poppins);
+  font-size: clamp(19px, 2vw, 24px);
+  color: #f5f7fb;
+  font-weight: 600;
+}
+.innovation-capability-option span span {
+  font-size: 16px;
+  line-height: 1.65;
+}
+.innovation-capability-option[aria-expanded='true'] {
+  color: #ffc89b;
+  border-top-color: #f47e20;
+}
+.innovation-capability-option:hover strong {
+  color: #ffc89b;
+}
+.innovation-capability-panel {
+  border: 1px solid var(--innovation-line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #17243a;
+}
+.innovation-capability-panel[hidden] {
+  display: none;
+}
+.innovation-capability-panel > img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+.innovation-capability-body {
+  padding: 28px;
+}
+.innovation-capability-body h3 {
+  font-size: 24px;
+  line-height: 1.35;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.innovation-capability-body > p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #d6dfec;
+}
+.innovation-capability-body ul {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.innovation-capability-body li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.innovation-capability-body li svg {
+  flex-shrink: 0;
+  color: #ffc89b;
+  margin-top: 4px;
+}
+.innovation-process {
+  background: #131e30;
+  padding-block: 64px;
+}
+.innovation-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 48px 0 0;
+}
+.innovation-steps li {
+  border-top: 1px solid #657287;
+  padding-top: 22px;
+}
+.innovation-step-number {
+  color: #ffc89b;
+  font-size: 16px;
+}
+.innovation-steps h3 {
+  font-size: 22px;
+  margin: 18px 0 12px;
+}
+.innovation-steps p {
+  color: var(--innovation-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.innovation-context-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+}
+.innovation-context-list article {
+  padding-block: 24px;
+  border-top: 1px solid var(--innovation-line);
+}
+.innovation-context-list svg {
+  color: #ffc89b;
+}
+.innovation-context-list h3 {
+  font-size: 23px;
+  margin: 20px 0 12px;
+}
+.innovation-context-list p {
+  color: var(--innovation-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.innovation-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--innovation-line);
+  font-size: 16px;
+}
+.innovation-related p {
+  margin-right: auto;
+  color: var(--innovation-muted);
+}
+.innovation-related a {
+  padding-block: 10px;
+  color: #ffc89b;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.innovation-related a:hover {
+  color: #fff;
+}
+.innovation-contact {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 40px;
+  position: relative;
+}
+.innovation-contact::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  top: 0;
+  height: 3px;
+  background: #f47e20;
+}
+.innovation-contact p {
+  color: var(--innovation-muted);
+  font-size: 17px;
+  line-height: 1.8;
+  margin-top: 18px;
+  max-width: 56ch;
+}
+.innovation-contact > a {
+  flex-shrink: 0;
+}
+@media (max-width: 1023px) {
+  .innovation-hero {
+    gap: 32px;
+  }
+  .innovation-hero h1 {
+    font-size: clamp(38px, 5.4vw, 54px);
+  }
+  .innovation-hero-visual {
+    min-height: 420px;
+  }
+  .innovation-explorer {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 28px;
+  }
+  .innovation-capability-option {
+    gap: 12px;
+  }
+  .innovation-capability-option strong {
+    font-size: 20px;
+  }
+  .innovation-intro {
+    gap: 32px;
+  }
+  .innovation-section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .innovation-section-heading > p {
+    max-width: 58ch;
+  }
+  .innovation-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+  .innovation-context-list {
+    gap: 28px;
+  }
+}
+@media (max-width: 699px) {
+  .innovation-page {
+    padding-bottom: 40px;
+  }
+  .innovation-hero {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 32px 40px;
+  }
+  .innovation-hero h1 {
+    max-width: 16ch;
+    font-size: clamp(36px, 9vw, 52px);
+  }
+  .innovation-lead {
+    font-size: 16px;
+    margin-top: 20px !important;
+  }
+  .innovation-label {
+    font-size: 14px;
+    margin-bottom: 18px !important;
+  }
+  .innovation-actions {
+    margin-top: 24px;
+    gap: 16px;
+  }
+  .innovation-hero-visual {
+    min-height: 320px;
+  }
+  .innovation-hero-visual figcaption {
+    left: 24px;
+    bottom: 24px;
+  }
+  .innovation-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    padding-block: 32px;
+  }
+  .innovation-intro p {
+    font-size: 16px;
+  }
+  .innovation-capabilities,
+  .innovation-contexts {
+    padding-block: 48px;
+  }
+  .innovation-explorer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .innovation-capability-option {
+    padding-block: 20px;
+  }
+  .innovation-capability-body {
+    padding: 24px;
+  }
+  .innovation-capability-panel > img {
+    height: 200px;
+  }
+  .innovation-process {
+    padding-block: 40px;
+  }
+  .innovation-steps {
+    gap: 28px 20px;
+    margin-top: 32px;
+  }
+  .innovation-steps h3 {
+    font-size: 20px;
+  }
+  .innovation-context-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .innovation-context-list article {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    column-gap: 16px;
+  }
+  .innovation-context-list h3 {
+    margin: 0 0 12px;
+  }
+  .innovation-context-list p {
+    grid-column: 2;
+  }
+  .innovation-related {
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .innovation-related p {
+    flex-basis: 100%;
+  }
+  .innovation-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .innovation-contact::before {
+    left: 16px;
+    right: 16px;
+  }
+}
+@media (max-width: 379px) {
+  .innovation-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
