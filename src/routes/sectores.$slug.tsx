@@ -1,5 +1,6 @@
-import { SectionTitle } from '../components/ui/SectionTitle'
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import PageHeader from '../components/shared/page-header/PageHeader'
+import { ButtonLink } from '../components/ui/Button'
+import { createFileRoute, notFound } from '@tanstack/react-router'
 import { sectors } from '../data/navigation'
 
 export const Route = createFileRoute('/sectores/$slug')({
@@ -13,7 +14,12 @@ export const Route = createFileRoute('/sectores/$slug')({
     return sector
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: `${loaderData?.label ?? 'Sector'} · Navasoft Soluciones` }],
+    meta: [
+      { title: `${loaderData?.label ?? 'Sector'} · Navasoft Soluciones` },
+      ...(loaderData
+        ? [{ name: 'description', content: loaderData.description }]
+        : []),
+    ],
   }),
   component: SectorPage,
 })
@@ -22,15 +28,15 @@ function SectorPage() {
   const sector = Route.useLoaderData()
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      <SectionTitle as="h1" title={sector.label} />
-      {/* TODO: incorporar el contenido aprobado para este sector. */}
-      <p className="mt-4 text-lg">
-        La información de este sector estará disponible próximamente.
-      </p>
-      <Link to="/" className="mt-6 inline-block underline underline-offset-4">
-        Volver al inicio
-      </Link>
-    </section>
+    <PageHeader title={sector.label} description={sector.description}>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <ButtonLink to="/contacto" search={{ motivo: 'reunion' }}>
+          Solicitar una reunión
+        </ButtonLink>
+        <ButtonLink to="/casos-de-exito" variant="outline">
+          Ver casos de éxito
+        </ButtonLink>
+      </div>
+    </PageHeader>
   )
 }

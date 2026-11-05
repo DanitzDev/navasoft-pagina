@@ -112,6 +112,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   to={link.href}
+                  hash={link.hash}
                   activeOptions={{ exact: true, includeSearch: false }}
                 >
                   {link.label}

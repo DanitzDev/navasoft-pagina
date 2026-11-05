@@ -8,8 +8,8 @@ type SectionTitleProps = {
   align?: 'left' | 'center'
   as?: 'h1' | 'h2' | 'h3'
   className?: string
-  titleClassName?: string;
-  descriptionClassName?: string;
+  titleClassName?: string
+  descriptionClassName?: string
 }
 
 export function SectionTitle({
@@ -47,7 +47,8 @@ export function SectionTitle({
       <Heading
         className={cn(
           'font-poppins text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl',
-          'text-white', titleClassName,
+          'text-white',
+          titleClassName,
         )}
       >
         {title}

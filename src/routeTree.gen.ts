@@ -11,12 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CasosDeExitoRouteImport } from './routes/casos-de-exito'
+import { Route as ClientesRouteImport } from './routes/clientes'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as OportunidadesRouteImport } from './routes/oportunidades'
 import { Route as ProductosRouteImport } from './routes/productos'
 import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as AreasSlugRouteImport } from './routes/areas.$slug'
+import { Route as CasosDeExitoIndexRouteImport } from './routes/casos-de-exito/index'
+import { Route as CasosDeExitoSlugRouteImport } from './routes/casos-de-exito/$slug'
 import { Route as ProductosIndexRouteImport } from './routes/productos/index'
 import { Route as ProductosSlugRouteImport } from './routes/productos/$slug'
 import { Route as SectoresSlugRouteImport } from './routes/sectores.$slug'
@@ -29,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const CasosDeExitoRoute = CasosDeExitoRouteImport.update({
   id: '/casos-de-exito',
   path: '/casos-de-exito',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClientesRoute = ClientesRouteImport.update({
+  id: '/clientes',
+  path: '/clientes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -61,6 +69,16 @@ const AreasSlugRoute = AreasSlugRouteImport.update({
   path: '/areas/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CasosDeExitoIndexRoute = CasosDeExitoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CasosDeExitoRoute,
+} as any)
+const CasosDeExitoSlugRoute = CasosDeExitoSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CasosDeExitoRoute,
+} as any)
 const ProductosIndexRoute = ProductosIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,41 +97,49 @@ const SectoresSlugRoute = SectoresSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/casos-de-exito': typeof CasosDeExitoRouteWithChildren
+  '/clientes': typeof ClientesRoute
   '/contacto': typeof ContactoRoute
   '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
   '/productos': typeof ProductosRouteWithChildren
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
+  '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/clientes': typeof ClientesRoute
   '/contacto': typeof ContactoRoute
   '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
+  '/casos-de-exito': typeof CasosDeExitoIndexRoute
   '/productos': typeof ProductosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/casos-de-exito': typeof CasosDeExitoRoute
+  '/casos-de-exito': typeof CasosDeExitoRouteWithChildren
+  '/clientes': typeof ClientesRoute
   '/contacto': typeof ContactoRoute
   '/nosotros': typeof NosotrosRoute
   '/oportunidades': typeof OportunidadesRoute
   '/productos': typeof ProductosRouteWithChildren
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
+  '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
+  '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/productos/': typeof ProductosIndexRoute
 }
 export interface FileRouteTypes {
@@ -121,45 +147,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/casos-de-exito'
+    | '/clientes'
     | '/contacto'
     | '/nosotros'
     | '/oportunidades'
     | '/productos'
     | '/soporte'
     | '/areas/$slug'
+    | '/casos-de-exito/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
+    | '/casos-de-exito/'
     | '/productos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/casos-de-exito'
+    | '/clientes'
     | '/contacto'
     | '/nosotros'
     | '/oportunidades'
     | '/soporte'
     | '/areas/$slug'
+    | '/casos-de-exito/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
+    | '/casos-de-exito'
     | '/productos'
   id:
     | '__root__'
     | '/'
     | '/casos-de-exito'
+    | '/clientes'
     | '/contacto'
     | '/nosotros'
     | '/oportunidades'
     | '/productos'
     | '/soporte'
     | '/areas/$slug'
+    | '/casos-de-exito/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
+    | '/casos-de-exito/'
     | '/productos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CasosDeExitoRoute: typeof CasosDeExitoRoute
+  CasosDeExitoRoute: typeof CasosDeExitoRouteWithChildren
+  ClientesRoute: typeof ClientesRoute
   ContactoRoute: typeof ContactoRoute
   NosotrosRoute: typeof NosotrosRoute
   OportunidadesRoute: typeof OportunidadesRoute
@@ -183,6 +218,13 @@ declare module '@tanstack/react-router' {
       path: '/casos-de-exito'
       fullPath: '/casos-de-exito'
       preLoaderRoute: typeof CasosDeExitoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/clientes': {
+      id: '/clientes'
+      path: '/clientes'
+      fullPath: '/clientes'
+      preLoaderRoute: typeof ClientesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -227,6 +269,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AreasSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/casos-de-exito/': {
+      id: '/casos-de-exito/'
+      path: '/'
+      fullPath: '/casos-de-exito/'
+      preLoaderRoute: typeof CasosDeExitoIndexRouteImport
+      parentRoute: typeof CasosDeExitoRoute
+    }
+    '/casos-de-exito/$slug': {
+      id: '/casos-de-exito/$slug'
+      path: '/$slug'
+      fullPath: '/casos-de-exito/$slug'
+      preLoaderRoute: typeof CasosDeExitoSlugRouteImport
+      parentRoute: typeof CasosDeExitoRoute
+    }
     '/productos/': {
       id: '/productos/'
       path: '/'
@@ -251,6 +307,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CasosDeExitoRouteChildren {
+  CasosDeExitoSlugRoute: typeof CasosDeExitoSlugRoute
+  CasosDeExitoIndexRoute: typeof CasosDeExitoIndexRoute
+}
+
+const CasosDeExitoRouteChildren: CasosDeExitoRouteChildren = {
+  CasosDeExitoSlugRoute: CasosDeExitoSlugRoute,
+  CasosDeExitoIndexRoute: CasosDeExitoIndexRoute,
+}
+
+const CasosDeExitoRouteWithChildren = CasosDeExitoRoute._addFileChildren(
+  CasosDeExitoRouteChildren,
+)
+
 interface ProductosRouteChildren {
   ProductosSlugRoute: typeof ProductosSlugRoute
   ProductosIndexRoute: typeof ProductosIndexRoute
@@ -267,7 +337,8 @@ const ProductosRouteWithChildren = ProductosRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CasosDeExitoRoute: CasosDeExitoRoute,
+  CasosDeExitoRoute: CasosDeExitoRouteWithChildren,
+  ClientesRoute: ClientesRoute,
   ContactoRoute: ContactoRoute,
   NosotrosRoute: NosotrosRoute,
   OportunidadesRoute: OportunidadesRoute,
@@ -281,10 +352,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }

@@ -1,26 +1,26 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import type { CSSProperties, KeyboardEvent } from 'react'
 import { history } from '../../../../data/history'
-import { historyPreview } from '../../../../data/history-preview'
 import type { HistoryMilestone } from '../../../../data/history'
 import { Container } from '../../../ui/Container'
 import { SectionTitle } from '../../../ui/SectionTitle'
 import Milestone from './Milestone'
 import { formatHistoryPeriod } from './history-period'
 import { createTimelinePath, getTimelineProgress } from './timeline-geometry'
+import type { TimelineVariant } from './timeline-geometry'
 import { centerTimelineStep } from './timeline-scroll'
 import './Timeline.css'
 
 type TimelineProps = {
   items?: readonly HistoryMilestone[]
-  preview?: boolean
+  variant?: TimelineVariant
   className?: string
 }
 
 export default function Timeline({
   items = history,
-  preview = false,
   className = '',
+  variant = 'straight',
 }: TimelineProps) {
   const [hasOverflow, setHasOverflow] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -33,12 +33,8 @@ export default function Timeline({
   const rail = useRef<HTMLDivElement>(null)
   const stepButtons = useRef<Array<HTMLButtonElement | null>>([])
   const instanceId = useId()
-  // Priorizar el catálogo oficial. La muestra solo se usa si no hay datos y se pide preview.
-  const milestones = items.length ? items : preview ? historyPreview : []
   // Ordenar una copia conserva el catálogo original y la selección por id.
-  const steps = [...milestones].sort(
-    (first, second) => first.year - second.year,
-  )
+  const steps = [...items].sort((first, second) => first.year - second.year)
   const selected = steps.find((step) => step.id === selectedId) ?? steps.at(0)
 
   // Medir el ancho real evita mostrar una instrucción innecesaria en tablet o escritorio.
@@ -72,11 +68,9 @@ export default function Timeline({
     return () => observer.disconnect()
   }, [steps.length])
 
-  // La vista provisional se activa explícitamente; no publicar una sección vacía.
   if (!selected) return null
 
   const activeId = selected.id
-  // El registro seleccionado ya incluye texto e imagen; no volver a buscar en ambos catálogos.
   const milestone = selected
   const detailId = `${instanceId}-detail`
   const selectedIndex = steps.findIndex((step) => step.id === activeId)
@@ -84,7 +78,7 @@ export default function Timeline({
     selectedIndex,
     steps.length,
   )
-  const path = createTimelinePath(steps.length)
+  const path = createTimelinePath(steps.length, variant)
   const progressId = `${instanceId}-progress`
   const style = {
     '--history-count': steps.length,
@@ -150,6 +144,7 @@ export default function Timeline({
     <Container
       as="section"
       className={`history-section max-w-6xl lg:px-6 ${className}`}
+      data-variant={variant}
       aria-label="Historia de Navasoft Soluciones"
     >
       <SectionTitle

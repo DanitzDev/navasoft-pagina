@@ -1,31 +1,59 @@
-import { SectionTitle } from '../../components/ui/SectionTitle'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { footerEcosystem } from '../../data/site'
+import { SectionTitle } from '../../components/ui/SectionTitle'
+import { Container } from '../../components/ui/Container'
+import { products } from '../../data/products'
+import '../../components/sections/products/ProductsIndex.css'
 
 export const Route = createFileRoute('/productos/')({
-  head: () => ({ meta: [{ title: 'Productos · Navasoft Soluciones' }] }),
+  head: () => ({
+    meta: [
+      { title: 'Productos · Navasoft Soluciones' },
+      {
+        name: 'description',
+        content:
+          'Conoce Gridxia, NavaStay, Tracxia, Ordexia y Factxia: plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
+      },
+    ],
+  }),
   component: ProductsPage,
 })
 
 function ProductsPage() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-      {/* TODO: incorporar la sección de productos definitiva. */}
-      <SectionTitle as="h1" title="Productos" />
-      <ul className="mt-6 grid gap-4">
-        {footerEcosystem.map((product) => (
-          <li key={product.href}>
+    <Container as="section" className="products-index">
+      <SectionTitle
+        as="h1"
+        title="Productos para su operación"
+        description="Explore las plataformas de Navasoft y conozca qué procesos puede gestionar con cada una."
+      />
+      <ul className="products-index-grid">
+        {products.map((product) => (
+          <li key={product.slug}>
             <Link
               to="/productos/$slug"
-              params={{ slug: product.href.slice('/productos/'.length) }}
-              className="underline underline-offset-4"
+              params={{ slug: product.slug }}
+              className="products-index-card"
             >
-              {product.label}
+              <img
+                src={product.image}
+                alt=""
+                width="1280"
+                height="720"
+                loading="lazy"
+              />
+              <div className="products-index-copy">
+                <p className="products-index-category">{product.category}</p>
+                <h2>{product.name}</h2>
+                <p>{product.detail}</p>
+                <span className="products-index-action">
+                  <span>Conocer {product.name}</span>
+                  <span aria-hidden="true">↗</span>
+                </span>
+              </div>
             </Link>
-            <p className="mt-1">{product.description}</p>
           </li>
         ))}
       </ul>
-    </section>
+    </Container>
   )
 }

@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useRef, useState } from 'react'
 import {
-  companyLinks,
+  navbarCompanyLinks,
   primaryLinks,
   products,
   sectors,
@@ -36,16 +36,20 @@ export default function Navbar() {
             CSS oculta este bloque por debajo del breakpoint de 1200 px. */}
         <nav aria-label="Principal" className="navbar-desktop">
           <ul className="navbar-company">
-            {companyLinks.map((item) => (
+            {navbarCompanyLinks.map((item) => (
               <li key={item.href}>
-                <NavLink href={item.href}>{item.label}</NavLink>
+                <NavLink href={item.href} hash={item.hash}>
+                  {item.label}
+                </NavLink>
               </li>
             ))}
           </ul>
           <ul className="navbar-primary">
             {primaryLinks.map((item) => (
               <li key={item.href}>
-                <NavLink href={item.href}>{item.label}</NavLink>
+                <NavLink href={item.href} hash={item.hash}>
+                  {item.label}
+                </NavLink>
               </li>
             ))}
             <li>

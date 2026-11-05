@@ -73,7 +73,6 @@ body {
   --color-text-eyebrow: var(--color-accent);
   --color-text-eyebrow2: #ffd4b0;
 
-
   --color-night: #131a2b;
   --color-deep: #0f1626;
 }
@@ -88,15 +87,33 @@ body {
 }
 
 @utility bg-product-soft {
-  background-color: color-mix(in oklab, var(--product, var(--color-accent)) 15%, transparent);
+  background-color: color-mix(
+    in oklab,
+    var(--product, var(--color-accent)) 15%,
+    transparent
+  );
 }
 
 @utility border-product {
-  border-color: color-mix(in oklab, var(--product, var(--color-accent)) 45%, transparent);
+  border-color: color-mix(
+    in oklab,
+    var(--product, var(--color-accent)) 45%,
+    transparent
+  );
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
+}
+/* Las etiquetas largas no deben ensanchar la página en pantallas pequeñas. */
+.product-detail-page .grid > *,
+.product-detail-page .flex > * {
+  min-width: 0;
+}
+.product-detail-page .rounded-full.whitespace-nowrap {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }

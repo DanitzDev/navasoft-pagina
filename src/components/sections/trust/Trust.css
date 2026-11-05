@@ -1,0 +1,540 @@
+/* Estructura de confianza: contenido aprobado y marcadores solo de desarrollo. */
+.trust-section {
+  padding-top: clamp(24px, 3vw, 40px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  background: var(--color-night, #131a2b);
+  color: #f5f7fb;
+}
+.trust-layout {
+  display: grid;
+  gap: 32px;
+}
+.trust-heading h2 {
+  font-size: clamp(26px, 2.4vw, 32px);
+  color: #f5f7fb;
+  line-height: 1.2;
+}
+.trust-groups {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+}
+.trust-group h3,
+.trust-feedback > h3 {
+  margin: 0 0 16px;
+  color: #f5f7fb;
+  font-size: 21px;
+  font-weight: 600;
+}
+.trust-testimonials {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 28px;
+  margin: 0;
+  padding: 0 0 8px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.trust-feedback {
+  margin-top: 40px;
+}
+.trust-testimonial {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+}
+.trust-testimonial-bubble {
+  position: relative;
+  flex: 1;
+  margin: 0 0 24px;
+  padding: 24px 28px 28px;
+  border-radius: 24px 24px 24px 6px;
+  background: #20314d;
+  color: #e2e8f0;
+  font-size: 16px;
+  line-height: 1.75;
+}
+.trust-testimonial-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 28px;
+  width: 20px;
+  height: 14px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.trust-testimonial-quote {
+  display: block;
+  height: 36px;
+  color: #f6b480;
+  font:
+    56px/1 Georgia,
+    serif;
+}
+.trust-testimonial-bubble p {
+  margin: 0;
+}
+.trust-testimonial-bubble .trust-testimonial-draft {
+  margin-bottom: 8px;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+.trust-testimonial figcaption,
+.trust-testimonial-caption {
+  display: grid;
+  gap: 4px;
+  padding-inline: 28px;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.trust-testimonial-author {
+  color: #f5f7fb;
+  font-weight: 600;
+}
+.trust-section h2,
+.trust-section h3,
+.trust-testimonial {
+  overflow-wrap: anywhere;
+}
+
+.trust-group {
+  min-width: 0;
+}
+
+/* Composición basada en la referencia: introducción y dos cintas claras. */
+.trust-heading > span {
+  color: #91bdec;
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.trust-heading > p {
+  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.trust-heading h2::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin-top: 20px;
+  background: #2568ac;
+}
+.trust-group--clients {
+  --trust-accent: #91bdec;
+}
+.trust-group--partners {
+  --trust-accent: #f6b480;
+}
+.trust-group-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.trust-group-heading > svg {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--trust-accent);
+}
+.trust-group-heading h3 {
+  color: var(--trust-accent);
+  margin: 0 0 4px;
+}
+.trust-group-heading p {
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+.trust-section .logo-carousel-rail {
+  background: transparent;
+}
+.trust-section .logo-carousel-group {
+  gap: 16px;
+  padding-right: 16px;
+}
+.trust-section .logo-carousel-item,
+.trust-section .logo-carousel-placeholder {
+  flex-basis: 160px;
+  justify-content: center;
+  background: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px;
+}
+.trust-section .logo-carousel-item img {
+  width: 136px;
+}
+.trust-section .logo-carousel-item span,
+.trust-section .logo-carousel-placeholder {
+  color: #cbd5e1;
+}
+.trust-section .trust-testimonial-caption,
+.trust-section .trust-testimonial figcaption {
+  color: #cbd5e1;
+}
+@media (min-width: 1024px) {
+  .trust-layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    align-items: center;
+    gap: 40px;
+  }
+}
+
+.trust-feedback > h3,
+.trust-testimonial-author {
+  color: #f5f7fb;
+}
+
+/* Las tarjetas de logos conservan contraste sobre su superficie clara. */
+.trust-section .logo-carousel-item span,
+.trust-section .logo-carousel-placeholder {
+  color: #526172;
+}
+
+/* Las versiones blancas proporcionadas necesitan una base oscura. */
+.trust-section .logo-carousel-item[data-surface='dark'] {
+  background: #20314d;
+}
+
+/* La fila del logo conserva la misma altura, exista o no una etiqueta debajo. */
+.trust-section .logo-carousel-item {
+  display: grid;
+  grid-template-rows: 80px 20px;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  gap: 8px;
+  height: 140px;
+  min-height: 140px;
+}
+.trust-section .logo-carousel-item img {
+  grid-row: 1;
+  height: 80px;
+  object-position: center;
+}
+.trust-section .logo-carousel-item span {
+  grid-row: 2;
+}
+
+/* Pistas con límites idénticos y una zona reservada para todas las etiquetas. */
+.trust-section .logo-carousel {
+  width: 100%;
+}
+.trust-section .logo-carousel-rail {
+  width: 100%;
+}
+.trust-section .logo-carousel-item img {
+  width: 75%;
+  max-width: 120px;
+  height: 56px;
+  max-height: 56px;
+}
+.trust-section .logo-carousel-item[data-logo='microsoft'] img,
+.trust-section .logo-carousel-item[data-logo='cosevi'] img {
+  width: 100%;
+  max-width: 136px;
+  max-height: 72px;
+  height: 72px;
+}
+.trust-section .logo-carousel-item[data-logo='huawei-cloud'] img {
+  max-height: 48px;
+}
+.trust-section .logo-carousel-item[data-logo='ionos'] img {
+  max-width: 110px;
+}
+.trust-section .logo-carousel-item span {
+  color: #374151;
+  min-height: 20px;
+}
+/* Logos más grandes: tarjeta más ancha y fila de imagen más alta. */
+.trust-section .logo-carousel-item,
+.trust-section .logo-carousel-placeholder {
+  flex-basis: 208px;
+  padding: 14px;
+}
+.trust-section .logo-carousel-item {
+  grid-template-rows: 96px 20px;
+  height: 160px;
+  min-height: 160px;
+}
+.trust-section .logo-carousel-item img {
+  width: 100%;
+  max-width: 100%;
+  height: 96px;
+  max-height: 96px;
+  object-fit: contain;
+}
+
+/* Móvil: dos tarjetas siguen cabiendo sin apretar los logos. */
+@media (max-width: 639px) {
+  .trust-section .logo-carousel-item,
+  .trust-section .logo-carousel-placeholder {
+    flex-basis: 168px;
+    padding: 10px;
+  }
+  .trust-section .logo-carousel-item {
+    grid-template-rows: 80px 20px;
+    height: 140px;
+    min-height: 140px;
+  }
+  .trust-section .logo-carousel-item img {
+    height: 80px;
+    max-height: 80px;
+  }
+}
+/* Lectura manual: las citas nunca avanzan mientras una persona las está leyendo. */
+.trust-testimonial-carousel {
+  min-width: 0;
+}
+.trust-testimonials::-webkit-scrollbar {
+  display: none;
+}
+.trust-testimonials > li {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+.trust-testimonials:focus-visible {
+  outline: 2px solid #f6b480;
+  outline-offset: 4px;
+}
+.trust-testimonials[tabindex='0'] {
+  cursor: grab;
+}
+.trust-testimonials[data-dragging='true'] {
+  cursor: grabbing;
+  user-select: none;
+  scroll-snap-type: none;
+}
+
+/* Entrada única: el contenido permanece visible sin JavaScript o con movimiento reducido. */
+.trust-testimonials {
+  padding-top: 8px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .trust-testimonials > li[data-reveal] {
+    transition:
+      opacity 420ms ease,
+      transform 420ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  .trust-testimonials > li[data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .trust-testimonials > li[data-reveal='visible'] {
+    opacity: 1;
+    transform: none;
+  }
+  .trust-testimonial {
+    transition: transform 220ms ease;
+  }
+  .trust-testimonial-bubble {
+    transition:
+      background-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .trust-testimonials:not([data-dragging])
+    > li:hover
+    .trust-testimonial-bubble {
+    background-color: #263b59;
+    box-shadow: inset 0 0 0 1px #5c7e9859;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .trust-testimonials:not([data-dragging]) > li:hover .trust-testimonial {
+    transform: translateY(-3px);
+  }
+}
+
+/* Una tarjeta centrada por testimonio, integrada con el fondo de la sección. */
+.trust-testimonial-carousel {
+  container-type: inline-size;
+}
+.trust-testimonials {
+  grid-auto-columns: 100%;
+  gap: 32px;
+  padding: 24px 0;
+}
+.trust-testimonials > li {
+  scroll-snap-align: start;
+}
+.trust-testimonial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 12px;
+}
+.trust-testimonial-body {
+  position: relative;
+  z-index: 1;
+  margin-left: 0;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 18px;
+  border: 1px solid #ffffff1f;
+  background: linear-gradient(135deg, #233650, #19283e);
+  box-shadow: 0 14px 32px #00000033;
+}
+.trust-testimonial-body .trust-testimonial-bubble {
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #e2e8f0;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.75;
+}
+.trust-testimonial-body .trust-testimonial-bubble::after {
+  display: none;
+}
+.trust-testimonial-body .trust-testimonial-quote {
+  color: #f6b480;
+  height: 36px;
+  font-size: 56px;
+}
+.trust-testimonial-body .trust-testimonial-draft {
+  color: #b9c7da;
+  font-size: 13px;
+}
+.trust-section .trust-testimonial-body figcaption {
+  display: grid;
+  gap: 4px;
+  margin-top: 28px;
+  padding: 20px 0 0;
+  border-top: 1px solid #ffffff24;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+.trust-testimonial-body .trust-testimonial-author {
+  color: #f5f7fb;
+  font-size: 18px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .trust-testimonials:not([data-dragging])
+    > li:hover
+    .trust-testimonial-bubble {
+    background: transparent;
+    box-shadow: none;
+  }
+}
+@media (max-width: 639px) {
+  .trust-testimonials {
+    padding-block: 12px;
+  }
+  .trust-testimonial {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 8px;
+  }
+  .trust-testimonial-body {
+    margin: 0;
+    padding: 24px;
+  }
+}
+
+.trust-group--clients {
+  scroll-margin-top: 120px;
+}
+.trust-directory-link {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.trust-directory-link a {
+  min-height: 44px;
+}
+
+/* Control compacto integrado con la paleta oscura de la sección. */
+.testimonial-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 12px auto 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #20314d;
+  border: 1px solid #526079;
+  box-shadow: 0 6px 24px #00000024;
+}
+.testimonial-controls button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.testimonial-control-arrow {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #e2eaf5;
+  border-radius: 50%;
+}
+.testimonial-control-dots {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow-x: auto;
+}
+.testimonial-control-dot {
+  width: 28px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+.testimonial-control-dot span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #94a3b8;
+}
+.testimonial-control-dot[aria-current='true'] span {
+  background: #f6b480;
+}
+.testimonial-control-arrow:hover {
+  background: #314865;
+  color: #ffc89b;
+}
+.testimonial-control-dot:hover span {
+  background: #e2eaf5;
+}
+.testimonial-control-dot[aria-current='true']:hover span {
+  background: #ffc89b;
+}
+.testimonial-controls button:focus-visible {
+  outline: 2px solid #ffc89b;
+  outline-offset: -2px;
+}
+@media (max-width: 639px) {
+  .testimonial-controls {
+    gap: 0;
+    padding: 6px;
+  }
+  .testimonial-control-dot {
+    width: 24px;
+  }
+  .testimonial-control-dot span {
+    width: 8px;
+    height: 8px;
+  }
+}

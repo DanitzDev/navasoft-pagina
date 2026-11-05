@@ -1,14 +1,20 @@
 // El SVG usa un ancho de 1000 unidades; los botones se centran en celdas iguales.
 const VIEWBOX_WIDTH = 1000
 
-export function createTimelinePath(count: number) {
+export type TimelineVariant = 'straight' | 'wave'
+
+export function createTimelinePath(
+  count: number,
+  variant: TimelineVariant = 'wave',
+) {
   const points = Array.from({ length: count }, (_, index) => ({
     x: ((index + 0.5) / count) * VIEWBOX_WIDTH,
-    y: index % 2 ? 85 : 50,
+    y: variant === 'wave' && index % 2 ? 85 : 50,
   }))
   return points
     .map((point, index) => {
       if (index === 0) return `M ${point.x} ${point.y}`
+      if (variant === 'straight') return `L ${point.x} ${point.y}`
       const previous = points[index - 1]
       const middle = (previous.x + point.x) / 2
       return `C ${middle} ${previous.y}, ${middle} ${point.y}, ${point.x} ${point.y}`

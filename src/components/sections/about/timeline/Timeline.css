@@ -533,3 +533,17 @@
 .history-section.history-section--home {
   padding-block: 0 80px;
 }
+
+/* Variante recta: todos los años comparten punto de referencia y línea base. */
+.history-section[data-variant='straight'] .history-step-dot-area {
+  transform: none;
+}
+.history-section[data-variant='straight'] .history-wave path {
+  stroke-width: 4px;
+}
+.history-section[data-variant='straight'] .history-rail {
+  height: 116px;
+}
+.history-section[data-variant='straight'] .history-step-button {
+  gap: 12px;
+}
