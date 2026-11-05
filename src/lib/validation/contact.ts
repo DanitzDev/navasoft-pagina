@@ -12,6 +12,7 @@ export type ContactData = {
   phone: string
   reason: string
   message: string
+  consent: boolean
 }
 export type ContactField = keyof ContactData
 export type ContactErrors = Partial<Record<ContactField, string>>
@@ -42,6 +43,7 @@ export function validateContact(input: unknown): {
     phone: read('phone'),
     reason: read('reason'),
     message: read('message'),
+    consent: source.consent === true,
   }
   const errors: ContactErrors = {}
   // Los controles se buscan explícitamente para rechazar entradas malformadas.
@@ -86,8 +88,14 @@ export function validateContact(input: unknown): {
   // Los opcionales pueden omitirse, pero nunca convertirse silenciosamente
   // de objetos, números o listas a una cadena vacía.
   for (const field of Object.keys(data) as ContactField[]) {
-    if (source[field] !== undefined && typeof source[field] !== 'string')
+    if (
+      field !== 'consent' &&
+      source[field] !== undefined &&
+      typeof source[field] !== 'string'
+    )
       errors[field] = 'Introduce un valor de texto válido.'
   }
+  if (!data.consent)
+    errors.consent = 'Autoriza el uso de tus datos para enviar la consulta.'
   return { data, errors }
 }

@@ -14,9 +14,28 @@ const valid = {
   phone: '',
   reason: 'consulta',
   message: 'Consulta de integración de prueba.',
+  consent: true,
   website: '',
 }
 const allow = () => ({ allowed: true, retryAfterSeconds: 0 })
+
+test('requiere autorización explícita antes de entregar la consulta', async () => {
+  for (const consent of [undefined, false, 'true', 1]) {
+    const result = await processContact(
+      { ...valid, consent },
+      {
+        consume: allow,
+        transport: {
+          async send() {
+            assert.fail('No debe enviar consultas sin autorización')
+          },
+        },
+      },
+    )
+    assert.equal(result.status, 'invalid')
+    assert.ok(result.errors.consent)
+  }
+})
 
 test('rechaza tipos incorrectos incluso en teléfono y organización opcionales', async () => {
   for (const field of [
@@ -156,7 +175,9 @@ test('solo transmite campos permitidos y normalizados', async () => {
   )
   assert.deepEqual(result, { status: 'sent' })
   assert.equal(received?.name, 'María Pérez')
+  assert.equal(received.consent, true)
   assert.deepEqual(Object.keys(received).sort(), [
+    'consent',
     'email',
     'message',
     'name',

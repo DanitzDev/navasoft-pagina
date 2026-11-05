@@ -29,6 +29,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     phone: '',
     reason: initialReason,
     message: '',
+    consent: false,
   })
   const [touched, setTouched] = useState<
     Partial<Record<ContactField, boolean>>
@@ -66,7 +67,10 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     return () => window.clearInterval(timer)
   }, [retryAt])
 
-  function change(field: ContactField, value: string) {
+  function change<TField extends ContactField>(
+    field: TField,
+    value: ContactData[TField],
+  ) {
     const next = { ...values, [field]: value }
     setValues(next)
     if (touched[field])
@@ -109,6 +113,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       phone: true,
       reason: true,
       message: true,
+      consent: true,
     })
     if (Object.keys(result.errors).length) {
       requestAnimationFrame(() => focusError(result.errors))
@@ -137,6 +142,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
             phone: '',
             reason: initialReason,
             message: '',
+            consent: false,
           })
           setTouched({})
           setErrors({})
@@ -173,7 +179,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     }
   }
 
-  function fieldProps(name: ContactField) {
+  function fieldProps(name: Exclude<ContactField, 'consent'>) {
     return {
       name,
       id: `contact-${name}`,
@@ -329,7 +335,31 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
         </p>
       </noscript>
       <div className="contact-submit">
-        <p>Usaremos tus datos para responder a tu consulta.</p>
+        <div className="contact-consent">
+          <label>
+            <input
+              type="checkbox"
+              name="consent"
+              required
+              checked={values.consent}
+              disabled={!ready || pending}
+              aria-invalid={Boolean(errors.consent)}
+              aria-describedby={
+                errors.consent ? 'contact-consent-error' : undefined
+              }
+              onChange={(event) => change('consent', event.target.checked)}
+            />
+            <span>
+              Autorizo a Navasoft Soluciones a usar mis datos de contacto para
+              responder a mi consulta. <span aria-hidden="true">*</span>
+            </span>
+          </label>
+          {errors.consent && (
+            <p id="contact-consent-error" className="mt-2 text-xs text-red-300">
+              {errors.consent}
+            </p>
+          )}
+        </div>
         <Button
           type="submit"
           size="lg"
