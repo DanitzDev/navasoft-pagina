@@ -67,21 +67,21 @@ export type Perk = {
 export const SHOW_EXAMPLE_LABEL = true
 
 export const careersCopy = {
-  hero: {
-    eyebrow: 'Talento', // MAQUETA
-    title: 'Profesionales y practicantes, en proyectos reales.', // MAQUETA
-    // GENERADO. OMITIDO: la maqueta lista "municipalidades, plantas, juntas de agua y condominios";
-    // quité la lista porque la información real de Gridxia ya no habla de agua.
-    description:
-      'Aquí se entra a sistemas que ya están en operación, con código y clientes reales, y con proyectos en Costa Rica y Centroamérica.',
-    facts: [
-      'Equipo en Costa Rica', // MAQUETA
-      'Proyectos en Centroamérica', // MAQUETA
-      'Modalidad según el rol y el proyecto', // MAQUETA
-    ],
-    image: '/images/area-empresarial.jpeg', // MAQUETA
-    imageAlt: '', // MAQUETA
-  },
+    hero: {
+        eyebrow: "Talento", // MAQUETA
+        title: "Profesionales y practicantes, en proyectos reales.", // MAQUETA
+        // GENERADO. OMITIDO: la maqueta lista "municipalidades, plantas, juntas de agua y condominios";
+        // quité la lista porque la información real de Gridxia ya no habla de agua.
+        description:
+            "Aquí se entra a sistemas que ya están en operación, con código y clientes reales, y con proyectos en Costa Rica y Centroamérica.",
+        facts: [
+            "Equipo en Costa Rica", // MAQUETA
+            "Proyectos en Centroamérica", // MAQUETA
+            "Modalidad según el rol y el proyecto", // MAQUETA
+        ],
+        image: "/images/nosotros.jpeg", // MAQUETA
+        imageAlt: "Sala de una fábrica de software", // MAQUETA
+    },
 
   profiles: {
     eyebrow: 'Perfiles', // GENERADO
