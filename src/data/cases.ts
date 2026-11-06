@@ -333,6 +333,185 @@ export const caseStudies: readonly CaseStudy[] = [
     technologies: 'Oracle APEX · Oracle Database · .NET MAUI · ORDS',
     kind: 'product',
   },
+  {
+    id: 'presupuesto-por-roles',
+    client: 'Planificación y presupuesto por roles',
+    sector: 'Educación técnica y sector público',
+    title: 'Acceso por roles en el ciclo presupuestario.',
+    summary:
+      'Implementamos controles de acceso y flujos de aprobación para la plataforma de planificación y presupuesto de una institución pública de educación técnica.',
+    image: '/images/cases/presupuesto-por-roles.webp',
+    tags: ['Educación técnica y sector público', 'Desarrollo e integración'],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Separar la formulación, revisión y aprobación según el perfil de cada funcionario y su unidad presupuestaria.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Integramos la autenticación institucional con Active Directory y configuramos permisos en Oracle APEX según el rol, la unidad y el estado del plan.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'Cada funcionario accede a las opciones de su etapa y la institución puede seguir el paso de las formulaciones entre responsables.',
+      },
+    ],
+    technologies: 'Oracle APEX · Active Directory (LDAP) · Oracle Database',
+    kind: 'project',
+  },
+  {
+    id: 'rendicion-cuentas-nicsp',
+    client: 'Rendición de cuentas de sedes diplomáticas',
+    sector: 'Sector público y relaciones exteriores',
+    title: 'Reportes trimestrales bajo normas NICSP.',
+    summary:
+      'Desarrollamos para el Ministerio de Relaciones Exteriores un portal que consolida los reportes financieros y patrimoniales de embajadas, consulados y misiones.',
+    image: '/images/cases/rendicion-cuentas-nicsp.webp',
+    tags: [
+      'Sector público y relaciones exteriores',
+      'Desarrollo e integración',
+    ],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Unificar reportes en distintas monedas y consolidar gastos, bienes y compromisos de cada sede para el cierre trimestral.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Creamos formularios con criterios NICSP y módulos para consolidar registros por sede y periodo, convertir importes y registrar activos, contratos y contingencias.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'La consolidación centralizada reduce el procesamiento manual de plantillas y facilita el seguimiento de gastos y bienes en el exterior.',
+      },
+    ],
+    technologies: 'Oracle APEX · Oracle Database',
+    kind: 'project',
+  },
+  {
+    id: 'pesaje-industrial-iot',
+    client: 'Pesaje industrial de ArcelorMittal',
+    sector: 'Siderurgia y pesaje industrial',
+    title: 'Lectura de básculas industriales en tiempo real.',
+    summary:
+      'Modernizamos el pesaje de trenes, vagones y camiones con dispositivos IoT que envían las lecturas directamente a la aplicación de planta.',
+    image: '/images/cases/pesaje-industrial-iot.webp',
+    tags: ['Siderurgia y pesaje industrial', 'Desarrollo e integración'],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Reemplazar las computadoras antiguas instaladas junto a las básculas y mostrar las lecturas en la aplicación con baja latencia.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Conectamos microcontroladores ESP32 a las básculas y usamos MQTT y WebSockets para transmitir las lecturas a Oracle APEX.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'El operador puede ver el peso en pantalla, validarlo y guardarlo en el sistema central desde la aplicación.',
+      },
+    ],
+    technologies:
+      'ESP32 · MicroPython · MQTT · WebSockets · Oracle APEX · Oracle Database',
+    kind: 'project',
+  },
+  {
+    id: 'interoperabilidad-b2b',
+    client: 'Integración B2B entre GICO y Dos Pinos',
+    sector: 'Agroindustria y consumo masivo',
+    title: 'Intercambio de datos y pedidos mediante APIs.',
+    summary:
+      'Desarrollamos servicios REST para conectar la plataforma ganadera de GICO con los sistemas de Dos Pinos.',
+    image: '/images/cases/interoperabilidad-b2b.webp',
+    tags: ['Agroindustria y consumo masivo', 'Desarrollo e integración'],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Sustituir el intercambio manual de hojas de cálculo y controlar qué datos puede consultar cada usuario externo.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Publicamos servicios en ORDS para consultar datos de ganado, empaque y rendimientos, recibir pedidos y validar solicitudes de deshuese duplicadas.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'Los sistemas intercambian datos y registran pedidos directamente, con validaciones antes de incorporar solicitudes.',
+      },
+    ],
+    technologies: 'Oracle REST Data Services (ORDS) · JSON · Oracle Database',
+    kind: 'project',
+  },
+  {
+    id: 'marco-polo-apex',
+    client: 'Marco Polo APEX',
+    sector: 'Distribución y ventas en campo',
+    title: 'Pedidos, cobros y visitas desde una aplicación móvil web.',
+    summary:
+      'Desarrollamos para GICO una aplicación que reúne la gestión de rutas, el registro de visitas y la operación de ventas en campo.',
+    image: '/images/cases/marco-polo-apex.webp',
+    tags: ['Distribución y ventas en campo', 'Desarrollo e integración'],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Unificar la geolocalización, los pedidos y los cobros que dependían de herramientas separadas y de sincronizaciones posteriores.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Creamos una aplicación en Oracle APEX que registra la ubicación al marcar visitas y permite consultar precios, existencias y saldos desde la base central.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'Los agentes registran pedidos y cobros en la misma aplicación y consultan la información comercial durante la visita.',
+      },
+    ],
+    technologies: 'Oracle APEX · Geolocalización HTML5 · Oracle Database',
+    kind: 'project',
+  },
+  {
+    id: 'diferencial-cambiario',
+    client: 'Diferencial cambiario en GICO',
+    sector: 'Finanzas y agroindustria',
+    title: 'Cálculo y contabilización de diferencias cambiarias.',
+    summary:
+      'Implementamos un motor para calcular las ganancias y pérdidas por variaciones del tipo de cambio en cuentas por cobrar y por pagar.',
+    image: '/images/cases/diferencial-cambiario.webp',
+    tags: ['Finanzas y agroindustria', 'Desarrollo e integración'],
+    focus: [
+      {
+        title: 'Reto',
+        description:
+          'Registrar el efecto de las fluctuaciones al pagar o al valorar saldos abiertos, con trazabilidad hasta el documento original.',
+      },
+      {
+        title: 'Solución',
+        description:
+          'Automatizamos cuatro cálculos en PL/SQL para distinguir diferencias realizadas y no realizadas en cuentas por cobrar y por pagar, con generación de asientos de diario.',
+      },
+      {
+        title: 'Resultado operativo',
+        description:
+          'Contabilidad puede reflejar los ajustes y vincularlos con facturas y pagos sin modificar los documentos de origen.',
+      },
+    ],
+    technologies:
+      'Oracle Database · PL/SQL · Módulos de cuentas por cobrar, cuentas por pagar y contabilidad general',
+    kind: 'project',
+  },
 ]
 
 export const featuredCaseStudies = caseStudies.slice(0, 4)
@@ -348,6 +527,8 @@ const governmentCaseIds = new Set([
   'erp-municipal',
   'gestion-diplomatica',
   'siaf',
+  'presupuesto-por-roles',
+  'rendicion-cuentas-nicsp',
 ])
 
 export const caseGroups = [
