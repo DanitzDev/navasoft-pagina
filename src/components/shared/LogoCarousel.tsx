@@ -70,7 +70,7 @@ export function LogoCarousel({
     const rail = railRef.current
     const group = rail?.firstElementChild
     if (!rail || !group) return
-    setPaused(true)
+    resumeAt.current = performance.now() + 3000
     const step = group.querySelector('li')?.getBoundingClientRect().width ?? 184
     const gap = parseFloat(getComputedStyle(group).columnGap) || 0
     rail.scrollBy({
@@ -104,13 +104,13 @@ export function LogoCarousel({
         onPointerDown={(event) => {
           if (!isCarousel || event.button !== 0) return
           resumeAt.current = Infinity
+          event.currentTarget.setPointerCapture(event.pointerId)
           if (event.pointerType === 'mouse') {
             event.preventDefault()
             drag.current = {
               x: event.clientX,
               left: event.currentTarget.scrollLeft,
             }
-            event.currentTarget.setPointerCapture(event.pointerId)
             event.currentTarget.dataset.dragging = 'true'
           }
         }}
@@ -132,6 +132,7 @@ export function LogoCarousel({
         onLostPointerCapture={(event) => {
           drag.current = null
           delete event.currentTarget.dataset.dragging
+          resumeAt.current = performance.now() + 3000
         }}
         onTouchEnd={() => {
           resumeAt.current = performance.now() + 3000

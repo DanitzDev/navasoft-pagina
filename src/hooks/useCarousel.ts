@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 export function useCarousel(length: number, interval = 3000, enabled = true) {
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
   const [canAnimate, setCanAnimate] = useState(false)
   const next = useCallback(
     () => setIndex((current) => (length > 0 ? (current + 1) % length : 0)),
@@ -27,10 +26,10 @@ export function useCarousel(length: number, interval = 3000, enabled = true) {
   }, [])
 
   useEffect(() => {
-    if (!enabled || !canAnimate || paused || length < 2) return
+    if (!enabled || !canAnimate || length < 2) return
     const timer = setTimeout(next, interval)
     return () => clearTimeout(timer)
-  }, [index, paused, enabled, canAnimate, length, interval, next])
+  }, [index, enabled, canAnimate, length, interval, next])
 
-  return { index, goTo: setIndex, next, prev, setPaused }
+  return { index, goTo: setIndex, next, prev }
 }
