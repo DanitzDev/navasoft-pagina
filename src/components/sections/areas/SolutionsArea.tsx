@@ -27,7 +27,7 @@ function ClientList({ clients }: { clients: typeof clientDirectory }) {
           className={client.image ? undefined : 'business-client-text-only'}
         >
           {client.image && (
-            <div className="business-client-logo">
+            <div className="business-client-logo" data-client={client.id}>
               <img
                 src={client.image}
                 alt={client.name}

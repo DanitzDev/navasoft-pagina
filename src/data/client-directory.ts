@@ -7,7 +7,11 @@ type ClientLogo = Omit<OrganizationLogo, 'image'> & { image?: string }
 
 export const clientDirectory: readonly ClientLogo[] = [
   ...clients,
-  { id: 'ferji', name: 'Ferji' },
+  {
+    id: 'ferji',
+    name: 'Ferji',
+    image: '/images/clientes/ferji-mark.webp',
+  },
   { id: 'diproa', name: 'Diproa', image: '/images/clientes/diproa.png' },
   {
     id: 'arcelormittal',
@@ -20,7 +24,6 @@ export const clientDirectory: readonly ClientLogo[] = [
     image: '/images/clientes/bn-logo.png',
   },
   { id: 'ina', name: 'INA', image: '/images/clientes/Logo-INA.webp' },
-  { id: 'ficohsa', name: 'Ficohsa' },
 ]
 
 const publicClientIds = new Set([
