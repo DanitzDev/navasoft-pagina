@@ -78,10 +78,7 @@ export function TrustSection() {
         {(testimonials.length > 0 || showPlaceholders) && (
           <div id="testimonios" className="trust-feedback">
             <h3>Testimonios</h3>
-            <Testimonials
-              items={testimonials}
-              showPlaceholder={showPlaceholders}
-            />
+            <Testimonials items={testimonials} />
           </div>
         )}
       </Container>
