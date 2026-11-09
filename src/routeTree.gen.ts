@@ -22,7 +22,8 @@ import { Route as CasosDeExitoIndexRouteImport } from './routes/casos-de-exito/i
 import { Route as CasosDeExitoSlugRouteImport } from './routes/casos-de-exito/$slug'
 import { Route as ProductosIndexRouteImport } from './routes/productos/index'
 import { Route as ProductosSlugRouteImport } from './routes/productos/$slug'
-import { Route as SectoresSlugRouteImport } from './routes/sectores.$slug'
+import { Route as SectoresIndexRouteImport } from './routes/sectores/index'
+import { Route as SectoresSlugRouteImport } from './routes/sectores/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -89,6 +90,11 @@ const ProductosSlugRoute = ProductosSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProductosRoute,
 } as any)
+const SectoresIndexRoute = SectoresIndexRouteImport.update({
+  id: '/sectores/',
+  path: '/sectores/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SectoresSlugRoute = SectoresSlugRouteImport.update({
   id: '/sectores/$slug',
   path: '/sectores/$slug',
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/productos/': typeof ProductosIndexRoute
+  '/sectores/': typeof SectoresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito': typeof CasosDeExitoIndexRoute
   '/productos': typeof ProductosIndexRoute
+  '/sectores': typeof SectoresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
   '/productos/': typeof ProductosIndexRoute
+  '/sectores/': typeof SectoresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/sectores/$slug'
     | '/casos-de-exito/'
     | '/productos/'
+    | '/sectores/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/sectores/$slug'
     | '/casos-de-exito'
     | '/productos'
+    | '/sectores'
   id:
     | '__root__'
     | '/'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/sectores/$slug'
     | '/casos-de-exito/'
     | '/productos/'
+    | '/sectores/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   SoporteRoute: typeof SoporteRoute
   AreasSlugRoute: typeof AreasSlugRoute
   SectoresSlugRoute: typeof SectoresSlugRoute
+  SectoresIndexRoute: typeof SectoresIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductosSlugRouteImport
       parentRoute: typeof ProductosRoute
     }
+    '/sectores/': {
+      id: '/sectores/'
+      path: '/sectores'
+      fullPath: '/sectores/'
+      preLoaderRoute: typeof SectoresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sectores/$slug': {
       id: '/sectores/$slug'
       path: '/sectores/$slug'
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   SoporteRoute: SoporteRoute,
   AreasSlugRoute: AreasSlugRoute,
   SectoresSlugRoute: SectoresSlugRoute,
+  SectoresIndexRoute: SectoresIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
