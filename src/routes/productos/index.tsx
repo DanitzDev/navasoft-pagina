@@ -2,19 +2,18 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { SectionTitle } from '../../components/ui/SectionTitle'
 import { Container } from '../../components/ui/Container'
 import { products } from '../../data/products'
+import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/products/ProductsIndex.css'
 
 export const Route = createFileRoute('/productos/')({
-  head: () => ({
-    meta: [
-      { title: 'Productos · Navasoft Soluciones' },
-      {
-        name: 'description',
-        content:
-          'Conoce Gridxia, NavaStay, Tracxia, Ordexia y Factxia: plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
-      },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Productos · Navasoft Soluciones',
+      description:
+        'Explore Gridxia, NavaStay, Tracxia, Ordexia y Factxia, las plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
+      path: '/productos',
+      image: '/images/area-saas.jpeg',
+    }),
   component: ProductsPage,
 })
 
