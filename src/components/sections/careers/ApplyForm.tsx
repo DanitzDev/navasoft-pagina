@@ -8,13 +8,14 @@ import Button from '@/components/ui/Button'
 import { areas, careersCopy, profiles } from '@/data/opportunities'
 import type { AreaId, ProfileId } from '@/data/opportunities'
 import {
+  APPLICATION_MESSAGE_MAX,
   ACCEPT_ATTR,
   MAX_FILE_MB,
   formatFileSize,
-  simulateApplication,
   validateApplication,
 } from '@/lib/careers'
-import type { ApplicationFields } from '@/lib/careers'
+import type { ApplicationErrors, ApplicationFields } from '@/lib/careers'
+import { deliverApplication } from '@/lib/application/submit'
 import { cn } from '@/lib/cn'
 
 type ApplyFormProps = {
@@ -24,7 +25,6 @@ type ApplyFormProps = {
   onAreaChange: (area: AreaId | '') => void
 }
 
-const MESSAGE_MAX = 600
 const initialValues = {
   nombre: '',
   correo: '',
@@ -51,6 +51,8 @@ export function ApplyForm({
   const [status, setStatus] = useState<
     'idle' | 'sending' | 'sent' | 'error' | 'unavailable'
   >('idle')
+  const [serverErrors, setServerErrors] = useState<ApplicationErrors>({})
+  const [notice, setNotice] = useState('')
   const [dragging, setDragging] = useState(false)
 
   const fields: ApplicationFields = {
@@ -66,12 +68,16 @@ export function ApplyForm({
     setTouched((current) => ({ ...current, [key]: true }))
   // Los errores se muestran al salir del campo o al intentar enviar
   const errorOf = (key: keyof ApplicationFields) =>
-    submitted || touched[key] ? errors[key] : undefined
+    submitted || touched[key] ? (serverErrors[key] ?? errors[key]) : undefined
 
   const bind = (key: keyof typeof initialValues) => ({
     value: values[key],
-    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setValues((current) => ({ ...current, [key]: event.target.value })),
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValues((current) => ({ ...current, [key]: event.target.value }))
+      setServerErrors((current) => ({ ...current, [key]: undefined }))
+      setNotice('')
+      setStatus('idle')
+    },
     onBlur: () => touch(key),
     error: errorOf(key),
   })
@@ -79,6 +85,8 @@ export function ApplyForm({
   const pickFile = (next: File | undefined) => {
     if (!next) return
     setFile(next)
+    setServerErrors((current) => ({ ...current, curriculum: undefined }))
+    setStatus('idle')
     touch('curriculum')
   }
 
@@ -87,16 +95,34 @@ export function ApplyForm({
     setSubmitted(true)
     if (Object.keys(errors).length > 0) return
 
+    // No transmitir datos personales ni currículums hasta configurar el API.
     if (import.meta.env.PROD) {
       setStatus('unavailable')
       return
     }
 
+    setServerErrors({})
+    setNotice('')
     setStatus('sending')
     try {
-      await simulateApplication()
-      setStatus('sent')
+      const result = await deliverApplication(fields)
+      if (result.status === 'sent') {
+        setStatus('sent')
+      } else if (result.status === 'unavailable') {
+        setStatus('unavailable')
+      } else if (result.status === 'invalid') {
+        setServerErrors(result.errors)
+        setStatus('error')
+      } else {
+        setNotice(
+          result.status === 'rate_limited'
+            ? 'Se alcanzó el límite de envíos. Intente más tarde.'
+            : copy.errorText,
+        )
+        setStatus('error')
+      }
     } catch {
+      setNotice(copy.errorText)
       setStatus('error')
     }
   }
@@ -107,6 +133,8 @@ export function ApplyForm({
     setConsent(false)
     setTouched({})
     setSubmitted(false)
+    setServerErrors({})
+    setNotice('')
     setStatus('idle')
   }
 
@@ -181,7 +209,14 @@ export function ApplyForm({
               key={item.id}
               type="button"
               aria-pressed={profile === item.id}
-              onClick={() => onProfileChange(item.id)}
+              onClick={() => {
+                onProfileChange(item.id)
+                setServerErrors((current) => ({
+                  ...current,
+                  perfil: undefined,
+                }))
+                setStatus('idle')
+              }}
               onBlur={() => touch('perfil')}
               className={cn(
                 'rounded-xl border px-4 py-3 text-sm font-semibold transition-colors',
@@ -205,7 +240,11 @@ export function ApplyForm({
         required
         placeholder="Seleccione"
         value={area}
-        onChange={(event) => onAreaChange(event.target.value as AreaId)}
+        onChange={(event) => {
+          onAreaChange(event.target.value as AreaId)
+          setServerErrors((current) => ({ ...current, area: undefined }))
+          setStatus('idle')
+        }}
         onBlur={() => touch('area')}
         error={errorOf('area')}
         options={areas.map((item) => ({ value: item.id, label: item.label }))}
@@ -271,7 +310,14 @@ export function ApplyForm({
             <button
               type="button"
               aria-label="Quitar archivo"
-              onClick={() => setFile(null)}
+              onClick={() => {
+                setFile(null)
+                setServerErrors((current) => ({
+                  ...current,
+                  curriculum: undefined,
+                }))
+                setStatus('idle')
+              }}
               className="shrink-0 rounded-md p-1 text-white/70 hover:text-white"
             >
               <X aria-hidden="true" className="size-4" />
@@ -286,8 +332,8 @@ export function ApplyForm({
       <Textarea
         label="Presentación"
         name="presentacion"
-        maxLength={MESSAGE_MAX}
-        hint={`${values.presentacion.length}/${MESSAGE_MAX}`}
+        maxLength={APPLICATION_MESSAGE_MAX}
+        hint={`${values.presentacion.length}/${APPLICATION_MESSAGE_MAX}`}
         {...bind('presentacion')}
       />
 
@@ -298,6 +344,11 @@ export function ApplyForm({
             checked={consent}
             onChange={(event) => {
               setConsent(event.target.checked)
+              setServerErrors((current) => ({
+                ...current,
+                consentimiento: undefined,
+              }))
+              setStatus('idle')
               touch('consentimiento')
             }}
             className="mt-0.5 size-4 shrink-0 accent-accent"
@@ -316,7 +367,7 @@ export function ApplyForm({
           role="alert"
           className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
         >
-          {copy.errorText}
+          {notice || copy.errorText}
         </p>
       )}
 
