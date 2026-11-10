@@ -3,16 +3,14 @@ import { Users, Handshake } from 'lucide-react'
 import { Container } from '../../ui/Container'
 import { SectionTitle } from '../../ui/SectionTitle'
 import { LogoCarousel } from '../../shared/LogoCarousel'
-import { Testimonials } from '../trust/Testimonials'
 import { clients } from '../../../data/clients'
 import { partners } from '../../../data/partners'
-import { testimonials } from '../../../data/testimonials'
 import '../trust/Trust.css'
 
 export function TrustSection() {
   // Los marcadores sirven para revisar la estructura local, no para publicarlos.
   const showPlaceholders = import.meta.env.DEV
-  const hasContent = clients.length || partners.length || testimonials.length
+  const hasContent = clients.length || partners.length
   if (!hasContent && !showPlaceholders) return null
 
   return (
@@ -75,12 +73,6 @@ export function TrustSection() {
             )}
           </div>
         </div>
-        {(testimonials.length > 0 || showPlaceholders) && (
-          <div id="testimonios" className="trust-feedback">
-            <h3>Testimonios</h3>
-            <Testimonials items={testimonials} />
-          </div>
-        )}
       </Container>
     </section>
   )
