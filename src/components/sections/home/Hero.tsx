@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ButtonLink } from '@/components/ui/Button'
@@ -9,10 +10,12 @@ import { cn } from '@/lib/cn'
 
 export function Hero() {
   const { ref, inView } = useInView<HTMLElement>(0.3)
-  const { index, goTo, next, prev, setPaused } = useCarousel(
+  const [controlsHovered, setControlsHovered] = useState(false)
+  const [controlsFocused, setControlsFocused] = useState(false)
+  const { index, goTo, next, prev } = useCarousel(
     heroSlides.length,
     5000,
-    inView,
+    inView && !controlsHovered && !controlsFocused,
   )
 
   return (
@@ -20,15 +23,6 @@ export function Hero() {
       ref={ref}
       aria-roledescription="carrusel"
       className="relative isolate -mt-28 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={(event) => {
-        if (!event.currentTarget.contains(document.activeElement))
-          setPaused(false)
-      }}
-      onFocus={() => setPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false)
-      }}
     >
       {/* Imágenes y sombreado */}
       <div className="absolute inset-0 -z-10">
@@ -91,6 +85,17 @@ export function Hero() {
             role="group"
             aria-label="Cambiar imagen del hero"
             className="flex flex-wrap items-center gap-3"
+            onPointerEnter={(event) => {
+              if (event.pointerType === 'mouse') setControlsHovered(true)
+            }}
+            onPointerLeave={() => setControlsHovered(false)}
+            onFocus={(event) => {
+              setControlsFocused(event.target.matches(':focus-visible'))
+            }}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget))
+                setControlsFocused(false)
+            }}
           >
             <div className="flex items-center gap-1">
               {heroSlides.map((slide, i) => (

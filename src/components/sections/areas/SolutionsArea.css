@@ -187,6 +187,13 @@
   height: 72px;
   object-fit: contain;
 }
+.business-client-logo[data-client='ferji'] {
+  height: 112px;
+  background: transparent;
+}
+.business-client-logo[data-client='ferji'] img {
+  height: 104px;
+}
 .business-client-list li > span {
   color: #202329;
   font-size: 18px;

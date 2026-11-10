@@ -30,7 +30,6 @@ export const Route = createFileRoute('/contacto')({
 
 function ContactPage() {
   const { motivo } = Route.useSearch()
-  const showForm = import.meta.env.DEV
   const title =
     motivo === 'reunion'
       ? 'Solicitar reunión'
@@ -59,17 +58,9 @@ function ContactPage() {
         </Container>
       </div>
       <Container>
-        <div
-          className={
-            showForm
-              ? 'contact-layout'
-              : 'contact-layout contact-layout--channels'
-          }
-        >
-          <ContactInfo showForm={showForm} reason={motivo} />
-          {showForm && (
-            <ContactForm key={motivo ?? 'consulta'} initialReason={motivo} />
-          )}
+        <div className="contact-layout">
+          <ContactInfo showForm reason={motivo} />
+          <ContactForm key={motivo ?? 'consulta'} initialReason={motivo} />
         </div>
       </Container>
     </section>

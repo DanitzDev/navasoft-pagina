@@ -3,6 +3,7 @@ import { caseStudies, caseGroups } from '../../data/cases'
 import { Container } from '../../components/ui/Container'
 import { ButtonLink } from '../../components/ui/Button'
 import CaseCard from '../../components/sections/cases/CaseCard'
+import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/cases/CaseDetail.css'
 
 export const Route = createFileRoute('/casos-de-exito/$slug')({
@@ -11,14 +12,15 @@ export const Route = createFileRoute('/casos-de-exito/$slug')({
     if (!caseStudy) throw notFound()
     return caseStudy
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `${loaderData?.client ?? 'Caso de éxito'} · Navasoft Soluciones`,
-      },
-      { name: 'description', content: loaderData?.summary ?? '' },
-    ],
-  }),
+  head: ({ loaderData: caseStudy }) => {
+    if (!caseStudy) return {}
+    return pageMeta({
+      title: `${caseStudy.client} · Navasoft Soluciones`,
+      description: caseStudy.summary,
+      path: `/casos-de-exito/${caseStudy.id}`,
+      image: caseStudy.image,
+    })
+  },
   component: CaseDetailPage,
 })
 
@@ -27,6 +29,17 @@ function CaseDetailPage() {
   const group = caseGroups.find((item) =>
     item.cases.some((entry) => entry.id === caseStudy.id),
   )!
+  const isInnovationCase = caseStudy.id === 'pesaje-industrial-iot'
+  const isGovernmentCase = group.id === 'gobierno'
+  const solutionLink = isInnovationCase
+    ? { slug: 'navalav', label: 'Conocer Innovation Lab' }
+    : {
+        slug: 'soluciones',
+        hash: isGovernmentCase ? 'gobierno' : 'empresas',
+        label: isGovernmentCase
+          ? 'Ver soluciones para Gobierno'
+          : 'Ver soluciones para Empresas',
+      }
   const related = [
     ...group.cases.filter((item) => item.id !== caseStudy.id),
     ...caseStudies.filter(
@@ -96,13 +109,22 @@ function CaseDetailPage() {
               <ButtonLink to="/contacto" search={{ motivo: 'reunion' }}>
                 Conversemos
               </ButtonLink>
-              {caseStudy.kind === 'product' && (
+              {caseStudy.kind === 'product' ? (
                 <Link
                   to="/productos/$slug"
                   params={{ slug: 'navastay' }}
                   className="case-detail-product-link"
                 >
                   Conocer NavaStay <span aria-hidden="true">↗</span>
+                </Link>
+              ) : (
+                <Link
+                  to="/areas/$slug"
+                  params={{ slug: solutionLink.slug }}
+                  hash={solutionLink.hash}
+                  className="case-detail-product-link"
+                >
+                  {solutionLink.label} <span aria-hidden="true">↗</span>
                 </Link>
               )}
             </aside>

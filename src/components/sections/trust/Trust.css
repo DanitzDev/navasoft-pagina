@@ -81,9 +81,18 @@
   margin: 0;
 }
 .trust-testimonial-bubble .trust-testimonial-draft {
-  margin-bottom: 8px;
-  color: #cbd5e1;
-  font-size: 13px;
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 5px 9px;
+  border: 1px solid #f6b48066;
+  border-radius: 999px;
+  background: #f6b48014;
+  color: #ffd2ad;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .trust-testimonial figcaption,
 .trust-testimonial-caption {
@@ -410,8 +419,7 @@
   font-size: 56px;
 }
 .trust-testimonial-body .trust-testimonial-draft {
-  color: #b9c7da;
-  font-size: 13px;
+  color: #ffd2ad;
 }
 .trust-section .trust-testimonial-body figcaption {
   display: grid;

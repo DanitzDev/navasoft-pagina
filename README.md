@@ -11,6 +11,34 @@ npm run dev
 
 Disponible en `http://localhost:3000`.
 
+## Ejecutar la compilación de producción
+
+Usa Node.js 22.12 o superior.
+
+```bash
+npm ci --include=dev
+npm run build
+npm start
+```
+
+## Entorno de pruebas en Plesk para Windows
+
+1. Confirma que el panel del dominio de pruebas muestra Node.js 22.12 o
+   superior.
+2. En **Git**, conecta el repositorio remoto, selecciona la rama `develop` y usa
+   despliegue manual. El destino de Git debe coincidir con **Application Root**.
+3. En **Node.js**, selecciona `npm`, el modo `production` y `app.js` como
+   **Application Startup File**. En Plesk para Windows, **Document Root** y
+   **Application Root** apuntan a la misma carpeta.
+4. Desde esa carpeta, ejecuta `npm ci --include=dev` y `npm run build`. Después
+   habilita Node.js o reinicia la aplicación si ya estaba habilitada. Plesk
+   arranca `app.js` con el `PORT` asignado por el hosting.
+5. Antes de compartir el enlace, verifica que funcionen `/`, `/soporte` y
+   `/contacto` por HTTPS. Confirma con el administrador que IIS bloquea el
+   acceso HTTP directo a los archivos internos, incluidos `src/`, `dist/server/`,
+   `node_modules/`, los archivos de entorno y los manifiestos de npm. La
+   aplicación sirve los recursos públicos desde `dist/client`.
+
 ## Validar y compilar
 
 ```bash

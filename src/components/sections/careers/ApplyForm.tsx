@@ -48,9 +48,9 @@ export function ApplyForm({
     Partial<Record<keyof ApplicationFields, boolean>>
   >({})
   const [submitted, setSubmitted] = useState(false)
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
-    'idle',
-  )
+  const [status, setStatus] = useState<
+    'idle' | 'sending' | 'sent' | 'error' | 'unavailable'
+  >('idle')
   const [dragging, setDragging] = useState(false)
 
   const fields: ApplicationFields = {
@@ -86,6 +86,11 @@ export function ApplyForm({
     event.preventDefault()
     setSubmitted(true)
     if (Object.keys(errors).length > 0) return
+
+    if (import.meta.env.PROD) {
+      setStatus('unavailable')
+      return
+    }
 
     setStatus('sending')
     try {
@@ -312,6 +317,25 @@ export function ApplyForm({
           className="rounded-xl border border-red-400/40 bg-red-500/10 px-4 py-3 text-sm text-red-200"
         >
           {copy.errorText}
+        </p>
+      )}
+
+      {status === 'unavailable' && (
+        <p
+          role="alert"
+          className="rounded-xl border border-accent/40 bg-accent/10 px-4 py-3 text-sm text-white"
+        >
+          La recepción en línea aún no está habilitada. Su currículum no se
+          envió; puede compartirlo por{' '}
+          <a
+            href={careersCopy.apply.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-accent underline underline-offset-2"
+          >
+            WhatsApp
+          </a>
+          .
         </p>
       )}
 

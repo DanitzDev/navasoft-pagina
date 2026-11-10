@@ -3,28 +3,10 @@ import type { Testimonial } from '../../../types/trust'
 
 type TestimonialsProps = {
   items: readonly Testimonial[]
-  showPlaceholder?: boolean
 }
 
-// Las muestras solo se solicitan en desarrollo; no se mezclan con citas aprobadas.
-const previewItems: readonly Testimonial[] = Array.from(
-  { length: 10 },
-  (_, index) => ({
-    id: 'preview-' + index,
-    quote:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    author: 'Nombre por confirmar',
-    role: 'Cargo por confirmar',
-    organization: 'Empresa por confirmar',
-  }),
-)
-
-export function Testimonials({
-  items,
-  showPlaceholder = false,
-}: TestimonialsProps) {
-  const entries = items.length ? items : showPlaceholder ? previewItems : []
-  const draft = !items.length
+export function Testimonials({ items }: TestimonialsProps) {
+  const entries = items
   const rail = useRef<HTMLUListElement>(null)
   const region = useRef<HTMLDivElement>(null)
   const resumeAt = useRef(0)
@@ -262,7 +244,9 @@ export function Testimonials({
           <li
             key={item.id}
             data-active={index === position.index ? 'true' : undefined}
-            aria-label={'Testimonio ' + (index + 1) + ' de ' + entries.length}
+            aria-label={
+              `${item.isDraft ? 'Testimonio de muestra ' : 'Testimonio '}${index + 1} de ${entries.length}`
+            }
           >
             <figure className="trust-testimonial">
               <div className="trust-testimonial-body">
@@ -270,9 +254,9 @@ export function Testimonials({
                   <span className="trust-testimonial-quote" aria-hidden="true">
                     “
                   </span>
-                  {draft && (
+                  {item.isDraft && (
                     <p className="trust-testimonial-draft">
-                      Texto provisional · {index + 1}
+                      Testimonio de muestra · Pendiente de aprobación
                     </p>
                   )}
                   <p>{item.quote}</p>

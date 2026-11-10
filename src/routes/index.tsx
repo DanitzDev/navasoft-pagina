@@ -9,8 +9,16 @@ import { TrustSection } from '../components/sections/home/TrustSection'
 import Timeline from '../components/sections/about/timeline/Timeline'
 import InstitutionalBanner from '../components/shared/institutional-banner/InstitutionalBanner'
 import { contactBanner } from '../data/site'
+import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/')({
+  head: () =>
+    pageMeta({
+      title: 'Navasoft Soluciones · Software empresarial e innovación',
+      description:
+        'Desarrollamos software a la medida, plataformas SaaS e integraciones para empresas e instituciones públicas en Costa Rica y Centroamérica.',
+      path: '/',
+    }),
   component: Home,
 })
 

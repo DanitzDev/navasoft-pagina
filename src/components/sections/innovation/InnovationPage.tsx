@@ -19,10 +19,15 @@ import {
 } from '../../../data/innovation'
 import './InnovationPage.css'
 
-const capabilityIcons = [Radio, Cloud, Cpu]
+const capabilityIcons = {
+  iot: Radio,
+  cloud: Cloud,
+  ai: Cpu,
+} as const
+type CapabilityId = keyof typeof capabilityIcons
 
 export default function InnovationPage() {
-  const [selected, setSelected] = useState<string>('iot')
+  const [selected, setSelected] = useState<CapabilityId>('iot')
   return (
     <div className="innovation-page">
       <Container
@@ -92,8 +97,8 @@ export default function InnovationPage() {
         </div>
         <div className="innovation-explorer">
           <div className="innovation-capability-options">
-            {innovationCapabilities.map((capability, index) => {
-              const Icon = capabilityIcons[index]
+            {innovationCapabilities.map((capability) => {
+              const Icon = capabilityIcons[capability.id]
               const active = selected === capability.id
               return (
                 <button
