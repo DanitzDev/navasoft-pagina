@@ -4,8 +4,8 @@ import InnovationPage from '../components/sections/innovation/InnovationPage'
 
 // Una página reúne ambos sectores; las direcciones anteriores redirigen por ancla.
 const areas = [
-  { slug: 'soluciones', title: 'Gobierno y Empresas' },
-  { slug: 'navalav', title: 'Innovación' },
+  { slug: 'soluciones', title: 'Público y empresarial' },
+  { slug: 'navalav', title: 'InnovationLab' },
 ]
 
 export const Route = createFileRoute('/areas/$slug')({
@@ -37,14 +37,14 @@ export const Route = createFileRoute('/areas/$slug')({
             {
               name: 'description',
               content:
-                'Soluciones a la medida para Gobierno y Empresas: modernización Oracle, integración de procesos, clientes y proyectos de Navasoft Soluciones.',
+                'Soluciones a la medida para los sectores público y empresarial: modernización Oracle, integración de procesos, clientes y proyectos de Navasoft Soluciones.',
             },
           ]
         : [
             {
               name: 'description',
               content:
-                'Innovación aplicada de Navasoft: exploramos IoT, inteligencia artificial y nube, desde una prueba de concepto hasta su integración con la operación.',
+                'InnovationLab de Navasoft: exploramos IoT, inteligencia artificial y nube, desde una prueba de concepto hasta su integración con la operación.',
             },
           ]),
     ],

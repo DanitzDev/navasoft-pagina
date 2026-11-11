@@ -7,7 +7,7 @@ export const heroSlides = [
   {
     src: '/images/hero-innovation.jpeg',
     alt: 'Laboratorio de innovación con prototipos electrónicos',
-    label: 'Innovación',
+    label: 'InnovationLab',
   },
   {
     src: '/images/hero-industria.jpeg',
@@ -16,7 +16,7 @@ export const heroSlides = [
   },
   {
     src: '/images/hero-lab.jpeg',
-    alt: 'Taller de Innovation Lab',
-    label: 'Innovation Lab',
+    alt: 'Taller de InnovationLab',
+    label: 'InnovationLab',
   },
 ]

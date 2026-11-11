@@ -24,7 +24,7 @@ export function SectorsIndex() {
                         eyebrow="Sectores"
                         title="Sectores que impulsamos"
                         // MAQUETA (sección "Confianza" del Inicio)
-                        description="Durante más de 15 años, Navasoft ha impulsado la transformación digital de instituciones públicas, empresas privadas y organizaciones que generan impacto en Costa Rica."
+                        description="Durante más de 15 años, Navasoft ha impulsado la transformación digital de organizaciones del sector público y empresarial en Costa Rica."
                         titleClassName="lg:text-6xl"
                     />
                 </Container>

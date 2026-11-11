@@ -754,7 +754,7 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
       intro:
         'El comprobante se arma en un lado, se envía en otro y el cobro vive en un tercero. Cuando Hacienda o el cliente piden el XML, nadie sabe en qué bandeja quedó.',
       audience:
-        'Para: Empresas, distribuidores y operaciones que emiten comprobantes electrónicos y no pueden reconstruir el mes en Excel.',
+        'Para: Organizaciones, distribuidores y operaciones que emiten comprobantes electrónicos y no pueden reconstruir el mes en Excel.',
       pairs: [
         { after: 'Dejar de reconstruir el mes cuando llega un requerimiento' },
         { after: 'Cobro y factura en el mismo expediente' },

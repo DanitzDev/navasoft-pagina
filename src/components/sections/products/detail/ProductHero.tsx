@@ -58,7 +58,7 @@ export function ProductHero({
         <div className="space-y-8">
           <nav aria-label="Migas de pan" className="text-sm text-white/60">
             <Link to="/productos" className="hover:text-white">
-              Productos
+              Ecosistema SaaS
             </Link>
             <span aria-hidden="true"> / </span>
             <span className="text-white">{product.name}</span>

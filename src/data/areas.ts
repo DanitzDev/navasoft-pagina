@@ -55,8 +55,8 @@ export const areas: Area[] = [
   {
     slug: 'innovation-lab',
     number: '04',
-    navLabel: 'Innovation Lab',
-    name: 'Innovation Lab',
+    navLabel: 'InnovationLab',
+    name: 'InnovationLab',
     description:
       'Investigamos, desarrollamos e integramos tecnologías emergentes para construir la industria inteligente del futuro.',
     tags: ['IA', 'IoT', 'Cloud'],

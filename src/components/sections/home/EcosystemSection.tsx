@@ -37,7 +37,7 @@ export function EcosystemSection() {
         <SectionTitle
           eyebrow="Nuestro Ecosistema"
           title="Transformamos años de experiencia en plataformas que generan impacto real."
-          description="Cinco productos SaaS: Gridxia, Tracxia, Ordexia, Factxia y NavaStay. Cada solución nace de desafíos reales resueltos para organizaciones que impulsan el crecimiento y el desarrollo de nuestras comunidades."
+          description="Cinco plataformas SaaS: Gridxia, Tracxia, Ordexia, Factxia y NavaStay. Cada solución nace de desafíos reales resueltos para organizaciones que impulsan el crecimiento y el desarrollo de nuestras comunidades."
           className="max-w-3xl"
         />
 
