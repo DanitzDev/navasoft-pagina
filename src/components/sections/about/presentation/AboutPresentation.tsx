@@ -9,7 +9,7 @@ import { companyIntroduction } from '../../../../data/about'
 const facts = [
   { value: '2011', label: 'Año de fundación' },
   { value: '15', label: 'Años de trayectoria en 2026' },
-  { value: String(products.length), label: 'Productos en nuestro ecosistema' },
+  { value: String(products.length), label: 'Plataformas en nuestro ecosistema' },
   { value: String(footerSolutions.length), label: 'Áreas de negocio' },
 ]
 
@@ -78,7 +78,7 @@ export default function AboutPresentation() {
           <SectionTitle
             eyebrow="Confianza"
             title="La confianza se construye con resultados."
-            description="Desde 2011 acompañamos a instituciones públicas y empresas en el desarrollo de soluciones tecnológicas, la integración de procesos y la transformación digital."
+            description="Desde 2011 acompañamos a organizaciones del sector público y empresarial en el desarrollo de soluciones tecnológicas, la integración de procesos y la transformación digital."
             className="about-confidence-heading"
           />
           <div className="about-confidence-body">

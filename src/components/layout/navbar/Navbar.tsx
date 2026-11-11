@@ -54,13 +54,13 @@ export default function Navbar() {
             ))}
             <li>
               <NavDropdown
-                label="Productos"
+                label="Ecosistema SaaS"
                 sectionHref="/productos"
                 items={products}
               />
             </li>
             <li>
-              <NavLink href="/areas/navalav">Innovación</NavLink>
+              <NavLink href="/areas/navalav">InnovationLab</NavLink>
             </li>
             <li>
               <NavDropdown label="Sectores que impulsamos" items={sectors} />

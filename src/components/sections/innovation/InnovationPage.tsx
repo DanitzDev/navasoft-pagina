@@ -36,7 +36,7 @@ export default function InnovationPage() {
         aria-labelledby="innovation-title"
       >
         <div className="innovation-hero-copy">
-          <p className="innovation-label">Innovation Lab · Navasoft</p>
+          <p className="innovation-label">InnovationLab · Navasoft</p>
           <h1 id="innovation-title">Del desafío real a la próxima solución.</h1>
           <p className="innovation-lead">
             Probamos cómo la inteligencia artificial, los dispositivos
@@ -224,9 +224,9 @@ export default function InnovationPage() {
         <div className="innovation-related">
           <p>Conozca también nuestras soluciones</p>
           <Link to="/areas/$slug" params={{ slug: 'soluciones' }}>
-            Gobierno y Empresas
+            Público y empresarial
           </Link>
-          <Link to="/productos">Productos</Link>
+          <Link to="/productos">Ecosistema SaaS</Link>
         </div>
       </Container>
 

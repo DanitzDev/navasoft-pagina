@@ -50,14 +50,14 @@ export default function SolutionsArea() {
       <section className="business-hero" aria-labelledby="solutions-title">
         <Container className="business-hero-layout">
           <div>
-            <p className="business-kicker">Gobierno y Empresas</p>
+            <p className="business-kicker">Público y empresarial</p>
             <h1 id="solutions-title">
               Software a la medida para su operación.
             </h1>
             <p className="business-hero-description">
-              Desarrollamos y modernizamos sistemas para instituciones públicas
-              y empresas. Conectamos inventarios, facturación, expedientes y
-              finanzas con sus herramientas actuales.
+              Desarrollamos y modernizamos sistemas para organizaciones del
+              sector público y empresarial. Conectamos inventarios, facturación,
+              expedientes y finanzas con sus herramientas actuales.
             </p>
             <div className="business-actions">
               <ButtonLink
@@ -68,14 +68,14 @@ export default function SolutionsArea() {
                 Solicitar reunión
               </ButtonLink>
               <a href="#productos-relacionados" className="business-text-link">
-                <span>Explorar productos</span>
+                <span>Explorar ecosistema SaaS</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
           <nav
             className="solutions-hero-images"
-            aria-label="Explorar Gobierno y Empresas"
+            aria-label="Explorar sectores público y empresarial"
           >
             <a href="#gobierno" className="solutions-sector-access">
               <img
@@ -86,7 +86,7 @@ export default function SolutionsArea() {
               />
               <span className="solutions-access-caption">
                 <span>
-                  <strong>Gobierno</strong>
+                  <strong>Sector público</strong>
                   <small>Trámites y gestión institucional</small>
                 </span>
                 <svg
@@ -115,7 +115,7 @@ export default function SolutionsArea() {
               />
               <span className="solutions-access-caption">
                 <span>
-                  <strong>Empresas</strong>
+                  <strong>Sector empresarial</strong>
                   <small>Producción, logística y administración</small>
                 </span>
                 <svg
@@ -207,7 +207,7 @@ export default function SolutionsArea() {
         aria-labelledby="solutions-products-title"
       >
         <Container>
-          <h2 id="solutions-products-title">Productos para su operación</h2>
+          <h2 id="solutions-products-title">Ecosistema SaaS para su operación</h2>
           <div className="business-product-grid">
             {relatedProducts.map((product) => (
               <Link

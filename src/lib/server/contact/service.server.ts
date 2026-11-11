@@ -5,6 +5,7 @@ import type { CrmTransport } from './crm.server.ts'
 type Dependencies = {
   consume: () => { allowed: boolean; retryAfterSeconds: number }
   transport: CrmTransport
+  clientIp?: string
   timeoutMs?: number
 }
 
@@ -12,6 +13,7 @@ export async function processContact(
   input: unknown,
   deps: Dependencies,
 ): Promise<ContactResult> {
+  // Limitar antes de validar reduce el costo de solicitudes repetidas o malformadas.
   const allowance = deps.consume()
   if (!allowance.allowed)
     return {
@@ -21,8 +23,12 @@ export async function processContact(
   if (typeof input !== 'object' || input === null || Array.isArray(input))
     return { status: 'rejected' }
   const website = (input as Record<string, unknown>).website
+  const source = input as Record<string, unknown>
+  const phoneCountryCode =
+    typeof source.phoneCountryCode === 'string' ? source.phoneCountryCode : ''
   if (website !== undefined && (typeof website !== 'string' || website !== ''))
     return { status: 'rejected' }
+  // El honeypot detecta bots; los campos visibles se validan después en ambos lados.
   const validation = validateContact(input)
   if (Object.keys(validation.errors).length)
     return { status: 'invalid', errors: validation.errors }
@@ -32,9 +38,13 @@ export async function processContact(
   let timer: ReturnType<typeof setTimeout> | undefined
   try {
     return await Promise.race([
-      deps.transport.send(validation.data, controller.signal),
+      deps.transport.send(validation.data, controller.signal, {
+        clientIp: deps.clientIp,
+        phoneCountryCode,
+      }),
       new Promise<ContactResult>((resolve) => {
         timer = setTimeout(() => {
+          // Tras el timeout no podemos saber si ORDS alcanzó a guardar el mensaje.
           controller.abort()
           resolve({ status: 'uncertain' })
         }, deps.timeoutMs ?? 10000)

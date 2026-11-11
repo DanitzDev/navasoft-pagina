@@ -1,4 +1,4 @@
-// Defensa local de desarrollo. No sustituye un límite distribuido en producción.
+// Límite por proceso. En despliegues con varias instancias debe sustituirse por uno compartido.
 export function createContactLimiter(
   limit = 5,
   windowMs = 10 * 60 * 1000,

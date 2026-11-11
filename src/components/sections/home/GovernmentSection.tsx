@@ -10,7 +10,7 @@ export function GovernmentSection() {
       <Container>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionTitle
-            eyebrow="Gobierno y sector público"
+            eyebrow="Sector público"
             title="Cuando la tecnología impacta a miles de personas, la confianza lo es todo."
             description="Trabajamos junto a organizaciones públicas para modernizar procesos, optimizar la gestión y generar mejores servicios para la ciudadanía."
             className="max-w-2xl"
@@ -21,7 +21,7 @@ export function GovernmentSection() {
             hash="gobierno"
             className="shrink-0 text-text-eyebrow2"
           >
-            Ver proyectos de gobierno
+            Ver proyectos del sector público
           </ArrowLink>
         </div>
 

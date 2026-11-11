@@ -33,9 +33,9 @@ npm start
 4. Desde esa carpeta, ejecuta `npm ci --include=dev` y `npm run build`. Después
    habilita Node.js o reinicia la aplicación si ya estaba habilitada. Plesk
    arranca `app.js` con el `PORT` asignado por el hosting.
-5. Antes de compartir el enlace, verifica que funcionen `/`, `/soporte` y
-   `/contacto` por HTTPS. Confirma con el administrador que IIS bloquea el
-   acceso HTTP directo a los archivos internos, incluidos `src/`, `dist/server/`,
+5. Antes de compartir el enlace, verifica que funcionen `/`, `/soporte`,
+   `/contacto` y `/oportunidades` por HTTPS. Confirma con el administrador que
+   IIS bloquea el acceso HTTP directo a los archivos internos, incluidos `src/`, `dist/server/`,
    `node_modules/`, los archivos de entorno y los manifiestos de npm. La
    aplicación sirve los recursos públicos desde `dist/client`.
 
@@ -51,4 +51,8 @@ npm run build
 Las rutas están en `src/routes` y el Navbar y Footer en `src/components/layout`.
 El archivo `src/routeTree.gen.ts` es generado automáticamente y no debe editarse manualmente.
 
-El contenido definitivo de las páginas y los formularios siguen en desarrollo.
+El formulario de contacto consume ORDS desde su función de servidor. Configura
+`ORDS_BASE_URL`, `ORDS_CLIENT_ID` y `ORDS_CLIENT_SECRET` en el entorno privado
+del proceso Node. El cliente OAuth requiere el rol `nsw_contacto_backend`. Usa
+`ORDS_TRUST_X_FORWARDED_FOR=true` solo si el proxy de confianza del hosting
+reescribe ese encabezado; de forma predeterminada se usa la IP de la conexión.

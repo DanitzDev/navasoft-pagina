@@ -18,7 +18,7 @@ export const navbarCompanyLinks = companyLinks.filter(
 )
 export const primaryLinks: NavigationItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Gobierno y Empresas', href: '/areas/soluciones' },
+  { label: 'Público y empresarial', href: '/areas/soluciones' },
 ]
 export const products: NavigationItem[] = [
   { label: 'Gridxia', href: '/productos/gridxia' },
@@ -26,6 +26,7 @@ export const products: NavigationItem[] = [
   { label: 'Ordexia', href: '/productos/ordexia' },
   { label: 'Factxia', href: '/productos/factxia' },
   { label: 'Navastay', href: '/productos/navastay' },
+  { label: 'Acadxia', href: '/productos/acadxia' },
 ]
 // Cada sector tiene un destino atendido por la ruta dinámica de TanStack.
 export const sectors: (NavigationItem & { description: string })[] = [

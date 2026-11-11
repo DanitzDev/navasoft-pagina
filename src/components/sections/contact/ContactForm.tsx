@@ -31,15 +31,19 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     message: '',
     consent: false,
   })
+  const [phoneCountryCode, setPhoneCountryCode] = useState('+506')
   const [touched, setTouched] = useState<
     Partial<Record<ContactField, boolean>>
   >({})
   const [errors, setErrors] = useState<ContactErrors>({})
   const [pending, setPending] = useState(false)
+  // Evita habilitar controles hasta que la interfaz del cliente esté hidratada.
   const [ready, setReady] = useState(false)
   const [notice, setNotice] = useState('')
   const [sent, setSent] = useState(false)
+  // Distingue errores de envío de validaciones que aún no se han intentado.
   const [attempted, setAttempted] = useState(false)
+  // Guardamos el instante final para que el contador no dependa de un solo timeout largo.
   const [retryAt, setRetryAt] = useState(0)
   const [retrySeconds, setRetrySeconds] = useState(0)
   const website = useRef<HTMLInputElement>(null)
@@ -76,7 +80,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     if (touched[field])
       setErrors((current) => ({
         ...current,
-        [field]: validateContact(next).errors[field],
+        [field]: validateContact({ ...next, phoneCountryCode }).errors[field],
       }))
     setNotice('')
     setSent(false)
@@ -86,11 +90,26 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     setTouched((current) => ({ ...current, [field]: true }))
     setErrors((current) => ({
       ...current,
-      [field]: validateContact(values).errors[field],
+      [field]: validateContact({ ...values, phoneCountryCode }).errors[field],
     }))
   }
 
+  function changePhone(value: string, countryCode: string) {
+    const next = { ...values, phone: value }
+    setValues(next)
+    setPhoneCountryCode(countryCode)
+    if (touched.phone)
+      setErrors((current) => ({
+        ...current,
+        phone: validateContact({ ...next, phoneCountryCode: countryCode })
+          .errors.phone,
+      }))
+    setNotice('')
+    setSent(false)
+  }
+
   function focusError(next: ContactErrors) {
+    // Lleva el foco al primer campo inválido para facilitar la corrección con teclado.
     const field = (Object.keys(values) as ContactField[]).find(
       (key) => next[key],
     )
@@ -100,11 +119,12 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    // El ref bloquea envíos duplicados antes de que React actualice el estado pending.
     if (busy.current || Date.now() < retryAt) return
     setAttempted(true)
     setNotice('')
     setSent(false)
-    const result = validateContact(values)
+    const result = validateContact({ ...values, phoneCountryCode })
     setErrors(result.errors)
     setTouched({
       name: true,
@@ -124,6 +144,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     try {
       const response = await deliverContact({
         ...result.data,
+        phoneCountryCode,
         website: website.current?.value ?? '',
       })
       if (response.status === 'invalid') {
@@ -144,15 +165,21 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
             message: '',
             consent: false,
           })
+          setPhoneCountryCode('+506')
           setTouched({})
           setErrors({})
         } else if (response.status === 'uncertain') {
+          // No vaciar ni reenviar automáticamente: el servidor pudo haber entregado el mensaje.
           setNotice(
             'No pudimos confirmar el envío. Tus datos siguen aquí. Espera un momento antes de volver a intentarlo o contáctanos por correo o WhatsApp.',
           )
         } else if (response.status === 'unavailable') {
           setNotice(
             'El envío desde el formulario no está disponible por el momento. Tus datos siguen aquí; puedes contactarnos por correo o WhatsApp.',
+          )
+        } else if (response.status === 'remote_invalid') {
+          setNotice(
+            'El servicio no aceptó los datos. Revisa los campos y autoriza el contacto.',
           )
         } else if (response.status === 'rate_limited') {
           const seconds = Math.max(1, Math.ceil(response.retryAfterSeconds))
@@ -286,8 +313,9 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
           />
           <ContactPhone
             value={values.phone}
+            countryCode={phoneCountryCode}
             error={errors.phone}
-            onChange={(value) => change('phone', value)}
+            onChange={changePhone}
             onBlur={() => blur('phone')}
           />
         </div>

@@ -21,7 +21,7 @@ export function SectorCta({ topic }: { topic: ContactTopic }) {
                     align="center"
                     eyebrow="Socio tecnológico"
                     title="Transformemos juntos el siguiente desafío."
-                    description="Gobierno, empresa, plataformas SaaS e innovación. Una misma visión para construir soluciones que generan resultados reales."
+                    description="Sector público, sector empresarial, ecosistema SaaS e InnovationLab. Una misma visión para construir soluciones que generan resultados reales."
                 />
 
                 <div className="flex flex-wrap justify-center gap-3">

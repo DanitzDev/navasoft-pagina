@@ -5,9 +5,10 @@ export type DeliveryResult =
   | { status: 'unavailable' }
   | { status: 'failed' }
   | { status: 'uncertain' }
+  | { status: 'rate_limited'; retryAfterSeconds: number }
+  | { status: 'remote_invalid' }
 
 export type ContactResult =
   | DeliveryResult
   | { status: 'invalid'; errors: ContactErrors }
   | { status: 'rejected' }
-  | { status: 'rate_limited'; retryAfterSeconds: number }

@@ -5,7 +5,7 @@ export const areas: Area[] = [
   {
     slug: 'publico',
     number: '01',
-    navLabel: 'Público',
+    navLabel: 'Sector Público',
     name: 'Sector Público',
     description:
       'Modernizamos procesos, servicios y operaciones para instituciones que impactan miles de ciudadanos.',
@@ -24,8 +24,8 @@ export const areas: Area[] = [
   {
     slug: 'empresarial',
     number: '02',
-    navLabel: 'Empresarial',
-    name: 'Sector Empresarial',
+    navLabel: 'Sector empresarial',
+    name: 'Sector empresarial',
     description:
       'Ayudamos a organizaciones privadas a optimizar operaciones, integrar sistemas y acelerar su crecimiento.',
     tags: [
@@ -42,12 +42,12 @@ export const areas: Area[] = [
   {
     slug: 'saas',
     number: '03',
-    navLabel: 'SaaS',
+    navLabel: 'Productos SaaS',
     name: 'Ecosistema SaaS',
     kicker: '03 · Plataformas',
     description:
       'Plataformas propias diseñadas para transformar sectores específicos mediante soluciones modernas, escalables y orientadas a resultados.',
-    tags: ['Gridxia', 'Tracxia', 'Ordexia', 'Factxia', 'NavaStay'],
+    tags: ['Gridxia', 'Tracxia', 'Ordexia', 'Factxia', 'NavaStay' , 'Acadxia'],
     highlights: ['Futuro estratégico', 'En expansión regional'],
     image: '/images/area-saas.jpeg',
     icon: Layers,
@@ -55,7 +55,7 @@ export const areas: Area[] = [
   {
     slug: 'innovation-lab',
     number: '04',
-    navLabel: 'Innovation Lab',
+    navLabel: 'Innovation Labs',
     name: 'Innovation Lab',
     description:
       'Investigamos, desarrollamos e integramos tecnologías emergentes para construir la industria inteligente del futuro.',
