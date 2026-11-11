@@ -18,7 +18,7 @@ export const navbarCompanyLinks = companyLinks.filter(
 )
 export const primaryLinks: NavigationItem[] = [
   { label: 'Inicio', href: '/' },
-  { label: 'Gobierno y Empresas', href: '/areas/soluciones' },
+  { label: 'Público y empresarial', href: '/areas/soluciones' },
 ]
 export const products: NavigationItem[] = [
   { label: 'Gridxia', href: '/productos/gridxia' },

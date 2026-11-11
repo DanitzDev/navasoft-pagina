@@ -32,13 +32,13 @@ function CaseDetailPage() {
   const isInnovationCase = caseStudy.id === 'pesaje-industrial-iot'
   const isGovernmentCase = group.id === 'gobierno'
   const solutionLink = isInnovationCase
-    ? { slug: 'navalav', label: 'Conocer Innovation Lab' }
+    ? { slug: 'navalav', label: 'Conocer InnovationLab' }
     : {
         slug: 'soluciones',
         hash: isGovernmentCase ? 'gobierno' : 'empresas',
         label: isGovernmentCase
-          ? 'Ver soluciones para Gobierno'
-          : 'Ver soluciones para Empresas',
+          ? 'Ver soluciones del sector público'
+          : 'Ver soluciones del sector empresarial',
       }
   const related = [
     ...group.cases.filter((item) => item.id !== caseStudy.id),

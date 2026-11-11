@@ -3,7 +3,7 @@ import { businessClients, publicClients } from './client-directory'
 // Contenido por sector; el diseño y el directorio comparten componentes.
 export const sectorPages = {
   privado: {
-    title: 'Empresas',
+    title: 'Sector empresarial',
     kicker: 'Sector empresarial',
     lead: 'Software que se adapta a su operación.',
     description:
@@ -13,7 +13,7 @@ export const sectorPages = {
     introduction:
       'Cada operación tiene sus particularidades: lotes, rutas, controles de calidad o atención a asociados. Diseñamos e integramos el sistema alrededor de esos procesos.',
     clientsDescription:
-      'Empresas y organizaciones que forman parte de nuestra trayectoria.',
+      'Organizaciones del sector empresarial que forman parte de nuestra trayectoria.',
     clients: businessClients,
     capabilities: [
       {
@@ -41,8 +41,8 @@ export const sectorPages = {
     products: ['tracxia', 'factxia', 'ordexia'],
   },
   gobierno: {
-    title: 'Gobierno',
-    kicker: 'Gobierno y sector público',
+    title: 'Sector público',
+    kicker: 'Sector público',
     lead: 'Sistemas que respaldan la operación institucional.',
     description:
       'Desarrollamos y modernizamos sistemas para conectar la gestión administrativa, los trámites y la información de las instituciones públicas.',

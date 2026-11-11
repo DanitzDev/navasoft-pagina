@@ -17,8 +17,10 @@
 .company-video-background {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
+  border-radius: inherit;
   object-fit: cover;
   pointer-events: none;
 }
@@ -58,10 +60,6 @@
   font-weight: 600;
   line-height: 1.14;
   text-wrap: balance;
-}
-.company-video-control {
-  align-self: flex-start;
-  margin-top: 20px;
 }
 .company-video-heading p {
   margin: 24px 0 0;

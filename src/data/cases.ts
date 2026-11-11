@@ -75,12 +75,12 @@ export const caseStudies: readonly CaseStudy[] = [
   {
     id: 'erp-municipal',
     client: 'ERP municipal',
-    sector: 'Gobierno local',
+    sector: 'Sector público local',
     title: 'Evolución tecnológica para la gestión municipal.',
     summary:
       'Brindamos mantenimiento evolutivo y migración del sistema municipal SIM, con mejoras en inventarios, patentes, planillas y otros procesos institucionales.',
     image: '/images/cases/erp-municipal.webp',
-    tags: ['Gobierno local', 'Desarrollo e integración'],
+    tags: ['Sector público local', 'Desarrollo e integración'],
     focus: [
       {
         title: 'Reto',
@@ -534,7 +534,7 @@ const governmentCaseIds = new Set([
 export const caseGroups = [
   {
     id: 'empresas',
-    title: 'Empresas',
+    title: 'Sector empresarial',
     description:
       'Producción, distribución, finanzas y gestión de organizaciones.',
     cases: caseStudies.filter(
@@ -543,7 +543,7 @@ export const caseGroups = [
   },
   {
     id: 'gobierno',
-    title: 'Gobierno',
+    title: 'Sector público',
     description: 'Modernización de sistemas y procesos institucionales.',
     cases: caseStudies.filter((item) => governmentCaseIds.has(item.id)),
   },
