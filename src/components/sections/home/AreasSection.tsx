@@ -33,7 +33,7 @@ function IconBox({
 
 function AreaLink({ area }: { area: Area }) {
   if (!area.page) {
-    return <ArrowLink to="/productos">Ver ecosistema de productos</ArrowLink>
+    return <ArrowLink to="/productos">Ver ecosistema SaaS</ArrowLink>
   }
   return (
     <ArrowLink
@@ -59,7 +59,7 @@ export function AreasSection() {
           <SectionTitle
             eyebrow="Nuestras áreas"
             title="Cuatro áreas. Una misma visión de innovación."
-            description="Desarrollamos soluciones para instituciones públicas y empresas, plataformas propias e innovación aplicada a la operación."
+            description="Desarrollamos soluciones para los sectores público y empresarial, plataformas propias e innovación aplicada a la operación."
           />
         </div>
 

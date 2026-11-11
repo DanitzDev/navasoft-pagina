@@ -36,9 +36,9 @@ export const siteContacts: ContactItem[] = [
 
 // Las rutas ya están habilitadas el contenido definitivo se completa después.
 export const footerSolutions: NavigationItem[] = [
-  { label: 'Gobierno y Empresas', href: '/areas/soluciones' },
-  { label: 'Productos', href: '/productos' },
-  { label: 'Innovación', href: '/areas/navalav' },
+  { label: 'Público y empresarial', href: '/areas/soluciones' },
+  { label: 'Ecosistema SaaS', href: '/productos' },
+  { label: 'InnovationLab', href: '/areas/navalav' },
 ]
 
 type FooterProduct = NavigationItem & { description: string }
@@ -100,5 +100,5 @@ export const contactBanner = {
   eyebrow: 'Socio tecnológico',
   title: 'Transformemos juntos el siguiente desafío.',
   description:
-    'Gobierno, empresa, plataformas SaaS e innovación. Una misma visión para construir soluciones que generan resultados reales.',
+    'Sector público, sector empresarial, ecosistema SaaS e InnovationLab. Una misma visión para construir soluciones que generan resultados reales.',
 }

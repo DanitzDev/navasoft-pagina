@@ -8,7 +8,7 @@ import '../../components/sections/products/ProductsIndex.css'
 export const Route = createFileRoute('/productos/')({
   head: () =>
     pageMeta({
-      title: 'Productos · Navasoft Soluciones',
+      title: 'Ecosistema SaaS · Navasoft Soluciones',
       description:
         'Explore Gridxia, NavaStay, Tracxia, Ordexia y Factxia, las plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
       path: '/productos',
@@ -22,7 +22,7 @@ function ProductsPage() {
     <Container as="section" className="products-index">
       <SectionTitle
         as="h1"
-        title="Productos para su operación"
+        title="Ecosistema SaaS para su operación"
         description="Explore las plataformas de Navasoft y conozca qué procesos puede gestionar con cada una."
       />
       <ul className="products-index-grid">

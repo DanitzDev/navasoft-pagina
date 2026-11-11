@@ -54,7 +54,7 @@ export default function CompanyVideo() {
             </h2>
             <p>
               Conozca cómo conectamos tecnología, personas y procesos para
-              transformar el trabajo de gobiernos y empresas.
+              transformar el trabajo de organizaciones públicas y empresariales.
             </p>
             <Button
               className="company-video-control"

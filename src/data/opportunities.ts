@@ -96,7 +96,7 @@ export const careersCopy = {
 
   platforms: {
     eyebrow: 'En qué se trabaja', // GENERADO
-    title: 'Plataformas propias y proyectos para gobierno y empresa', // GENERADO
+    title: 'Plataformas propias y proyectos para los sectores público y empresarial', // GENERADO
     // GENERADO: es una suposición razonable (los productos y las áreas son reales), pero que alguien
     // de Navasoft confirme que las personas nuevas se integran a esos equipos.
     description:
@@ -240,7 +240,7 @@ export const areas: InterestArea[] = [
   {
     id: 'innovation',
     label: 'IoT, IA y NavaLav',
-    description: 'El Innovation Lab: IA, IoT y Cloud.', // IA, IoT y Cloud: del sitio (área Innovation Lab)
+    description: 'InnovationLab: IA, IoT y Cloud.', // IA, IoT y Cloud: del sitio (área InnovationLab)
     icon: Cpu,
   },
   {
