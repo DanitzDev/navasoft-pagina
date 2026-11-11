@@ -71,6 +71,11 @@ export const footerEcosystem: FooterProduct[] = [
     href: '/productos/ordexia',
     description: 'Gestión operativa y órdenes de trabajo.',
   },
+  {
+    label: 'Acadxia',
+    href: '/productos/acadxia',
+    description: 'Gestión académica y administrativa.',
+  },
 ]
 
 export type SocialNetwork = 'linkedin' | 'facebook' | 'instagram'

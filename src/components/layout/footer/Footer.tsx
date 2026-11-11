@@ -6,6 +6,7 @@ import {
   footerSocialLinks,
   siteContacts,
 } from '../../../data/site'
+import { policyLinks } from '../../../data/policy-links'
 import { SectionTitle } from '../../ui/SectionTitle'
 import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
@@ -116,6 +117,22 @@ export default function Footer() {
                   activeOptions={{ exact: true, includeSearch: false }}
                 >
                   {link.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link to="/politicas/$slug" params={{ slug: "terminos" }}>
+                Políticas
+              </Link>
+            </li>
+            {policyLinks.map((policy) => (
+              <li key={policy.slug}>
+                <Link
+                  to="/politicas/$slug"
+                  params={{ slug: policy.slug }}
+                  activeOptions={{ exact: true, includeSearch: false }}
+                >
+                  {policy.label}
                 </Link>
               </li>
             ))}

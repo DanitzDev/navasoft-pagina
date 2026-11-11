@@ -1,6 +1,7 @@
 import {
+  Award, BookOpen, CalendarClock, ClipboardCheck, FileSpreadsheet, GraduationCap, HeartHandshake, Mail, Presentation, School, UserCheck, UserCog,
+  FileDiff, FileSignature, Package, Search, Settings,
   Banknote,
-  CalendarCheck,
   CalendarDays,
   FileCheck,
   FileText,
@@ -18,10 +19,8 @@ import {
   Camera,
   Scale,
   QrCode,
-  Plug,
   Power,
   Route as RouteIcon,
-  ScrollText,
   ShoppingCart,
   Smartphone,
   TrendingUp,
@@ -34,11 +33,6 @@ import type { Capability, ProductDetail, ProductSlug } from '@/types'
 
 const demoAnswer =
   'Le mostramos el producto sobre su proceso, no sobre una demo genérica. Puede pedir una demostración o una reunión desde esta página.'
-
-const baseFaqs = (name: string, who: string) => [
-  { question: `¿Para quién es ${name}?`, answer: `Para ${who}` },
-  { question: '¿Cómo puedo ver el producto?', answer: demoAnswer },
-]
 
 const gridxia: Capability[] = [
   {
@@ -258,35 +252,145 @@ const ordexia: Capability[] = [
 const factxia: Capability[] = [
   {
     icon: FileText,
-    title: 'Emisión de comprobantes',
-    text: 'Facturas, tiquetes, notas de crédito y débito listos para el flujo de Hacienda.',
+    span: 2,
+    title: "Facturación",
+    text: "Facturas y tiquetes electrónicos, de contado o a crédito.",
+    items: ["En colones o dólares", "Con descuentos", "Tratamiento de impuestos"],
+  },
+  {
+    icon: FileDiff,
+    span: 1,
+    title: "Notas de ajuste",
+    text: "Notas de crédito y débito relacionadas con los comprobantes originales.",
+  },
+  {
+    icon: Users,
+    span: 1,
+    title: "Clientes y proveedores",
+    text: "Registrar, buscar y actualizar identificaciones, contactos y ubicación.",
+  },
+  {
+    icon: Package,
+    span: 1,
+    title: "Productos y servicios",
+    text: "Mantener códigos internos, CABYS, unidades de medida, precios e impuestos.",
+  },
+  {
+    icon: FileSignature,
+    span: 1,
+    title: "Proformas",
+    text: "Preparar cotizaciones, generar su PDF, enviarlas y convertirlas en factura mediante confirmación.",
+  },
+  {
+    icon: CalendarClock,
+    span: 1,
+    title: "Recurrencias",
+    text: "Programar borradores internos mensuales y consultar su historial.",
   },
   {
     icon: FileCheck,
-    title: 'Recepción y validación',
-    text: 'Lo que entra de proveedores queda aceptado, rechazado y archivado, no en un correo perdido.',
+    span: 2,
+    title: "Aceptación de XML",
+    text: "Preparar, firmar y enviar respuestas de aceptación total, parcial o rechazo de los comprobantes recibidos.",
   },
   {
     icon: Wallet,
-    title: 'Estados de cuenta',
-    text: 'El saldo del cliente se lee igual en oficina, en ruta y en tesorería.',
+    span: 2,
+    title: "Cobros y recibos",
+    text: "Registrar abonos o pagos completos, y consultar saldos y vencimientos.",
+    items: ["Recibos", "Estados de cuenta"],
   },
   {
-    icon: ScrollText,
-    title: 'Bitácora tributaria',
-    text: 'Quién emitió, cuándo se aceptó y cuál XML corresponde: evidencia, no recuerdos.',
+    icon: Search,
+    span: 1,
+    title: "Consultas y reportes",
+    text: "Buscar documentos, consultar estados ante Hacienda y revisar facturas y cobros mediante filtros.",
   },
   {
-    icon: Plug,
-    title: 'Integración con la operación',
-    text: 'Conecta con preventa, planta o el sistema a la medida que ya corre en Navasoft.',
+    icon: Settings,
+    span: 3,
+    title: "Administración",
+    text: "Configurar empresas, usuarios, accesos y permisos mediante las herramientas autorizadas para cada tipo de usuario.",
+  },
+];
+
+const acadxia: Capability[] = [
+  {
+    icon: School,
+    span: 1,
+    title: "Gestión de instituciones",
+    text: "Alta de la institución junto con su administrador.",
+    items: ["Tipo: escuela, colegio o instituto", "Período: trimestre, cuatrimestre, semestre o anual"],
   },
   {
-    icon: CalendarCheck,
-    title: 'Cierre de mes',
-    text: 'Reportes de emisión, pendientes y conciliación para contabilidad y gerencia.',
+    icon: BookOpen,
+    span: 1,
+    title: "Estructura académica",
+    items: [
+      "Niveles: grado, carrera o curso general",
+      "Períodos",
+      "Secciones",
+      "Materias, incluidas las extracurriculares",
+    ],
   },
-]
+  {
+    icon: Users,
+    span: 1,
+    title: "Usuarios y personas",
+    text: "Alta y edición de administradores, instructores, estudiantes y encargados.",
+    items: ["Encargados asignados a estudiantes menores de edad", "Búsqueda de estudiantes"],
+  },
+  {
+    icon: ClipboardCheck,
+    span: 2,
+    title: "Matrícula",
+    text: "Con cupos y rangos de materias u optativas configurables.",
+    items: [
+      "Instituto: el estudiante elige materia y grupo",
+      "Escuela y colegio: matrícula por nivel con optativas",
+      "Retiro de materias u optativas pendientes",
+      "Apertura o cierre de la matrícula por período",
+      "Activación por el administrador una vez verificado el pago",
+      "Próximamente: validación de prerrequisitos de materias",
+    ],
+  },
+  {
+    icon: CalendarClock,
+    span: 1,
+    title: "Grupos",
+    text: "Asignación de instructor, horario y cupo máximo.",
+  },
+  {
+    icon: Award,
+    span: 2,
+    title: "Evaluación",
+    text: "Componentes con porcentaje por grupo, registro de notas por el instructor y cálculo de la nota final.",
+    items: [
+      "Nota mínima de aprobación configurable por institución",
+      "El estudiante consulta cada componente, su aporte, la nota final y su resultado",
+    ],
+  },
+  {
+    icon: UserCheck,
+    span: 1,
+    title: "Asistencia",
+    text: "Registro por sesión como presente, ausente o justificado.",
+    items: ["Historial para el instructor", "Consulta para el estudiante"],
+  },
+  {
+    icon: FileSpreadsheet,
+    span: 2,
+    title: "Reportes",
+    text: "Reportes interactivos con filtros, orden y búsqueda.",
+    items: ["Descarga en CSV, Excel y PDF"],
+  },
+  {
+    icon: Mail,
+    span: 1,
+    title: "Correos automáticos",
+    text: "Notificaciones con la imagen de marca, como la recuperación de contraseña.",
+  },
+];
 
 export const productDetails: Record<ProductSlug, ProductDetail> = {
   gridxia: {
@@ -748,28 +852,266 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
   },
 
   factxia: {
-    kicker: 'Facturación electrónica',
-    heroTagline: 'Comprobantes que salen a tiempo y cuadran con Hacienda.',
+    kicker: "Facturación electrónica",
+    heroTagline:
+      "Reúne la facturación electrónica y la gestión comercial de las empresas que trabajan con comprobantes de Costa Rica.",
+    mockupMenu: ["Facturación", "Clientes", "Proformas", "Cobros", "Reportes"],
     problem: {
       intro:
-        'El comprobante se arma en un lado, se envía en otro y el cobro vive en un tercero. Cuando Hacienda o el cliente piden el XML, nadie sabe en qué bandeja quedó.',
-      audience:
-        'Para: Empresas, distribuidores y operaciones que emiten comprobantes electrónicos y no pueden reconstruir el mes en Excel.',
+        "Cuando una empresa lleva sus clientes, facturas, cotizaciones y cobros en archivos o controles separados, la información se dispersa. Factxia reúne esos procesos para reducir la digitación repetida y facilitar la consulta de cada operación.",
+      audience: "Pensado para: empresas que trabajan con comprobantes electrónicos de Costa Rica.",
       pairs: [
-        { after: 'Dejar de reconstruir el mes cuando llega un requerimiento' },
-        { after: 'Cobro y factura en el mismo expediente' },
-        { after: 'Un solo canal entre operación, tesorería y Hacienda' },
+        {
+          before: "Clientes, facturas, cotizaciones y cobros en archivos o controles separados",
+          after: "Esos procesos reunidos en una sola plataforma",
+        },
+        {
+          before: "Digitación repetida",
+          after: "Datos registrados que se reutilizan, con los importes calculados",
+        },
+        {
+          before: "Documentos enviados a Hacienda sin seguimiento",
+          after: "Seguimiento de los documentos enviados a Hacienda",
+        },
+        {
+          before: "Ventas pendientes de pago sin identificar",
+          after: "Abonos, saldos y vencimientos a la vista",
+        },
       ],
     },
     capabilities: factxia,
-    faqs: baseFaqs(
-      'Factxia',
-      'empresas, distribuidores y operaciones que emiten comprobantes electrónicos y no pueden reconstruir el mes en Excel.',
-    ),
+    stepsTitle: "Operación diaria",
+    steps: [
+      {
+        title: "Seleccionar el cliente",
+        text: "El usuario elige al cliente entre los registrados de su empresa.",
+      },
+      {
+        title: "Agregar productos o servicios",
+        text: "Se agregan del catálogo, con sus códigos internos, CABYS, unidades de medida, precios e impuestos.",
+      },
+      {
+        title: "Revisar los importes",
+        text: "Se revisan cantidades, precios, descuentos e impuestos antes de emitir.",
+      },
+      {
+        title: "Confirmar la emisión",
+        text: "El sistema genera el comprobante electrónico en XML, lo firma y lo envía a Hacienda.",
+      },
+      {
+        title: "Consultar Hacienda",
+        text: "Se consulta la respuesta de Hacienda y el estado del documento.",
+      },
+      {
+        title: "Entregar los documentos",
+        text: "Se obtiene el PDF y se gestiona su envío por correo.",
+      },
+      {
+        title: "Registrar y controlar el cobro",
+        text: "Se registran abonos o pagos completos y se controlan saldos y vencimientos. La aceptación de Hacienda y el pago son estados distintos.",
+      },
+    ],
+    benefits: {
+      title: "Lo que obtiene con Factxia",
+      items: [
+        "Ahorro de tiempo: reutiliza los datos registrados y calcula los importes de los documentos",
+        "Mayor orden: concentra la información comercial, los comprobantes y los cobros",
+        "Seguimiento del dinero pendiente: muestra abonos, saldos y vencimientos",
+        "Menos errores operativos: incorpora validaciones y controles contra registros duplicados",
+        "Acceso desde distintos dispositivos: los clientes trabajan mediante la web",
+        "Trazabilidad: conserva documentos e historiales para consultar lo ocurrido",
+        "Administración de varias empresas: mantiene separados sus datos y accesos",
+      ],
+    },
+    faqs: [
+      {
+        question: "¿Cómo se emite una factura?",
+        answer:
+          "El usuario selecciona al cliente, agrega productos o servicios y revisa cantidades, precios, descuentos e impuestos. Al confirmar la emisión, el sistema genera el comprobante electrónico en XML, lo firma y lo envía a Hacienda. Después permite consultar la respuesta, obtener el PDF y gestionar su envío por correo.",
+      },
+      {
+        question: "¿Una factura aceptada por Hacienda ya está pagada?",
+        answer:
+          "No. La aceptación de Hacienda y el pago son estados distintos: una factura aceptada todavía puede tener un saldo pendiente de cobro.",
+      },
+      {
+        question: "¿Necesito instalar una aplicación?",
+        answer:
+          "No. Los clientes usan la aplicación web desde el navegador de una computadora, una tableta o un teléfono, y la interfaz se adapta a pantallas pequeñas. No requiere instalar una aplicación nativa.",
+      },
+      {
+        question: "¿Qué hace falta para empezar a facturar?",
+        answer:
+          "Navasoft prepara la instalación y se crea la empresa con sus usuarios. Luego se completa la configuración fiscal (identificación, razón social, ubicación, actividades económicas, acceso a Hacienda, certificado de firma y PIN), se registran los datos comerciales, se habilita el correo, se valida todo en pruebas y, por último, se habilita producción.",
+      },
+      {
+        question: "¿Se pueden administrar varias empresas?",
+        answer:
+          "Sí. Cada empresa mantiene separados sus usuarios, clientes, productos y documentos, con separación de datos y accesos.",
+      },
+      {
+        question: "¿Qué pasa con las facturas que recibo de mis proveedores?",
+        answer:
+          "Se conservan las facturas recibidas de proveedores, y se pueden preparar, firmar y enviar respuestas de aceptación total, parcial o rechazo.",
+      },
+    ],
     ecosystem: {
-      kicker: 'Facturación electrónica',
+      kicker: "Facturación electrónica",
       blurb:
-        'Facturación electrónica para Costa Rica: emisión, recepción, notas, estados de cuenta y la bitácora que pide una auditoría tributaria.',
+        "Facturación electrónica y gestión comercial para empresas que trabajan con comprobantes de Costa Rica: facturas, proformas, cobros y reportes.",
+    },
+  },
+
+  acadxia: {
+    kicker: "Gestión académica",
+    heroTagline: "Plataforma web de gestión académica para escuelas, colegios e institutos.",
+    heroVisual: "mockup", // todavía no hay foto del producto; el tablero ilustrativo usa los módulos reales
+    mockupMenu: ["Matrícula", "Grupos", "Calificaciones", "Asistencia", "Reportes"],
+    problem: {
+      intro:
+        "Muchas instituciones educativas pequeñas y medianas llevan la matrícula, las notas y la asistencia en Excel, en papel o en sistemas costosos y rígidos. Esto provoca errores, doble matrícula, notas inconsistentes y poco control.",
+      audience: "Pensado para: escuelas, colegios e institutos.",
+      pairs: [
+        {
+          before: "Matrícula en Excel o en papel, con doble matrícula",
+          after: "Matrícula con cupos y rangos de materias u optativas configurables",
+        },
+        {
+          before: "Notas inconsistentes",
+          after: "Calificaciones con componentes de evaluación y porcentajes por grupo",
+        },
+        {
+          before: "Poco control de la asistencia",
+          after: "Asistencia registrada por sesión",
+        },
+        {
+          before: "Depender de papeles y de consultas al personal",
+          after: "Información disponible para estudiantes y encargados",
+        },
+      ],
+    },
+    capabilities: acadxia,
+    surfacesTitle: "Una plataforma, cuatro perfiles",
+    surfaces: [
+      {
+        icon: UserCog,
+        name: "Administrador de la institución",
+        tagline: "Gestiona el portal de su institución.",
+        items: [
+          "Configura niveles, períodos, secciones y materias",
+          "Da de alta instructores, estudiantes y encargados",
+          "Arma los grupos con instructor, horario y cupo",
+          "Define las reglas de matrícula y la nota mínima",
+          "Activa la matrícula una vez verificado el pago",
+          "Busca estudiantes",
+        ],
+      },
+      {
+        icon: Presentation,
+        name: "Instructor",
+        tagline: "Maneja la parte académica de sus grupos.",
+        items: [
+          "Registra las notas de cada componente de evaluación",
+          "Registra la asistencia por sesión",
+          "Consulta el historial de asistencia",
+        ],
+      },
+      {
+        icon: GraduationCap,
+        name: "Estudiante",
+        tagline: "Consulta sus asistencias y notas y, si es mayor de edad, se matricula.",
+        items: [
+          "Se matricula (si es mayor de edad)",
+          "Consulta cada componente, su aporte, la nota final y su resultado",
+          "Consulta su asistencia",
+        ],
+      },
+      {
+        icon: HeartHandshake,
+        name: "Encargado",
+        tagline: "Da seguimiento al estudiante menor de edad a su cargo.",
+        items: [
+          "Información del estudiante a su cargo",
+          "Sin depender de papeles ni de consultas al personal",
+        ],
+      },
+    ],
+    stepsTitle: "Cómo se incorpora una institución",
+    steps: [
+      {
+        title: "Acuerdo comercial",
+        text: "Se acuerdan las condiciones y se reúnen los datos del cliente: nombre, cédula jurídica, correo, tipo de institución y tipo de período.",
+      },
+      {
+        title: "Alta de la institución",
+        text: "Navasoft registra la institución y su administrador en un solo paso, y las credenciales se entregan por un canal aparte.",
+      },
+      {
+        title: "Configuración",
+        text: "El administrador configura niveles y períodos, secciones y materias, usuarios, grupos, reglas de matrícula y componentes de evaluación.",
+      },
+      {
+        title: "Apertura de la matrícula",
+        text: "Se abre la matrícula del período; el estudiante se matricula y queda pendiente de pago.",
+      },
+      {
+        title: "Verificación del pago",
+        text: "El pago se gestiona fuera de Acadxia y se confirma por correo. Con la confirmación, el administrador activa la matrícula.",
+      },
+      {
+        title: "Operación continua",
+        text: "El instructor registra notas y asistencia, estudiantes y encargados consultan su información y, al final, se cierra el período.",
+      },
+    ],
+    benefits: {
+      title: "Lo que obtiene con Acadxia",
+      items: [
+        "Menos errores y menos trabajo manual: las reglas de matrícula, cupos y evaluación se aplican solas",
+        "Información centralizada, disponible desde cualquier lugar con un navegador",
+        "Seguridad: contraseñas cifradas, acceso por roles y datos separados por institución",
+        "Sin inversión en infraestructura: solo se necesita internet y un navegador",
+        "Configurable a distintos tipos de institución y de período",
+        "Reportes listos para usar, exportables a Excel, PDF y CSV",
+        "Seguimiento por parte de los encargados de los estudiantes menores de edad",
+        "Costo predecible con el modelo de suscripción y mejoras continuas sin costo de instalación",
+      ],
+    },
+    faqs: [
+      {
+        question: "¿Necesito instalar algo?",
+        answer:
+          "No. Acadxia se usa desde el navegador, sin instalar nada en el equipo, y su diseño se adapta a computadora, tablet y celular. Solo se necesita conexión a internet. No es una aplicación nativa de Android ni de iOS.",
+      },
+      {
+        question: "¿Cómo se mantienen separados los datos de cada institución?",
+        answer:
+          "Cada institución dispone de un espacio independiente. El sistema valida que instructores, estudiantes y secciones pertenezcan a la misma institución, de modo que una institución nunca ve ni mezcla datos con otra.",
+      },
+      {
+        question: "¿Cómo se accede a la plataforma?",
+        answer:
+          "Los usuarios inician sesión con su correo o su cédula, con contraseñas cifradas y recuperación por un enlace de un solo uso enviado al correo. Cada persona ve solo lo que le corresponde según su perfil.",
+      },
+      {
+        question: "¿Cómo funciona la matrícula?",
+        answer:
+          "En un instituto, el estudiante elige materia y grupo; en escuelas y colegios, la matrícula es por nivel con optativas. Queda pendiente de pago y el administrador la activa una vez verificado el pago.",
+      },
+      {
+        question: "¿Cómo se ofrece Acadxia?",
+        answer:
+          "Como un servicio por suscripción: no se instala por cliente, sino que a cada institución se le crea su propio espacio dentro de la plataforma. Las condiciones comerciales las define Navasoft.",
+      },
+      {
+        question: "¿Qué pasa con las mejoras y los respaldos?",
+        answer:
+          "La base de datos cuenta con respaldos automáticos. Como todas las instituciones usan la misma plataforma, las mejoras y correcciones se publican una sola vez y llegan a todos sin instalar nada.",
+      },
+    ],
+    ecosystem: {
+      kicker: "Gestión académica",
+      blurb:
+        "Plataforma web de gestión académica para escuelas, colegios e institutos: instituciones, usuarios, matrícula, grupos, calificaciones y asistencia.",
     },
   },
 }

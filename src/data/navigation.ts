@@ -26,6 +26,7 @@ export const products: NavigationItem[] = [
   { label: 'Ordexia', href: '/productos/ordexia' },
   { label: 'Factxia', href: '/productos/factxia' },
   { label: 'Navastay', href: '/productos/navastay' },
+  { label: 'Acadxia', href: '/productos/acadxia' },
 ]
 // Cada sector tiene un destino atendido por la ruta dinámica de TanStack.
 export const sectors: (NavigationItem & { description: string })[] = [
