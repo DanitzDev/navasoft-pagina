@@ -1,5 +1,5 @@
 import { isIP } from 'node:net'
-import { getRequestIP } from '@tanstack/react-start/server'
+import { getRequestHeader } from '@tanstack/react-start/server'
 import { createHash, randomBytes } from 'node:crypto'
 import { processContact } from './service.server'
 import { createContactLimiter } from './limiter.server'
@@ -62,12 +62,26 @@ function canonicalizeIp(value: string | undefined) {
   return `${head}::${tail}`
 }
 
+function getIisNodeClientIp() {
+  // IISNode agrega al final la IP del peer junto con su puerto. Leer el último
+  // valor evita aceptar una IP anterior que el cliente pudiera falsificar.
+  const forwardedFor = getRequestHeader('x-forwarded-for')
+  const lastEntry = forwardedFor?.split(',').at(-1)?.trim()
+  if (!lastEntry) return undefined
+
+  // IISNode puede representar IPv6 como [dirección]:puerto.
+  const bracketedIpv6 = lastEntry.match(/^\[([^\]]+)\](?::\d+)?$/)
+  if (bracketedIpv6?.[1]) return canonicalizeIp(bracketedIpv6[1])
+
+  // Para IPv4, quitar el puerto opcional agregado por IISNode.
+  const ipv4WithPort = lastEntry.match(/^(\d{1,3}(?:\.\d{1,3}){3}):\d+$/)
+  return canonicalizeIp(ipv4WithPort?.[1] ?? lastEntry)
+}
+
 export function handleContactSubmission(data: unknown) {
   // Solo confiar en X-Forwarded-For si el proxy del hosting lo sobrescribe y está autorizado.
   const trustForwardedFor = process.env.ORDS_TRUST_X_FORWARDED_FOR === 'true'
-  const clientIp = canonicalizeIp(
-    getRequestIP({ xForwardedFor: trustForwardedFor }),
-  )
+  const clientIp = trustForwardedFor ? getIisNodeClientIp() : undefined
   const identity = clientIp ?? 'shared-unknown-peer'
   // El limitador usa un identificador opaco en vez de conservar la IP en sus claves.
   const key = createHash('sha256').update(salt).update(identity).digest('hex')
