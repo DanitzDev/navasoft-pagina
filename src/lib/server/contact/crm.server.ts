@@ -228,7 +228,17 @@ export const ordsContactTransport: CrmTransport = {
   async send(data, signal, metadata) {
     const config = getConfig()
     const clientIp = metadata?.clientIp
-    if (!config || !metadata || !clientIp) return { status: 'unavailable' }
+    if (!config || !metadata || !clientIp) {
+      console.error(
+        JSON.stringify({
+          event: 'ords_contact_unavailable',
+          configAvailable: Boolean(config),
+          metadataAvailable: Boolean(metadata),
+          clientIpAvailable: Boolean(clientIp),
+        }),
+      )
+      return { status: 'unavailable' }
+    }
     const requestMetadata = { ...metadata, clientIp }
 
     let token = await getToken(config, signal)
