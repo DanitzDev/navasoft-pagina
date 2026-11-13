@@ -1,5 +1,5 @@
 import { isIP } from 'node:net'
-import { getRequestHeader } from '@tanstack/react-start/server'
+import { getRequestHeader, getRequestIP } from '@tanstack/react-start/server'
 import { createHash, randomBytes } from 'node:crypto'
 import { processContact } from './service.server'
 import { createContactLimiter } from './limiter.server'
@@ -81,7 +81,9 @@ function getIisNodeClientIp() {
 export function handleContactSubmission(data: unknown) {
   // Solo confiar en X-Forwarded-For si el proxy del hosting lo sobrescribe y está autorizado.
   const trustForwardedFor = process.env.ORDS_TRUST_X_FORWARDED_FOR === 'true'
-  const clientIp = trustForwardedFor ? getIisNodeClientIp() : undefined
+  const clientIp = canonicalizeIp(
+    trustForwardedFor ? getIisNodeClientIp() : getRequestIP(),
+  )
   const identity = clientIp ?? 'shared-unknown-peer'
   // El limitador usa un identificador opaco en vez de conservar la IP en sus claves.
   const key = createHash('sha256').update(salt).update(identity).digest('hex')

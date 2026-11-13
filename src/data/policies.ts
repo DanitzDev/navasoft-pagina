@@ -22,8 +22,8 @@ import {
     Users,
     Video,
     Zap,
-    type LucideIcon,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 /*
  * Todo el contenido sale de los dos documentos de Navasoft (resumido, sin cambiar su sentido).

@@ -4,8 +4,10 @@ import { SectorClients } from "@/components/sections/sectors/SectorClients";
 import { SectorService } from "@/components/sections/sectors/SectorService";
 import { OtherSectors } from "@/components/sections/sectors/OtherSectors";
 import { SectorCta } from "@/components/sections/sectors/SectorCta";
-import { ProductSideNav, type SubnavItem } from "@/components/sections/products/detail/ProductSideNav";
-import { sectorTopic, type Sector } from "@/data/sectors";
+import { ProductSideNav } from "@/components/sections/products/detail/ProductSideNav";
+import type { SubnavItem } from "@/components/sections/products/detail/ProductSideNav";
+import { sectorTopic } from "@/data/sectors";
+import type { Sector } from "@/data/sectors";
 
 export function SectorPage({ sector }: { sector: Sector }) {
     const items: (SubnavItem | false)[] = [

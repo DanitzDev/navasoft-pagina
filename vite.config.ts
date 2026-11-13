@@ -11,7 +11,7 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       router: {
-        // El endpoint de contacto sigue pendiente de implementación.
+        // El contacto usa Server Functions; no se usan rutas API basadas en archivos.
         routeFileIgnorePattern: '^api(\\.|$)',
       },
     }),
