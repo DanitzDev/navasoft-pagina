@@ -78,7 +78,7 @@ export function Hero() {
         </p>
 
         <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+          <p className="text-xs font-semibold tracking-widest text-accent">
             {heroSlides[index].label}
           </p>
           <div

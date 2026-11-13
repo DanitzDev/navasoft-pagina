@@ -8,8 +8,6 @@ export type HistoryMilestone = {
   title: string
   description?: string
   highlights?: string[]
-  // Productos o subapartados de un acontecimiento; los reconocimientos se muestran aparte.
-  sections?: { title: string; description: string }[]
   recognition?: { title: string; description: string }
   image?: { src: string; alt: string }
 }
@@ -80,12 +78,12 @@ export const history: HistoryMilestone[] = [
     id: 'banking-government',
     year: 2021,
     endYear: 2022,
-    title: 'Ingreso a banca y gobierno',
+    title: 'Ingreso a banca y sector público',
     highlights: [
       'Participación en proyectos para Banco Nacional.',
       'Proyectos para INA.',
       'Desarrollo de soluciones para instituciones públicas.',
-      'Expansión de la experiencia en Oracle, integración y gobierno digital.',
+      'Expansión de la experiencia en Oracle, integración y modernización digital del sector público.',
     ],
     image: referenceImage,
   },
@@ -94,7 +92,7 @@ export const history: HistoryMilestone[] = [
     year: 2023,
     title: 'Nacimiento de Navastay',
     highlights: [
-      'Lanzamiento de Navastay, plataforma orientada al sector de habitacional.',
+      'Lanzamiento de Navastay, plataforma orientada al sector inmobiliario.',
       'Primer paso formal hacia un ecosistema de productos propios de Navasoft Soluciones.',
     ],
     image: referenceImage,
@@ -124,28 +122,7 @@ export const history: HistoryMilestone[] = [
     id: 'fifteen-years-ecosystem',
     year: 2026,
     title: 'Lanzamiento del Ecosistema Navasoft Soluciones',
-    sections: [
-      {
-        title: 'Gridxia',
-        description:
-          'Plataforma para gestión y digitalización de procesos empresariales.',
-      },
-      {
-        title: 'Tracxia',
-        description:
-          'Solución especializada en trazabilidad y control operativo.',
-      },
-      {
-        title: 'Ordexia',
-        description:
-          'Plataforma para administración de órdenes y flujos de trabajo.',
-      },
-      {
-        title: 'Factxia',
-        description:
-          'Solución para facturación electrónica y gestión tributaria.',
-      },
-    ],
+    highlights: ['Gridxia, Tracxia, Ordexia y Factxia.'],
     recognition: {
       title: 'Certificación Libre de Efectivo',
       description:

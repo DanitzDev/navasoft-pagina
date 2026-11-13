@@ -19,7 +19,7 @@ export function TrustSection() {
         <div className="trust-layout">
           <SectionTitle
             eyebrow="Clientes y partners"
-            title="Empresas que confían en nosotros"
+            title="Organizaciones que confían en nosotros"
             className="trust-heading"
             description="Trabajamos junto a aliados tecnológicos para ofrecer soluciones confiables y de alto impacto."
           />

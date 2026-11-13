@@ -1,28 +1,7 @@
-import { useRef, useState } from 'react'
 import { Container } from '../../ui/Container'
-import Button from '../../ui/Button'
 import './CompanyVideo.css'
 
 export default function CompanyVideo() {
-  const video = useRef<HTMLVideoElement>(null)
-  const [playing, setPlaying] = useState(false)
-  const [unavailable, setUnavailable] = useState(false)
-
-  async function togglePlayback() {
-    const player = video.current
-    if (!player) return
-    if (!player.paused) {
-      player.pause()
-      return
-    }
-    try {
-      await player.play()
-    } catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') return
-      setUnavailable(true)
-    }
-  }
-
   return (
     <section
       id="presentacion"
@@ -32,18 +11,16 @@ export default function CompanyVideo() {
       <Container>
         <div className="company-video-frame">
           <video
-            ref={video}
             className="company-video-background"
+            autoPlay
             muted
             loop
             playsInline
-            preload="none"
+            preload="auto"
             poster="/images/hero-trust.jpeg"
             aria-hidden="true"
             disablePictureInPicture
             tabIndex={-1}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
           >
             <source src="/video/navasoft-corporativo.mp4" type="video/mp4" />
           </video>
@@ -54,17 +31,8 @@ export default function CompanyVideo() {
             </h2>
             <p>
               Conozca cómo conectamos tecnología, personas y procesos para
-              transformar el trabajo de gobiernos y empresas.
+              transformar el trabajo de organizaciones públicas y empresariales.
             </p>
-            <Button
-              className="company-video-control"
-              variant="outline"
-              onClick={togglePlayback}
-              disabled={unavailable}
-            >
-              {playing ? 'Pausar video' : 'Reproducir video'}
-            </Button>
-            {unavailable && <p role="status">El video no está disponible.</p>}
           </div>
         </div>
       </Container>

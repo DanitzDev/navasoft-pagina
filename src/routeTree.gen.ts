@@ -20,6 +20,8 @@ import { Route as SoporteRouteImport } from './routes/soporte'
 import { Route as AreasSlugRouteImport } from './routes/areas.$slug'
 import { Route as CasosDeExitoIndexRouteImport } from './routes/casos-de-exito/index'
 import { Route as CasosDeExitoSlugRouteImport } from './routes/casos-de-exito/$slug'
+import { Route as PoliticasIndexRouteImport } from './routes/politicas/index'
+import { Route as PoliticasSlugRouteImport } from './routes/politicas/$slug'
 import { Route as ProductosIndexRouteImport } from './routes/productos/index'
 import { Route as ProductosSlugRouteImport } from './routes/productos/$slug'
 import { Route as SectoresIndexRouteImport } from './routes/sectores/index'
@@ -80,6 +82,16 @@ const CasosDeExitoSlugRoute = CasosDeExitoSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => CasosDeExitoRoute,
 } as any)
+const PoliticasIndexRoute = PoliticasIndexRouteImport.update({
+  id: '/politicas/',
+  path: '/politicas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticasSlugRoute = PoliticasSlugRouteImport.update({
+  id: '/politicas/$slug',
+  path: '/politicas/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductosIndexRoute = ProductosIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -112,9 +124,11 @@ export interface FileRoutesByFullPath {
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/politicas/$slug': typeof PoliticasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
+  '/politicas/': typeof PoliticasIndexRoute
   '/productos/': typeof ProductosIndexRoute
   '/sectores/': typeof SectoresIndexRoute
 }
@@ -127,9 +141,11 @@ export interface FileRoutesByTo {
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/politicas/$slug': typeof PoliticasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito': typeof CasosDeExitoIndexRoute
+  '/politicas': typeof PoliticasIndexRoute
   '/productos': typeof ProductosIndexRoute
   '/sectores': typeof SectoresIndexRoute
 }
@@ -145,9 +161,11 @@ export interface FileRoutesById {
   '/soporte': typeof SoporteRoute
   '/areas/$slug': typeof AreasSlugRoute
   '/casos-de-exito/$slug': typeof CasosDeExitoSlugRoute
+  '/politicas/$slug': typeof PoliticasSlugRoute
   '/productos/$slug': typeof ProductosSlugRoute
   '/sectores/$slug': typeof SectoresSlugRoute
   '/casos-de-exito/': typeof CasosDeExitoIndexRoute
+  '/politicas/': typeof PoliticasIndexRoute
   '/productos/': typeof ProductosIndexRoute
   '/sectores/': typeof SectoresIndexRoute
 }
@@ -164,9 +182,11 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/areas/$slug'
     | '/casos-de-exito/$slug'
+    | '/politicas/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
     | '/casos-de-exito/'
+    | '/politicas/'
     | '/productos/'
     | '/sectores/'
   fileRoutesByTo: FileRoutesByTo
@@ -179,9 +199,11 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/areas/$slug'
     | '/casos-de-exito/$slug'
+    | '/politicas/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
     | '/casos-de-exito'
+    | '/politicas'
     | '/productos'
     | '/sectores'
   id:
@@ -196,9 +218,11 @@ export interface FileRouteTypes {
     | '/soporte'
     | '/areas/$slug'
     | '/casos-de-exito/$slug'
+    | '/politicas/$slug'
     | '/productos/$slug'
     | '/sectores/$slug'
     | '/casos-de-exito/'
+    | '/politicas/'
     | '/productos/'
     | '/sectores/'
   fileRoutesById: FileRoutesById
@@ -213,7 +237,9 @@ export interface RootRouteChildren {
   ProductosRoute: typeof ProductosRouteWithChildren
   SoporteRoute: typeof SoporteRoute
   AreasSlugRoute: typeof AreasSlugRoute
+  PoliticasSlugRoute: typeof PoliticasSlugRoute
   SectoresSlugRoute: typeof SectoresSlugRoute
+  PoliticasIndexRoute: typeof PoliticasIndexRoute
   SectoresIndexRoute: typeof SectoresIndexRoute
 }
 
@@ -296,6 +322,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CasosDeExitoSlugRouteImport
       parentRoute: typeof CasosDeExitoRoute
     }
+    '/politicas/': {
+      id: '/politicas/'
+      path: '/politicas'
+      fullPath: '/politicas/'
+      preLoaderRoute: typeof PoliticasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politicas/$slug': {
+      id: '/politicas/$slug'
+      path: '/politicas/$slug'
+      fullPath: '/politicas/$slug'
+      preLoaderRoute: typeof PoliticasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/productos/': {
       id: '/productos/'
       path: '/'
@@ -365,7 +405,9 @@ const rootRouteChildren: RootRouteChildren = {
   ProductosRoute: ProductosRouteWithChildren,
   SoporteRoute: SoporteRoute,
   AreasSlugRoute: AreasSlugRoute,
+  PoliticasSlugRoute: PoliticasSlugRoute,
   SectoresSlugRoute: SectoresSlugRoute,
+  PoliticasIndexRoute: PoliticasIndexRoute,
   SectoresIndexRoute: SectoresIndexRoute,
 }
 export const routeTree = rootRouteImport

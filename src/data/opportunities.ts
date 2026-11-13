@@ -68,84 +68,79 @@ export const SHOW_EXAMPLE_LABEL = true
 
 export const careersCopy = {
     hero: {
-        eyebrow: "Talento", // MAQUETA
-        title: "Profesionales y practicantes, en proyectos reales.", // MAQUETA
-        // GENERADO. OMITIDO: la maqueta lista "municipalidades, plantas, juntas de agua y condominios";
-        // quité la lista porque la información real de Gridxia ya no habla de agua.
+        eyebrow: "Talento", 
+        title: "Profesionales y practicantes, en proyectos reales.",
         description:
             "Aquí se entra a sistemas que ya están en operación, con código y clientes reales, y con proyectos en Costa Rica y Centroamérica.",
         facts: [
-            "Equipo en Costa Rica", // MAQUETA
-            "Proyectos en Centroamérica", // MAQUETA
-            "Modalidad según el rol y el proyecto", // MAQUETA
+            "Equipo en Costa Rica", 
+            "Proyectos en Centroamérica", 
+            "Modalidad según el rol y el proyecto",
         ],
-        image: "/images/nosotros.jpeg", // MAQUETA
-        imageAlt: "Sala de una fábrica de software", // MAQUETA
+        image: "/images/nosotros.jpeg", 
+        imageAlt: "Sala de una fábrica de software", 
     },
 
   profiles: {
-    eyebrow: 'Perfiles', // GENERADO
-    title: 'Dos puertas de entrada', // MAQUETA
+    eyebrow: 'Perfiles', 
+    title: 'Dos puertas de entrada',
   },
 
   areas: {
-    eyebrow: 'Áreas de interés', // MAQUETA (etiqueta del campo del formulario)
-    title: '¿En qué área le gustaría aportar?', // GENERADO
-    description: 'Explore las áreas en las que le gustaría aportar.', // GENERADO
+    eyebrow: 'Áreas de interés', 
+    title: '¿En qué área le gustaría aportar?', 
+    description: 'Explore las áreas en las que le gustaría aportar.',
   },
 
   platforms: {
-    eyebrow: 'En qué se trabaja', // GENERADO
-    title: 'Plataformas propias y proyectos para gobierno y empresa', // GENERADO
-    // GENERADO: es una suposición razonable (los productos y las áreas son reales), pero que alguien
-    // de Navasoft confirme que las personas nuevas se integran a esos equipos.
+    eyebrow: 'En qué se trabaja', 
+    title: 'Plataformas propias y proyectos para gobierno y empresa', 
     description:
       'Según el área, las personas se integran a los equipos de las plataformas SaaS de Navasoft o a proyectos para el sector público y empresarial.',
   },
 
   steps: {
-    eyebrow: 'Cómo aplicar', // MAQUETA (título del formulario)
-    title: 'Así es el proceso', // GENERADO
+    eyebrow: 'Cómo aplicar', 
+    title: 'Así es el proceso', 
   },
 
   openings: {
-    eyebrow: 'Convocatorias', // GENERADO
-    title: 'Posiciones abiertas', // GENERADO
-    emptyTitle: 'No hay convocatorias publicadas por ahora', // GENERADO
-    // GENERADO a partir de "Si hay un encaje, le escribimos"
+    eyebrow: 'Convocatorias', 
+    title: 'Posiciones abiertas', 
+    emptyTitle: 'No hay convocatorias publicadas por ahora',
     emptyText: 'Puede consultar por futuras oportunidades con nuestro equipo.',
-    emptyCta: 'Consultar por oportunidades', // GENERADO
+    emptyCta: 'Consultar por oportunidades', 
   },
 
   perks: {
-    eyebrow: 'Beneficios', // GENERADO
-    title: 'Lo que ofrece Navasoft', // GENERADO
+    eyebrow: 'Beneficios', 
+    title: 'Lo que ofrece Navasoft', 
   },
 
   faq: {
-    title: 'Preguntas frecuentes', // GENERADO
+    title: 'Preguntas frecuentes', 
   },
 
   apply: {
-    eyebrow: 'Cargar currículum', // MAQUETA
-    title: 'Envíe su currículum', // MAQUETA (descripción de la página)
+    eyebrow: 'Cargar currículum', 
+    title: 'Envíe su currículum',
     description:
-      'PDF o Word. Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', // MAQUETA
-    checklistTitle: 'Qué necesita', // GENERADO
+      'PDF o Word. Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', 
+    checklistTitle: 'Qué necesita', 
     checklist: [
       'Su currículum en PDF o Word, de hasta 5 MB',
       'Un correo y un teléfono de contacto',
       'El perfil y el área en la que quiere aportar',
-    ], // GENERADO a partir de los campos del formulario
-    whatsappText: '¿Prefiere escribirnos?', // GENERADO
-    whatsappLabel: 'WhatsApp (506) 4070-0776', // MAQUETA (pie de página)
-    whatsappHref: 'https://wa.me/50640700776', // MAQUETA (pie de página)
+    ],
+    whatsappText: '¿Prefiere escribirnos?', 
+    whatsappLabel: 'WhatsApp (506) 4070-0776', 
+    whatsappHref: 'https://wa.me/50640700776', 
     consent:
-      'Autorizo a Navasoft Soluciones a revisar este currículum con fines de reclutamiento. No se comparte con terceros.', // MAQUETA
-    successTitle: 'Simulación completada', // GENERADO
-    successText: 'El currículum de prueba no se envió.', // GENERADO
+      'Autorizo a Navasoft Soluciones a revisar este currículum con fines de reclutamiento. No se comparte con terceros.',
+    successTitle: 'Simulación completada', 
+    successText: 'El currículum de prueba no se envió.', 
     errorText:
-      'No pudimos enviar su currículum. Intente de nuevo o escríbanos por WhatsApp al (506) 4070-0776.', // GENERADO
+      'No pudimos enviar su currículum. Intente de nuevo o escríbanos por WhatsApp al (506) 4070-0776.', 
   },
 }
 
@@ -153,21 +148,20 @@ export const profiles: Profile[] = [
   {
     id: 'profesional',
     tab: 'Profesional',
-    formLabel: 'Profesional', // MAQUETA (opción del formulario)
-    // MAQUETA
+    formLabel: 'Profesional', 
     summary:
       'Desarrollo (Oracle Apex, web, móvil), datos, infraestructura, IoT, implementación o comercial. Se valora oficio más que títulos sueltos.',
     points: [
       {
-        title: 'Para quién', // GENERADO
+        title: 'Para quién', 
         text: 'Personas con experiencia en alguna de estas áreas que quieran aportar a plataformas que ya están en operación.',
       },
       {
-        title: 'Qué se hace', // GENERADO
-        text: 'Se trabaja en proyectos para el sector público, el sector empresarial y las plataformas SaaS de Navasoft, según el área.',
+        title: 'Qué se hace', 
+        text: 'Se trabaja en proyectos para el Sector público, el Sector empresarial y el Ecosistema SaaS de Navasoft, según el área',
       },
       {
-        title: 'Cómo se define', // MAQUETA
+        title: 'Cómo se define',
         text: 'Si hay un encaje, Navasoft escribe a la persona. La modalidad se define según el rol y el proyecto.',
       },
     ],
@@ -175,22 +169,20 @@ export const profiles: Profile[] = [
   {
     id: 'practicante',
     tab: 'Practicante',
-    formLabel: 'Practicante / pasante', // MAQUETA (opción del formulario)
-    // MAQUETA. OMITIDO: "en una fábrica pequeña"; dejé solo "fábrica de software" porque
-    // "pequeña" no es algo que la empresa quiera necesariamente decir de sí misma.
+    formLabel: 'Practicante / pasante',
     summary:
       'Estudiantes que quieran aprender en una fábrica de software, con código y clientes reales. Las prácticas se acuerdan con el centro de estudio.',
     points: [
       {
-        title: 'Para quién', // MAQUETA
+        title: 'Para quién',
         text: 'Estudiantes que quieran aprender haciendo, con código y clientes reales.',
       },
       {
-        title: 'Qué se hace', // MAQUETA ("No hay un programa de sombras")
+        title: 'Qué se hace', 
         text: 'Se entra directamente a proyectos reales: no hay un programa de sombras.',
       },
       {
-        title: 'Cómo se acuerda', // MAQUETA
+        title: 'Cómo se acuerda', 
         text: 'Las prácticas se acuerdan con el centro de estudio.',
       },
     ],
@@ -239,7 +231,7 @@ export const areas: InterestArea[] = [
   },
   {
     id: 'innovation',
-    label: 'IoT, IA y NavaLav',
+    label: 'IoT, IA e Innovation Lab',
     description: 'El Innovation Lab: IA, IoT y Cloud.', // IA, IoT y Cloud: del sitio (área Innovation Lab)
     icon: Cpu,
   },
@@ -257,23 +249,21 @@ export const areas: InterestArea[] = [
   },
 ]
 
-// GENERADO a partir de las frases de la maqueta
 export const applySteps = [
   {
     title: 'Consulte cómo postularse',
-    text: 'Escríbanos e indique el perfil y el área que le interesan.', // MAQUETA
+    text: 'Escríbanos e indique el perfil y el área que le interesan.',
   },
   {
     title: 'Revisamos su perfil',
-    text: 'Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', // MAQUETA
+    text: 'Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', 
   },
   {
     title: 'Definimos las condiciones',
-    text: 'Las prácticas se acuerdan con el centro de estudio; en el caso de profesionales, la modalidad se define según el rol y el proyecto.', // MAQUETA
+    text: 'Las prácticas se acuerdan con el centro de estudio; en el caso de profesionales, la modalidad se define según el rol y el proyecto.', 
   },
 ]
 
-// GENERADAS con respuestas tomadas de la maqueta
 export const careersFaqs = [
   {
     question: '¿Cómo consulto por una oportunidad?',

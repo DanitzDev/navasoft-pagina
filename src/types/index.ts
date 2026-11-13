@@ -26,8 +26,7 @@ export type Area = {
   pageHash?: string
 }
 
-export type ProductSlug =
-  'gridxia' | 'navastay' | 'tracxia' | 'ordexia' | 'factxia'
+export type ProductSlug = "gridxia" | "navastay" | "tracxia" | "ordexia" | "factxia" | "acadxia";
 export type ContactMotive = 'reunion' | 'demo'
 export type ContactTopic = ProductSlug | 'gobierno' | 'privado'
 

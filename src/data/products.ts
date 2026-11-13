@@ -67,19 +67,30 @@ export const products: Product[] = [
     ],
   },
   {
-    slug: 'factxia',
-    name: 'Factxia',
-    category: 'Facturación',
-    tagline: 'El comprobante y la cartera, en un expediente.',
+    slug: "factxia",
+    name: "Factxia",
+    category: "Facturación",
+    tagline:
+      "Facturación electrónica y gestión comercial para empresas que trabajan con comprobantes de Costa Rica.",
     detail:
-      'Facturación electrónica, cobros y estados de cuenta para la operación comercial.',
-    image: '/images/factxia.jpeg',
+      "Emisión y firma de comprobantes, envío a Hacienda, cobros, saldos y estados de cuenta en una sola plataforma.",
+    image: "/images/factxia.jpeg",
     features: [
-      'Facturación electrónica',
-      'Cartera',
-      'Estados de cuenta',
-      'Cierre de mes',
-      'Comprobantes',
+      "Facturas y tiquetes electrónicos",
+      "Proformas",
+      "Notas de crédito y débito",
+      "Cobros y recibos",
+      "Aceptación de XML",
     ],
+  },
+  {
+    slug: "acadxia",
+    name: "Acadxia",
+    category: "Gestión académica",
+    tagline: "Plataforma web de gestión académica para escuelas, colegios e institutos.",
+    detail:
+      "Instituciones, usuarios, matrícula, grupos, calificaciones y asistencia desde un único entorno digital.",
+    image: "/images/acadxia.jpeg",
+    features: ["Matrícula", "Calificaciones", "Asistencia", "Multiinstitución", "Reportes"],
   },
 ]
