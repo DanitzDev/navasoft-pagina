@@ -10,8 +10,8 @@ import {
     Sprout,
     Wrench,
     Zap,
-    type LucideIcon,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { sectors as navSectors } from "@/data/navigation";
 import type { ContactTopic, ProductSlug } from "@/types";
 
@@ -48,7 +48,7 @@ export type Sector = Omit<SectorExtra, "intro"> & {
     intro: string;
 };
 
-const extras: Record<string, SectorExtra> = {
+const extras: Partial<Record<string, SectorExtra>> = {
     "fondos-de-pensiones": {
         icon: PiggyBank,
         group: "finanzas",

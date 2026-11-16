@@ -3,8 +3,9 @@ import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { ConsultButton } from "@/components/sections/products/ConsultButton";
-import { sectorGroups, sectorTopic, type Sector } from "@/data/sectors";
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
+import { sectorGroups, sectorTopic } from "@/data/sectors";
+import type { Sector } from "@/data/sectors";
 
 export function SectorHero({ sector }: { sector: Sector }) {
     const Icon = sector.icon;

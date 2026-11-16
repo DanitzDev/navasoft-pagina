@@ -31,9 +31,6 @@ import {
 } from 'lucide-react'
 import type { Capability, ProductDetail, ProductSlug } from '@/types'
 
-const demoAnswer =
-  'Le mostramos el producto sobre su proceso, no sobre una demo genérica. Puede pedir una demostración o una reunión desde esta página.'
-
 const gridxia: Capability[] = [
   {
     icon: Power,

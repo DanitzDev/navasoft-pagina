@@ -1,9 +1,15 @@
 import { createServer } from 'node:http'
+import { existsSync } from 'node:fs'
+import { loadEnvFile } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import serveStatic from 'serve-static'
 import { toNodeHandler } from 'srvx/node'
 
 process.env.NODE_ENV ??= 'production'
+
+// Plesk Windows keeps production secrets outside the public httpdocs directory.
+const privateEnvFile = new URL('../.env', import.meta.url)
+if (existsSync(privateEnvFile)) loadEnvFile(privateEnvFile)
 
 const serveClient = serveStatic(
   fileURLToPath(new URL('./dist/client/', import.meta.url)),

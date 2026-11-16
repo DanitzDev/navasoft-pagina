@@ -7,7 +7,8 @@ import { PolicyHero } from "@/components/sections/policies/PolicyHero";
 import { PolicyPartView } from "@/components/sections/policies/PolicyPartView";
 import { PolicySectionCard } from "@/components/sections/policies/PolicySectionCard";
 import { PolicyCard } from "@/components/sections/policies/PolicyCard";
-import { policies, policiesContact, type Policy } from "@/data/policies";
+import { policies, policiesContact } from "@/data/policies";
+import type { Policy } from "@/data/policies";
 import { cn } from "@/lib/cn";
 
 export function PolicyPage({ policy }: { policy: Policy }) {

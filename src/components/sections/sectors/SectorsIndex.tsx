@@ -2,7 +2,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { SectorCard } from "@/components/sections/sectors/SectorCard";
 import { SectorCta } from "@/components/sections/sectors/SectorCta";
-import { sectorGroups, sectors, type SectorGroup } from "@/data/sectors";
+import { sectorGroups, sectors } from "@/data/sectors";
+import type { SectorGroup } from "@/data/sectors";
 
 export function SectorsIndex() {
     const groups = Object.keys(sectorGroups) as SectorGroup[];

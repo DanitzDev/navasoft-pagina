@@ -22,8 +22,8 @@ import {
     Users,
     Video,
     Zap,
-    type LucideIcon,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 
 export type PolicySection = { icon: LucideIcon; title: string; points: string[] };
