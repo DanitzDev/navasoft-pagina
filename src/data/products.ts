@@ -90,7 +90,7 @@ export const products: Product[] = [
     tagline: "Plataforma web de gestión académica para escuelas, colegios e institutos.",
     detail:
       "Instituciones, usuarios, matrícula, grupos, calificaciones y asistencia desde un único entorno digital.",
-    image: "/images/acadxia.jpeg",
+    image: "/images/area-saas.jpeg",
     features: ["Matrícula", "Calificaciones", "Asistencia", "Multiinstitución", "Reportes"],
   },
 ]
