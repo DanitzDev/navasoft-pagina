@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SectorPage } from "@/components/sections/sectors/SectorPage";
 import { sectors } from "@/data/sectors";
+import { pageMeta } from "@/lib/page-meta";
 
 export const Route = createFileRoute("/sectores/$slug")({
     // Los destinos del menú son también la lista de sectores permitidos.
@@ -11,12 +12,14 @@ export const Route = createFileRoute("/sectores/$slug")({
     },
     head: ({ params }) => {
         const sector = sectors.find((item) => item.slug === params.slug);
-        return {
-            meta: [
-                { title: `${sector?.name ?? "Sector"} · Navasoft Soluciones` },
-                ...(sector ? [{ name: "description", content: sector.description }] : []),
-            ],
-        };
+        return pageMeta({
+            title: `${sector?.name ?? "Sector"} · Navasoft Soluciones`,
+            description:
+                sector?.description ??
+                "Soluciones tecnológicas de Navasoft para organizaciones públicas y empresariales.",
+            path: `/sectores/${params.slug}`,
+            image: sector?.image,
+        });
     },
     component: SectorRoute,
 });

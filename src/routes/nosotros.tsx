@@ -10,14 +10,15 @@ import '../components/sections/about/styles/About.css'
 import AboutPresentation from '../components/sections/about/presentation/AboutPresentation'
 import { ButtonLink } from '../components/ui/Button'
 import { createFileRoute } from '@tanstack/react-router'
+import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/nosotros')({
-  head: () => ({
-    meta: [
-      { title: 'Nosotros · Navasoft Soluciones' },
-      { name: 'description', content: companyIntroduction.metaDescription },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Nosotros · Navasoft Soluciones',
+      description: companyIntroduction.metaDescription,
+      path: '/nosotros',
+    }),
   component: AboutPage,
 })
 

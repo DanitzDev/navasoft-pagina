@@ -12,7 +12,10 @@ export function pageMeta({
   path: string
   image?: string
 }) {
+  const canonicalUrl = new URL(path, siteOrigin).href
+
   return {
+    links: [{ rel: 'canonical', href: canonicalUrl }],
     meta: [
       { title },
       { name: 'description', content: description },
@@ -20,7 +23,7 @@ export function pageMeta({
       { property: 'og:site_name', content: siteName },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:url', content: new URL(path, siteOrigin).href },
+      { property: 'og:url', content: canonicalUrl },
       { property: 'og:image', content: new URL(image, siteOrigin).href },
       { name: 'twitter:card', content: 'summary_large_image' },
     ],

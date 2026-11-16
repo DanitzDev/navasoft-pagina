@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight, Clock3, Ticket } from 'lucide-react'
 import { Container } from '../components/ui/Container'
 import './soporte.css'
+import { pageMeta } from '@/lib/page-meta'
 
 const ticketPortal = 'https://navasoftuno.com/ords/sarem/r/cliente-sarem/login'
 
@@ -24,16 +25,13 @@ const incidentSteps = [
 ]
 
 export const Route = createFileRoute('/soporte')({
-  head: () => ({
-    meta: [
-      { title: 'Soporte a clientes · Navasoft Soluciones' },
-      {
-        name: 'description',
-        content:
-          'Accede al portal de tickets de Navasoft, consulta el horario de soporte y prepara tu reporte de incidente.',
-      },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Soporte a clientes · Navasoft Soluciones',
+      description:
+        'Accede al portal de tickets de Navasoft, consulta el horario de soporte y prepara tu reporte de incidente.',
+      path: '/soporte',
+    }),
   component: SupportPage,
 })
 

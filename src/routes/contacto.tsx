@@ -4,6 +4,7 @@ import ContactForm from '@/components/sections/contact/ContactForm'
 import ContactInfo from '@/components/sections/contact/ContactInfo'
 import '@/components/sections/contact/Contact.css'
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
+import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/contacto')({
   validateSearch: (
@@ -14,18 +15,13 @@ export const Route = createFileRoute('/contacto')({
         ? search.motivo
         : undefined,
   }),
-  head: () => ({
-    meta: [
-      {
-        title: 'Contacto · Navasoft Soluciones',
-      },
-      {
-        name: 'description',
-        content:
-          'Conversemos sobre tu próximo proyecto. Contacta con Navasoft Soluciones o solicita una reunión o una demo.',
-      },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Contacto · Navasoft Soluciones',
+      description:
+        'Conversemos sobre tu próximo proyecto. Contacta con Navasoft Soluciones o solicita una reunión o una demo.',
+      path: '/contacto',
+    }),
   component: ContactPage,
 })
 
