@@ -17,7 +17,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const textareaId = id ?? generatedId
     const hintId = `${textareaId}-hint`
     const errorId = `${textareaId}-error`
-    const describedBy = error ? errorId : hint ? hintId : undefined
+    const describedBy =
+      [error && errorId, hint && hintId].filter(Boolean).join(' ') || undefined
 
     return (
       <div className="flex flex-col gap-2">
@@ -49,15 +50,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
 
-        {error ? (
+        {error && (
           <p id={errorId} aria-live="polite" className="text-xs text-red-300">
             {error}
           </p>
-        ) : hint ? (
+        )}
+        {hint && (
           <p id={hintId} className="text-xs text-white/70">
             {hint}
           </p>
-        ) : null}
+        )}
       </div>
     )
   },

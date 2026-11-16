@@ -334,11 +334,15 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
           <div className="contact-field-wide">
             <Textarea
               {...fieldProps('message')}
-              label="Mensaje"
+              label="Mensaje u observaciones"
               required
               maxLength={contactLimits.message}
               rows={4}
-              hint="Mínimo 10 caracteres."
+              hint={
+                values.reason === 'demo'
+                  ? 'Mínimo 10 caracteres. Para solicitar una demo, indica qué producto te interesa.'
+                  : 'Mínimo 10 caracteres.'
+              }
               placeholder="Cuéntanos qué necesitas resolver."
             />
             <p className="contact-character-count" aria-live="off">
