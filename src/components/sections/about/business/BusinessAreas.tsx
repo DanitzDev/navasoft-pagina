@@ -8,7 +8,7 @@ export default function BusinessAreas() {
     <section className="about-business" aria-label="Áreas de negocio">
       <SectionTitle
         eyebrow="Cómo nos organizamos"
-        title="Tres áreas, una sola fábrica."
+        title="Cuatro áreas, un propósito compartido."
         className="about-business-title"
       />
       <ul className="about-business-list">

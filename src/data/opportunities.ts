@@ -77,8 +77,8 @@ export const careersCopy = {
             "Proyectos en Centroamérica", 
             "Modalidad según el rol y el proyecto",
         ],
-        image: "/images/nosotros.jpeg", 
-        imageAlt: "Sala de una fábrica de software", 
+        image: "/images/nosotros.jpeg",
+        imageAlt: "Espacio de trabajo de un equipo de tecnología",
     },
 
   profiles: {
@@ -171,7 +171,7 @@ export const profiles: Profile[] = [
     tab: 'Practicante',
     formLabel: 'Practicante / pasante',
     summary:
-      'Estudiantes que quieran aprender en una fábrica de software, con código y clientes reales. Las prácticas se acuerdan con el centro de estudio.',
+      'Estudiantes que quieran aprender en una empresa de tecnología, trabajando con sistemas y clientes reales. Las prácticas se acuerdan con el centro de estudio.',
     points: [
       {
         title: 'Para quién',

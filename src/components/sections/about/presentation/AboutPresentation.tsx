@@ -23,8 +23,8 @@ export default function AboutPresentation() {
             <SectionTitle
               as="h1"
               eyebrow="Quiénes somos"
-              title="Somos soluciones a la medida."
-              description="Navasoft Soluciones es una fábrica de software costarricense. Diseñamos soluciones alrededor de los procesos y las necesidades de cada organización."
+              title="Transformamos operaciones críticas con tecnología."
+              description={companyIntroduction.text}
               className="about-hero-heading"
             />
             <div className="about-hero-actions">

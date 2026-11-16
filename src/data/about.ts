@@ -2,17 +2,17 @@
 export const companyIntroduction = {
   source: 'https://www.navasoftsoluciones.com/nosotros/',
   metaDescription:
-    'Conoce Navasoft Soluciones: software a la medida, misión, visión y valores que orientan nuestro trabajo.',
-  text: 'Desarrollamos software a la medida para mejorar los procesos de las organizaciones y acompañarlas en sus necesidades tecnológicas.',
+    'Conoce Navasoft Soluciones, empresa de tecnología costarricense especializada en transformar operaciones críticas mediante software, plataformas e integración tecnológica.',
+  text: 'Navasoft Soluciones es una empresa de tecnología costarricense especializada en transformar operaciones críticas. Diseñamos, desarrollamos e integramos soluciones alrededor de los procesos que sostienen a cada organización.',
   capabilities:
-    'Trabajamos desde el análisis y el diseño hasta el desarrollo y la implementación de sistemas. Ofrecemos servicios de outsourcing y outtasking, además de migración, optimización y control de calidad de software.',
+    'Acompañamos a las organizaciones desde el análisis de sus procesos hasta el diseño, desarrollo e implementación de soluciones. Integramos plataformas y sistemas para mejorar la continuidad, eficiencia y capacidad de evolución de sus operaciones.',
 }
 
 export const aboutAreaDescriptions: Record<string, string> = {
   '/areas/soluciones':
-    'Software a la medida para organizaciones del sector público y empresarial.',
+    'Soluciones tecnológicas para transformar operaciones del sector público y empresarial.',
   '/productos': 'Conoce las plataformas del ecosistema Navasoft.',
-  '/areas/navalav': 'Explora InnovationLab, nuestra área de tecnologías emergentes.',
+  '/areas/innovationlab': 'Explora InnovationLab, nuestra área de tecnologías emergentes.',
 }
 
 // Misión, visión y valores corresponden al material recibido de la empresa.
