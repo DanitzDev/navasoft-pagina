@@ -53,7 +53,7 @@ const extras: Record<string, SectorExtra> = {
         icon: PiggyBank,
         group: "finanzas",
         area: "empresarial",
-        image: "/images/area-empresarial.jpeg",
+        image: "/images/area-empresarial.avif",
         focus: [
             "Procesos de administración digitalizados",
             "Integración con los sistemas existentes",
@@ -65,7 +65,7 @@ const extras: Record<string, SectorExtra> = {
         icon: Handshake,
         group: "comunidad",
         area: "empresarial",
-        image: "/images/area-empresarial.jpeg",
+        image: "/images/area-empresarial.avif",
         focus: [
             "Procesos administrativos más ordenados",
             "Mejor comunicación con los asociados",
@@ -77,7 +77,7 @@ const extras: Record<string, SectorExtra> = {
         icon: HardHat,
         group: "industria",
         area: "empresarial",
-        image: "/images/area-empresarial.jpeg",
+        image: "/images/area-empresarial.avif",
         focus: [
             "Control de la operación y de los procesos",
             "Automatización de tareas administrativas",
@@ -89,7 +89,7 @@ const extras: Record<string, SectorExtra> = {
         icon: Landmark,
         group: "finanzas",
         area: "empresarial",
-        image: "/images/area-empresarial.jpeg",
+        image: "/images/area-empresarial.avif",
         focus: ["Transparencia", "Gestión financiera", "Control operativo"], // MAQUETA
         products: [],
     },
@@ -102,7 +102,7 @@ const extras: Record<string, SectorExtra> = {
             "Operación comercial y de campo organizada",
             "Facturación, cobros y atención de clientes",
             "Continuidad del servicio para los usuarios",
-        ], // GENERADO
+        ],
         products: ["gridxia"], // relación sugerida
     },
     agroindustria: {

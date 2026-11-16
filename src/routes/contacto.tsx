@@ -3,6 +3,7 @@ import { Container } from '@/components/ui/Container'
 import ContactForm from '@/components/sections/contact/ContactForm'
 import ContactInfo from '@/components/sections/contact/ContactInfo'
 import '@/components/sections/contact/Contact.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 export const Route = createFileRoute('/contacto')({
   validateSearch: (
@@ -39,12 +40,12 @@ function ContactPage() {
   return (
     <section className="contact-page" aria-labelledby="contact-page-title">
       <div className="contact-hero">
-        <img
+        <ResponsiveImage
           className="contact-hero-image"
           src="/images/area-empresarial.jpeg"
           alt=""
-          width="1536"
-          height="1024"
+          sizes="100vw"
+          priority
         />
         <Container>
           <div className="contact-hero-copy">

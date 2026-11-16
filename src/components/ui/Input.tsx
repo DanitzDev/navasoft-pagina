@@ -11,7 +11,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 export function fieldStyles(hasError?: boolean, className?: string) {
   // esta función genera las clases de estilo para el input, dependiendo si hay error o no
   return cn(
-    'w-full rounded-lg border bg-field px-4 py-3 text-sm text-white transition-colors',
+    "w-full rounded-lg border bg-field px-4 py-3 text-base text-white transition-colors sm:text-sm",
     'placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-2',
     'disabled:cursor-not-allowed disabled:opacity-50',
     hasError // si hay error, se le asigna un borde rojo y un foco rojo, si no, se le asigna un borde blanco y un foco azul

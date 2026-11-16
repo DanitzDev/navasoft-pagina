@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { ConsultButton } from "@/components/sections/products/ConsultButton";
 import { sectorGroups, sectorTopic, type Sector } from "@/data/sectors";
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 export function SectorHero({ sector }: { sector: Sector }) {
     const Icon = sector.icon;
@@ -13,7 +14,13 @@ export function SectorHero({ sector }: { sector: Sector }) {
         <section className="relative isolate -mt-28 overflow-hidden">
             {/* Imagen de fondo y sombreado (el mismo esquema del hero del Inicio) */}
             <div aria-hidden="true" className="absolute inset-0 -z-10">
-                <img src={sector.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                <ResponsiveImage
+                    src={sector.image}
+                    alt=""
+                    sizes="100vw"
+                    priority
+                    className="absolute inset-0 h-full w-full object-cover"
+                />
 
                 {/* 1. Velo general */}
                 <div className="absolute inset-0 bg-night/30" />
@@ -40,10 +47,12 @@ export function SectorHero({ sector }: { sector: Sector }) {
                             {sectorGroups[sector.group]}
                         </p>
                         <div className="flex items-center gap-5">
-                            <span className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-accent text-white lg:size-20">
-                                <Icon aria-hidden="true" className="size-8 lg:size-10" />
+                            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-white sm:size-16 lg:size-20">
+                                <Icon aria-hidden="true" className="size-6 sm:size-8 lg:size-10" />
                             </span>
-                            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">{sector.name}</h1>
+                            <h1 className="min-w-0 text-3xl font-bold tracking-tight text-white overflow-wrap:anywhere sm:text-5xl">
+                                {sector.name}
+                            </h1>
                         </div>
                         <p className="text-base leading-relaxed text-white/90 sm:text-lg">{sector.intro}</p>
                     </header>

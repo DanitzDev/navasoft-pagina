@@ -6,6 +6,7 @@ import { ArrowLink } from "@/components/ui/ArrowLink";
 import { IconBox } from "@/components/ui/IconBox";
 import { areas } from "@/data/areas";
 import type { Area } from "@/types";
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 const outlineOnDark = "border-white/25 text-white/80";
 const softOnDark = "bg-accent/15 text-orange-200";
@@ -22,7 +23,6 @@ function AreaLink({ area }: { area: Area }) {
 }
 
 export function AreasSection() {
-  // La primera área (Gobierno) es la destacada; las otras tres van debajo, en su orden
   const [featured, ...others] = areas;
 
   return (
@@ -51,8 +51,7 @@ export function AreasSection() {
                 {area.navLabel}
               </a>
               {i < areas.length - 1 && (
-                <span aria-hidden="true" className="hidden h-px w-12 bg-white/20 sm:block" />
-              )}
+                <span aria-hidden="true" className="hidden h-px w-12 bg-white/20 lg:block" />)}
             </Fragment>
           ))}
         </nav>
@@ -63,10 +62,10 @@ export function AreasSection() {
           className="mt-10 scroll-mt-24 overflow-hidden rounded-3xl border border-accent/70 bg-panel lg:grid lg:grid-cols-2"
         >
           <div className="relative min-h-64">
-            <img
+            <ResponsiveImage
               src={featured.image}
               alt=""
-              loading="lazy"
+              sizes="(min-width: 1024px) 560px, 100vw"
               className="absolute inset-0 h-full w-full object-cover"
             />
             {featured.highlights && (
@@ -112,15 +111,17 @@ export function AreasSection() {
         </article>
 
         {/* Las otras tres */}
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {others.map((area) => (
-            <article
-              key={area.slug}
-              id={`area-${area.slug}`}
-              className="flex scroll-mt-24 flex-col overflow-hidden rounded-3xl border border-white/10 bg-panel"
-            >
+            <article key={area.slug} id={`area-${area.slug}`}
+              className="flex scroll-mt-24 flex-col overflow-hidden rounded-3xl border border-white/10 bg-panel md:last:col-span-2 lg:last:col-span-1">
               <div className="relative h-48">
-                <img src={area.image} alt="" loading="lazy" className="h-full w-full object-cover" />
+                <ResponsiveImage
+                  src={area.image}
+                  alt=""
+                  sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw"
+                  className="h-full w-full object-cover"
+                />
                 <div className="absolute inset-0 bg-linear-to-b from-transparent to-panel" />
                 {area.highlights && (
                   <div className="absolute left-4 top-4 flex flex-wrap gap-2">

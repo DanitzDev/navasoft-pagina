@@ -8,7 +8,7 @@ export const sectorPages = {
     lead: 'Software que se adapta a su operación.',
     description:
       'Conectamos los procesos de su empresa con soluciones a la medida: desde la planta y la bodega hasta la gestión administrativa.',
-    image: '/images/area-empresarial.jpeg',
+    image: '/images/area-empresarial.avif',
     heading: 'Partimos de cómo trabaja su empresa.',
     introduction:
       'Cada operación tiene sus particularidades: lotes, rutas, controles de calidad o atención a asociados. Diseñamos e integramos el sistema alrededor de esos procesos.',

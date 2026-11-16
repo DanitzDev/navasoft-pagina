@@ -4,6 +4,7 @@ import { Container } from '../../components/ui/Container'
 import { products } from '../../data/products'
 import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/products/ProductsIndex.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 export const Route = createFileRoute('/productos/')({
   head: () =>
@@ -33,12 +34,10 @@ function ProductsPage() {
               params={{ slug: product.slug }}
               className="products-index-card"
             >
-              <img
-                src={product.image}
+              <ResponsiveImage
+                src={product.image ?? ''}
                 alt=""
-                width="1280"
-                height="720"
-                loading="lazy"
+                sizes="(min-width: 1024px) 60vw, 100vw"
               />
               <div className="products-index-copy">
                 <p className="products-index-category">{product.category}</p>

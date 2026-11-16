@@ -5,6 +5,7 @@ import { ButtonLink } from '../../components/ui/Button'
 import CaseCard from '../../components/sections/cases/CaseCard'
 import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/cases/CaseDetail.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 export const Route = createFileRoute('/casos-de-exito/$slug')({
   loader: ({ params }) => {
@@ -34,12 +35,12 @@ function CaseDetailPage() {
   const solutionLink = isInnovationCase
     ? { slug: 'navalav', label: 'Conocer InnovationLab' }
     : {
-        slug: 'soluciones',
-        hash: isGovernmentCase ? 'gobierno' : 'empresas',
-        label: isGovernmentCase
-          ? 'Ver soluciones del sector público'
-          : 'Ver soluciones del sector empresarial',
-      }
+      slug: 'soluciones',
+      hash: isGovernmentCase ? 'gobierno' : 'empresas',
+      label: isGovernmentCase
+        ? 'Ver soluciones del sector público'
+        : 'Ver soluciones del sector empresarial',
+    }
   const related = [
     ...group.cases.filter((item) => item.id !== caseStudy.id),
     ...caseStudies.filter(
@@ -72,7 +73,11 @@ function CaseDetailPage() {
               <h1>{caseStudy.title}</h1>
               <p className="case-detail-summary">{caseStudy.summary}</p>
             </div>
-            <img src={caseStudy.image} alt="" width="1280" height="720" />
+            <ResponsiveImage
+              src={caseStudy.image}
+              alt=""
+              sizes="(min-width: 1024px) 60vw, 100vw"
+            />
           </header>
           <div className="case-detail-layout">
             <div className="case-detail-story">
