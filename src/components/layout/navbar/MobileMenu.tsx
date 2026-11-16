@@ -119,7 +119,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             />
           </li>
           <li>
-            <NavLink href="/areas/navalav" onNavigate={closeMenu}>
+            <NavLink href="/areas/innovationlab" onNavigate={closeMenu}>
               InnovationLab
             </NavLink>
           </li>

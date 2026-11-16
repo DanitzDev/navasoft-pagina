@@ -7,7 +7,7 @@ import type { Sector } from "@/data/sectors";
 
 export function SectorService({ sector }: { sector: Sector }) {
     const area = areas.find((item) => item.slug === sector.area);
-    if (!area?.page || area.page === "navalav") return null;
+    if (!area?.page || area.page === "innovationlab") return null;
 
     return (
         <section id="servicios" className="scroll-mt-28 py-20">

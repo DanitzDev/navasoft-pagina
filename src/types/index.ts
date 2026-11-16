@@ -11,7 +11,7 @@ export type Product = {
 }
 
 export type Area = {
-  slug: 'publico' | 'empresarial' | 'saas' | 'innovation-lab'
+  slug: 'publico' | 'empresarial' | 'saas' | 'innovationlab'
   number: string
   navLabel: string
   name: string
@@ -22,7 +22,7 @@ export type Area = {
   highlights?: string[]
   image: string
   icon: LucideIcon
-  page?: 'soluciones' | 'navalav'
+  page?: 'soluciones' | 'innovationlab'
   pageHash?: string
 }
 

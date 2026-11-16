@@ -63,7 +63,7 @@ export default function Navbar() {
               />
             </li>
             <li>
-              <NavLink href="/areas/navalav">InnovationLab</NavLink>
+              <NavLink href="/areas/innovationlab">InnovationLab</NavLink>
             </li>
             <li>
               <NavDropdown label="Sectores que impulsamos" items={sectors} />

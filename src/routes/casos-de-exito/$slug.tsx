@@ -33,7 +33,7 @@ function CaseDetailPage() {
   const isInnovationCase = caseStudy.id === 'pesaje-industrial-iot'
   const isGovernmentCase = group.id === 'gobierno'
   const solutionLink = isInnovationCase
-    ? { slug: 'navalav', label: 'Conocer InnovationLab' }
+    ? { slug: 'innovationlab', label: 'Conocer InnovationLab' }
     : {
       slug: 'soluciones',
       hash: isGovernmentCase ? 'gobierno' : 'empresas',

@@ -38,7 +38,7 @@ export const siteContacts: ContactItem[] = [
 export const footerSolutions: NavigationItem[] = [
   { label: 'Público y empresarial', href: '/areas/soluciones' },
   { label: 'Ecosistema SaaS', href: '/productos' },
-  { label: 'InnovationLab', href: '/areas/navalav' },
+  { label: 'InnovationLab', href: '/areas/innovationlab' },
 ]
 
 type FooterProduct = NavigationItem & { description: string }

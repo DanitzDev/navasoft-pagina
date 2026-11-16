@@ -53,7 +53,7 @@ export const areas: Area[] = [
     icon: Layers,
   },
   {
-    slug: 'innovation-lab',
+    slug: 'innovationlab',
     number: '04',
     navLabel: 'Innovation Labs',
     name: 'Innovation Lab',
@@ -62,6 +62,6 @@ export const areas: Area[] = [
     tags: ['IA', 'IoT', 'Cloud'],
     image: '/images/area-iot.jpeg',
     icon: Cpu,
-    page: 'navalav',
+    page: 'innovationlab',
   },
 ]
