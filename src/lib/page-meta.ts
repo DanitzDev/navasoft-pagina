@@ -1,6 +1,6 @@
 const siteOrigin = 'https://navasoft.es'
 const siteName = 'Navasoft Soluciones'
-const defaultShareImage = '/images/brand/navasoft-social.png'
+const defaultShareImage = '/images/brand/navasoft-social-v2.png'
 
 export function pageMeta({
   title,
