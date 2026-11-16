@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import type { OrganizationLogo } from '../../types/trust'
 import './LogoCarousel.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type LogoCarouselProps = {
   logos: readonly OrganizationLogo[]
@@ -159,36 +160,34 @@ export function LogoCarousel({
           >
             {logos.length
               ? logos.map((logo) => (
-                  <li
-                    key={logo.id}
-                    className="logo-carousel-item"
-                    data-surface={logo.surface}
-                    data-logo={logo.id}
+                <li
+                  key={logo.id}
+                  className="logo-carousel-item"
+                  data-surface={logo.surface}
+                  data-logo={logo.id}
+                >
+                  <ResponsiveImage
+                    src={logo.image}
+                    alt={copy ? '' : `Logo de ${logo.name}`}
+                    sizes="(max-width: 768px) 120px, 160px"
+                    draggable={false}
+                  />
+                  <span
+                    aria-hidden={
+                      !logo.relationship || logo.relationship === 'Partner'
+                        ? true
+                        : undefined
+                    }
                   >
-                    <img
-                      src={logo.image}
-                      alt={copy ? '' : `Logo de ${logo.name}`}
-                      width="160"
-                      height="80"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                    <span
-                      aria-hidden={
-                        !logo.relationship || logo.relationship === 'Partner'
-                          ? true
-                          : undefined
-                      }
-                    >
-                      {logo.relationship !== 'Partner' ? logo.relationship : ''}
-                    </span>
-                  </li>
-                ))
+                    {logo.relationship !== 'Partner' ? logo.relationship : ''}
+                  </span>
+                </li>
+              ))
               : Array.from({ length: count }, (_, index) => (
-                  <li key={index} className="logo-carousel-placeholder">
-                    Espacio para logo aprobado
-                  </li>
-                ))}
+                <li key={index} className="logo-carousel-placeholder">
+                  Espacio para logo aprobado
+                </li>
+              ))}
           </ul>
         ))}
       </div>

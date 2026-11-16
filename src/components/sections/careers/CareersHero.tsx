@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/Badge'
 import Button from '@/components/ui/Button'
 import { careersCopy } from '@/data/opportunities'
 import type { ApplyIntent } from '@/data/opportunities'
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 export function CareersHero({
   onApply,
@@ -71,9 +72,11 @@ export function CareersHero({
             className="absolute -inset-6 -z-10 rounded-full bg-accent/15 blur-3xl"
           />
           <div className="overflow-hidden rounded-3xl border border-white/15 bg-panel shadow-2xl shadow-black/40">
-            <img
+            <ResponsiveImage
               src={image}
               alt={imageAlt}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              priority
               className="aspect-4/3 w-full object-cover"
             />
           </div>

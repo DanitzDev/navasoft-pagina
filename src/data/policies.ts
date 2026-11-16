@@ -25,10 +25,6 @@ import {
     type LucideIcon,
 } from "lucide-react";
 
-/*
- * Todo el contenido sale de los dos documentos de Navasoft (resumido, sin cambiar su sentido).
- * Lo único generado por mí son los textos de la página índice y los títulos de las tarjetas.
- */
 
 export type PolicySection = { icon: LucideIcon; title: string; points: string[] };
 
@@ -36,7 +32,7 @@ export type PolicyPart = {
     id: string;
     tab: string;
     title: string;
-    pdfPage?: number; // página del PDF donde empieza esta parte
+    pdfPage?: number; // página del PDF 
     purpose: string;
     appliesTo: string[];
     principles: { title: string; text: string }[];

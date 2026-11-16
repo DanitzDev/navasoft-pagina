@@ -1,6 +1,7 @@
 import { productMarkIcons } from '@/data/product-meta'
 import { cn } from '@/lib/cn'
 import type { ProductSlug } from '@/types'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type ProductMarkProps = {
   slug: ProductSlug
@@ -13,10 +14,11 @@ export function ProductMark({ slug, name, logo, className }: ProductMarkProps) {
   // Logo oficial aqui
   if (logo) {
     return (
-      <img
+      <ResponsiveImage
         src={logo}
         alt={`Logo de ${name}`}
-        className={cn('h-16 w-auto shrink-0 lg:h-20', className)}
+        sizes="(min-width: 1024px) 220px, (min-width: 640px) 180px, 140px"
+        className={cn('w-auto shrink-0 h-12 sm:h-16 lg:h-20', className)}
       />
     )
   }

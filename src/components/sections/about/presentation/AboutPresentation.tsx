@@ -4,6 +4,7 @@ import { ButtonLink } from '../../../ui/Button'
 import { products } from '../../../../data/navigation'
 import { footerSolutions } from '../../../../data/site'
 import { companyIntroduction } from '../../../../data/about'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 // Cifras trazables a la historia y los catálogos; no se replican métricas sin validar.
 const facts = [
@@ -41,19 +42,18 @@ export default function AboutPresentation() {
             </div>
           </div>
           <figure className="about-hero-visual">
-            <img
+            <ResponsiveImage
               className="about-hero-image"
               src="/images/hero-trust.jpeg"
               alt=""
-              width="1792"
-              height="1008"
+              sizes="100vw"
+              priority
             />
             <div className="about-hero-brand">
-              <img
+              <ResponsiveImage
                 src="/images/brand/navasoft-white.png"
                 alt="Navasoft · Tecnología que innova"
-                width="1200"
-                height="558"
+                sizes="(max-width: 768px) 150px, 200px"
               />
             </div>
             <figcaption>

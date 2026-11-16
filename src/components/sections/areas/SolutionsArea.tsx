@@ -9,6 +9,7 @@ import { products } from '../../../data/products'
 import { contactBanner } from '../../../data/site'
 import SolutionsNavigation from './SolutionsNavigation'
 import './SolutionsArea.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 const sectors = [
   { ...sectorPages.privado, id: 'empresas' },
@@ -28,12 +29,10 @@ function ClientList({ clients }: { clients: typeof clientDirectory }) {
         >
           {client.image && (
             <div className="business-client-logo" data-client={client.id}>
-              <img
+              <ResponsiveImage
                 src={client.image}
                 alt={client.name}
-                width="160"
-                height="72"
-                loading="lazy"
+                sizes="(max-width: 768px) 120px, 160px"
               />
             </div>
           )}
@@ -78,11 +77,10 @@ export default function SolutionsArea() {
             aria-label="Explorar sectores público y empresarial"
           >
             <a href="#gobierno" className="solutions-sector-access">
-              <img
+              <ResponsiveImage
                 src={sectorPages.gobierno.image}
                 alt=""
-                width="896"
-                height="1008"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>
@@ -107,11 +105,10 @@ export default function SolutionsArea() {
               </span>
             </a>
             <a href="#empresas" className="solutions-sector-access">
-              <img
+              <ResponsiveImage
                 src={sectorPages.privado.image}
                 alt=""
-                width="896"
-                height="1008"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>

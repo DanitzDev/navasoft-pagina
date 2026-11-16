@@ -12,6 +12,7 @@ import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
 // Presentación responsive del Footer.
 import './Footer.basic.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 // Los destinos internos usan Link; contactos y redes mantienen sus protocolos
 // externos (tel, mailto y https). Los datos se administran en src/data/site.ts.
@@ -28,11 +29,10 @@ export default function Footer() {
               className="footer-brand"
               aria-label="Navasoft Soluciones, inicio"
             >
-              <img
+              <ResponsiveImage
                 src="/images/brand/navasoft-white.png"
                 alt="Navasoft Soluciones"
-                width="1200"
-                height="562"
+                sizes="(max-width: 768px) 150px, 200px"
               />
             </Link>
             <p className="footer-tagline">Tecnología que innova</p>
@@ -121,9 +121,6 @@ export default function Footer() {
               </li>
             ))}
             <li>
-              <Link to="/politicas/$slug" params={{ slug: "terminos" }}>
-                Políticas
-              </Link>
             </li>
             {policyLinks.map((policy) => (
               <li key={policy.slug}>

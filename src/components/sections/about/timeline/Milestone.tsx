@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { formatHistoryPeriod } from './history-period'
 import type { HistoryMilestone } from '../../../../data/history'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type MilestoneProps = { milestone?: HistoryMilestone }
 
@@ -79,13 +80,11 @@ export default function Milestone({ milestone }: MilestoneProps) {
       </div>
       <div className="history-image">
         {image && imageSource && !imageFailed ? (
-          <img
+          <ResponsiveImage
             src={imageSource}
             alt={image.alt}
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             onError={() => setFailedSource(imageSource)}
-            loading="lazy"
-            width="640"
-            height="400"
           />
         ) : (
           <div

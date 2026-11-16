@@ -18,6 +18,7 @@ import {
   innovationSteps,
 } from '../../../data/innovation'
 import './InnovationPage.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 const capabilityIcons = {
   iot: Radio,
@@ -50,12 +51,11 @@ export default function InnovationPage() {
           </div>
         </div>
         <figure className="innovation-hero-visual">
-          <img
+          <ResponsiveImage
             src="/images/hero-innovation.jpeg"
             alt="Ilustración de un laboratorio con sensores, dispositivos y prototipos electrónicos."
-            width="1792"
-            height="1008"
-            fetchPriority="high"
+            sizes="100vw"
+            priority
           />
           <figcaption>
             <span>Innovación aplicada</span>
@@ -134,12 +134,10 @@ export default function InnovationPage() {
                 hidden={selected !== capability.id}
                 className="innovation-capability-panel"
               >
-                <img
+                <ResponsiveImage
                   src={capability.image}
                   alt={capability.alt}
-                  width="1792"
-                  height="1008"
-                  loading="lazy"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
                 <div className="innovation-capability-body">
                   <h3>{capability.headline}</h3>
