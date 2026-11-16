@@ -1,6 +1,6 @@
 const siteOrigin = 'https://navasoft.es'
 const siteName = 'Navasoft Soluciones'
-const defaultShareImage = '/images/brand/navasoft-social-v2.png'
+const defaultShareImage = '/images/brand/navasoft-social-hires.png'
 
 export function pageMeta({
   title,
@@ -34,6 +34,12 @@ export function pageMeta({
       { property: 'og:description', content: description },
       { property: 'og:url', content: canonicalUrl },
       { property: 'og:image', content: imageUrl },
+      ...(image === defaultShareImage
+        ? [
+            { property: 'og:image:width', content: '2400' },
+            { property: 'og:image:height', content: '1260' },
+          ]
+        : []),
       { property: 'og:image:alt', content: resolvedImageAlt },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
