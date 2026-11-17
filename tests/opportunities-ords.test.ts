@@ -77,7 +77,7 @@ test('el cliente obtiene token y entrega una sola postulación con el contrato O
   assert.equal(requests[1].url, `${baseUrl}/contacto/oportunidades`)
   assert.equal(requests[1].init?.method, 'POST')
   assert.equal(requests[0].init?.redirect, 'error')
-  assert.equal(requests[1].init?.redirect, 'error')
+  assert.equal(requests[1].init.redirect, 'error')
   const headers = new Headers(requests[1].init.headers)
   assert.equal(headers.get('authorization'), 'Bearer test-bearer-token')
   assert.equal(headers.get('content-type'), 'application/json')
