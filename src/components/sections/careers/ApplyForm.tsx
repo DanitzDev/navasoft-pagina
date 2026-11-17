@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
-import { Check } from 'lucide-react'
+import { Check, LoaderCircle } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Textarea } from '@/components/ui/Textarea'
@@ -49,7 +49,13 @@ export function ApplyForm({
   >({})
   const [submitted, setSubmitted] = useState(false)
   const [status, setStatus] = useState<
-    'idle' | 'sending' | 'sent' | 'error' | 'unavailable' | 'rate_limited'
+    | 'idle'
+    | 'sending'
+    | 'sent'
+    | 'error'
+    | 'uncertain'
+    | 'unavailable'
+    | 'rate_limited'
   >('idle')
   const [retryAfter, setRetryAfter] = useState(60)
 
@@ -100,6 +106,8 @@ export function ApplyForm({
       const result = await deliverApplication({ ...fields, curriculum: file })
       if (result.status === 'sent' || result.status === 'unavailable') {
         setStatus(result.status)
+      } else if (result.status === 'uncertain') {
+        setStatus('uncertain')
       } else if (result.status === 'rate_limited') {
         setRetryAfter(result.retryAfterSeconds)
         setStatus('rate_limited')
@@ -320,6 +328,54 @@ export function ApplyForm({
           Recibimos varias solicitudes desde su conexión. Espere {retryAfter}{' '}
           segundos antes de intentarlo de nuevo.
         </p>
+      )}
+
+      {status === 'uncertain' && (
+        <p
+          role="alert"
+          className="rounded-xl border border-accent/40 bg-accent/10 px-4 py-3 text-sm text-white"
+        >
+          No pudimos confirmar si recibimos su postulación. Antes de volver a
+          enviarla, confirme la recepción con el equipo de selección por{' '}
+          <a
+            href={careersCopy.apply.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-accent underline underline-offset-2"
+          >
+            WhatsApp
+          </a>
+          .
+        </p>
+      )}
+
+      {status === 'sending' && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="flex items-start gap-3 rounded-xl border border-accent/30 bg-accent/5 px-4 py-4 text-sm text-white/85"
+        >
+          <LoaderCircle
+            aria-hidden="true"
+            className="mt-0.5 size-5 shrink-0 animate-spin text-accent motion-reduce:animate-none"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold text-white">
+              Enviando su postulación y currículum…
+            </p>
+            <p className="mt-1 text-white/65">
+              Puede tardar unos segundos. Mantenga esta página abierta; le
+              avisaremos cuando recibamos la confirmación.
+            </p>
+            <div
+              aria-hidden="true"
+              className="mt-3 h-1 overflow-hidden rounded-full bg-white/10"
+            >
+              <div className="h-full w-1/3 animate-pulse rounded-full bg-accent motion-reduce:animate-none" />
+            </div>
+          </div>
+        </div>
       )}
 
       <Button
