@@ -1,7 +1,13 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { randomUUID } from 'node:crypto'
 import { processContact } from '../src/lib/server/contact/service.server.ts'
 import { createContactLimiter } from '../src/lib/server/contact/limiter.server.ts'
+import {
+  CONTACT_ATTEMPT_LIMIT,
+  CONTACT_ATTEMPT_WINDOW_MS,
+  consumeContactAttempt,
+} from '../src/lib/server/contact/shared-limiter.server.ts'
 import { unconfiguredCrmTransport } from '../src/lib/server/contact/crm.server.ts'
 import { validateContact } from '../src/lib/validation/contact.ts'
 import { developmentContactSimulation } from '../src/lib/server/contact/simulation.server.ts'
@@ -147,10 +153,34 @@ test('respeta los límites y no acepta un motivo arbitrario', () => {
   assert.ok(
     validateContact({ ...valid, message: 'x'.repeat(3001) }).errors.message,
   )
+  assert.ok(validateContact({ ...valid, name: 'x'.repeat(201) }).errors.name)
+  assert.ok(validateContact({ ...valid, message: 'corto' }).errors.message)
   assert.ok(validateContact({ ...valid, phone: '+506abc' }).errors.phone)
   assert.ok(
     validateContact({ ...valid, reason: 'administrador' }).errors.reason,
   )
+})
+
+test('el servidor rechaza campos obligatorios ausentes y correos inválidos', async () => {
+  for (const [field, value] of [
+    ['name', ''],
+    ['email', 'correo-invalido'],
+    ['message', ''],
+    ['consent', false],
+  ] as const) {
+    const result = await processContact(
+      { ...valid, [field]: value },
+      {
+        consume: allow,
+        transport: {
+          async send() {
+            assert.fail('No debe transmitir campos obligatorios inválidos')
+          },
+        },
+      },
+    )
+    assert.equal(result.status, 'invalid')
+  }
 })
 
 test('solo transmite campos permitidos y normalizados', async () => {
@@ -213,6 +243,27 @@ test('limita el tamaño del mapa de identidades', () => {
   assert.equal(limiter.consume('a', 0).allowed, true)
   assert.equal(limiter.consume('b', 1).allowed, false)
   assert.equal(limiter.consume('b', 1000).allowed, true)
+})
+
+test('Contacto y Oportunidades comparten cinco intentos por IP cada 60 segundos', () => {
+  assert.equal(CONTACT_ATTEMPT_LIMIT, 5)
+  assert.equal(CONTACT_ATTEMPT_WINDOW_MS, 60_000)
+
+  const ip = randomUUID()
+  const otherIp = randomUUID()
+  const originalNow = Date.now
+  let now = 1_000
+  Date.now = () => now
+  try {
+    for (let attempt = 0; attempt < CONTACT_ATTEMPT_LIMIT; attempt++)
+      assert.equal(consumeContactAttempt(ip).allowed, true)
+    assert.equal(consumeContactAttempt(ip).allowed, false)
+    assert.equal(consumeContactAttempt(otherIp).allowed, true)
+    now += CONTACT_ATTEMPT_WINDOW_MS
+    assert.equal(consumeContactAttempt(ip).allowed, true)
+  } finally {
+    Date.now = originalNow
+  }
 })
 
 test('fallos del proveedor no filtran detalles internos ni reintentan', async () => {

@@ -55,7 +55,13 @@ function getConfig(): OrdsConfig | undefined {
   if (!baseUrl || !clientId || !clientSecret) return undefined
   try {
     const parsed = new URL(baseUrl)
-    if (parsed.protocol !== 'https:' || parsed.username || parsed.password)
+    if (
+      parsed.protocol !== 'https:' ||
+      parsed.username ||
+      parsed.password ||
+      parsed.search ||
+      parsed.hash
+    )
       return undefined
   } catch {
     return undefined
@@ -108,6 +114,7 @@ async function fetchToken(
   try {
     response = await fetch(`${config.baseUrl}/oauth/token`, {
       method: 'POST',
+      redirect: 'error',
       headers: {
         Authorization: `Basic ${authorization}`,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -214,6 +221,7 @@ async function sendMessage(
   }
   return fetch(`${config.baseUrl}/contacto/mensajes`, {
     method: 'POST',
+    redirect: 'error',
     headers: {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
