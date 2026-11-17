@@ -27,7 +27,7 @@ export type ApplicationFields = {
 
 export type ApplicationErrors = Partial<Record<keyof ApplicationFields, string>>
 
-// Contrato estable para la integración; el archivo se enviará como multipart.
+// Modelo del formulario; el adaptador de envío convierte el archivo a Base64.
 export type ApplicationPayload = Omit<ApplicationFields, 'curriculum'> & {
   curriculum: File
 }
@@ -37,6 +37,7 @@ export type ApplicationResult =
   | { status: 'unavailable' }
   | { status: 'failed' }
   | { status: 'uncertain' }
+  | { status: 'rate_limited'; retryAfterSeconds: number }
   | { status: 'invalid'; errors: ApplicationErrors }
 
 export function validateResume(file: File | null): string | undefined {

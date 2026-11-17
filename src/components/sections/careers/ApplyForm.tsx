@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { Check } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
@@ -7,10 +7,7 @@ import { Textarea } from '@/components/ui/Textarea'
 import Button from '@/components/ui/Button'
 import { areas, careersCopy, profiles } from '@/data/opportunities'
 import type { AreaId, ProfileId } from '@/data/opportunities'
-import {
-  APPLICATION_TEXT_LIMITS,
-  validateApplication,
-} from '@/lib/careers'
+import { APPLICATION_TEXT_LIMITS, validateApplication } from '@/lib/careers'
 import type { ApplicationFields } from '@/lib/careers'
 import { cn } from '@/lib/cn'
 import { deliverApplication } from '@/lib/careers-submit'
@@ -39,17 +36,22 @@ export function ApplyForm({
   onAreaChange,
 }: ApplyFormProps) {
   const copy = careersCopy.apply
+  const formRef = useRef<HTMLFormElement>(null)
 
   const [values, setValues] = useState(initialValues)
   const [file, setFile] = useState<File | null>(null)
   const [consent, setConsent] = useState(false)
+  const [serverErrors, setServerErrors] = useState<
+    Partial<Record<keyof ApplicationFields, string>>
+  >({})
   const [touched, setTouched] = useState<
     Partial<Record<keyof ApplicationFields, boolean>>
   >({})
   const [submitted, setSubmitted] = useState(false)
   const [status, setStatus] = useState<
-    'idle' | 'sending' | 'sent' | 'error' | 'unavailable'
+    'idle' | 'sending' | 'sent' | 'error' | 'unavailable' | 'rate_limited'
   >('idle')
+  const [retryAfter, setRetryAfter] = useState(60)
 
   const fields: ApplicationFields = {
     ...values,
@@ -58,7 +60,8 @@ export function ApplyForm({
     curriculum: file,
     consentimiento: consent,
   }
-  const errors = validateApplication(fields)
+  // Los errores de servidor se combinan con la validación local y se limpian cuando la persona edita.
+  const errors = { ...validateApplication(fields), ...serverErrors }
 
   const touch = (key: keyof ApplicationFields) =>
     setTouched((current) => ({ ...current, [key]: true }))
@@ -68,8 +71,10 @@ export function ApplyForm({
 
   const bind = (key: keyof typeof initialValues) => ({
     value: values[key],
-    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setValues((current) => ({ ...current, [key]: event.target.value })),
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setServerErrors({})
+      setValues((current) => ({ ...current, [key]: event.target.value }))
+    },
     onBlur: () => touch(key),
     error: errorOf(key),
   })
@@ -77,7 +82,16 @@ export function ApplyForm({
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setSubmitted(true)
-    if (Object.keys(errors).length > 0) return
+    if (Object.keys(errors).length > 0) {
+      // Tras mostrar los errores, llevar el foco al primero para que teclado y lector
+      // de pantalla encuentren el campo que necesita atención.
+      requestAnimationFrame(() => {
+        formRef.current
+          ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+          ?.focus()
+      })
+      return
+    }
 
     if (!file) return
 
@@ -86,6 +100,12 @@ export function ApplyForm({
       const result = await deliverApplication({ ...fields, curriculum: file })
       if (result.status === 'sent' || result.status === 'unavailable') {
         setStatus(result.status)
+      } else if (result.status === 'rate_limited') {
+        setRetryAfter(result.retryAfterSeconds)
+        setStatus('rate_limited')
+      } else if (result.status === 'invalid') {
+        setServerErrors(result.errors)
+        setStatus('idle')
       } else {
         setStatus('error')
       }
@@ -98,6 +118,7 @@ export function ApplyForm({
     setValues(initialValues)
     setFile(null)
     setConsent(false)
+    setServerErrors({})
     setTouched({})
     setSubmitted(false)
     setStatus('idle')
@@ -123,6 +144,7 @@ export function ApplyForm({
 
   return (
     <form
+      ref={formRef}
       method="post"
       noValidate
       onSubmit={handleSubmit}
@@ -178,7 +200,10 @@ export function ApplyForm({
               key={item.id}
               type="button"
               aria-pressed={profile === item.id}
-              onClick={() => onProfileChange(item.id)}
+              onClick={() => {
+                setServerErrors({})
+                onProfileChange(item.id)
+              }}
               onBlur={() => touch('perfil')}
               className={cn(
                 'rounded-xl border px-4 py-3 text-sm font-semibold transition-colors',
@@ -202,7 +227,10 @@ export function ApplyForm({
         required
         placeholder="Seleccione"
         value={area}
-        onChange={(event) => onAreaChange(event.target.value as AreaId)}
+        onChange={(event) => {
+          setServerErrors({})
+          onAreaChange(event.target.value as AreaId)
+        }}
         onBlur={() => touch('area')}
         error={errorOf('area')}
         options={areas.map((item) => ({ value: item.id, label: item.label }))}
@@ -212,6 +240,7 @@ export function ApplyForm({
         file={file}
         error={errorOf('curriculum')}
         onFileChange={(next) => {
+          setServerErrors({})
           setFile(next)
           touch('curriculum')
         }}
@@ -228,9 +257,15 @@ export function ApplyForm({
       <div>
         <label className="flex cursor-pointer items-start gap-3 text-sm text-white/80">
           <input
+            id="consentimiento"
             type="checkbox"
             checked={consent}
+            aria-invalid={errorOf('consentimiento') ? true : undefined}
+            aria-describedby={
+              errorOf('consentimiento') ? 'consentimiento-error' : undefined
+            }
             onChange={(event) => {
+              setServerErrors({})
               setConsent(event.target.checked)
               touch('consentimiento')
             }}
@@ -239,7 +274,11 @@ export function ApplyForm({
           <span>{copy.consent}</span>
         </label>
         {errorOf('consentimiento') && (
-          <p className="mt-1.5 text-xs text-red-300">
+          <p
+            id="consentimiento-error"
+            role="alert"
+            className="mt-1.5 text-xs text-red-300"
+          >
             {errorOf('consentimiento')}
           </p>
         )}
@@ -270,6 +309,16 @@ export function ApplyForm({
             WhatsApp
           </a>
           .
+        </p>
+      )}
+
+      {status === 'rate_limited' && (
+        <p
+          role="alert"
+          className="rounded-xl border border-accent/40 bg-accent/10 px-4 py-3 text-sm text-white"
+        >
+          Recibimos varias solicitudes desde su conexión. Espere {retryAfter}{' '}
+          segundos antes de intentarlo de nuevo.
         </p>
       )}
 

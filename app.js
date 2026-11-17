@@ -7,7 +7,7 @@ import { toNodeHandler } from 'srvx/node'
 
 process.env.NODE_ENV ??= 'production'
 
-// Plesk Windows keeps production secrets outside the public httpdocs directory.
+// Plesk Windows mantiene los secretos de producción fuera del directorio público httpdocs.
 const privateEnvFile = new URL('../.env', import.meta.url)
 if (existsSync(privateEnvFile)) loadEnvFile(privateEnvFile)
 
@@ -15,10 +15,14 @@ const serveClient = serveStatic(
   fileURLToPath(new URL('./dist/client/', import.meta.url)),
   { index: false, redirect: false },
 )
+// Acepta el Base64 de un currículum de 5 MiB y rechaza cuerpos excesivos antes de leerlos.
+const maxRequestBodySize = 9 * 1024 * 1024
 
 async function start() {
   const { default: app } = await import('./dist/server/server.js')
-  const serveApp = toNodeHandler((request) => app.fetch(request))
+  const serveApp = toNodeHandler((request) => app.fetch(request), {
+    maxRequestBodySize,
+  })
   const server = createServer((request, response) => {
     serveClient(request, response, (error) => {
       if (error) {

@@ -67,80 +67,81 @@ export type Perk = {
 export const SHOW_EXAMPLE_LABEL = true
 
 export const careersCopy = {
-    hero: {
-        eyebrow: "Talento", 
-        title: "Profesionales y practicantes, en proyectos reales.",
-        description:
-            "Aquí se entra a sistemas que ya están en operación, con código y clientes reales, y con proyectos en Costa Rica y Centroamérica.",
-        facts: [
-            "Equipo en Costa Rica", 
-            "Proyectos en Centroamérica", 
-            "Modalidad según el rol y el proyecto",
-        ],
-        image: "/images/nosotros.jpeg",
-        imageAlt: "Espacio de trabajo de un equipo de tecnología",
-    },
+  hero: {
+    eyebrow: 'Talento',
+    title: 'Profesionales y practicantes, en proyectos reales.',
+    description:
+      'Aquí se entra a sistemas que ya están en operación, con código y clientes reales, y con proyectos en Costa Rica y Centroamérica.',
+    facts: [
+      'Equipo en Costa Rica',
+      'Proyectos en Centroamérica',
+      'Modalidad según el rol y el proyecto',
+    ],
+    image: '/images/nosotros.jpeg',
+    imageAlt: 'Espacio de trabajo de un equipo de tecnología',
+  },
 
   profiles: {
-    eyebrow: 'Perfiles', 
+    eyebrow: 'Perfiles',
     title: 'Dos puertas de entrada',
   },
 
   areas: {
-    eyebrow: 'Áreas de interés', 
-    title: '¿En qué área le gustaría aportar?', 
+    eyebrow: 'Áreas de interés',
+    title: '¿En qué área le gustaría aportar?',
     description: 'Explore las áreas en las que le gustaría aportar.',
   },
 
   platforms: {
-    eyebrow: 'En qué se trabaja', 
-    title: 'Plataformas propias y proyectos para gobierno y empresa', 
+    eyebrow: 'En qué se trabaja',
+    title: 'Plataformas propias y proyectos para gobierno y empresa',
     description:
       'Según el área, las personas se integran a los equipos de las plataformas SaaS de Navasoft o a proyectos para el sector público y empresarial.',
   },
 
   steps: {
-    eyebrow: 'Cómo aplicar', 
-    title: 'Así es el proceso', 
+    eyebrow: 'Cómo aplicar',
+    title: 'Así es el proceso',
   },
 
   openings: {
-    eyebrow: 'Convocatorias', 
-    title: 'Posiciones abiertas', 
+    eyebrow: 'Convocatorias',
+    title: 'Posiciones abiertas',
     emptyTitle: 'No hay convocatorias publicadas por ahora',
     emptyText: 'Puede consultar por futuras oportunidades con nuestro equipo.',
-    emptyCta: 'Consultar por oportunidades', 
+    emptyCta: 'Consultar por oportunidades',
   },
 
   perks: {
-    eyebrow: 'Beneficios', 
-    title: 'Lo que ofrece Navasoft', 
+    eyebrow: 'Beneficios',
+    title: 'Lo que ofrece Navasoft',
   },
 
   faq: {
-    title: 'Preguntas frecuentes', 
+    title: 'Preguntas frecuentes',
   },
 
   apply: {
-    eyebrow: 'Cargar currículum', 
+    eyebrow: 'Cargar currículum',
     title: 'Envíe su currículum',
     description:
-      'PDF o Word. Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', 
-    checklistTitle: 'Qué necesita', 
+      'PDF o Word. Si hay un encaje, le escribimos. No hay portal de seguimiento automático.',
+    checklistTitle: 'Qué necesita',
     checklist: [
       'Su currículum en PDF o Word, de hasta 5 MB',
       'Un correo y un teléfono de contacto',
       'El perfil y el área en la que quiere aportar',
     ],
-    whatsappText: '¿Prefiere escribirnos?', 
-    whatsappLabel: 'WhatsApp (506) 4070-0776', 
-    whatsappHref: 'https://wa.me/50640700776', 
+    whatsappText: '¿Prefiere escribirnos?',
+    whatsappLabel: 'WhatsApp (506) 4070-0776',
+    whatsappHref: 'https://wa.me/50640700776',
     consent:
       'Autorizo a Navasoft Soluciones a revisar este currículum con fines de reclutamiento. No se comparte con terceros.',
-    successTitle: 'Simulación completada', 
-    successText: 'El currículum de prueba no se envió.', 
+    successTitle: 'Currículum recibido',
+    successText:
+      'Gracias por compartir su perfil. Si hay un encaje, el equipo de Navasoft se pondrá en contacto con usted.',
     errorText:
-      'No pudimos enviar su currículum. Intente de nuevo o escríbanos por WhatsApp al (506) 4070-0776.', 
+      'No pudimos enviar su currículum. Intente de nuevo o escríbanos por WhatsApp al (506) 4070-0776.',
   },
 }
 
@@ -148,16 +149,16 @@ export const profiles: Profile[] = [
   {
     id: 'profesional',
     tab: 'Profesional',
-    formLabel: 'Profesional', 
+    formLabel: 'Profesional',
     summary:
       'Desarrollo (Oracle Apex, web, móvil), datos, infraestructura, IoT, implementación o comercial. Se valora oficio más que títulos sueltos.',
     points: [
       {
-        title: 'Para quién', 
+        title: 'Para quién',
         text: 'Personas con experiencia en alguna de estas áreas que quieran aportar a plataformas que ya están en operación.',
       },
       {
-        title: 'Qué se hace', 
+        title: 'Qué se hace',
         text: 'Se trabaja en proyectos para el Sector público, el Sector empresarial y el Ecosistema SaaS de Navasoft, según el área',
       },
       {
@@ -178,11 +179,11 @@ export const profiles: Profile[] = [
         text: 'Estudiantes que quieran aprender haciendo, con código y clientes reales.',
       },
       {
-        title: 'Qué se hace', 
+        title: 'Qué se hace',
         text: 'Se entra directamente a proyectos reales: no hay un programa de sombras.',
       },
       {
-        title: 'Cómo se acuerda', 
+        title: 'Cómo se acuerda',
         text: 'Las prácticas se acuerdan con el centro de estudio.',
       },
     ],
@@ -256,11 +257,11 @@ export const applySteps = [
   },
   {
     title: 'Revisamos su perfil',
-    text: 'Si hay un encaje, le escribimos. No hay portal de seguimiento automático.', 
+    text: 'Si hay un encaje, le escribimos. No hay portal de seguimiento automático.',
   },
   {
     title: 'Definimos las condiciones',
-    text: 'Las prácticas se acuerdan con el centro de estudio; en el caso de profesionales, la modalidad se define según el rol y el proyecto.', 
+    text: 'Las prácticas se acuerdan con el centro de estudio; en el caso de profesionales, la modalidad se define según el rol y el proyecto.',
   },
 ]
 

@@ -44,10 +44,13 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
         )}
       >
         <input
+          id="curriculum"
           type="file"
           name="curriculum"
           accept={ACCEPT_ATTR}
           className="sr-only"
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? 'curriculum-error' : undefined}
           onChange={(event) => selectFile(event.target.files?.[0])}
         />
         <Upload aria-hidden="true" className="size-6 text-accent" />
@@ -84,7 +87,15 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
           </button>
         </div>
       )}
-      {error && <p className="mt-1.5 text-xs text-red-300">{error}</p>}
+      {error && (
+        <p
+          id="curriculum-error"
+          role="alert"
+          className="mt-1.5 text-xs text-red-300"
+        >
+          {error}
+        </p>
+      )}
     </div>
   )
 }
