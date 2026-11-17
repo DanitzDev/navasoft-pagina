@@ -1,58 +1,40 @@
-# Página web de Navasoft
+# Sitio web de Navasoft Soluciones
 
-Proyecto desarrollado con React, TypeScript, TanStack Start y Tailwind CSS.
+Sitio institucional de Navasoft, desarrollado con React, TypeScript, TanStack Start y Tailwind CSS. El proyecto genera páginas renderizadas en servidor y necesita Node.js para ejecutar tanto las páginas como los formularios conectados a ORDS.
 
-## Ejecutar
+## Inicio rápido
+
+Requisitos: Node.js 22.12 o superior y npm.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Disponible en `http://localhost:3000`.
-
-## Ejecutar la compilación de producción
-
-Usa Node.js 22.12 o superior.
+Abra <http://localhost:3000>. Para crear y ejecutar la versión de producción:
 
 ```bash
-npm ci --include=dev
 npm run build
 npm start
 ```
 
-## Entorno de pruebas en Plesk para Windows
+## Documentación del proyecto
 
-1. Confirma que el panel del dominio de pruebas muestra Node.js 22.12 o
-   superior.
-2. En **Git**, conecta el repositorio remoto, selecciona la rama `develop` y usa
-   despliegue manual. El destino de Git debe coincidir con **Application Root**.
-3. En **Node.js**, selecciona `npm`, el modo `production` y `app.js` como
-   **Application Startup File**. En Plesk para Windows, **Document Root** y
-   **Application Root** apuntan a la misma carpeta.
-4. Desde esa carpeta, ejecuta `npm ci --include=dev` y `npm run build`. Después
-   habilita Node.js o reinicia la aplicación si ya estaba habilitada. Plesk
-   arranca `app.js` con el `PORT` asignado por el hosting.
-5. Antes de compartir el enlace, verifica que funcionen `/`, `/soporte`,
-   `/contacto` y `/oportunidades` por HTTPS. Confirma con el administrador que
-   IIS bloquea el acceso HTTP directo a los archivos internos, incluidos `src/`, `dist/server/`,
-   `node_modules/`, los archivos de entorno y los manifiestos de npm. La
-   aplicación sirve los recursos públicos desde `dist/client`.
+- [Guía del proyecto](docs/guia-del-proyecto.md): propósito, decisiones de contenido, rutas, arquitectura y cómo mantener los datos.
+- [Guía de ejecución y despliegue](docs/guia-ejecucion-despliegue.md): instalación, variables de entorno, comandos, Plesk en Windows y diagnóstico.
+- [Integración de oportunidades con ORDS](docs/integracion-oportunidades-ords.md): contrato de la API, validaciones de currículum, OAuth, límites y puesta en marcha.
 
-## Validar y compilar
+## Comandos principales
 
-```bash
-npm run generate-routes
-npx tsc --noEmit
-npm run lint
-npm run build
-```
+| Comando                   | Para qué sirve                                   |
+| ------------------------- | ------------------------------------------------ |
+| `npm run dev`             | Servidor local de desarrollo en el puerto 3000.  |
+| `npm run generate-routes` | Regenera el árbol de rutas de TanStack Router.   |
+| `npx tsc --noEmit`        | Revisa tipos TypeScript sin emitir archivos.     |
+| `npm run lint`            | Ejecuta ESLint.                                  |
+| `npm run check`           | Comprueba formato con Prettier.                  |
+| `npm test`                | Ejecuta las pruebas disponibles con `node:test`. |
+| `npm run build`           | Compila los recursos del cliente y del servidor. |
+| `npm start`               | Inicia la aplicación compilada con `app.js`.     |
 
-Las rutas están en `src/routes` y el Navbar y Footer en `src/components/layout`.
-El archivo `src/routeTree.gen.ts` es generado automáticamente y no debe editarse manualmente.
-
-El formulario de contacto consume ORDS desde su función de servidor. Configura
-`ORDS_BASE_URL`, `ORDS_CLIENT_ID` y `ORDS_CLIENT_SECRET` en el entorno privado
-del proceso Node. El cliente OAuth requiere el rol `nsw_contacto_backend`. Usa
-`ORDS_TRUST_X_FORWARDED_FOR=true` solo si el proxy de confianza del hosting
-reescribe ese encabezado; de forma predeterminada se usa la IP de la conexión.
+Las rutas viven en `src/routes`. `src/routeTree.gen.ts` se genera automáticamente; no editarlo a mano. Las credenciales ORDS son privadas del proceso Node y nunca deben llevar el prefijo `VITE_`.
