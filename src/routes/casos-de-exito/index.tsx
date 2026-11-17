@@ -1,29 +1,14 @@
 import { useEffect, useState } from 'react'
-import {
-  Link,
-  createFileRoute,
-  redirect,
-  useLocation,
-  useNavigate,
-} from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { Container } from '../../components/ui/Container'
 import { SectionTitle } from '../../components/ui/SectionTitle'
 import CaseCard from '../../components/sections/cases/CaseCard'
 import InstitutionalBanner from '../../components/shared/institutional-banner/InstitutionalBanner'
-import { caseStudies, caseGroups, casesIntroduction } from '../../data/cases'
+import { caseGroups, casesIntroduction } from '../../data/cases'
 import { contactBanner } from '../../data/site'
 import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/casos-de-exito/')({
-  beforeLoad: ({ location }) => {
-    const legacyCase = caseStudies.find((item) => item.id === location.hash)
-    if (legacyCase)
-      throw redirect({
-        to: '/casos-de-exito/$slug',
-        params: { slug: legacyCase.id },
-        replace: true,
-      })
-  },
   head: () =>
     pageMeta({
       title: 'Casos de éxito · Navasoft Soluciones',
@@ -66,18 +51,6 @@ function SuccessCasesPage() {
       window.removeEventListener('resize', schedule)
     }
   }, [])
-  const hash = useLocation({ select: (location) => location.hash })
-  const navigate = useNavigate()
-  // El fragmento no llega al servidor; también se resuelve tras hidratar.
-  useEffect(() => {
-    const legacyCase = caseStudies.find((item) => item.id === hash)
-    if (legacyCase)
-      void navigate({
-        to: '/casos-de-exito/$slug',
-        params: { slug: legacyCase.id },
-        replace: true,
-      })
-  }, [hash, navigate])
   return (
     <>
       <section

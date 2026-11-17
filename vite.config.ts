@@ -11,7 +11,7 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart({
       router: {
-        // El contacto usa Server Functions; no se usan rutas API basadas en archivos.
+        // Los formularios usan Server Functions, no rutas API basadas en archivos.
         routeFileIgnorePattern: '^api(\\.|$)',
       },
     }),

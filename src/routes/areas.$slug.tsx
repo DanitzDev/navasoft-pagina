@@ -1,41 +1,15 @@
-import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
+import { createFileRoute, notFound } from '@tanstack/react-router'
 import SolutionsArea from '../components/sections/areas/SolutionsArea'
 import InnovationPage from '../components/sections/innovation/InnovationPage'
 import { pageMeta } from '@/lib/page-meta'
 
-// Una página reúne ambos sectores; las direcciones anteriores redirigen por ancla.
+// El catálogo define los únicos slugs públicos válidos para esta ruta.
 const areas = [
   { slug: 'soluciones', title: 'Público y empresarial' },
   { slug: 'innovationlab', title: 'InnovationLab' },
 ]
 
 export const Route = createFileRoute('/areas/$slug')({
-  beforeLoad: ({ params, location }) => {
-    if (
-      params.slug === 'innovation-lab' ||
-      params.slug === 'navalav' ||
-      params.slug === 'innovationlav'
-    ) {
-      throw redirect({
-        to: '/areas/$slug',
-        params: { slug: 'innovationlab' },
-        replace: true,
-      })
-    }
-    if (params.slug === 'privado' || params.slug === 'gobierno') {
-      throw redirect({
-        to: '/areas/$slug',
-        params: { slug: 'soluciones' },
-        hash:
-          params.slug === 'gobierno'
-            ? 'gobierno'
-            : location.hash === 'clientes'
-              ? 'clientes'
-              : 'empresas',
-        replace: true,
-      })
-    }
-  },
   loader: ({ params }) => {
     const area = areas.find((item) => item.slug === params.slug)
     if (!area) throw notFound()

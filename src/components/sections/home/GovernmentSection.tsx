@@ -1,13 +1,14 @@
-import { Container } from "@/components/ui/Container";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { Badge } from "@/components/ui/Badge";
-import { ArrowLink } from "@/components/ui/ArrowLink";
-import { Reveal } from "@/components/ui/Reveal";
-import { institutions, type Institution } from "@/data/government";
+import { Container } from '@/components/ui/Container'
+import { SectionTitle } from '@/components/ui/SectionTitle'
+import { Badge } from '@/components/ui/Badge'
+import { ArrowLink } from '@/components/ui/ArrowLink'
+import { Reveal } from '@/components/ui/Reveal'
+import { institutions } from '@/data/government'
+import type { Institution } from '@/data/government'
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 function InstitutionCard({ item }: { item: Institution }) {
-  const Icon = item.icon;
+  const Icon = item.icon
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-night/70 p-6 backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:shadow-2xl hover:shadow-black/40">
@@ -24,15 +25,20 @@ function InstitutionCard({ item }: { item: Institution }) {
             alt=""
             sizes="(max-width: 768px) 120px, 160px"
             className="max-h-9 w-auto"
-          />        </span>
+          />{' '}
+        </span>
       ) : (
         <span className="flex size-14 items-center justify-center rounded-2xl bg-linear-to-br from-accent to-accent-hover text-night shadow-lg shadow-accent/20">
           <Icon aria-hidden="true" className="size-7" />
         </span>
       )}
 
-      <h3 className="mt-5 text-xl font-bold leading-snug text-white">{item.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-white/75">{item.description}</p>
+      <h3 className="mt-5 text-xl font-bold leading-snug text-white">
+        {item.name}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-white/75">
+        {item.description}
+      </p>
 
       <ul className="mt-4 flex flex-wrap gap-2">
         {item.tags.map((tag) => (
@@ -45,7 +51,9 @@ function InstitutionCard({ item }: { item: Institution }) {
       </ul>
 
       {item.highlight && (
-        <p className="mt-4 border-l-2 border-accent pl-3 text-sm text-white/90">{item.highlight}</p>
+        <p className="mt-4 border-l-2 border-accent pl-3 text-sm text-white/90">
+          {item.highlight}
+        </p>
       )}
 
       <div className="mt-auto pt-6">
@@ -58,7 +66,7 @@ function InstitutionCard({ item }: { item: Institution }) {
         )}
       </div>
     </article>
-  );
+  )
 }
 
 export function GovernmentSection() {
@@ -79,7 +87,7 @@ export function GovernmentSection() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(45% 55% at 85% 20%, color-mix(in oklab, var(--color-accent) 16%, transparent), transparent)",
+              'radial-gradient(45% 55% at 85% 20%, color-mix(in oklab, var(--color-accent) 16%, transparent), transparent)',
           }}
         />
       </div>
@@ -92,7 +100,12 @@ export function GovernmentSection() {
             description="Trabajamos junto a organizaciones públicas para modernizar procesos, optimizar la gestión y generar mejores servicios para la ciudadanía."
             className="max-w-2xl"
           />
-          <ArrowLink to="/areas/$slug" params={{ slug: "gobierno" }} className="shrink-0">
+          <ArrowLink
+            to="/areas/$slug"
+            params={{ slug: 'soluciones' }}
+            hash="gobierno"
+            className="shrink-0"
+          >
             Ver proyectos del sector público
           </ArrowLink>
         </div>
@@ -108,5 +121,5 @@ export function GovernmentSection() {
         </ul>
       </Container>
     </section>
-  );
+  )
 }

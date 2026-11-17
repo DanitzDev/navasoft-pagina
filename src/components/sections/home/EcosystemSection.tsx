@@ -1,5 +1,12 @@
 import { Link } from '@tanstack/react-router'
-import { Boxes, Building2, Receipt, Smartphone, Zap, GraduationCap } from 'lucide-react'
+import {
+  Boxes,
+  Building2,
+  Receipt,
+  Smartphone,
+  Zap,
+  GraduationCap,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
@@ -15,13 +22,21 @@ type CardLayout = {
 
 // Cpmo se acomoda cada producto en la grilla de 6 columnas
 const layout: Record<string, CardLayout> = {
-  gridxia: { variant: "featured", icon: Zap, className: "md:col-span-2 lg:col-span-4 lg:row-span-2" },
-  navastay: { variant: "stacked", icon: Building2, className: "lg:col-span-2" },
-  tracxia: { variant: "stacked", icon: Boxes, className: "lg:col-span-2" },
-  ordexia: { variant: "stacked", icon: Smartphone, className: "lg:col-span-2" },
-  factxia: { variant: "stacked", icon: Receipt, className: "lg:col-span-2" },
-  acadxia: { variant: "stacked", icon: GraduationCap, className: "md:col-span-2 lg:col-span-2" },
-};
+  gridxia: {
+    variant: 'featured',
+    icon: Zap,
+    className: 'md:col-span-2 lg:col-span-4 lg:row-span-2',
+  },
+  navastay: { variant: 'stacked', icon: Building2, className: 'lg:col-span-2' },
+  tracxia: { variant: 'stacked', icon: Boxes, className: 'lg:col-span-2' },
+  ordexia: { variant: 'stacked', icon: Smartphone, className: 'lg:col-span-2' },
+  factxia: { variant: 'stacked', icon: Receipt, className: 'lg:col-span-2' },
+  acadxia: {
+    variant: 'stacked',
+    icon: GraduationCap,
+    className: 'md:col-span-2 lg:col-span-2',
+  },
+}
 
 export function EcosystemSection() {
   return (
@@ -46,19 +61,20 @@ export function EcosystemSection() {
           ))}
         </ul>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-6">          {products.map((product) => {
-          const config = layout[product.slug]
-          if (!config) return null
-          return (
-            <EcosystemCard
-              key={product.slug}
-              product={product}
-              icon={config.icon}
-              variant={config.variant}
-              className={config.className}
-            />
-          )
-        })}
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+          {' '}
+          {products.map((product) => {
+            const config = layout[product.slug]
+            return (
+              <EcosystemCard
+                key={product.slug}
+                product={product}
+                icon={config.icon}
+                variant={config.variant}
+                className={config.className}
+              />
+            )
+          })}
         </div>
 
         <p className="mt-10 text-center text-sm text-white/70">
