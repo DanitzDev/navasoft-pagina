@@ -20,7 +20,6 @@ export function PoliciesIndex() {
                         as="h1"
                         eyebrow="Navasoft"
                         title="Políticas y ética"
-                        // GENERADO: texto de la página índice
                         description="Los compromisos de Navasoft en sostenibilidad ambiental, igualdad, inclusión y diversidad. Cada política tiene un resumen y su documento completo."
                         titleClassName="lg:text-6xl"
                     />

@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SectorsIndex } from "@/components/sections/sectors/SectorsIndex";
-import { pageMeta } from "@/lib/page-meta";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/sectores/")({
     head: () =>
-        pageMeta({
-            title: "Sectores que impulsamos · Navasoft Soluciones",
-            description: "Conozca cómo Navasoft transforma operaciones de organizaciones públicas y empresariales con soluciones tecnológicas adaptadas a cada sector.",
+        pageHead({
+            title: "Sectores que impulsamos",
+            description:
+                "Durante más de 15 años, Navasoft ha impulsado la transformación digital de instituciones públicas, empresas privadas y organizaciones que generan impacto en Costa Rica.",
             path: "/sectores",
         }),
     component: SectorsIndex,
