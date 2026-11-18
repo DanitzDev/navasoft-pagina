@@ -10,6 +10,7 @@ import {
   KeyRound,
   LayoutDashboard,
   MapPin,
+  Building2,
   MessageSquare,
   Monitor,
   BellRing,
@@ -542,6 +543,30 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
       'Plataforma SaaS de trazabilidad agroindustrial para controlar todo el ciclo de vida de los productos, desde la finca hasta el consumidor final.',
     mockupMenu: ['Cosechas', 'Lotes', 'Bodegas', 'Transporte', 'Calidad'],
     capabilities: tracxia,
+    problem: {
+      intro:
+        "Controlar todo el ciclo de vida de los productos, desde la finca hasta el consumidor final, exige integrar producción, bodegas, transporte y trazabilidad, y respaldar cada etapa con evidencia.",
+      audience: "Pensado para: operaciones agroindustriales que necesitan rastrear sus productos de principio a fin.",
+      // Los "antes" son mi lectura: la inversión de lo que dice el documento de Navasoft
+      pairs: [
+        {
+          before: "Producción, bodegas y transporte en herramientas separadas",
+          after: "Una sola solución: producción (MES), bodegas (WMS), transporte (TMS) y trazabilidad alimentaria",
+        },
+        {
+          before: "Etapas sin respaldo",
+          after: "Códigos QR, geolocalización, firmas digitales y evidencia fotográfica en cada etapa",
+        },
+        {
+          before: "Cumplir las certificaciones internacionales con más esfuerzo",
+          after: "Facilita el cumplimiento de certificaciones internacionales",
+        },
+        {
+          before: "Decisiones sin información actualizada",
+          after: "Información en tiempo real para una toma de decisiones basada en datos",
+        },
+      ],
+    },
     surfacesTitle: 'Cuatro módulos en una sola solución',
     surfaces: [
       {
@@ -675,6 +700,57 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
     ],
     mockupDevice: 'phone',
     capabilities: navastay,
+    problem: {
+      intro:
+        "Administrar un condominio implica mantener las finanzas organizadas y siempre al día, controlar los mantenimientos y los ingresos, y comunicarse bien con los residentes. NavaStay reúne todo eso en una sola plataforma.",
+      audience: "Pensado para: administradores y residentes de condominios.",
+      // Los "antes" son mi lectura: la inversión de lo que dicen las láminas de Navasoft
+      pairs: [
+        {
+          before: "Finanzas que no siempre están al día",
+          after: "Finanzas organizadas y siempre al día: cuotas, recibos, pagos y presupuesto contra ejecución",
+        },
+        {
+          before: "Mantenimientos sin un control claro",
+          after: "Control de los mantenimientos de activos en óptimas condiciones",
+        },
+        {
+          before: "Ingresos sin un registro completo",
+          after: "Registro completo de todos los ingresos, con mayor seguridad para los residentes",
+        },
+        {
+          before: "Comunicación dispersa con los residentes",
+          after: "Más comunicación, más organización",
+        },
+      ],
+    },
+    surfacesTitle: "Cada proceso del condominio, desde una sola plataforma",
+    surfaces: [
+      {
+        icon: Building2,
+        name: "Administración del condominio",
+        tagline: "Todo lo que necesita para una administración eficiente.",
+        items: [
+          "Administrar cuotas de mantenimiento",
+          "Emitir recibos y registrar pagos",
+          "Consultar estados de cuenta",
+          "Comparar el presupuesto con la ejecución",
+          "Controlar los mantenimientos de activos",
+          "Llevar un registro completo de todos los ingresos",
+        ],
+      },
+      {
+        icon: Users,
+        name: "Residentes",
+        tagline: "Más comunicación, más organización.",
+        items: [
+          "Consultar la disponibilidad de las áreas comunes",
+          "Reservar espacios de forma rápida y sencilla",
+          "Recibir la comunicación de la administración",
+          "Mayor seguridad gracias al registro de ingresos",
+        ],
+      },
+    ],
     steps: [
       {
         title: 'La administración organiza las finanzas',
@@ -877,6 +953,30 @@ export const productDetails: Record<ProductSlug, ProductDetail> = {
       ],
     },
     capabilities: factxia,
+    surfacesTitle: "Dos accesos web, los mismos datos y reglas",
+    surfaces: [
+      {
+        icon: Monitor,
+        name: "Web para clientes",
+        tagline: "Para los clientes de Navasoft, desde el navegador.",
+        items: [
+          "Navegador en computadora, tableta o teléfono",
+          "Interfaz adaptada a pantallas pequeñas",
+          "Sin instalar una aplicación nativa",
+          "Cada empresa mantiene separados sus usuarios, clientes, productos y documentos",
+        ],
+      },
+      {
+        icon: Settings,
+        name: "Web administrativa",
+        tagline: "Acceso web separado, exclusivo para el personal autorizado de la plataforma.",
+        items: [
+          "Configurar empresas, usuarios, accesos y permisos",
+          "Administrar varias empresas con separación de datos y accesos",
+          "Comparte datos y reglas de negocio con la web de facturación",
+        ],
+      },
+    ],
     stepsTitle: "Operación diaria",
     steps: [
       {

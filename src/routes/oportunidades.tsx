@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CareersPage } from '@/components/sections/careers/CareersPage'
 import { areas, profiles } from '@/data/opportunities'
 import type { AreaId, ProfileId } from '@/data/opportunities'
-import { pageMeta } from '@/lib/page-meta'
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute('/oportunidades')({
   // Permite enlaces como /oportunidades?perfil=practicante&area=desarrollo que dejan el formulario preelegido
@@ -13,11 +13,11 @@ export const Route = createFileRoute('/oportunidades')({
     area: areas.find((area) => area.id === search.area)?.id,
   }),
   head: () =>
-    pageMeta({
-      title: 'Oportunidades · Navasoft Soluciones',
+    pageHead({
+      title: "Oportunidades",
       description:
-        'Navasoft busca profesionales y practicantes en desarrollo, datos, IoT, implementación y administración. Consulte cómo postularse.',
-      path: '/oportunidades',
+        "Navasoft busca profesionales y practicantes en desarrollo, datos, IoT, implementación y administración. Envíe su currículum.",
+      path: "/oportunidades",
     }),
   component: OportunidadesPage,
 })

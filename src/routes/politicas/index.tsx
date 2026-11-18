@@ -1,14 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PoliciesIndex } from "@/components/sections/policies/PoliciesIndex";
-import { pageMeta } from "@/lib/page-meta";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/politicas/")({
   head: () =>
-    pageMeta({
-      title: "Políticas y ética · Navasoft Soluciones",
+    pageHead({
+      title: "Políticas y ética",
       description:
-        "Consulte las políticas institucionales de Navasoft sobre ética, calidad, seguridad, sostenibilidad e inclusión.",
+        "Los compromisos de Navasoft en sostenibilidad ambiental, igualdad, inclusión y diversidad, con un resumen y el documento completo de cada política.",
       path: "/politicas",
-    }),
-  component: PoliciesIndex,
+    }), component: PoliciesIndex,
 });

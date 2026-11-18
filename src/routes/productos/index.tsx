@@ -2,18 +2,17 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { SectionTitle } from '../../components/ui/SectionTitle'
 import { Container } from '../../components/ui/Container'
 import { products } from '../../data/products'
-import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/products/ProductsIndex.css'
 import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute('/productos/')({
   head: () =>
-    pageMeta({
-      title: 'Ecosistema SaaS · Navasoft Soluciones',
+    pageHead({
+      title: "Ecosistema SaaS",
       description:
-        'Explore Gridxia, NavaStay, Tracxia, Ordexia y Factxia, las plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
-      path: '/productos',
-      image: '/images/area-saas.jpeg',
+        "Gridxia, Tracxia, Ordexia, Factxia, NavaStay y Acadxia: plataformas SaaS de Navasoft para transformar sectores específicos con soluciones modernas, escalables y orientadas a resultados.",
+      path: "/productos",
     }),
   component: ProductsPage,
 })

@@ -20,7 +20,7 @@ export default function CaseCard({ caseStudy }: { caseStudy: CaseStudy }) {
             <ResponsiveImage
               src={caseStudy.image}
               alt=""
-              sizes="(min-width: 1024px) 60vw, 100vw"
+              sizes="(min-width: 1280px) 380px, (min-width: 768px) 50vw, 100vw"
             />
             <div className="case-card-identity">
               <p>
