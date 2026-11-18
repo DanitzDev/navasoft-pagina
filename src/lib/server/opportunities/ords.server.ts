@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto'
 import { inflateRawSync } from 'node:zlib'
 import { areas } from '../../../data/opportunities.ts'
 
@@ -153,6 +152,26 @@ function looksLikePdf(bytes: Buffer) {
   return bytes.subarray(Math.max(0, bytes.length - 1024)).includes('%%EOF')
 }
 
+function hasValidBase64Shape(value: string) {
+  if (!value || value.length % 4 !== 0) return false
+  const paddingLength = value.endsWith('==') ? 2 : value.endsWith('=') ? 1 : 0
+  const contentLength = value.length - paddingLength
+
+  // Iterar evita que una regex con grupos repetidos desborde la pila en archivos grandes.
+  for (let index = 0; index < contentLength; index++) {
+    const code = value.charCodeAt(index)
+    const isAlphabet =
+      (code >= 65 && code <= 90) ||
+      (code >= 97 && code <= 122) ||
+      (code >= 48 && code <= 57) ||
+      code === 43 ||
+      code === 47
+    if (!isAlphabet) return false
+  }
+
+  return true
+}
+
 export function validateOpportunitySubmission(input: unknown): {
   fields?: Fields
   bytes?: Buffer
@@ -163,6 +182,10 @@ export function validateOpportunitySubmission(input: unknown): {
     typeof input === 'object' && input !== null
       ? (input as Record<string, unknown>)
       : {}
+  if (JSON.stringify(s).length > MAX_BODY_CHARS)
+    return {
+      errors: { curriculum: 'La solicitud excede el tamaño permitido.' },
+    }
   const str = (key: keyof Fields) =>
     typeof s[key] === 'string' ? s[key].trim() : ''
   const fields: Fields = {
@@ -246,9 +269,7 @@ export function validateOpportunitySubmission(input: unknown): {
   if (
     !fields.curriculumBase64 ||
     fields.curriculumBase64.length > MAX_BASE64_CHARS ||
-    !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(
-      fields.curriculumBase64,
-    )
+    !hasValidBase64Shape(fields.curriculumBase64)
   )
     errors.curriculum =
       'No se pudo leer el currículum. Selecciónelo nuevamente.'
@@ -273,10 +294,6 @@ export function validateOpportunitySubmission(input: unknown): {
     }
   }
   if (Object.keys(errors).length) return { errors }
-  if (JSON.stringify(s).length > MAX_BODY_CHARS)
-    return {
-      errors: { curriculum: 'La solicitud excede el tamaño permitido.' },
-    }
   return { fields, bytes, errors }
 }
 
@@ -330,40 +347,25 @@ async function getToken(
   return data.access_token
 }
 
-function log(stage: string, status?: number) {
-  // No incluir cuerpos, encabezados de autorización, archivos ni datos personales en los logs.
-  console.error(
-    JSON.stringify({
-      event: 'ords_opportunity_failure',
-      trackingId: randomUUID(),
-      stage,
-      httpStatus: status,
-    }),
-  )
-}
-
 export async function sendOpportunityToOrds(
   input: unknown,
   ip?: string,
 ): Promise<Result> {
-  if (
-    typeof input === 'object' &&
-    input !== null &&
-    JSON.stringify(input).length > MAX_BODY_CHARS
-  )
-    return {
-      status: 'invalid',
-      errors: { curriculum: 'La solicitud excede el tamaño permitido.' },
-    }
-  const { fields, bytes, errors } = validateOpportunitySubmission(input)
-  if (!fields || !bytes) return { status: 'invalid', errors }
-  const config = getOrdsConfig()
-  if (!config || !ip) return { status: 'unavailable' }
-  const { baseUrl, clientId, secret } = config
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 30_000)
+  let timer: ReturnType<typeof setTimeout> | undefined
+  let controller: AbortController | undefined
+
   try {
+    const { fields, bytes, errors } = validateOpportunitySubmission(input)
+    if (!fields || !bytes) return { status: 'invalid', errors }
+
+    const config = getOrdsConfig()
+    if (!config || !ip) return { status: 'unavailable' }
+    const { baseUrl, clientId, secret } = config
+    controller = new AbortController()
+    timer = setTimeout(() => controller?.abort(), 30_000)
+
     let token = await getToken(baseUrl, clientId, secret, controller.signal)
+
     const payload = {
       nombre_completo: fields.nombre,
       correo_electronico: fields.correo,
@@ -376,9 +378,11 @@ export async function sendOpportunityToOrds(
       presentacion: fields.presentacion,
       curriculum_nombre: fields.curriculumNombre,
       curriculum_mime: fields.curriculumMime,
-      curriculum_base64: bytes.toString('base64'),
+      curriculum_base64: fields.curriculumBase64,
       autoriza_reclutamiento: true,
     }
+    const body = JSON.stringify(payload)
+
     let response = await fetch(`${baseUrl}/contacto/oportunidades`, {
       method: 'POST',
       redirect: 'error',
@@ -387,7 +391,7 @@ export async function sendOpportunityToOrds(
         'Content-Type': 'application/json',
         'X-Navasoft-Client-IP': ip,
       },
-      body: JSON.stringify(payload),
+      body,
       signal: controller.signal,
     })
     if (response.status === 401) {
@@ -402,7 +406,7 @@ export async function sendOpportunityToOrds(
           'Content-Type': 'application/json',
           'X-Navasoft-Client-IP': ip,
         },
-        body: JSON.stringify(payload),
+        body,
         signal: controller.signal,
       })
     }
@@ -417,15 +421,15 @@ export async function sendOpportunityToOrds(
       )
         return { status: 'sent' }
     }
-    if (response.status === 429)
+    if (response.status === 429) {
+      const retryAfterSeconds = Number(response.headers.get('retry-after')) || 60
       return {
         status: 'rate_limited',
-        retryAfterSeconds: Number(response.headers.get('retry-after')) || 60,
+        retryAfterSeconds,
       }
-    log('opportunity_response', response.status)
+    }
     return { status: 'failed' }
   } catch (error) {
-    log('opportunity_request', undefined)
     return {
       status:
         error instanceof Error && error.name === 'AbortError'
@@ -433,6 +437,6 @@ export async function sendOpportunityToOrds(
           : 'failed',
     }
   } finally {
-    clearTimeout(timer)
+    if (timer) clearTimeout(timer)
   }
 }
