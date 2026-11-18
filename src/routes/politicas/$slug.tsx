@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PolicyPage } from "@/components/sections/policies/PolicyPage";
 import { policies } from "@/data/policies";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/politicas/$slug")({
     // Solo valida que exista: la política tiene un icono (una función) y no puede viajar en los datos del loader
@@ -9,12 +10,9 @@ export const Route = createFileRoute("/politicas/$slug")({
     },
     head: ({ params }) => {
         const policy = policies.find((item) => item.slug === params.slug);
-        return {
-            meta: [
-                { title: `${policy?.shortTitle ?? "Política"} · Navasoft Soluciones` },
-                ...(policy ? [{ name: "description", content: policy.summary }] : []),
-            ],
-        };
+        return policy
+            ? pageHead({ title: policy.shortTitle, description: policy.summary, path: `/politicas/${policy.slug}` })
+            : {};
     },
     component: PolicyRoute,
 });

@@ -73,11 +73,7 @@ function CaseDetailPage() {
               <h1>{caseStudy.title}</h1>
               <p className="case-detail-summary">{caseStudy.summary}</p>
             </div>
-            <ResponsiveImage
-              src={caseStudy.image}
-              alt=""
-              sizes="(min-width: 1024px) 60vw, 100vw"
-            />
+            <ResponsiveImage src={caseStudy.image} alt="" sizes="(min-width: 1024px) 60vw, 100vw" priority />
           </header>
           <div className="case-detail-layout">
             <div className="case-detail-story">

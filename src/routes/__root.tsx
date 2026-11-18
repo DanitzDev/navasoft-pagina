@@ -23,6 +23,10 @@ export const Route = createRootRoute({
       {
         title: 'Navasoft Soluciones · Tecnología que innova',
       },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'Navasoft Soluciones' },
+      { property: 'og:image', content: 'https://navasoft.es/images/og-default.jpg' },
+      { name: 'twitter:card', content: 'summary_large_image' },
     ],
     links: [
       {
@@ -32,12 +36,13 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap',
       },
       {
         rel: 'stylesheet',
         href: appCss,
       },
+      { rel: 'preload', as: 'font', type: 'font/woff2', href: '/Montserrat-Regular.woff2', crossOrigin: 'anonymous' },
+      { rel: 'preload', as: 'font', type: 'font/woff2', href: '/poppins.bold.woff2', crossOrigin: 'anonymous' },
     ],
   }),
   shellComponent: RootDocument,
