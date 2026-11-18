@@ -55,7 +55,7 @@ $env:ORDS_TRUST_X_FORWARDED_FOR = 'false'
 npm run dev
 ```
 
-Sustituya los marcadores por credenciales entregadas por el administrador de ORDS. No pegue secretos en el repositorio, capturas, logs, tickets o chats compartidos. Cierre la terminal al terminar para eliminar esas variables de la sesión.
+Sustituya los marcadores por credenciales entregadas por el administrador de ORDS. No pegue secretos en el repositorio, capturas, logs, tickets ni canales compartidos. Cierre la terminal al terminar para eliminar esas variables de la sesión.
 
 ### Simular Contacto localmente
 

@@ -23,6 +23,8 @@ npm start
 - [Guía del proyecto](docs/guia-del-proyecto.md): propósito, decisiones de contenido, rutas, arquitectura y cómo mantener los datos.
 - [Guía de ejecución y despliegue](docs/guia-ejecucion-despliegue.md): instalación, variables de entorno, comandos, Plesk en Windows y diagnóstico.
 - [Integración de oportunidades con ORDS](docs/integracion-oportunidades-ords.md): contrato de la API, validaciones de currículum, OAuth, límites y puesta en marcha.
+- [Arquitectura del proyecto](docs/arquitectura-del-proyecto.md): estructura, rutas, flujo de renderizado, módulos y pautas de mantenimiento.
+- [Integración del formulario de contacto](docs/integracion-contacto-ords.md): validación, seguridad, contrato de envío a ORDS y diagnóstico.
 
 ## Comandos principales
 
