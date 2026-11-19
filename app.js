@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs'
 import { loadEnvFile } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import serveStatic from 'serve-static'
+import { serveStatic as serveCompressedStatic } from 'srvx/static'
 import { toNodeHandler } from 'srvx/node'
 
 process.env.NODE_ENV ??= 'production'
@@ -15,15 +16,39 @@ const serveClient = serveStatic(
   fileURLToPath(new URL('./dist/client/', import.meta.url)),
   { index: false, redirect: false },
 )
+const serveCompressedClient = serveCompressedStatic({
+  dir: fileURLToPath(new URL('./dist/client/', import.meta.url)),
+})
+const compressibleAsset = /\.(?:css|html?|js|json|mjs|svg|txt|xml)$/i
 // Acepta el Base64 de un currículum de 5 MiB y rechaza cuerpos excesivos antes de leerlos.
 const maxRequestBodySize = 9 * 1024 * 1024
 
 async function start() {
   const { default: app } = await import('./dist/server/server.js')
-  const serveApp = toNodeHandler((request) => app.fetch(request), {
-    maxRequestBodySize,
-  })
+  const serveApp = toNodeHandler(
+    (request) => {
+      const pathname = new URL(request.url).pathname
+      if (compressibleAsset.test(pathname)) {
+        return serveCompressedClient(request, () => app.fetch(request))
+      }
+      return app.fetch(request)
+    },
+    { maxRequestBodySize },
+  )
   const server = createServer((request, response) => {
+    // Deja que srvx comprima los recursos textuales; sirve imágenes y otros
+    // binarios con serve-static para no gastar CPU comprimiéndolos de nuevo.
+    if (compressibleAsset.test(new URL(request.url, 'http://localhost').pathname)) {
+      void Promise.resolve()
+        .then(() => serveApp(request, response))
+        .catch((failure) => {
+          console.error('Error al procesar una solicitud:', failure)
+          if (response.headersSent) response.destroy()
+          else response.writeHead(500).end()
+        })
+      return
+    }
+
     serveClient(request, response, (error) => {
       if (error) {
         response.writeHead(error.statusCode ?? 500).end()
