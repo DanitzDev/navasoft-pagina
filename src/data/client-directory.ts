@@ -28,6 +28,7 @@ export const clientDirectory: readonly ClientLogo[] = [
 
 const publicClientIds = new Set([
   'conape',
+  'tecnologico-costa-rica',
   'jasec',
   'cosevi',
   'municipalidad-la-union',

@@ -37,6 +37,7 @@ export function ApplyForm({
 }: ApplyFormProps) {
   const copy = careersCopy.apply
   const formRef = useRef<HTMLFormElement>(null)
+  const submissionInProgress = useRef(false)
 
   const [values, setValues] = useState(initialValues)
   const [file, setFile] = useState<File | null>(null)
@@ -87,6 +88,9 @@ export function ApplyForm({
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
+    // El ref bloquea una segunda activación antes de que React actualice el estado.
+    if (submissionInProgress.current) return
+
     setSubmitted(true)
     if (Object.keys(errors).length > 0) {
       // Tras mostrar los errores, llevar el foco al primero para que teclado y lector
@@ -101,6 +105,7 @@ export function ApplyForm({
 
     if (!file) return
 
+    submissionInProgress.current = true
     setStatus('sending')
     try {
       const result = await deliverApplication({ ...fields, curriculum: file })
@@ -119,6 +124,8 @@ export function ApplyForm({
       }
     } catch {
       setStatus('error')
+    } finally {
+      submissionInProgress.current = false
     }
   }
 
