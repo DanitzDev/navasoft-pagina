@@ -16,8 +16,8 @@ export default function CompanyVideo() {
             muted
             loop
             playsInline
-            preload="auto"
-            poster="/images/hero-trust.jpeg"
+            preload="metadata"
+            poster="/images/hero-trust-1280.webp"
             aria-hidden="true"
             disablePictureInPicture
             tabIndex={-1}
