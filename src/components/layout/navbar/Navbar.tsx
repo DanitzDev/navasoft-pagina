@@ -9,9 +9,9 @@ import {
 import MobileMenu from './MobileMenu'
 import { NavDropdown, NavLink } from './NavElements'
 import NavbarActions from './NavbarActions'
+import { BrandLogo } from '@/components/ui/BrandLogo'
 // Presentación básica.
 import './Navbar.basic.css'
-import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 
 // Coordina el menú móvil. Los enlaces y desplegables se delegan a NavElements,
@@ -29,11 +29,7 @@ export default function Navbar() {
           className="navbar-brand"
           aria-label="Navasoft Soluciones, inicio"
         >
-          <ResponsiveImage
-            src="/images/brand/navasoft-white.png"
-            alt="Navasoft Soluciones"
-            sizes="(max-width: 768px) 150px, 200px"
-          />
+          <BrandLogo priority />
         </Link>
         {/* Las dos filas de escritorio usan los mismos datos que el menú móvil.
             CSS oculta este bloque por debajo del breakpoint de 1200 px. */}

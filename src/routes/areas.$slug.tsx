@@ -1,7 +1,11 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import SolutionsArea from '../components/sections/areas/SolutionsArea'
+import { lazy, Suspense } from 'react'
 import InnovationPage from '../components/sections/innovation/InnovationPage'
 import { pageMeta } from '@/lib/page-meta'
+
+const SolutionsArea = lazy(
+  () => import('../components/sections/areas/SolutionsArea'),
+)
 
 // El catálogo define los únicos slugs públicos válidos para esta ruta.
 const areas = [
@@ -32,7 +36,13 @@ export const Route = createFileRoute('/areas/$slug')({
 function AreaPage() {
   const area = Route.useLoaderData()
 
-  if (area.slug === 'soluciones') return <SolutionsArea />
+  if (area.slug === 'soluciones') {
+    return (
+      <Suspense fallback={null}>
+        <SolutionsArea />
+      </Suspense>
+    )
+  }
 
   return <InnovationPage />
 }
