@@ -45,6 +45,8 @@ Los formularios utilizan estas variables del proceso Node:
 
 Nunca use `VITE_` en nombres de secretos. Variables con ese prefijo pueden quedar embebidas en el bundle del navegador.
 
+Para desarrollo local también puede guardar las cuatro variables ORDS en `.env.local` en la raíz del proyecto. Vite carga únicamente esas variables permitidas al proceso del servidor cuando ejecuta `npm run dev`; `.env.local` está excluido de Git. Use solo credenciales del ambiente de pruebas y reinicie el servidor después de modificar el archivo.
+
 Para la terminal PowerShell, puede definir variables solo para esa sesión antes de `npm run dev`:
 
 ```powershell
