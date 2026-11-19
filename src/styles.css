@@ -54,7 +54,7 @@ body {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/poppins.bold.ttf') format('truetype');
+  src: url('/poppins.bold.woff2') format('woff2');
 }
 
 /* Paleta oficial: azul oscuro/claro y naranja vivo/oscuro de la guía de marca. */
@@ -117,3 +117,4 @@ body {
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
