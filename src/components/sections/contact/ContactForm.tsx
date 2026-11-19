@@ -46,6 +46,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
   // Guardamos el instante final para que el contador no dependa de un solo timeout largo.
   const [retryAt, setRetryAt] = useState(0)
   const [retrySeconds, setRetrySeconds] = useState(0)
+  const [takingLonger, setTakingLonger] = useState(false)
   const website = useRef<HTMLInputElement>(null)
   const busy = useRef(false)
   const form = useRef<HTMLFormElement>(null)
@@ -140,7 +141,9 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       return
     }
     busy.current = true
+    setTakingLonger(false)
     setPending(true)
+    const slowNoticeTimer = window.setTimeout(() => setTakingLonger(true), 8000)
     try {
       const response = await deliverContact({
         ...result.data,
@@ -201,6 +204,8 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       )
       requestAnimationFrame(() => status.current?.focus())
     } finally {
+      window.clearTimeout(slowNoticeTimer)
+      setTakingLonger(false)
       busy.current = false
       setPending(false)
     }
@@ -354,11 +359,16 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       </fieldset>
       <div
         ref={status}
-        className={notice ? 'contact-status' : undefined}
+        className={
+          notice || (pending && takingLonger) ? 'contact-status' : undefined
+        }
         role="status"
         tabIndex={-1}
+        aria-atomic="true"
       >
-        {notice}
+        {pending && takingLonger
+          ? 'Tu mensaje sigue en proceso. No lo envíes otra vez todavía; espera la confirmación.'
+          : notice}
       </div>
       <noscript>
         <p>

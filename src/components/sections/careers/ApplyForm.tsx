@@ -59,6 +59,7 @@ export function ApplyForm({
     | 'rate_limited'
   >('idle')
   const [retryAfter, setRetryAfter] = useState(60)
+  const [takingLonger, setTakingLonger] = useState(false)
 
   const fields: ApplicationFields = {
     ...values,
@@ -106,7 +107,9 @@ export function ApplyForm({
     if (!file) return
 
     submissionInProgress.current = true
+    setTakingLonger(false)
     setStatus('sending')
+    const slowNoticeTimer = window.setTimeout(() => setTakingLonger(true), 8000)
     try {
       const result = await deliverApplication({ ...fields, curriculum: file })
       if (result.status === 'sent' || result.status === 'unavailable') {
@@ -125,6 +128,8 @@ export function ApplyForm({
     } catch {
       setStatus('error')
     } finally {
+      window.clearTimeout(slowNoticeTimer)
+      setTakingLonger(false)
       submissionInProgress.current = false
     }
   }
@@ -372,8 +377,9 @@ export function ApplyForm({
               Enviando su postulación y currículum…
             </p>
             <p className="mt-1 text-white/65">
-              Puede tardar unos segundos. Mantenga esta página abierta; le
-              avisaremos cuando recibamos la confirmación.
+              {takingLonger
+                ? 'El envío está tardando más de lo habitual. No vuelva a pulsar “Enviar currículum”; mantenga esta página abierta mientras esperamos la confirmación.'
+                : 'Puede tardar unos segundos. Mantenga esta página abierta; le avisaremos cuando recibamos la confirmación.'}
             </p>
             <div
               aria-hidden="true"
