@@ -120,7 +120,13 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
-            <li>
+            <li className="footer-policy-heading">
+              <Link
+                to="/politicas"
+                activeOptions={{ exact: true, includeSearch: false }}
+              >
+                Políticas
+              </Link>
             </li>
             {policyLinks.map((policy) => (
               <li key={policy.slug}>
