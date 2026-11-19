@@ -38,7 +38,7 @@ function ContactPage() {
       <div className="contact-hero">
         <ResponsiveImage
           className="contact-hero-image"
-          src="/images/area-empresarial.jpeg"
+          src="/images/area-empresarial.avif"
           alt=""
           sizes="100vw"
           priority
