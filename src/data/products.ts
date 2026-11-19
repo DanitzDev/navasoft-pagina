@@ -9,7 +9,7 @@ export const products: Product[] = [
       'La tecnología que convierte su operación en una ventaja competitiva.',
     detail:
       'Órdenes de corte y reconexión, lectura de medidores, cuadrillas y rutas, con geolocalización y evidencia fotográfica.',
-    image: '/images/eco-gridxia.jpeg',
+    image: '/images/eco-gridxia-1792.webp',
     features: [
       'Órdenes de corte y reconexión',
       'Lectura de medidores',
@@ -90,7 +90,7 @@ export const products: Product[] = [
     tagline: "Plataforma web de gestión académica para escuelas, colegios e institutos.",
     detail:
       "Instituciones, usuarios, matrícula, grupos, calificaciones y asistencia desde un único entorno digital.",
-    image: "/images/acadxia.jpeg",
+    image: "/images/hero-innovation.jpeg",
     features: ["Matrícula", "Calificaciones", "Asistencia", "Multiinstitución", "Reportes"],
   },
 ]

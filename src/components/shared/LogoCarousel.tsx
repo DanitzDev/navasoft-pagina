@@ -22,6 +22,7 @@ export function LogoCarousel({
   const count = logos.length || (showPlaceholders ? 6 : 0)
 
   const isCarousel = count >= 6
+  const pausedRef = useRef(false)
 
   useEffect(() => {
     const rail = railRef.current

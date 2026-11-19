@@ -65,7 +65,7 @@ body {
   --color-primary: #415c85;
   --color-primary-hover: #5c7e98;
   --color-accent: #f47e20;
-  --color-accent-hover: #d96627;
+  --color-accent-hover: #f0834a;
   --color-field: #3f5b88;
   /* fondo de los campos */
   --color-panel: #1f3354;
@@ -79,7 +79,7 @@ body {
 
 /* Cuatro utilidades para el color de cada producto, más el scroll suave de las anclas */
 @utility text-product {
-  color: var(--product, var(--color-accent));
+  color: color-mix(in oklab, var(--product, var(--color-accent)) 75%, white);
 }
 
 @utility bg-product {
