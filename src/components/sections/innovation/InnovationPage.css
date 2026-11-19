@@ -1,4 +1,5 @@
 .innovation-page {
+  --innovation-header-overlap: 76px;
   --innovation-text: #f5f7fb;
   --innovation-muted: #c4cfdf;
   --innovation-line: #3a4b63;
@@ -28,11 +29,56 @@
   outline-offset: 5px;
 }
 .innovation-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(32px, 5vw, 72px);
+  position: relative;
+  isolation: isolate;
+  display: flex;
   align-items: center;
-  padding-block: 56px 72px;
+  min-height: calc(clamp(540px, 44vw, 660px) + var(--innovation-header-overlap));
+  margin-top: calc(-1 * var(--innovation-header-overlap));
+  overflow: hidden;
+  background: #0f1626;
+}
+.innovation-hero > picture,
+.innovation-hero > img {
+  position: absolute !important;
+  z-index: -1;
+  inset: 0;
+  display: block !important;
+  width: 100%;
+  height: 100%;
+}
+.innovation-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% center;
+}
+.innovation-hero-overlay {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(0deg, #17243a 0%, transparent 22%),
+    linear-gradient(
+      90deg,
+      rgb(15 22 38 / 98%) 0%,
+      rgb(15 22 38 / 91%) 34%,
+      rgb(15 22 38 / 66%) 55%,
+      rgb(15 22 38 / 14%) 100%
+    );
+}
+.innovation-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: calc(clamp(84px, 9vw, 128px) + var(--innovation-header-overlap));
+  padding-bottom: clamp(84px, 9vw, 128px);
+}
+.innovation-hero-copy {
+  max-width: 700px;
 }
 .innovation-label {
   color: #ffc89b;
@@ -41,18 +87,24 @@
   margin-bottom: 22px !important;
 }
 .innovation-hero h1 {
-  font-size: clamp(38px, 4.8vw, 64px);
+  max-width: 700px;
+  font-size: clamp(42px, 4.6vw, 68px);
   line-height: 1.1;
   letter-spacing: -0.04em;
   margin: 0;
   text-wrap: balance;
-  max-width: 13ch;
+}
+.innovation-hero h1 span {
+  display: block;
+}
+.innovation-title-accent {
+  color: #ff9a3d;
 }
 .innovation-lead {
   font-size: 18px;
   line-height: 1.8;
-  max-width: 44ch;
-  color: var(--innovation-muted);
+  max-width: 54ch;
+  color: #e1e8f2;
   margin-top: 26px !important;
 }
 .innovation-actions {
@@ -71,50 +123,6 @@
 }
 .innovation-actions > a:last-child:hover {
   color: #ffc89b;
-}
-.innovation-hero-visual {
-  position: relative;
-  margin: 0;
-  align-self: stretch;
-  min-height: 470px;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #17243a;
-}
-.innovation-hero-visual > img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  object-position: 65% center;
-}
-.innovation-hero-visual::after {
-  content: '';
-  position: absolute;
-  inset: 30% 0 0;
-  background: linear-gradient(transparent, #080f1aeb);
-  pointer-events: none;
-}
-.innovation-hero-visual figcaption {
-  position: absolute;
-  z-index: 1;
-  bottom: 32px;
-  left: 32px;
-  right: 24px;
-  border-left: 3px solid #f47e20;
-  padding-left: 20px;
-}
-.innovation-hero-visual figcaption > span {
-  color: #ffc89b;
-  font-size: 14px;
-}
-.innovation-hero-visual figcaption p {
-  font-family: var(--font-poppins);
-  font-size: clamp(22px, 2.3vw, 30px);
-  font-weight: 600;
-  line-height: 1.35;
-  margin-top: 10px;
 }
 .innovation-intro-band {
   background: #17243a;
@@ -360,13 +368,10 @@
 }
 @media (max-width: 1023px) {
   .innovation-hero {
-    gap: 32px;
+    min-height: calc(600px + var(--innovation-header-overlap));
   }
   .innovation-hero h1 {
-    font-size: clamp(38px, 5.4vw, 54px);
-  }
-  .innovation-hero-visual {
-    min-height: 420px;
+    font-size: clamp(42px, 6vw, 58px);
   }
   .innovation-explorer {
     grid-template-columns: 0.85fr 1.15fr;
@@ -402,16 +407,33 @@
     padding-bottom: 40px;
   }
   .innovation-hero {
-    grid-template-columns: minmax(0, 1fr);
-    padding-block: 32px 40px;
+    min-height: calc(620px + var(--innovation-header-overlap));
+    align-items: center;
+  }
+  .innovation-hero-inner {
+    padding-top: calc(72px + var(--innovation-header-overlap));
+    padding-bottom: 104px;
+  }
+  .innovation-hero-overlay {
+    background:
+      linear-gradient(0deg, #17243a 0%, transparent 34%),
+      linear-gradient(
+        90deg,
+        rgb(15 22 38 / 96%) 0%,
+        rgb(15 22 38 / 84%) 58%,
+        rgb(15 22 38 / 50%) 100%
+      );
+  }
+  .innovation-hero-image {
+    object-position: 68% center;
   }
   .innovation-hero h1 {
-    max-width: 16ch;
-    font-size: clamp(36px, 9vw, 52px);
+    font-size: clamp(36px, 8.5vw, 50px);
   }
   .innovation-lead {
     font-size: 16px;
     margin-top: 20px !important;
+    max-width: 42ch;
   }
   .innovation-label {
     font-size: 14px;
@@ -420,13 +442,6 @@
   .innovation-actions {
     margin-top: 24px;
     gap: 16px;
-  }
-  .innovation-hero-visual {
-    min-height: 320px;
-  }
-  .innovation-hero-visual figcaption {
-    left: 24px;
-    bottom: 24px;
   }
   .innovation-intro {
     grid-template-columns: minmax(0, 1fr);
@@ -493,6 +508,12 @@
   .innovation-contact::before {
     left: 16px;
     right: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .innovation-page {
+    --innovation-header-overlap: 100px;
   }
 }
 @media (max-width: 379px) {

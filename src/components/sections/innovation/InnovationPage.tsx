@@ -31,42 +31,41 @@ export default function InnovationPage() {
   const [selected, setSelected] = useState<CapabilityId>('iot')
   return (
     <div className="innovation-page">
-      <Container
-        as="section"
-        className="innovation-hero"
-        aria-labelledby="innovation-title"
-      >
-        <div className="innovation-hero-copy">
-          <p className="innovation-label">InnovationLab · Navasoft</p>
-          <h1 id="innovation-title">Del desafío real a la próxima solución.</h1>
-          <p className="innovation-lead">
-            Probamos cómo la inteligencia artificial, los dispositivos
-            conectados y la nube pueden mejorar su operación.
-          </p>
-          <div className="innovation-actions">
-            <ButtonLink to="/contacto" search={{ motivo: 'reunion' }} size="lg">
-              Conversemos sobre su idea
-            </ButtonLink>
-            <a href="#capacidades">Explorar capacidades</a>
-          </div>
-        </div>
-        <figure className="innovation-hero-visual">
-          <ResponsiveImage
-            src="/images/hero-innovation.jpeg"
-            alt="Ilustración de un laboratorio con sensores, dispositivos y prototipos electrónicos."
-            sizes="100vw"
-            priority
-          />
-          <figcaption>
-            <span>Innovación aplicada</span>
-            <p>
-              Un problema concreto.
-              <br />
-              Una prueba con propósito.
+      <section className="innovation-hero" aria-labelledby="innovation-title">
+        <ResponsiveImage
+          className="innovation-hero-image"
+          src="/images/hero-innovation.jpeg"
+          alt="Laboratorio con dispositivos conectados y prototipos electrónicos."
+          sizes="100vw"
+          priority
+        />
+        <div className="innovation-hero-overlay" aria-hidden="true" />
+        <Container className="innovation-hero-inner">
+          <div className="innovation-hero-copy">
+            <p className="innovation-label">InnovationLab · Navasoft</p>
+            <h1 id="innovation-title">
+              <span>Del desafío real</span>
+              <span className="innovation-title-accent">
+                a la próxima solución.
+              </span>
+            </h1>
+            <p className="innovation-lead">
+              Probamos cómo la inteligencia artificial, los dispositivos
+              conectados y la nube pueden mejorar su operación.
             </p>
-          </figcaption>
-        </figure>
-      </Container>
+            <div className="innovation-actions">
+              <ButtonLink
+                to="/contacto"
+                search={{ motivo: 'reunion' }}
+                size="lg"
+              >
+                Conversemos sobre su idea
+              </ButtonLink>
+              <a href="#capacidades">Explorar capacidades</a>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <div className="innovation-intro-band">
         <Container className="innovation-intro">
