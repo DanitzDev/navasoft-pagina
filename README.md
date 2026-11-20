@@ -25,6 +25,7 @@ npm start
 - [Integración de oportunidades con ORDS](docs/integracion-oportunidades-ords.md): contrato de la API, validaciones de currículum, OAuth, límites y puesta en marcha.
 - [Arquitectura del proyecto](docs/arquitectura-del-proyecto.md): estructura, rutas, flujo de renderizado, módulos y pautas de mantenimiento.
 - [Integración del formulario de contacto](docs/integracion-contacto-ords.md): validación, seguridad, contrato de envío a ORDS y diagnóstico.
+- [Checklist de cierre y entrega](docs/checklist-entrega.md): limpieza Git, identificación de versión, despliegue de pruebas, verificación y reversión.
 
 ## Comandos principales
 
