@@ -213,11 +213,13 @@ export default function SolutionsArea() {
                 params={{ slug: product.slug }}
                 className="business-product"
               >
-                <ResponsiveImage
-                  src={product.image ?? ''}
-                  alt=""
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                />
+                <div className="business-product-media">
+                  <ResponsiveImage
+                    src={product.image ?? ''}
+                    alt=""
+                    sizes="(min-width: 1024px) 16vw, (min-width: 768px) 25vw, 100vw"
+                  />
+                </div>
                 <div>
                   <p className="business-product-category">
                     {product.category}
