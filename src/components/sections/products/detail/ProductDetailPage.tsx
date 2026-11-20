@@ -1,18 +1,38 @@
+import { lazy, Suspense } from 'react'
 import type { CSSProperties } from 'react'
 import { ProductHero } from '@/components/sections/products/detail/ProductHero'
 import { ProductSideNav } from '@/components/sections/products/detail/ProductSideNav'
 import type { SubnavItem } from '@/components/sections/products/detail/ProductSideNav'
-import { ProblemSection } from '@/components/sections/products/detail/ProblemSection'
-import { CapabilitiesSection } from '@/components/sections/products/detail/CapabilitiesSection'
-import { SurfacesSection } from '@/components/sections/products/detail/SurfacesSection'
-import { StepsSection } from '@/components/sections/products/detail/StepsSection'
-import { BenefitsSection } from '@/components/sections/products/detail/BenefitsSection'
-import { FaqSection } from '@/components/sections/products/detail/FaqSection'
-import { EcosystemRest } from '@/components/sections/products/detail/EcosystemRest'
-import { ProductCta } from '@/components/sections/products/detail/ProductCta'
 import { productAccent } from '@/data/product-meta'
 import { productDetails } from '@/data/product-details'
 import type { Product } from '@/types'
+
+const base = '@/components/sections/products/detail'
+
+const ProblemSection = lazy(() =>
+  import('@/components/sections/products/detail/ProblemSection').then((m) => ({ default: m.ProblemSection })),
+)
+const CapabilitiesSection = lazy(() =>
+  import('@/components/sections/products/detail/CapabilitiesSection').then((m) => ({ default: m.CapabilitiesSection })),
+)
+const SurfacesSection = lazy(() =>
+  import('@/components/sections/products/detail/SurfacesSection').then((m) => ({ default: m.SurfacesSection })),
+)
+const StepsSection = lazy(() =>
+  import('@/components/sections/products/detail/StepsSection').then((m) => ({ default: m.StepsSection })),
+)
+const BenefitsSection = lazy(() =>
+  import('@/components/sections/products/detail/BenefitsSection').then((m) => ({ default: m.BenefitsSection })),
+)
+const FaqSection = lazy(() =>
+  import('@/components/sections/products/detail/FaqSection').then((m) => ({ default: m.FaqSection })),
+)
+const EcosystemRest = lazy(() =>
+  import('@/components/sections/products/detail/EcosystemRest').then((m) => ({ default: m.EcosystemRest })),
+)
+const ProductCta = lazy(() =>
+  import('@/components/sections/products/detail/ProductCta').then((m) => ({ default: m.ProductCta })),
+)
 
 export function ProductDetailPage({ product }: { product: Product }) {
   const detail = productDetails[product.slug]
@@ -35,32 +55,22 @@ export function ProductDetailPage({ product }: { product: Product }) {
     >
       <ProductHero product={product} detail={detail} />
       <ProductSideNav items={subnav} />
-      {detail.problem && (
-        <ProblemSection name={product.name} problem={detail.problem} />
-      )}
-      {detail.capabilities && (
-        <CapabilitiesSection
-          name={product.name}
-          capabilities={detail.capabilities}
-        />
-      )}
-      {detail.surfaces && (
-        <SurfacesSection
-          title={detail.surfacesTitle ?? 'Plataforma'}
-          surfaces={detail.surfaces}
-        />
-      )}
-      {detail.steps && (
-        <StepsSection
-          name={product.name}
-          steps={detail.steps}
-          title={detail.stepsTitle}
-        />
-      )}{' '}
-      {detail.benefits && <BenefitsSection benefits={detail.benefits} />}
-      {detail.faqs && <FaqSection faqs={detail.faqs} />}
-      <EcosystemRest current={product.slug} />
-      <ProductCta name={product.name} slug={product.slug} />
+      <Suspense fallback={null}>
+        {detail.problem && <ProblemSection name={product.name} problem={detail.problem} />}
+        {detail.capabilities && (
+          <CapabilitiesSection name={product.name} capabilities={detail.capabilities} />
+        )}
+        {detail.surfaces && (
+          <SurfacesSection title={detail.surfacesTitle ?? 'Plataforma'} surfaces={detail.surfaces} />
+        )}
+        {detail.steps && (
+          <StepsSection name={product.name} steps={detail.steps} title={detail.stepsTitle} />
+        )}
+        {detail.benefits && <BenefitsSection benefits={detail.benefits} />}
+        {detail.faqs && <FaqSection faqs={detail.faqs} />}
+        <EcosystemRest current={product.slug} />
+        <ProductCta name={product.name} slug={product.slug} />
+      </Suspense>
     </div>
   )
 }
