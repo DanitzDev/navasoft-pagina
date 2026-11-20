@@ -207,7 +207,7 @@ export function validateOpportunitySubmission(input: unknown): {
     fields.nombre.length > 200 ||
     singleLineControls.test(fields.nombre)
   )
-    errors.nombre = 'Escriba su nombre (máximo 200 caracteres).'
+    errors.nombre = 'Escriba su nombre, entre 1 y 200 caracteres.'
   if (
     fields.correo.length > 254 ||
     singleLineControls.test(fields.correo) ||

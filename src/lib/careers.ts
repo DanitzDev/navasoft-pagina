@@ -60,10 +60,10 @@ export function validateApplication(
 
   const limits = APPLICATION_TEXT_LIMITS
   if (
-    data.nombre.trim().length < 3 ||
+    data.nombre.trim().length < 1 ||
     data.nombre.trim().length > limits.nombre
   )
-    errors.nombre = `Escriba su nombre, entre 3 y ${limits.nombre} caracteres.`
+    errors.nombre = `Escriba su nombre, entre 1 y ${limits.nombre} caracteres.`
   if (
     data.correo.trim().length > limits.correo ||
     !/^\S+@\S+\.\S+$/.test(data.correo.trim())

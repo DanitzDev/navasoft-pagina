@@ -118,6 +118,15 @@ test('el servidor limita el currículum a 5 MB', () => {
 })
 
 test('el servidor limita longitudes de nombre, correo y presentación', () => {
+  assert.equal(
+    validateOpportunitySubmission({ ...valid, nombre: 'x' }).errors.nombre,
+    undefined,
+  )
+  assert.equal(
+    validateOpportunitySubmission({ ...valid, nombre: 'x'.repeat(200) }).errors
+      .nombre,
+    undefined,
+  )
   assert.ok(
     validateOpportunitySubmission({ ...valid, nombre: 'x'.repeat(201) }).errors
       .nombre,
