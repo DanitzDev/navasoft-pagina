@@ -79,7 +79,7 @@ body {
 
 /* Cuatro utilidades para el color de cada producto, más el scroll suave de las anclas */
 @utility text-product {
-  color: color-mix(in oklab, var(--product, var(--color-accent)) 75%, white);
+  color: color-mix(in oklab, var(--product, var(--color-accent)) 70%, white);
 }
 
 @utility bg-product {

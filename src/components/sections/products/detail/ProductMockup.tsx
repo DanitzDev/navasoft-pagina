@@ -25,7 +25,7 @@ export function ProductMockup({
   device = 'browser',
 }: ProductMockupProps) {
   const caption = !screenshot && (
-    <figcaption className="mt-3 text-center text-xs text-white/50">
+    <figcaption className="mt-3 text-center text-xs text-white/60">
       Vista ilustrativa
     </figcaption>
   )
