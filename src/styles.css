@@ -39,7 +39,7 @@ body {
   font-weight: 400;
   font-display: swap;
   src: url('/public/Montserrat-Regular.woff2') format('woff2');
-} 
+}
 
 @font-face {
   font-family: 'Montserrat';
@@ -87,19 +87,15 @@ body {
 }
 
 @utility bg-product-soft {
-  background-color: color-mix(
-    in oklab,
-    var(--product, var(--color-accent)) 15%,
-    transparent
-  );
+  background-color: color-mix(in oklab,
+      var(--product, var(--color-accent)) 15%,
+      transparent);
 }
 
 @utility border-product {
-  border-color: color-mix(
-    in oklab,
-    var(--product, var(--color-accent)) 45%,
-    transparent
-  );
+  border-color: color-mix(in oklab,
+      var(--product, var(--color-accent)) 45%,
+      transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -107,14 +103,26 @@ body {
     scroll-behavior: smooth;
   }
 }
+
 /* Las etiquetas largas no deben ensanchar la página en pantallas pequeñas. */
 .product-detail-page .grid > *,
 .product-detail-page .flex > * {
   min-width: 0;
 }
+
 .product-detail-page .rounded-full.whitespace-nowrap {
   max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
 }
 
+/* E-01: el marco del video no puede ser más ancho que la página */
+.company-video-section .company-video-frame {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.company-video-section .company-video-background {
+  max-width: 100%;
+}
