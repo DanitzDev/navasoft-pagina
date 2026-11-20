@@ -75,6 +75,38 @@ Usar un correo y datos sintéticos autorizados, y un PDF/DOCX de prueba sin dato
 6. Fallos: probar credenciales inválidas, respuesta `5xx`, pérdida de conexión y timeout. No debe mostrarse éxito falso. Tras un timeout se debe consultar ORDS antes de repetir, porque el servidor pudo guardar la postulación.
 7. Confirmar que logs de aplicación y ORDS no guardan secretos, tokens, correo, teléfono ni contenido del currículum.
 
+## Interpretación del resultado y reintentos
+
+La interfaz solo presenta éxito cuando la función de servidor reconoce la respuesta contractual de ORDS: `201` con `resultado: "creado"`, o `200` con `resultado: "ya_recibido"`. Un `200` de la ruta interna `/_serverFn/...` significa que la Server Function respondió al navegador; para demostrar persistencia, hay que revisar además `outcome: "sent"` y `responseStatus: 200/201` en la medición del backend, y confirmar el registro en ORDS.
+
+El cliente no reintenta automáticamente un envío cuyo resultado es incierto. Si vence el timeout, se pierde la conexión o el navegador no recibe confirmación, ORDS podría haber guardado la postulación antes de cortarse la respuesta. Antes de volver a enviarla, consultar el registro con el equipo de selección/ORDS y el identificador de prueba; no asumir que un timeout equivale a rechazo.
+
+| Estado registrado          | Interpretación operativa                                                               | Acción recomendada                                                                                   |
+| -------------------------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `sent`, HTTP `201`         | ORDS informó que creó el registro.                                                     | Confirmar fila y archivo durante aceptación.                                                         |
+| `sent`, HTTP `200`         | ORDS informó que la solicitud ya se había recibido.                                    | Comprobar que no haya duplicado y que exista el registro original.                                   |
+| `rate_limited`, HTTP `429` | ORDS aplicó su propio límite.                                                          | Respetar `Retry-After`; no automatizar reintentos rápidos.                                           |
+| `failed` con HTTP          | ORDS respondió, pero el estado/cuerpo no cumple el contrato esperado.                  | Revisar estado y contrato en logs de ORDS, sin copiar el payload.                                    |
+| `failed` sin HTTP          | No se obtuvo una respuesta HTTP válida, por ejemplo un error de red/TLS/configuración. | Revisar conectividad, certificado, configuración y logs de Node.                                     |
+| `timeout`                  | El límite conjunto del cliente venció sin confirmación.                                | Buscar el registro en ORDS antes de repetir.                                                         |
+| `unavailable`              | Falta configuración requerida o una IP válida para hacer la llamada.                   | Revisar variables privadas y configuración del proxy; no pedir al usuario reintentar sin corregirla. |
+
+## Diagnóstico de rendimiento
+
+La línea `ords_opportunity_timing` se emite desde Node al finalizar cada intento validado. Los campos se explican en la [guía de ejecución y despliegue](guia-ejecucion-despliegue.md). Tome varias muestras de aceptación y registre únicamente fecha/hora, `requestId`, tamaño del currículum, tiempos, resultado y estado HTTP. El tamaño puede anotarse manualmente en la prueba; no se registra el contenido ni nombre del archivo.
+
+Procedimiento recomendado:
+
+1. Confirmar que el ambiente probado y la revisión desplegada sean los esperados; registrar la hora local y zona horaria.
+2. Usar datos sintéticos autorizados y al menos dos currículums válidos de tamaños distintos, sin acercarse al máximo si no es necesario.
+3. Esperar la línea de timing correspondiente a cada intento y comparar `oauthMs`, `submissionMs` y `totalMs`.
+4. Repetir cada tamaño varias veces. OAuth puede ser cercano a cero porque los tokens se mantienen en caché; comparar una solicitud fría con solicitudes posteriores por separado.
+5. Si `submissionMs` aumenta claramente con el tamaño, pedir al hosting revisar transferencia/salida de red y al equipo ORDS revisar recepción del cuerpo Base64.
+6. Si `submissionMs` permanece alto independientemente del tamaño, pedir a ORDS el tiempo interno del handler, conversión Base64, escritura del BLOB y confirmación de transacción. Correlacionar por hora y `requestId` si el sistema Oracle registra un ID correlacionable; no añadir datos personales a la búsqueda.
+7. No cambiar el timeout, eliminar validaciones ni permitir reintentos automáticos hasta entender si el cuello es tamaño, red o procesamiento y acordar la semántica de duplicados.
+
+`submissionMs` engloba transferencia de la solicitud y espera hasta que Node recibe los encabezados de respuesta. No mide por separado DNS, conexión TLS, subida de bytes, handler PL/SQL, escritura del archivo ni lectura del JSON de respuesta. Para separar esos componentes se requieren mediciones adicionales en el proxy/hosting y ORDS.
+
 ## Pruebas disponibles en el repositorio
 
 `npm test` cubre validaciones y límites de longitud/tamaño, además del cliente HTTP contra respuestas ORDS simuladas en memoria. Estas pruebas verifican el contrato de la aplicación; no prueban credenciales, red, handler ni persistencia del ambiente Oracle. El cierre de B-12 requiere completar el plan de aceptación anterior contra ORDS.
