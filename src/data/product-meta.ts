@@ -22,10 +22,10 @@ export const productIcons: Record<ProductSlug, LucideIcon> = {
 }
 
 export const productAccent: Record<ProductSlug, string> = {
-  gridxia: '#d96627',
-  navastay: '#d16229',
-  tracxia: '#d46424',
-  ordexia: '#d36220',
+  gridxia: '#f47e20',
+  navastay: '#f47e20',
+  tracxia: '#f47e20',
+  ordexia: '#f47e20',
   factxia: "#f47f20",
   acadxia: "#f47f20",
 }
