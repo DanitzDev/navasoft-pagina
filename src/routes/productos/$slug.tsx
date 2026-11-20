@@ -15,15 +15,14 @@ function heroPreload(src: string | undefined, sizes: string) {
   const base = src.replace(/\.(jpe?g|png)$/i, '')
   const entry = entries[base]
 
-  if (!entry) {
-    return [{ rel: 'preload', as: 'image', href: src, fetchPriority: 'high' }]
-  }
   return [
     {
       rel: 'preload',
       as: 'image',
       type: 'image/webp',
-      imageSrcSet: entry.widths.map((w) => `${base}-${w}.webp ${w}w`).join(', '),
+      imageSrcSet: entry.widths
+        .map((w) => `${base}-${w}.webp ${w}w`)
+        .join(', '),
       imageSizes: sizes,
       fetchPriority: 'high',
     },
@@ -40,7 +39,9 @@ export const Route = createFileRoute('/productos/$slug')({
     if (!loaderData) return {}
     const seo = pageHead({
       title: loaderData.name,
-      description: [loaderData.tagline, loaderData.detail].filter(Boolean).join(' '),
+      description: [loaderData.tagline, loaderData.detail]
+        .filter(Boolean)
+        .join(' '),
       path: `/productos/${loaderData.slug}`,
     })
     return {

@@ -7,31 +7,45 @@ import { productAccent } from '@/data/product-meta'
 import { productDetails } from '@/data/product-details'
 import type { Product } from '@/types'
 
-const base = '@/components/sections/products/detail'
-
 const ProblemSection = lazy(() =>
-  import('@/components/sections/products/detail/ProblemSection').then((m) => ({ default: m.ProblemSection })),
+  import('@/components/sections/products/detail/ProblemSection').then((m) => ({
+    default: m.ProblemSection,
+  })),
 )
 const CapabilitiesSection = lazy(() =>
-  import('@/components/sections/products/detail/CapabilitiesSection').then((m) => ({ default: m.CapabilitiesSection })),
+  import('@/components/sections/products/detail/CapabilitiesSection').then(
+    (m) => ({ default: m.CapabilitiesSection }),
+  ),
 )
 const SurfacesSection = lazy(() =>
-  import('@/components/sections/products/detail/SurfacesSection').then((m) => ({ default: m.SurfacesSection })),
+  import('@/components/sections/products/detail/SurfacesSection').then((m) => ({
+    default: m.SurfacesSection,
+  })),
 )
 const StepsSection = lazy(() =>
-  import('@/components/sections/products/detail/StepsSection').then((m) => ({ default: m.StepsSection })),
+  import('@/components/sections/products/detail/StepsSection').then((m) => ({
+    default: m.StepsSection,
+  })),
 )
 const BenefitsSection = lazy(() =>
-  import('@/components/sections/products/detail/BenefitsSection').then((m) => ({ default: m.BenefitsSection })),
+  import('@/components/sections/products/detail/BenefitsSection').then((m) => ({
+    default: m.BenefitsSection,
+  })),
 )
 const FaqSection = lazy(() =>
-  import('@/components/sections/products/detail/FaqSection').then((m) => ({ default: m.FaqSection })),
+  import('@/components/sections/products/detail/FaqSection').then((m) => ({
+    default: m.FaqSection,
+  })),
 )
 const EcosystemRest = lazy(() =>
-  import('@/components/sections/products/detail/EcosystemRest').then((m) => ({ default: m.EcosystemRest })),
+  import('@/components/sections/products/detail/EcosystemRest').then((m) => ({
+    default: m.EcosystemRest,
+  })),
 )
 const ProductCta = lazy(() =>
-  import('@/components/sections/products/detail/ProductCta').then((m) => ({ default: m.ProductCta })),
+  import('@/components/sections/products/detail/ProductCta').then((m) => ({
+    default: m.ProductCta,
+  })),
 )
 
 export function ProductDetailPage({ product }: { product: Product }) {
@@ -56,15 +70,27 @@ export function ProductDetailPage({ product }: { product: Product }) {
       <ProductHero product={product} detail={detail} />
       <ProductSideNav items={subnav} />
       <Suspense fallback={null}>
-        {detail.problem && <ProblemSection name={product.name} problem={detail.problem} />}
+        {detail.problem && (
+          <ProblemSection name={product.name} problem={detail.problem} />
+        )}
         {detail.capabilities && (
-          <CapabilitiesSection name={product.name} capabilities={detail.capabilities} />
+          <CapabilitiesSection
+            name={product.name}
+            capabilities={detail.capabilities}
+          />
         )}
         {detail.surfaces && (
-          <SurfacesSection title={detail.surfacesTitle ?? 'Plataforma'} surfaces={detail.surfaces} />
+          <SurfacesSection
+            title={detail.surfacesTitle ?? 'Plataforma'}
+            surfaces={detail.surfaces}
+          />
         )}
         {detail.steps && (
-          <StepsSection name={product.name} steps={detail.steps} title={detail.stepsTitle} />
+          <StepsSection
+            name={product.name}
+            steps={detail.steps}
+            title={detail.stepsTitle}
+          />
         )}
         {detail.benefits && <BenefitsSection benefits={detail.benefits} />}
         {detail.faqs && <FaqSection faqs={detail.faqs} />}

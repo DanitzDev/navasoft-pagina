@@ -22,8 +22,6 @@ export function LogoCarousel({
   const count = logos.length || (showPlaceholders ? 6 : 0)
 
   const isCarousel = count >= 6
-  const pausedRef = useRef(false)
-
   useEffect(() => {
     const rail = railRef.current
     if (!rail || !isCarousel) return
@@ -161,34 +159,34 @@ export function LogoCarousel({
           >
             {logos.length
               ? logos.map((logo) => (
-                <li
-                  key={logo.id}
-                  className="logo-carousel-item"
-                  data-surface={logo.surface}
-                  data-logo={logo.id}
-                >
-                  <ResponsiveImage
-                    src={logo.image}
-                    alt={copy ? '' : `Logo de ${logo.name}`}
-                    sizes="(max-width: 768px) 120px, 160px"
-                    draggable={false}
-                  />
-                  <span
-                    aria-hidden={
-                      !logo.relationship || logo.relationship === 'Partner'
-                        ? true
-                        : undefined
-                    }
+                  <li
+                    key={logo.id}
+                    className="logo-carousel-item"
+                    data-surface={logo.surface}
+                    data-logo={logo.id}
                   >
-                    {logo.relationship !== 'Partner' ? logo.relationship : ''}
-                  </span>
-                </li>
-              ))
+                    <ResponsiveImage
+                      src={logo.image}
+                      alt={copy ? '' : `Logo de ${logo.name}`}
+                      sizes="(max-width: 768px) 120px, 160px"
+                      draggable={false}
+                    />
+                    <span
+                      aria-hidden={
+                        !logo.relationship || logo.relationship === 'Partner'
+                          ? true
+                          : undefined
+                      }
+                    >
+                      {logo.relationship !== 'Partner' ? logo.relationship : ''}
+                    </span>
+                  </li>
+                ))
               : Array.from({ length: count }, (_, index) => (
-                <li key={index} className="logo-carousel-placeholder">
-                  Espacio para logo aprobado
-                </li>
-              ))}
+                  <li key={index} className="logo-carousel-placeholder">
+                    Espacio para logo aprobado
+                  </li>
+                ))}
           </ul>
         ))}
       </div>

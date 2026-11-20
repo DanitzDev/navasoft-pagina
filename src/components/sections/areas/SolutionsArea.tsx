@@ -18,9 +18,8 @@ const sectors = [
 const relatedProducts = products.filter((product) =>
   sectors.some((sector) => sector.products.includes(product.slug)),
 )
-const optimizedClientLogos: Record<
-  string,
-  { src: string; width: number; height: number }
+const optimizedClientLogos: Partial<
+  Record<string, { src: string; width: number; height: number }>
 > = {
   'municipalidad-la-union': {
     src: '/images/clientes/munilaunion-logo-320.webp',
@@ -57,9 +56,9 @@ function ClientList({ clients }: { clients: typeof clientDirectory }) {
             {client.image && (
               <div className="business-client-logo" data-client={client.id}>
                 <ResponsiveImage
-                  src={optimized?.src ?? client.image}
-                  width={optimized?.width}
-                  height={optimized?.height}
+                  src={optimized ? optimized.src : client.image}
+                  width={optimized ? optimized.width : undefined}
+                  height={optimized ? optimized.height : undefined}
                   alt={client.name}
                   sizes="(max-width: 768px) 120px, 160px"
                 />
@@ -239,7 +238,9 @@ export default function SolutionsArea() {
         aria-labelledby="solutions-products-title"
       >
         <Container>
-          <h2 id="solutions-products-title">Ecosistema SaaS para su operación</h2>
+          <h2 id="solutions-products-title">
+            Ecosistema SaaS para su operación
+          </h2>
           <div className="business-product-grid">
             {relatedProducts.map((product) => (
               <Link
