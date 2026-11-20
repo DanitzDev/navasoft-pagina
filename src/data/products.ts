@@ -9,7 +9,7 @@ export const products: Product[] = [
       'La tecnología que convierte su operación en una ventaja competitiva.',
     detail:
       'Órdenes de corte y reconexión, lectura de medidores, cuadrillas y rutas, con geolocalización y evidencia fotográfica.',
-    image: '/images/eco-gridxia-1792.webp',
+    image: '/images/eco-gridxia.jpeg',
     features: [
       'Órdenes de corte y reconexión',
       'Lectura de medidores',
