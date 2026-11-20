@@ -146,6 +146,38 @@ Este procedimiento refleja el arranque Node preparado para el hosting de pruebas
 
 Los logs de formulario deben usarse para identificar etapa y código HTTP, nunca para copiar payloads, adjuntos, correos, teléfonos, secretos o tokens.
 
+### Medir el tiempo de postulaciones
+
+El backend escribe una línea JSON por intento con `event: "ords_opportunity_timing"`. En Plesk, revise el log de la aplicación Node.js/IISNode donde se capture `stdout` (salida estándar) y busque ese nombre de evento. La ubicación exacta depende de la configuración de Plesk/IISNode; también puede aparecer en **Dominios → Registros** si el hosting redirige allí la salida del proceso.
+
+Ejemplo de campos registrados:
+
+```json
+{
+  "event": "ords_opportunity_timing",
+  "requestId": "<id-aleatorio>",
+  "outcome": "sent",
+  "validationMs": 69,
+  "oauthMs": 935,
+  "submissionMs": 6853,
+  "totalMs": 7880,
+  "responseStatus": 201
+}
+```
+
+- `validationMs`: validación del formulario y del archivo en el backend.
+- `oauthMs`: solicitud de token y lectura de su respuesta; queda en `0` si se reutilizó un token en caché.
+- `submissionMs`: tiempo desde que se inicia el POST a ORDS hasta que `fetch` recibe sus encabezados de respuesta. Incluye transferencia/red y procesamiento de ORDS hasta responder; no separa esas dos partes.
+- `totalMs`: duración total en el backend, incluida la preparación del payload y las etapas anteriores.
+- `outcome` y `responseStatus`: resultado de la operación y estado HTTP de ORDS, si se recibió.
+- `requestId`: identificador aleatorio para correlacionar esta línea con datos de diagnóstico; no contiene información de la postulación.
+
+Para investigar lentitud, recopile varias solicitudes válidas de prueba con tamaños distintos de currículum (por ejemplo, un PDF pequeño y otro mayor), anote `submissionMs` y `totalMs`, y compare. Use solamente archivos sintéticos y personas de prueba autorizadas. Si el tiempo aumenta con el archivo, investigue la transferencia del Base64. Si es parecido con tamaños distintos, solicite al administrador de ORDS el tiempo de procesamiento del handler y de almacenamiento del adjunto para correlacionarlo por hora. Un único valor no permite atribuir el retraso a la red, a Plesk o a ORDS.
+
+Como referencia, una prueba registrada el 2026-11-21 devolvió `201/sent`, con `validationMs=69`, `oauthMs=935`, `submissionMs=6853` y `totalMs=7880`. En esa muestra la mayor parte del tiempo estuvo en el POST y la espera de respuesta de ORDS; no se midió por separado la red y el trabajo interno de Oracle.
+
+Una advertencia de Node `[DEP0005] Buffer() is deprecated` es independiente de estos tiempos y no significa que el envío haya fallado. El código de la aplicación usa `Buffer.from`; si el aviso persiste, utilice `node --trace-deprecation` en un entorno de diagnóstico para localizar si lo emite una dependencia. No comparta el log completo si contiene rutas privadas o datos operativos.
+
 ## Comandos auxiliares
 
 | Comando           | Uso                                                                                                                |
