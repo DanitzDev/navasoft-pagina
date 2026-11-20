@@ -25,7 +25,7 @@ export const Route = createRootRoute({
       },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'Navasoft Soluciones' },
-      { property: 'og:image', content: 'https://navasoft.es/images/og-default.jpg' },
+      { property: 'og:image', content: 'https://navasoft.es/og-default.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
     links: [
