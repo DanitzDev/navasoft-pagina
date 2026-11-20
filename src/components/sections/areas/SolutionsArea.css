@@ -237,13 +237,12 @@
   overflow: hidden;
   min-width: 0;
 }
-.business-product > img {
+.business-product img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
 .business-product > div {
-  padding: 24px;
   min-width: 0;
 }
 .business-product-category {
@@ -295,9 +294,12 @@
   .business-product {
     grid-template-columns: 1fr;
   }
-  .business-product > img {
+  .business-product img {
     aspect-ratio: 2 / 1;
   }
+  .business-product-media {
+  aspect-ratio: 2 / 1;
+}
 }
 
 .solutions-hero-images {
@@ -436,4 +438,27 @@
   .business-projects a {
     padding-block: 12px;
   }
+}
+.business-product-media {
+  position: relative;
+  min-width: 0;
+  min-height: 160px;
+}
+
+.business-product-media picture {
+  display: block;
+  height: 100%;
+}
+
+.business-product-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.business-product > div:last-child {
+  padding: 24px;
+  min-width: 0;
 }
