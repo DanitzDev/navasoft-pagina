@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
+import { flushSync } from 'react-dom'
 import { Check, LoaderCircle } from 'lucide-react'
 import { Input } from '@/components/ui/Input'
+import { ErrorSummary } from '@/components/ui/ErrorSummary'
 import { Select } from '@/components/ui/Select'
 import { Textarea } from '@/components/ui/Textarea'
 import Button from '@/components/ui/Button'
@@ -21,6 +23,17 @@ type ApplyFormProps = {
 }
 
 const MESSAGE_MAX = APPLICATION_TEXT_LIMITS.presentacion
+const applicationFieldLabels: Record<keyof ApplicationFields, string> = {
+  nombre: 'Nombre',
+  correo: 'Correo',
+  telefono: 'Teléfono',
+  enlace: 'LinkedIn u otro perfil',
+  presentacion: 'Presentación',
+  perfil: 'Perfil',
+  area: 'Área de interés',
+  curriculum: 'Currículum',
+  consentimiento: 'Autorización',
+}
 const initialValues = {
   nombre: '',
   correo: '',
@@ -70,6 +83,33 @@ export function ApplyForm({
   }
   // Los errores de servidor se combinan con la validación local y se limpian cuando la persona edita.
   const errors = { ...validateApplication(fields), ...serverErrors }
+  const errorItems = (Object.keys(errors) as (keyof ApplicationFields)[]).map(
+    (field) => ({
+      field,
+      label: applicationFieldLabels[field],
+      message: errors[field] as string,
+    }),
+  )
+  const errorSummaryRef = useRef<HTMLHeadingElement>(null)
+
+  function focusInvalidField(field: keyof ApplicationFields) {
+    const selector =
+      field === 'perfil'
+        ? '#perfil-fieldset button'
+        : field === 'curriculum'
+          ? '#curriculum'
+          : field === 'consentimiento'
+            ? '#consentimiento'
+            : `[name="${field}"]`
+    const control = formRef.current?.querySelector<HTMLElement>(selector)
+    if (!control) return
+    control.focus({ preventScroll: true })
+    control.scrollIntoView({ behavior: 'auto', block: 'center' })
+  }
+
+  function focusErrorSummary() {
+    window.setTimeout(() => errorSummaryRef.current?.focus(), 100)
+  }
 
   const touch = (key: keyof ApplicationFields) =>
     setTouched((current) => ({ ...current, [key]: true }))
@@ -92,17 +132,12 @@ export function ApplyForm({
     // El ref bloquea una segunda activación antes de que React actualice el estado.
     if (submissionInProgress.current) return
 
-    setSubmitted(true)
     if (Object.keys(errors).length > 0) {
-      // Tras mostrar los errores, llevar el foco al primero para que teclado y lector
-      // de pantalla encuentren el campo que necesita atención.
-      requestAnimationFrame(() => {
-        formRef.current
-          ?.querySelector<HTMLElement>('[aria-invalid="true"]')
-          ?.focus()
-      })
+      flushSync(() => setSubmitted(true))
+      focusErrorSummary()
       return
     }
+    setSubmitted(true)
 
     if (!file) return
 
@@ -120,8 +155,11 @@ export function ApplyForm({
         setRetryAfter(result.retryAfterSeconds)
         setStatus('rate_limited')
       } else if (result.status === 'invalid') {
-        setServerErrors(result.errors)
-        setStatus('idle')
+        flushSync(() => {
+          setServerErrors(result.errors)
+          setStatus('idle')
+        })
+        focusErrorSummary()
       } else {
         setStatus('error')
       }
@@ -170,6 +208,18 @@ export function ApplyForm({
       onSubmit={handleSubmit}
       className="flex flex-col gap-5 rounded-3xl bg-panel p-8"
     >
+      <p role="status" aria-live="polite" className="sr-only">
+        {submitted && errorItems.length > 0
+          ? `Hay ${errorItems.length} errores en el formulario`
+          : ''}
+      </p>
+      {submitted && errorItems.length > 0 && (
+        <ErrorSummary
+          ref={errorSummaryRef}
+          items={errorItems}
+          onSelect={(field) => focusInvalidField(field as keyof ApplicationFields)}
+        />
+      )}
       <Input
         label="Nombre"
         name="nombre"
@@ -207,12 +257,17 @@ export function ApplyForm({
         {...bind('enlace')}
       />
 
-      <fieldset>
+      <fieldset
+        id="perfil-fieldset"
+        aria-invalid={errorOf('perfil') ? true : undefined}
+        aria-describedby={errorOf('perfil') ? 'perfil-error' : undefined}
+      >
         <legend className="text-sm font-medium text-white">
           Perfil{' '}
           <span aria-hidden="true" className="text-accent">
             *
           </span>
+          <span className="sr-only"> (obligatorio)</span>
         </legend>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {profiles.map((item) => (
@@ -220,13 +275,15 @@ export function ApplyForm({
               key={item.id}
               type="button"
               aria-pressed={profile === item.id}
+              aria-invalid={errorOf('perfil') ? true : undefined}
+              aria-describedby={errorOf('perfil') ? 'perfil-error' : undefined}
               onClick={() => {
                 setServerErrors({})
                 onProfileChange(item.id)
               }}
               onBlur={() => touch('perfil')}
               className={cn(
-                'rounded-xl border px-4 py-3 text-sm font-semibold transition-colors',
+                'rounded-xl border px-4 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-panel',
                 profile === item.id
                   ? 'border-accent bg-accent/15 text-white'
                   : 'border-white/10 bg-field text-white/75 hover:border-white/30',
@@ -237,7 +294,9 @@ export function ApplyForm({
           ))}
         </div>
         {errorOf('perfil') && (
-          <p className="mt-1.5 text-xs text-red-300">{errorOf('perfil')}</p>
+          <p id="perfil-error" className="mt-1.5 text-xs text-red-300">
+            {errorOf('perfil')}
+          </p>
         )}
       </fieldset>
 
@@ -280,6 +339,7 @@ export function ApplyForm({
             id="consentimiento"
             type="checkbox"
             checked={consent}
+            required
             aria-invalid={errorOf('consentimiento') ? true : undefined}
             aria-describedby={
               errorOf('consentimiento') ? 'consentimiento-error' : undefined
@@ -296,7 +356,6 @@ export function ApplyForm({
         {errorOf('consentimiento') && (
           <p
             id="consentimiento-error"
-            role="alert"
             className="mt-1.5 text-xs text-red-300"
           >
             {errorOf('consentimiento')}
@@ -395,7 +454,10 @@ export function ApplyForm({
         type="submit"
         size="lg"
         className="w-full"
-        disabled={status === 'sending'}
+        aria-disabled={status === 'sending'}
+        onClick={(event) => {
+          if (status === 'sending') event.preventDefault()
+        }}
       >
         {status === 'sending' ? 'Enviando…' : 'Enviar currículum'}
       </Button>

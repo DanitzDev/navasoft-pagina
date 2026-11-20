@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FileText, Upload, X } from 'lucide-react'
 import { ACCEPT_ATTR, MAX_FILE_MB, formatFileSize } from '@/lib/careers'
 import { cn } from '@/lib/cn'
@@ -11,14 +11,24 @@ type ResumeUploadProps = {
 
 export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
   const [dragging, setDragging] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (!file && inputRef.current) inputRef.current.value = ''
+  }, [file])
 
   const selectFile = (next?: File) => {
     if (next) onFileChange(next)
   }
 
+  function removeFile() {
+    onFileChange(null)
+    inputRef.current?.focus()
+  }
+
   return (
     <div>
-      <p className="text-sm font-medium text-white">
+      <p id="curriculum-label" className="text-sm font-medium text-white">
         Currículum{' '}
         <span aria-hidden="true" className="text-accent">
           *
@@ -44,13 +54,18 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
         )}
       >
         <input
+          ref={inputRef}
           id="curriculum"
           type="file"
           name="curriculum"
           accept={ACCEPT_ATTR}
+          required
           className="sr-only"
+          aria-labelledby="curriculum-label"
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? 'curriculum-error' : undefined}
+          aria-describedby={
+            error ? 'curriculum-hint curriculum-error' : 'curriculum-hint'
+          }
           onChange={(event) => selectFile(event.target.files?.[0])}
         />
         <Upload aria-hidden="true" className="size-6 text-accent" />
@@ -60,10 +75,16 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
             búsquelo en su equipo
           </span>
         </span>
-        <span className="text-xs text-white/60">
-          PDF o Word, máximo {MAX_FILE_MB} MB
-        </span>
       </label>
+      <p id="curriculum-hint" className="mt-2 text-xs text-white/60">
+        PDF o Word, máximo {MAX_FILE_MB} MB.
+      </p>
+
+      <p role="status" aria-atomic="true" className="sr-only">
+        {file
+          ? `Archivo seleccionado: ${file.name}, ${formatFileSize(file.size)}.`
+          : ''}
+      </p>
 
       {file && (
         <div className="mt-3 flex items-center justify-between gap-3 rounded-xl bg-field px-4 py-3 text-sm">
@@ -79,9 +100,9 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
           </span>
           <button
             type="button"
-            aria-label="Quitar archivo"
-            onClick={() => onFileChange(null)}
-            className="shrink-0 rounded-md p-1 text-white/70 hover:text-white"
+            aria-label={`Quitar archivo ${file.name}`}
+            onClick={removeFile}
+            className="shrink-0 rounded-md p-1 text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <X aria-hidden="true" className="size-4" />
           </button>
@@ -90,7 +111,6 @@ export function ResumeUpload({ file, error, onFileChange }: ResumeUploadProps) {
       {error && (
         <p
           id="curriculum-error"
-          role="alert"
           className="mt-1.5 text-xs text-red-300"
         >
           {error}
