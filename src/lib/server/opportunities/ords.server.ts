@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto'
 import { inflateRawSync } from 'node:zlib'
 import { areas } from '../../../data/opportunities.ts'
 
@@ -303,6 +304,7 @@ async function getToken(
   secret: string,
   signal: AbortSignal,
   refresh = false,
+  onRequest?: (durationMs: number, status?: number) => void,
 ) {
   if (
     !refresh &&
@@ -311,40 +313,47 @@ async function getToken(
     tokenCache.expiresAt > Date.now()
   )
     return tokenCache.token
-  const response = await fetch(`${baseUrl}/oauth/token`, {
-    method: 'POST',
-    redirect: 'error',
-    headers: {
-      Authorization: `Basic ${Buffer.from(`${clientId}:${secret}`).toString('base64')}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({ grant_type: 'client_credentials' }),
-    signal,
-  })
-  if (!response.ok) throw new Error(`oauth_${response.status}`)
-  const data = (await response.json()) as {
-    access_token?: unknown
-    token_type?: unknown
-    expires_in?: unknown
+  const startedAt = performance.now()
+  let tokenStatus: number | undefined
+  try {
+    const response = await fetch(`${baseUrl}/oauth/token`, {
+      method: 'POST',
+      redirect: 'error',
+      headers: {
+        Authorization: `Basic ${Buffer.from(`${clientId}:${secret}`).toString('base64')}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({ grant_type: 'client_credentials' }),
+      signal,
+    })
+    tokenStatus = response.status
+    if (!response.ok) throw new Error(`oauth_${response.status}`)
+    const data = (await response.json()) as {
+      access_token?: unknown
+      token_type?: unknown
+      expires_in?: unknown
+    }
+    if (
+      typeof data.access_token !== 'string' ||
+      data.access_token.length === 0 ||
+      typeof data.token_type !== 'string' ||
+      data.token_type.toLowerCase() !== 'bearer' ||
+      typeof data.expires_in !== 'number' ||
+      !Number.isFinite(data.expires_in) ||
+      data.expires_in <= 0
+    )
+      throw new Error('oauth_payload')
+    tokenCache = {
+      baseUrl,
+      clientId,
+      token: data.access_token,
+      // Renovar con margen evita usar un token que expire entre esta consulta y el envío.
+      expiresAt: Date.now() + Math.max(1000, data.expires_in * 1000 - 30_000),
+    }
+    return data.access_token
+  } finally {
+    onRequest?.(Math.round(performance.now() - startedAt), tokenStatus)
   }
-  if (
-    typeof data.access_token !== 'string' ||
-    data.access_token.length === 0 ||
-    typeof data.token_type !== 'string' ||
-    data.token_type.toLowerCase() !== 'bearer' ||
-    typeof data.expires_in !== 'number' ||
-    !Number.isFinite(data.expires_in) ||
-    data.expires_in <= 0
-  )
-    throw new Error('oauth_payload')
-  tokenCache = {
-    baseUrl,
-    clientId,
-    token: data.access_token,
-    // Renovar con margen evita usar un token que expire entre esta consulta y el envío.
-    expiresAt: Date.now() + Math.max(1000, data.expires_in * 1000 - 30_000),
-  }
-  return data.access_token
 }
 
 export async function sendOpportunityToOrds(
@@ -353,18 +362,53 @@ export async function sendOpportunityToOrds(
 ): Promise<Result> {
   let timer: ReturnType<typeof setTimeout> | undefined
   let controller: AbortController | undefined
+  const requestId = randomUUID()
+  const totalStartedAt = performance.now()
+  let validationMs = 0
+  let oauthMs = 0
+  let submissionMs = 0
+  let responseStatus: number | undefined
+  let outcome = 'failed'
+  const logTiming = () =>
+    console.info(
+      JSON.stringify({
+        event: 'ords_opportunity_timing',
+        requestId,
+        outcome,
+        validationMs,
+        oauthMs,
+        submissionMs,
+        totalMs: Math.round(performance.now() - totalStartedAt),
+        responseStatus,
+      }),
+    )
 
   try {
+    const validationStartedAt = performance.now()
     const { fields, bytes, errors } = validateOpportunitySubmission(input)
-    if (!fields || !bytes) return { status: 'invalid', errors }
+    validationMs = Math.round(performance.now() - validationStartedAt)
+    if (!fields || !bytes) {
+      outcome = 'invalid'
+      return { status: 'invalid', errors }
+    }
 
     const config = getOrdsConfig()
-    if (!config || !ip) return { status: 'unavailable' }
+    if (!config || !ip) {
+      outcome = 'unavailable'
+      return { status: 'unavailable' }
+    }
     const { baseUrl, clientId, secret } = config
     controller = new AbortController()
     timer = setTimeout(() => controller?.abort(), 30_000)
 
-    let token = await getToken(baseUrl, clientId, secret, controller.signal)
+    let token = await getToken(
+      baseUrl,
+      clientId,
+      secret,
+      controller.signal,
+      false,
+      (duration) => (oauthMs += duration),
+    )
 
     const payload = {
       nombre_completo: fields.nombre,
@@ -383,6 +427,7 @@ export async function sendOpportunityToOrds(
     }
     const body = JSON.stringify(payload)
 
+    let submissionStartedAt = performance.now()
     let response = await fetch(`${baseUrl}/contacto/oportunidades`, {
       method: 'POST',
       redirect: 'error',
@@ -394,10 +439,20 @@ export async function sendOpportunityToOrds(
       body,
       signal: controller.signal,
     })
+    submissionMs += Math.round(performance.now() - submissionStartedAt)
+    responseStatus = response.status
     if (response.status === 401) {
       // ORDS rechazó el token; renovar y repetir solo una vez para evitar ciclos de reintentos.
       tokenCache = undefined
-      token = await getToken(baseUrl, clientId, secret, controller.signal, true)
+      token = await getToken(
+        baseUrl,
+        clientId,
+        secret,
+        controller.signal,
+        true,
+        (duration) => (oauthMs += duration),
+      )
+      submissionStartedAt = performance.now()
       response = await fetch(`${baseUrl}/contacto/oportunidades`, {
         method: 'POST',
         redirect: 'error',
@@ -409,6 +464,8 @@ export async function sendOpportunityToOrds(
         body,
         signal: controller.signal,
       })
+      submissionMs += Math.round(performance.now() - submissionStartedAt)
+      responseStatus = response.status
     }
     if (response.status === 201 || response.status === 200) {
       const data = (await response.json().catch(() => null)) as {
@@ -418,18 +475,27 @@ export async function sendOpportunityToOrds(
         // Un HTTP exitoso sin el resultado esperado no confirma que la postulación quedó guardada.
         (response.status === 201 && data?.resultado === 'creado') ||
         (response.status === 200 && data?.resultado === 'ya_recibido')
-      )
+      ) {
+        outcome = 'sent'
         return { status: 'sent' }
+      }
     }
     if (response.status === 429) {
-      const retryAfterSeconds = Number(response.headers.get('retry-after')) || 60
+      outcome = 'rate_limited'
+      const retryAfterSeconds =
+        Number(response.headers.get('retry-after')) || 60
       return {
         status: 'rate_limited',
         retryAfterSeconds,
       }
     }
+    outcome = 'failed'
     return { status: 'failed' }
   } catch (error) {
+    outcome =
+      error instanceof Error && error.name === 'AbortError'
+        ? 'timeout'
+        : 'failed'
     return {
       status:
         error instanceof Error && error.name === 'AbortError'
@@ -438,5 +504,6 @@ export async function sendOpportunityToOrds(
     }
   } finally {
     if (timer) clearTimeout(timer)
+    logTiming()
   }
 }
