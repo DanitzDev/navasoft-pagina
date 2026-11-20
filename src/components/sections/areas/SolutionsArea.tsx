@@ -18,27 +18,57 @@ const sectors = [
 const relatedProducts = products.filter((product) =>
   sectors.some((sector) => sector.products.includes(product.slug)),
 )
+const optimizedClientLogos: Record<
+  string,
+  { src: string; width: number; height: number }
+> = {
+  'municipalidad-la-union': {
+    src: '/images/clientes/munilaunion-logo-320.webp',
+    width: 320,
+    height: 373,
+  },
+  ferji: {
+    src: '/images/clientes/ferji-mark-320.webp',
+    width: 320,
+    height: 250,
+  },
+  ina: {
+    src: '/images/clientes/Logo-INA-320.webp',
+    width: 320,
+    height: 137,
+  },
+  arcelormittal: {
+    src: '/images/clientes/ArcelorMittal-Logo-240.webp',
+    width: 240,
+    height: 135,
+  },
+}
 
 function ClientList({ clients }: { clients: typeof clientDirectory }) {
   return (
     <ul className="business-client-list">
-      {clients.map((client) => (
-        <li
-          key={client.id}
-          className={client.image ? undefined : 'business-client-text-only'}
-        >
-          {client.image && (
-            <div className="business-client-logo" data-client={client.id}>
-              <ResponsiveImage
-                src={client.image}
-                alt={client.name}
-                sizes="(max-width: 768px) 120px, 160px"
-              />
-            </div>
-          )}
-          {!client.image && <span>{client.name}</span>}
-        </li>
-      ))}
+      {clients.map((client) => {
+        const optimized = optimizedClientLogos[client.id]
+        return (
+          <li
+            key={client.id}
+            className={client.image ? undefined : 'business-client-text-only'}
+          >
+            {client.image && (
+              <div className="business-client-logo" data-client={client.id}>
+                <ResponsiveImage
+                  src={optimized?.src ?? client.image}
+                  width={optimized?.width}
+                  height={optimized?.height}
+                  alt={client.name}
+                  sizes="(max-width: 768px) 120px, 160px"
+                />
+              </div>
+            )}
+            {!client.image && <span>{client.name}</span>}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -80,7 +110,10 @@ export default function SolutionsArea() {
               <ResponsiveImage
                 src={sectorPages.gobierno.image}
                 alt=""
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                width={1792}
+                height={1008}
+                priority
+                sizes="(min-width: 1024px) 640px, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>
@@ -108,7 +141,9 @@ export default function SolutionsArea() {
               <ResponsiveImage
                 src={sectorPages.privado.image}
                 alt=""
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                width={1792}
+                height={1008}
+                sizes="(min-width: 1024px) 640px, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>
@@ -217,7 +252,7 @@ export default function SolutionsArea() {
                   <ResponsiveImage
                     src={product.image ?? ''}
                     alt=""
-                    sizes="(min-width: 1024px) 16vw, (min-width: 768px) 25vw, 100vw"
+                    sizes="(min-width: 1024px) 16vw, (max-width: 399px) 100vw, 33vw"
                   />
                 </div>
                 <div>

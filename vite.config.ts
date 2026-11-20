@@ -15,7 +15,7 @@ const config = defineConfig(({ command, mode }) => {
       'ORDS_CLIENT_SECRET',
       'ORDS_TRUST_X_FORWARDED_FOR',
     ]) {
-      if (process.env[name] === undefined && localEnv[name] !== undefined)
+      if (process.env[name] === undefined && localEnv[name])
         process.env[name] = localEnv[name]
     }
   }

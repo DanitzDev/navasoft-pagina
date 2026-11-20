@@ -1,7 +1,7 @@
 
 // Las vistas previas sociales exigen direcciones absolutas. Confirma que este es el dominio público.
 export const SITE_URL = (import.meta.env.VITE_SITE_URL as string | undefined) ?? "https://navasoft.es";
-export const DEFAULT_OG_IMAGE = "/images/og-default.jpg";
+export const DEFAULT_OG_IMAGE = "/og-default.jpg";
 
 type PageMetaOptions = {
     title: string; // sin el sufijo de la marca

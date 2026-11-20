@@ -1,4 +1,13 @@
 {
+  "/images/area-empresarial": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280
+    ]
+  },
   "/images/area-iot": {
     "width": 1792,
     "height": 1008,

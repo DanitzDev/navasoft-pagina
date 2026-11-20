@@ -17,7 +17,7 @@ interface StyleProps {
 const base =
   'inline-flex items-center justify-center rounded-xl transition-colors duration-200 ' +
   'font-medium focus-visible:outline-none font-montserrat focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ' +
-  'disabled:pointer-events-none disabled:opacity-50'
+  'disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50'
 
 // Record<K, T> (key, Type)
 const variants: Record<ButtonVariant, string> = {

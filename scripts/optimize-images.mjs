@@ -8,7 +8,7 @@ const WIDTHS = [480, 768, 1280, 1920]
 const MAX_WIDTH = 1920
 const QUALITY = 78
 const SKIP_DIRS = new Set(['logos', 'brand']) // logos pequeños y con transparencia: no se tocan
-const SOURCE = /\.(jpe?g|png)$/i
+const SOURCE = /\.(jpe?g|png|avif)$/i
 
 async function walk(dir) {
     const entries = await readdir(dir, { withFileTypes: true })
@@ -38,7 +38,8 @@ const report = []
 
 for (const file of files) {
     const meta = await sharp(file).rotate().metadata()
-    const cap = Math.min(meta.width ?? MAX_WIDTH, MAX_WIDTH)
+    const maxWidth = /\.avif$/i.test(file) ? 1280 : MAX_WIDTH
+    const cap = Math.min(meta.width ?? maxWidth, maxWidth)
     const widths = [...new Set([...WIDTHS.filter((width) => width < cap), cap])].sort((a, b) => a - b)
 
     const base = file.replace(SOURCE, '')

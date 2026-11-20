@@ -21,7 +21,7 @@ export function ResponsiveImage({
   priority = false,
   ...rest
 }: ResponsiveImageProps) {
-  const base = src.replace(/\.(jpe?g|png)$/i, '')
+  const base = src.replace(/\.(jpe?g|png|webp|avif)$/i, '')
   const entry = entries[base]
 
   const image = (

@@ -51,7 +51,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         />
 
         {error && (
-          <p id={errorId} aria-live="polite" className="text-xs text-red-300">
+          <p id={errorId} className="text-xs text-red-300">
             {error}
           </p>
         )}

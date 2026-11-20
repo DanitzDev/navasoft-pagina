@@ -14,22 +14,55 @@ if (existsSync(privateEnvFile)) loadEnvFile(privateEnvFile)
 
 const serveClient = serveStatic(
   fileURLToPath(new URL('./dist/client/', import.meta.url)),
-  { index: false, redirect: false },
+  {
+    index: false,
+    redirect: false,
+    maxAge: '30d',
+    setHeaders(response, filePath) {
+      if (/-[A-Za-z0-9_-]{8,}\.[^\\.]+$/.test(filePath)) {
+        response.setHeader(
+          'Cache-Control',
+          'public, max-age=31536000, immutable',
+        )
+      }
+    },
+  },
 )
 const serveCompressedClient = serveCompressedStatic({
   dir: fileURLToPath(new URL('./dist/client/', import.meta.url)),
 })
 const compressibleAsset = /\.(?:css|html?|js|json|mjs|svg|txt|xml)$/i
+const immutableAsset = /\/assets\/[^/]+-[A-Za-z0-9_-]{8,}\.[^/]+$/
+
+function setAssetCachePolicy(response, pathname) {
+  if (!response.ok) return response
+
+  const headers = new Headers(response.headers)
+  headers.set(
+    'Cache-Control',
+    immutableAsset.test(pathname)
+      ? 'public, max-age=31536000, immutable'
+      : 'public, max-age=2592000',
+  )
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+}
 // Acepta el Base64 de un currículum de 5 MiB y rechaza cuerpos excesivos antes de leerlos.
 const maxRequestBodySize = 9 * 1024 * 1024
 
 async function start() {
   const { default: app } = await import('./dist/server/server.js')
   const serveApp = toNodeHandler(
-    (request) => {
+    async (request) => {
       const pathname = new URL(request.url).pathname
       if (compressibleAsset.test(pathname)) {
-        return serveCompressedClient(request, () => app.fetch(request))
+        const response = await serveCompressedClient(request, () =>
+          app.fetch(request),
+        )
+        return setAssetCachePolicy(response, pathname)
       }
       return app.fetch(request)
     },

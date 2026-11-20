@@ -309,15 +309,18 @@
 .solutions-sector-access {
   position: relative;
   display: block;
+  aspect-ratio: 16 / 9;
   min-width: 0;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #40506a;
 }
 .solutions-hero-images img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: 216px;
+  height: 100%;
   object-fit: cover;
   object-position: center 42%;
 }
@@ -368,6 +371,16 @@
 @media (min-width: 600px) and (max-width: 959px) {
   .solutions-hero-images {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .solutions-sector-access {
+    aspect-ratio: auto;
+    height: 216px;
+  }
+}
+@media (min-width: 960px) {
+  .solutions-sector-access {
+    aspect-ratio: auto;
+    height: 216px;
   }
 }
 .solutions-content {

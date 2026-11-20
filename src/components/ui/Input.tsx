@@ -29,7 +29,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input( //
   const inputId = id ?? generatedId // si no se le pasa un id, se le asigna uno generado automáticamente
   const hintId = `${inputId}-hint` // genera un id único para el hint, para que se asocie correctamente con el input
   const errorId = `${inputId}-error` // genera un id único para el error, para que se asocie correctamente con el input
-  const describedBy = error ? errorId : hint ? hintId : undefined
+  const describedBy =
+    [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
   // si hay error, se le asigna el id del error, si no, se le asigna el id del hint, si no hay ninguno, se le asigna undefined
 
   return (
@@ -55,15 +56,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input( //
         {...props}
       />
 
-      {error ? (
-        <p id={errorId} aria-live="polite" className="text-xs text-red-300">
-          {error}
-        </p>
-      ) : hint ? (
+      {hint && (
         <p id={hintId} className="text-xs text-white/70">
           {hint}
         </p>
-      ) : null}
+      )}
+      {error && (
+        <p id={errorId} className="text-xs text-red-300">
+          {error}
+        </p>
+      )}
     </div>
   )
 })

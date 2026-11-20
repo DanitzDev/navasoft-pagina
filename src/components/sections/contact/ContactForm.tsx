@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { CheckCircle2, CircleAlert, LoaderCircle, Send } from 'lucide-react'
+import { flushSync } from 'react-dom'
+import { CheckCircle2, LoaderCircle, Send } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
+import { ErrorSummary } from '@/components/ui/ErrorSummary'
 import { Textarea } from '@/components/ui/Textarea'
 import ContactPhone from './ContactPhone'
 import { deliverContact } from '@/lib/contact/submit'
@@ -20,6 +22,16 @@ import type {
 } from '@/lib/validation/contact'
 
 type Props = { initialReason?: ContactReason }
+
+const contactFieldLabels: Record<ContactField, string> = {
+  name: 'Nombre completo',
+  email: 'Correo electrónico',
+  organization: 'Organización',
+  phone: 'Celular',
+  reason: 'Motivo de contacto',
+  message: 'Mensaje u observaciones',
+  consent: 'Autorización de contacto',
+}
 
 export default function ContactForm({ initialReason = 'consulta' }: Props) {
   const [values, setValues] = useState<ContactData>({
@@ -51,6 +63,18 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
   const busy = useRef(false)
   const form = useRef<HTMLFormElement>(null)
   const status = useRef<HTMLDivElement>(null)
+  const errorSummary = useRef<HTMLHeadingElement>(null)
+  const errorItems = (Object.keys(contactFieldLabels) as ContactField[])
+    .filter((field) => errors[field])
+    .map((field) => ({
+      field,
+      label: contactFieldLabels[field],
+      message: errors[field] as string,
+    }))
+
+  function focusErrorSummary() {
+    window.setTimeout(() => errorSummary.current?.focus(), 100)
+  }
 
   useEffect(() => {
     setReady(true)
@@ -109,25 +133,21 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
     setSent(false)
   }
 
-  function focusError(next: ContactErrors) {
-    // Lleva el foco al primer campo inválido para facilitar la corrección con teclado.
-    const field = (Object.keys(values) as ContactField[]).find(
-      (key) => next[key],
+  function focusField(field: ContactField) {
+    const control = form.current?.querySelector<HTMLElement>(
+      `[name="${field}"], #contact-${field}`,
     )
-    if (field)
-      form.current?.querySelector<HTMLElement>(`[name="${field}"]`)?.focus()
+    if (!control) return
+    control.focus({ preventScroll: true })
+    control.scrollIntoView({ behavior: 'auto', block: 'center' })
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     // El ref bloquea envíos duplicados antes de que React actualice el estado pending.
     if (busy.current || Date.now() < retryAt) return
-    setAttempted(true)
-    setNotice('')
-    setSent(false)
     const result = validateContact({ ...values, phoneCountryCode })
-    setErrors(result.errors)
-    setTouched({
+    const allFieldsTouched = {
       name: true,
       email: true,
       organization: true,
@@ -135,11 +155,23 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
       reason: true,
       message: true,
       consent: true,
-    })
+    }
     if (Object.keys(result.errors).length) {
-      requestAnimationFrame(() => focusError(result.errors))
+      flushSync(() => {
+        setAttempted(true)
+        setNotice('')
+        setSent(false)
+        setErrors(result.errors)
+        setTouched(allFieldsTouched)
+      })
+      focusErrorSummary()
       return
     }
+    setAttempted(true)
+    setNotice('')
+    setSent(false)
+    setErrors(result.errors)
+    setTouched(allFieldsTouched)
     busy.current = true
     setTakingLonger(false)
     setPending(true)
@@ -151,8 +183,8 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
         website: website.current?.value ?? '',
       })
       if (response.status === 'invalid') {
-        setErrors(response.errors)
-        requestAnimationFrame(() => focusError(response.errors))
+        flushSync(() => setErrors(response.errors))
+        focusErrorSummary()
       } else {
         if (response.status === 'sent') {
           setSent(true)
@@ -273,11 +305,18 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
           <span className="sr-only">asterisco</span> son obligatorios.
         </p>
       </div>
-      {attempted && Object.values(errors).some(Boolean) && (
-        <div className="contact-error-summary" role="alert">
-          <CircleAlert size={20} aria-hidden="true" />
-          <p>Revisa los campos señalados para continuar.</p>
-        </div>
+      <p role="status" aria-live="polite" className="sr-only">
+        {attempted && errorItems.length > 0
+          ? `Hay ${errorItems.length} errores en el formulario`
+          : ''}
+      </p>
+      {attempted && errorItems.length > 0 && (
+        <ErrorSummary
+          ref={errorSummary}
+          className="contact-error-summary"
+          items={errorItems}
+          onSelect={(field) => focusField(field as ContactField)}
+        />
       )}
       <div className="contact-honeypot" aria-hidden="true">
         <label htmlFor="contact-website">Deja este campo vacío</label>
@@ -380,6 +419,7 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
         <div className="contact-consent">
           <label>
             <input
+              id="contact-consent"
               type="checkbox"
               name="consent"
               required
@@ -405,7 +445,10 @@ export default function ContactForm({ initialReason = 'consulta' }: Props) {
         <Button
           type="submit"
           size="lg"
-          disabled={!ready || pending || retrySeconds > 0}
+          aria-disabled={!ready || pending || retrySeconds > 0}
+          onClick={(event) => {
+            if (!ready || pending || retrySeconds > 0) event.preventDefault()
+          }}
         >
           {pending
             ? 'Procesando…'
