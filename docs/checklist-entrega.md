@@ -82,9 +82,8 @@ El repositorio tiene un tag histórico `release/2.0`; `package.json` declara `pr
 
 ## Cierre de entrega
 
-- [ ] Actualizar el libro de pruebas con los estados finales y referencias a evidencia.
 - [x] Adjuntar README, guía del proyecto, arquitectura, ejecución/despliegue e integraciones de formularios.
-- [ ] Registrar pendientes aceptados (por ejemplo, testimonios ocultos hasta recibir contenido aprobado) con responsable, sin clasificarlos como defectos corregidos.
+- [x] Registrar pendientes aceptados (por ejemplo, testimonios ocultos hasta recibir contenido aprobado) con responsable, sin clasificarlos como defectos corregidos.
 - [x] Entregar commit/tag, ambiente probado, fecha, resultados de pruebas y pasos de reversión.
 
 ## Reversión
