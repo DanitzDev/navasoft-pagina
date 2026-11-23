@@ -101,7 +101,13 @@ Los componentes muestran el contenido, mientras que los catálogos mantienen lis
 
 ## Metadatos y dominio
 
-Usar `pageMeta` en las rutas públicas para que URL canónica y URL social usen el origen compartido. El origen actual es `https://navasoft.es`. No actualizarlo en cada página de forma independiente; si cambia el dominio, modificar `src/lib/page-meta.ts` y comprobar URL canónica, Open Graph y Twitter Card.
+Usar `pageMeta` en las rutas públicas para que URL canónica y URL social usen el origen compartido. La migración prevista es al dominio `https://navasoftsoluciones.com`; cambiar el origen solo al confirmar que DNS, Plesk y el certificado HTTPS están listos.
+
+Al migrar, buscar y actualizar todas las referencias al dominio anterior. En el código actual, revisar `src/lib/page-meta.ts` (URL canónica y tarjetas sociales), `src/lib/seo.ts` (variable `VITE_SITE_URL` y su valor predeterminado) y `src/routes/__root.tsx` (imagen Open Graph predeterminada). Mantener coherentes el dominio canónico, Open Graph y Twitter Card; no cambiar cada página por separado.
+
+Antes del corte, confirmar con quien administra el dominio los registros DNS del dominio raíz y `www`, el destino de hosting y la política de redirección. Instalar un certificado válido para los nombres que se publicarán, forzar HTTPS y acordar si `www` redirige al dominio raíz. Si se conserva `navasoft.es`, redirigir sus URL antiguas al destino equivalente en el nuevo dominio para preservar enlaces.
+
+Después de desplegar, revisar que las páginas públicas respondan por HTTPS, que las redirecciones conserven rutas, que URL canónicas y tarjetas sociales utilicen `https://navasoftsoluciones.com`, y que recursos, formularios y páginas 404 funcionen. Actualizar también sitemap, robots, analítica y herramientas de buscadores si el proyecto o el hosting los utilizan. Registrar el commit desplegado, el resultado y el procedimiento de reversión.
 
 ## Archivos generados y recursos compilados
 

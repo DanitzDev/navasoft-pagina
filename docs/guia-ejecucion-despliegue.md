@@ -122,6 +122,8 @@ Si cambia el dominio y Plesk también cambia la carpeta física del sitio, actua
 
 Este ajuste de rutas físicas es independiente del dominio canónico y de las URL sociales; si también cambia el dominio público, actualice la configuración descrita en [Metadatos y dominio](guia-del-proyecto.md#metadatos-y-dominio).
 
+Para la migración prevista a `navasoftsoluciones.com`, confirme con el administrador los registros DNS para el dominio raíz y `www`, el destino del hosting, la emisión del certificado HTTPS y la redirección acordada entre `www` y el dominio raíz. Si `navasoft.es` seguirá activo, configure una redirección permanente que conserve la ruta y los parámetros de la URL. Actualice las referencias de dominio en el código y despliegue el build producido desde el commit acordado.
+
 `app.js` sirve archivos públicos únicamente desde `dist/client` y envía otras solicitudes al servidor TanStack. Como Document Root puede coincidir con Application Root, pida al administrador verificar que IIS no exponga por acceso HTTP directo código fuente, `node_modules`, `dist/server`, `.env`, manifiestos, Git u otros archivos internos. No considere una prueba de navegador suficiente para confirmar que esas rutas están bloqueadas.
 
 ### Lista de comprobación después del despliegue
@@ -133,7 +135,8 @@ Este ajuste de rutas físicas es independiente del dominio canónico y de las UR
 - [ ] CSS, imágenes y recursos de cliente cargan sin 404.
 - [ ] La configuración de ORDS está presente solo en el servidor. No probar un envío real con datos personales sin autorización y coordinación.
 - [ ] IIS no permite descargar fuentes, dependencias, secretos, manifiestos ni bundle SSR.
-- [ ] El dominio canónico y las tarjetas sociales apuntan al dominio oficial configurado (`https://navasoft.es`).
+- [ ] `https://navasoftsoluciones.com` y la variante `www` siguen la política acordada, tienen HTTPS válido y redirigen correctamente.
+- [ ] URL canónicas, Open Graph y Twitter Card usan `https://navasoftsoluciones.com`; los recursos, formularios y rutas conservan su funcionamiento.
 
 ## Diagnóstico rápido
 
