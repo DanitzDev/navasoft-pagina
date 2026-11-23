@@ -21,7 +21,7 @@ export function StepsSection({
         />
 
         <ol
-          className={`mt-12 grid gap-10 sm:grid-cols-2 ${steps.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}
+          className={`mt-12 grid gap-10 sm:grid-cols-2 ${steps.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}
         >
           {steps.map((step, i) => (
             <li key={step.title} className="relative pt-14">

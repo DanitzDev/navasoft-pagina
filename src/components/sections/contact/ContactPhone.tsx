@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { contactLimits } from '@/lib/validation/contact'
@@ -10,44 +10,73 @@ import {
 
 type Props = {
   value: string
+  countryCode: string
   error?: string
-  onChange: (value: string) => void
+  onChange: (value: string, countryCode: string) => void
   onBlur: () => void
 }
 
 export default function ContactPhone({
   value,
+  countryCode,
   error,
   onChange,
   onBlur,
 }: Props) {
   const [country, setCountry] = useState('CR')
-  const code = phoneCountries.find((item) => item.value === country)?.code ?? ''
+  const selectedCountry = phoneCountries.find((item) => item.value === country)
+  const code = country === 'other' ? countryCode : (selectedCountry?.code ?? '')
   const number =
     code && value.startsWith(code)
       ? value.slice(code.length).trimStart()
       : value
-  const hasFullNumber = number.trimStart().startsWith('+')
+
+  useEffect(() => {
+    // Sincroniza el selector cuando el formulario cambia el código (por ejemplo, al reiniciar).
+    const selected = phoneCountries.find((item) => item.value === country)
+    if (selected?.code === countryCode) return
+    const matchingCountry = phoneCountries.find(
+      (item) => item.code === countryCode,
+    )
+    const nextCountry = matchingCountry?.value ?? 'other'
+    if (nextCountry !== country) setCountry(nextCountry)
+  }, [countryCode, country])
 
   function changeCountry(nextCountry: string) {
     const nextCode =
       phoneCountries.find((item) => item.value === nextCountry)?.code ?? ''
     setCountry(nextCountry)
-    // En modo manual se conserva el número completo, incluido el prefijo actual.
-    const nationalNumber = code ? number : splitContactPhone(value).number
-    onChange(nextCode ? joinContactPhone(nextCode, nationalNumber) : value)
+    // Cambiar el país conserva el número nacional y solo reemplaza su prefijo.
+    const nationalNumber = code
+      ? number
+      : splitContactPhone(value, country).number
+    onChange(
+      nextCode ? joinContactPhone(nextCode, nationalNumber) : nationalNumber,
+      nextCode,
+    )
   }
 
   function changeNumber(nextNumber: string) {
+    // Si se pega un número internacional completo, inferir país y separar prefijo.
     if (nextNumber.trimStart().startsWith('+')) {
       const parsed = splitContactPhone(nextNumber, country)
       setCountry(parsed.country)
       const nextCode =
         phoneCountries.find((item) => item.value === parsed.country)?.code ?? ''
-      onChange(joinContactPhone(nextCode, parsed.number))
+      onChange(joinContactPhone(nextCode, parsed.number), nextCode)
     } else {
-      onChange(joinContactPhone(code, nextNumber))
+      onChange(joinContactPhone(code, nextNumber), code)
     }
+  }
+
+  function changeCountryCode(nextCode: string) {
+    // En países fuera del catálogo, el usuario puede editar el prefijo manualmente.
+    const normalizedCode = nextCode.trim().replace(/\s/g, '')
+    const currentNumber = code && value.startsWith(code) ? number : value
+    const nationalNumber = currentNumber.startsWith(normalizedCode)
+      ? currentNumber.slice(normalizedCode.length).trimStart()
+      : currentNumber
+    onChange(joinContactPhone(normalizedCode, nationalNumber), normalizedCode)
   }
 
   return (
@@ -71,17 +100,27 @@ export default function ContactPhone({
             label: item.code ? `${item.label} (${item.code})` : item.label,
           }))}
         />
+        {country === 'other' && (
+          <Input
+            label="Código de país"
+            name="phoneCountryCode"
+            type="tel"
+            inputMode="tel"
+            value={countryCode}
+            onChange={(event) => changeCountryCode(event.target.value)}
+            onBlur={onBlur}
+            maxLength={4}
+            placeholder="+44"
+            hint="Incluye + y de 1 a 3 dígitos."
+          />
+        )}
         <Input
           id="contact-phone"
           name="phone"
-          label={
-            code && !hasFullNumber
-              ? 'Número de celular'
-              : 'Número con código de país'
-          }
+          label="Número de celular"
           type="tel"
           inputMode="tel"
-          autoComplete={code && !hasFullNumber ? 'tel-national' : 'tel'}
+          autoComplete="tel-national"
           value={number}
           onChange={(event) => changeNumber(event.target.value)}
           onBlur={onBlur}
@@ -95,11 +134,7 @@ export default function ContactPhone({
           }
           error={error}
           hint={
-            hasFullNumber && code
-              ? 'El código incluido en el número tiene prioridad sobre el país seleccionado.'
-              : code
-                ? 'Sin el código de país. También puedes pegar el número completo con +.'
-                : 'Incluye + y el código de tu país.'
+            code ? 'Sin el código de país.' : 'Incluye + y el código de país.'
           }
         />
       </div>

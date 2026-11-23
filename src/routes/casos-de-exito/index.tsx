@@ -1,38 +1,22 @@
 import { useEffect, useState } from 'react'
-import {
-  Link,
-  createFileRoute,
-  redirect,
-  useLocation,
-  useNavigate,
-} from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { Container } from '../../components/ui/Container'
 import { SectionTitle } from '../../components/ui/SectionTitle'
 import CaseCard from '../../components/sections/cases/CaseCard'
 import InstitutionalBanner from '../../components/shared/institutional-banner/InstitutionalBanner'
-import { caseStudies, caseGroups, casesIntroduction } from '../../data/cases'
+import { caseGroups, casesIntroduction } from '../../data/cases'
 import { contactBanner } from '../../data/site'
+import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/casos-de-exito/')({
-  beforeLoad: ({ location }) => {
-    const legacyCase = caseStudies.find((item) => item.id === location.hash)
-    if (legacyCase)
-      throw redirect({
-        to: '/casos-de-exito/$slug',
-        params: { slug: legacyCase.id },
-        replace: true,
-      })
-  },
-  head: () => ({
-    meta: [
-      { title: 'Casos de éxito · Navasoft Soluciones' },
-      {
-        name: 'description',
-        content:
-          'Explora proyectos de integración industrial, banca, gestión pública y modernización Oracle, y conoce NavaStay, nuestro producto para condominios.',
-      },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Casos de éxito · Navasoft Soluciones',
+      description:
+        'Conozca proyectos de Navasoft en integración industrial, banca, gestión pública y modernización Oracle, además de NavaStay para condominios.',
+      path: '/casos-de-exito',
+      image: '/images/hero-industria.jpeg',
+    }),
   component: SuccessCasesPage,
 })
 
@@ -67,18 +51,6 @@ function SuccessCasesPage() {
       window.removeEventListener('resize', schedule)
     }
   }, [])
-  const hash = useLocation({ select: (location) => location.hash })
-  const navigate = useNavigate()
-  // El fragmento no llega al servidor; también se resuelve tras hidratar.
-  useEffect(() => {
-    const legacyCase = caseStudies.find((item) => item.id === hash)
-    if (legacyCase)
-      void navigate({
-        to: '/casos-de-exito/$slug',
-        params: { slug: legacyCase.id },
-        replace: true,
-      })
-  }, [hash, navigate])
   return (
     <>
       <section

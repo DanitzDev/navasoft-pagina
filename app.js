@@ -1,0 +1,113 @@
+import { createServer } from 'node:http'
+import { existsSync } from 'node:fs'
+import { loadEnvFile } from 'node:process'
+import { fileURLToPath } from 'node:url'
+import serveStatic from 'serve-static'
+import { serveStatic as serveCompressedStatic } from 'srvx/static'
+import { toNodeHandler } from 'srvx/node'
+
+process.env.NODE_ENV ??= 'production'
+
+// Plesk Windows mantiene los secretos de producción fuera del directorio público httpdocs.
+const privateEnvFile = new URL('../.env', import.meta.url)
+if (existsSync(privateEnvFile)) loadEnvFile(privateEnvFile)
+
+const serveClient = serveStatic(
+  fileURLToPath(new URL('./dist/client/', import.meta.url)),
+  {
+    index: false,
+    redirect: false,
+    maxAge: '30d',
+    setHeaders(response, filePath) {
+      if (/-[A-Za-z0-9_-]{8,}\.[^\\.]+$/.test(filePath)) {
+        response.setHeader(
+          'Cache-Control',
+          'public, max-age=31536000, immutable',
+        )
+      }
+    },
+  },
+)
+const serveCompressedClient = serveCompressedStatic({
+  dir: fileURLToPath(new URL('./dist/client/', import.meta.url)),
+})
+const compressibleAsset = /\.(?:css|html?|js|json|mjs|svg|txt|xml)$/i
+const immutableAsset = /\/assets\/[^/]+-[A-Za-z0-9_-]{8,}\.[^/]+$/
+
+function setAssetCachePolicy(response, pathname) {
+  if (!response.ok) return response
+
+  const headers = new Headers(response.headers)
+  headers.set(
+    'Cache-Control',
+    immutableAsset.test(pathname)
+      ? 'public, max-age=31536000, immutable'
+      : 'public, max-age=2592000',
+  )
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+}
+// Acepta el Base64 de un currículum de 5 MiB y rechaza cuerpos excesivos antes de leerlos.
+const maxRequestBodySize = 9 * 1024 * 1024
+
+async function start() {
+  const { default: app } = await import('./dist/server/server.js')
+  const serveApp = toNodeHandler(
+    async (request) => {
+      const pathname = new URL(request.url).pathname
+      if (compressibleAsset.test(pathname)) {
+        const response = await serveCompressedClient(request, () =>
+          app.fetch(request),
+        )
+        return setAssetCachePolicy(response, pathname)
+      }
+      return app.fetch(request)
+    },
+    { maxRequestBodySize },
+  )
+  const server = createServer((request, response) => {
+    // Deja que srvx comprima los recursos textuales; sirve imágenes y otros
+    // binarios con serve-static para no gastar CPU comprimiéndolos de nuevo.
+    if (compressibleAsset.test(new URL(request.url, 'http://localhost').pathname)) {
+      void Promise.resolve()
+        .then(() => serveApp(request, response))
+        .catch((failure) => {
+          console.error('Error al procesar una solicitud:', failure)
+          if (response.headersSent) response.destroy()
+          else response.writeHead(500).end()
+        })
+      return
+    }
+
+    serveClient(request, response, (error) => {
+      if (error) {
+        response.writeHead(error.statusCode ?? 500).end()
+        return
+      }
+
+      void Promise.resolve()
+        .then(() => serveApp(request, response))
+        .catch((failure) => {
+          console.error('Error al procesar una solicitud:', failure)
+          if (response.headersSent) response.destroy()
+          else response.writeHead(500).end()
+        })
+    })
+  })
+
+  const port = process.env.PORT || '3000'
+  // IIS puede entregar una canalización con nombre en lugar de un puerto TCP.
+  if (/^\d+$/.test(port)) server.listen(Number(port), process.env.HOST)
+  else server.listen(port)
+}
+
+void start().catch((error) => {
+  console.error(
+    'No se pudo iniciar la aplicación. Ejecuta npm run build.',
+    error,
+  )
+  process.exitCode = 1
+})

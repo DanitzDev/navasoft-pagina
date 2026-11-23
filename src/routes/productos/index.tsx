@@ -3,18 +3,17 @@ import { SectionTitle } from '../../components/ui/SectionTitle'
 import { Container } from '../../components/ui/Container'
 import { products } from '../../data/products'
 import '../../components/sections/products/ProductsIndex.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute('/productos/')({
-  head: () => ({
-    meta: [
-      { title: 'Productos · Navasoft Soluciones' },
-      {
-        name: 'description',
-        content:
-          'Conoce Gridxia, NavaStay, Tracxia, Ordexia y Factxia: plataformas de Navasoft para servicios públicos, condominios, agroindustria, ventas y facturación.',
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Ecosistema SaaS",
+      description:
+        "Gridxia, Tracxia, Ordexia, Factxia, NavaStay y Acadxia: plataformas SaaS de Navasoft para transformar sectores específicos con soluciones modernas, escalables y orientadas a resultados.",
+      path: "/productos",
+    }),
   component: ProductsPage,
 })
 
@@ -23,7 +22,7 @@ function ProductsPage() {
     <Container as="section" className="products-index">
       <SectionTitle
         as="h1"
-        title="Productos para su operación"
+        title="Ecosistema SaaS para su operación"
         description="Explore las plataformas de Navasoft y conozca qué procesos puede gestionar con cada una."
       />
       <ul className="products-index-grid">
@@ -34,12 +33,10 @@ function ProductsPage() {
               params={{ slug: product.slug }}
               className="products-index-card"
             >
-              <img
-                src={product.image}
+              <ResponsiveImage
+                src={product.image ?? ''}
                 alt=""
-                width="1280"
-                height="720"
-                loading="lazy"
+                sizes="(min-width: 1024px) 60vw, 100vw"
               />
               <div className="products-index-copy">
                 <p className="products-index-category">{product.category}</p>

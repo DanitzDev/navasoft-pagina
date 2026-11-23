@@ -33,7 +33,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const selectId = id ?? generatedId
     const hintId = `${selectId}-hint`
     const errorId = `${selectId}-error`
-    const describedBy = error ? errorId : hint ? hintId : undefined
+    const describedBy =
+      [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
 
     return (
       <div className="flex flex-col gap-2">
@@ -97,15 +98,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </svg>
         </div>
 
-        {error ? (
-          <p id={errorId} aria-live="polite" className="text-xs text-red-300">
-            {error}
-          </p>
-        ) : hint ? (
+        {hint && (
           <p id={hintId} className="text-xs text-white/70">
             {hint}
           </p>
-        ) : null}
+        )}
+        {error && (
+          <p id={errorId} className="text-xs text-red-300">
+            {error}
+          </p>
+        )}
       </div>
     )
   },

@@ -17,7 +17,7 @@ interface StyleProps {
 const base =
   'inline-flex items-center justify-center rounded-xl transition-colors duration-200 ' +
   'font-medium focus-visible:outline-none font-montserrat focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ' +
-  'disabled:pointer-events-none disabled:opacity-50'
+  'disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50'
 
 // Record<K, T> (key, Type)
 const variants: Record<ButtonVariant, string> = {
@@ -30,10 +30,10 @@ const variants: Record<ButtonVariant, string> = {
 }
 
 const sizes: Record<ButtonSize, string> = {
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-5 py-3 text-sm',
-  lg: 'px-6 py-3.5 text-base',
-}
+  sm: "min-h-11 px-4 py-2 text-sm",
+  md: "min-h-11 px-5 py-3 text-sm",
+  lg: "min-h-12 px-6 py-3.5 text-base",
+};
 
 // Función para generar las clases de estilo del botón
 export function buttonStyles({

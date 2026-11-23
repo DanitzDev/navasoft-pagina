@@ -6,9 +6,11 @@ import {
   footerSocialLinks,
   siteContacts,
 } from '../../../data/site'
+import { policyLinks } from '../../../data/policy-links'
 import { SectionTitle } from '../../ui/SectionTitle'
 import ContactIcon from './ContactIcon'
 import SocialIcon from './SocialIcon'
+import { BrandLogo } from '@/components/ui/BrandLogo'
 // Presentación responsive del Footer.
 import './Footer.basic.css'
 
@@ -27,12 +29,7 @@ export default function Footer() {
               className="footer-brand"
               aria-label="Navasoft Soluciones, inicio"
             >
-              <img
-                src="/images/brand/navasoft-white.png"
-                alt="Navasoft Soluciones"
-                width="1200"
-                height="562"
-              />
+              <BrandLogo />
             </Link>
             <p className="footer-tagline">Tecnología que innova</p>
           </div>
@@ -116,6 +113,25 @@ export default function Footer() {
                   activeOptions={{ exact: true, includeSearch: false }}
                 >
                   {link.label}
+                </Link>
+              </li>
+            ))}
+            <li className="footer-policy-heading">
+              <Link
+                to="/politicas"
+                activeOptions={{ exact: true, includeSearch: false }}
+              >
+                Políticas
+              </Link>
+            </li>
+            {policyLinks.map((policy) => (
+              <li key={policy.slug}>
+                <Link
+                  to="/politicas/$slug"
+                  params={{ slug: policy.slug }}
+                  activeOptions={{ exact: true, includeSearch: false }}
+                >
+                  {policy.label}
                 </Link>
               </li>
             ))}

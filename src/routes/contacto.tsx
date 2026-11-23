@@ -3,6 +3,8 @@ import { Container } from '@/components/ui/Container'
 import ContactForm from '@/components/sections/contact/ContactForm'
 import ContactInfo from '@/components/sections/contact/ContactInfo'
 import '@/components/sections/contact/Contact.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
+import { pageMeta } from '@/lib/page-meta'
 
 export const Route = createFileRoute('/contacto')({
   validateSearch: (
@@ -13,24 +15,18 @@ export const Route = createFileRoute('/contacto')({
         ? search.motivo
         : undefined,
   }),
-  head: () => ({
-    meta: [
-      {
-        title: 'Contacto · Navasoft Soluciones',
-      },
-      {
-        name: 'description',
-        content:
-          'Conversemos sobre tu próximo proyecto. Contacta con Navasoft Soluciones o solicita una reunión o una demo.',
-      },
-    ],
-  }),
+  head: () =>
+    pageMeta({
+      title: 'Contacto · Navasoft Soluciones',
+      description:
+        'Conversemos sobre tu próximo proyecto. Contacta con Navasoft Soluciones o solicita una reunión o una demo.',
+      path: '/contacto',
+    }),
   component: ContactPage,
 })
 
 function ContactPage() {
   const { motivo } = Route.useSearch()
-  const showForm = import.meta.env.DEV
   const title =
     motivo === 'reunion'
       ? 'Solicitar reunión'
@@ -40,12 +36,12 @@ function ContactPage() {
   return (
     <section className="contact-page" aria-labelledby="contact-page-title">
       <div className="contact-hero">
-        <img
+        <ResponsiveImage
           className="contact-hero-image"
-          src="/images/area-empresarial.jpeg"
+          src="/images/area-empresarial.avif"
           alt=""
-          width="1536"
-          height="1024"
+          sizes="100vw"
+          priority
         />
         <Container>
           <div className="contact-hero-copy">
@@ -59,17 +55,9 @@ function ContactPage() {
         </Container>
       </div>
       <Container>
-        <div
-          className={
-            showForm
-              ? 'contact-layout'
-              : 'contact-layout contact-layout--channels'
-          }
-        >
-          <ContactInfo showForm={showForm} reason={motivo} />
-          {showForm && (
-            <ContactForm key={motivo ?? 'consulta'} initialReason={motivo} />
-          )}
+        <div className="contact-layout">
+          <ContactInfo showForm reason={motivo} />
+          <ContactForm key={motivo ?? 'consulta'} initialReason={motivo} />
         </div>
       </Container>
     </section>

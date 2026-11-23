@@ -1,0 +1,273 @@
+{
+  "/images/area-empresarial": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280
+    ]
+  },
+  "/images/area-iot": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/area-publico": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/area-saas": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/clientes/ArcelorMittal-Logo": {
+    "width": 3840,
+    "height": 2160,
+    "widths": [
+      480,
+      768,
+      1280,
+      1920
+    ]
+  },
+  "/images/clientes/bn-logo": {
+    "width": 590,
+    "height": 430,
+    "widths": [
+      480,
+      590
+    ]
+  },
+  "/images/clientes/coseviLogo": {
+    "width": 300,
+    "height": 300,
+    "widths": [
+      300
+    ]
+  },
+  "/images/clientes/diproa": {
+    "width": 200,
+    "height": 200,
+    "widths": [
+      200
+    ]
+  },
+  "/images/clientes/jasecLogo": {
+    "width": 474,
+    "height": 474,
+    "widths": [
+      474
+    ]
+  },
+  "/images/clientes/logoconape": {
+    "width": 281,
+    "height": 116,
+    "widths": [
+      281
+    ]
+  },
+  "/images/clientes/logoCOSEVI": {
+    "width": 108,
+    "height": 54,
+    "widths": [
+      108
+    ]
+  },
+  "/images/clientes/logoFomuvel": {
+    "width": 142,
+    "height": 136,
+    "widths": [
+      142
+    ]
+  },
+  "/images/clientes/logoGico": {
+    "width": 900,
+    "height": 900,
+    "widths": [
+      480,
+      768,
+      900
+    ]
+  },
+  "/images/clientes/muniLaUnionLogoDos": {
+    "width": 380,
+    "height": 80,
+    "widths": [
+      380
+    ]
+  },
+  "/images/demo/history-workspace": {
+    "width": 1586,
+    "height": 992,
+    "widths": [
+      480,
+      768,
+      1280,
+      1586
+    ]
+  },
+  "/images/demo/imagen-referencia": {
+    "width": 1280,
+    "height": 720,
+    "widths": [
+      480,
+      768,
+      1280
+    ]
+  },
+  "/images/eco-gridxia": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/eco-navastay": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/factxia": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/hero-industria": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      480,
+      768,
+      1280,
+      1920
+    ]
+  },
+  "/images/hero-innovation": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/hero-lab": {
+    "width": 1920,
+    "height": 1280,
+    "widths": [
+      480,
+      768,
+      1280,
+      1920
+    ]
+  },
+  "/images/hero-trust": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/nosotros": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/ordexia-icon": {
+    "width": 287,
+    "height": 257,
+    "widths": [
+      287
+    ]
+  },
+  "/images/ordexia": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  },
+  "/images/partners/inlab": {
+    "width": 200,
+    "height": 200,
+    "widths": [
+      200
+    ]
+  },
+  "/images/partners/nosforce": {
+    "width": 200,
+    "height": 200,
+    "widths": [
+      200
+    ]
+  },
+  "/images/partners/pymes-cr": {
+    "width": 600,
+    "height": 600,
+    "widths": [
+      480,
+      600
+    ]
+  },
+  "/images/partners/quest": {
+    "width": 750,
+    "height": 375,
+    "widths": [
+      480,
+      750
+    ]
+  },
+  "/images/tracxia": {
+    "width": 1792,
+    "height": 1008,
+    "widths": [
+      480,
+      768,
+      1280,
+      1792
+    ]
+  }
+}

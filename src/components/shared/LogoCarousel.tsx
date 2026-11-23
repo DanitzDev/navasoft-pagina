@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import type { OrganizationLogo } from '../../types/trust'
 import './LogoCarousel.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type LogoCarouselProps = {
   logos: readonly OrganizationLogo[]
@@ -21,7 +22,6 @@ export function LogoCarousel({
   const count = logos.length || (showPlaceholders ? 6 : 0)
 
   const isCarousel = count >= 6
-
   useEffect(() => {
     const rail = railRef.current
     if (!rail || !isCarousel) return
@@ -70,7 +70,7 @@ export function LogoCarousel({
     const rail = railRef.current
     const group = rail?.firstElementChild
     if (!rail || !group) return
-    setPaused(true)
+    resumeAt.current = performance.now() + 3000
     const step = group.querySelector('li')?.getBoundingClientRect().width ?? 184
     const gap = parseFloat(getComputedStyle(group).columnGap) || 0
     rail.scrollBy({
@@ -104,13 +104,13 @@ export function LogoCarousel({
         onPointerDown={(event) => {
           if (!isCarousel || event.button !== 0) return
           resumeAt.current = Infinity
+          event.currentTarget.setPointerCapture(event.pointerId)
           if (event.pointerType === 'mouse') {
             event.preventDefault()
             drag.current = {
               x: event.clientX,
               left: event.currentTarget.scrollLeft,
             }
-            event.currentTarget.setPointerCapture(event.pointerId)
             event.currentTarget.dataset.dragging = 'true'
           }
         }}
@@ -132,6 +132,7 @@ export function LogoCarousel({
         onLostPointerCapture={(event) => {
           drag.current = null
           delete event.currentTarget.dataset.dragging
+          resumeAt.current = performance.now() + 3000
         }}
         onTouchEnd={() => {
           resumeAt.current = performance.now() + 3000
@@ -164,12 +165,10 @@ export function LogoCarousel({
                     data-surface={logo.surface}
                     data-logo={logo.id}
                   >
-                    <img
+                    <ResponsiveImage
                       src={logo.image}
                       alt={copy ? '' : `Logo de ${logo.name}`}
-                      width="160"
-                      height="80"
-                      loading="lazy"
+                      sizes="(max-width: 768px) 120px, 160px"
                       draggable={false}
                     />
                     <span

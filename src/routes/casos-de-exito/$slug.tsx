@@ -3,7 +3,9 @@ import { caseStudies, caseGroups } from '../../data/cases'
 import { Container } from '../../components/ui/Container'
 import { ButtonLink } from '../../components/ui/Button'
 import CaseCard from '../../components/sections/cases/CaseCard'
+import { pageMeta } from '@/lib/page-meta'
 import '../../components/sections/cases/CaseDetail.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 export const Route = createFileRoute('/casos-de-exito/$slug')({
   loader: ({ params }) => {
@@ -11,14 +13,15 @@ export const Route = createFileRoute('/casos-de-exito/$slug')({
     if (!caseStudy) throw notFound()
     return caseStudy
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `${loaderData?.client ?? 'Caso de éxito'} · Navasoft Soluciones`,
-      },
-      { name: 'description', content: loaderData?.summary ?? '' },
-    ],
-  }),
+  head: ({ loaderData: caseStudy }) => {
+    if (!caseStudy) return {}
+    return pageMeta({
+      title: `${caseStudy.client} · Navasoft Soluciones`,
+      description: caseStudy.summary,
+      path: `/casos-de-exito/${caseStudy.id}`,
+      image: caseStudy.image,
+    })
+  },
   component: CaseDetailPage,
 })
 
@@ -27,6 +30,17 @@ function CaseDetailPage() {
   const group = caseGroups.find((item) =>
     item.cases.some((entry) => entry.id === caseStudy.id),
   )!
+  const isInnovationCase = caseStudy.id === 'pesaje-industrial-iot'
+  const isGovernmentCase = group.id === 'gobierno'
+  const solutionLink = isInnovationCase
+    ? { slug: 'innovationlab', label: 'Conocer InnovationLab' }
+    : {
+      slug: 'soluciones',
+      hash: isGovernmentCase ? 'gobierno' : 'empresas',
+      label: isGovernmentCase
+        ? 'Ver soluciones del sector público'
+        : 'Ver soluciones del sector empresarial',
+    }
   const related = [
     ...group.cases.filter((item) => item.id !== caseStudy.id),
     ...caseStudies.filter(
@@ -59,7 +73,7 @@ function CaseDetailPage() {
               <h1>{caseStudy.title}</h1>
               <p className="case-detail-summary">{caseStudy.summary}</p>
             </div>
-            <img src={caseStudy.image} alt="" width="1280" height="720" />
+            <ResponsiveImage src={caseStudy.image} alt="" sizes="(min-width: 1024px) 60vw, 100vw" priority />
           </header>
           <div className="case-detail-layout">
             <div className="case-detail-story">
@@ -96,13 +110,22 @@ function CaseDetailPage() {
               <ButtonLink to="/contacto" search={{ motivo: 'reunion' }}>
                 Conversemos
               </ButtonLink>
-              {caseStudy.kind === 'product' && (
+              {caseStudy.kind === 'product' ? (
                 <Link
                   to="/productos/$slug"
                   params={{ slug: 'navastay' }}
                   className="case-detail-product-link"
                 >
                   Conocer NavaStay <span aria-hidden="true">↗</span>
+                </Link>
+              ) : (
+                <Link
+                  to="/areas/$slug"
+                  params={{ slug: solutionLink.slug }}
+                  hash={solutionLink.hash}
+                  className="case-detail-product-link"
+                >
+                  {solutionLink.label} <span aria-hidden="true">↗</span>
                 </Link>
               )}
             </aside>

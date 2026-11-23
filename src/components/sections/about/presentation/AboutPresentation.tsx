@@ -4,12 +4,13 @@ import { ButtonLink } from '../../../ui/Button'
 import { products } from '../../../../data/navigation'
 import { footerSolutions } from '../../../../data/site'
 import { companyIntroduction } from '../../../../data/about'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 // Cifras trazables a la historia y los catálogos; no se replican métricas sin validar.
 const facts = [
   { value: '2011', label: 'Año de fundación' },
   { value: '15', label: 'Años de trayectoria en 2026' },
-  { value: String(products.length), label: 'Productos en nuestro ecosistema' },
+  { value: String(products.length), label: 'Plataformas en nuestro ecosistema' },
   { value: String(footerSolutions.length), label: 'Áreas de negocio' },
 ]
 
@@ -22,8 +23,8 @@ export default function AboutPresentation() {
             <SectionTitle
               as="h1"
               eyebrow="Quiénes somos"
-              title="Somos soluciones a la medida."
-              description="Navasoft Soluciones es una fábrica de software costarricense. Diseñamos soluciones alrededor de los procesos y las necesidades de cada organización."
+              title="Transformamos operaciones críticas con tecnología."
+              description={companyIntroduction.text}
               className="about-hero-heading"
             />
             <div className="about-hero-actions">
@@ -41,19 +42,18 @@ export default function AboutPresentation() {
             </div>
           </div>
           <figure className="about-hero-visual">
-            <img
+            <ResponsiveImage
               className="about-hero-image"
               src="/images/hero-trust.jpeg"
               alt=""
-              width="1792"
-              height="1008"
+              sizes="100vw"
+              priority
             />
             <div className="about-hero-brand">
-              <img
+              <ResponsiveImage
                 src="/images/brand/navasoft-white.png"
                 alt="Navasoft · Tecnología que innova"
-                width="1200"
-                height="558"
+                sizes="(max-width: 768px) 150px, 200px"
               />
             </div>
             <figcaption>
@@ -78,7 +78,7 @@ export default function AboutPresentation() {
           <SectionTitle
             eyebrow="Confianza"
             title="La confianza se construye con resultados."
-            description="Desde 2011 acompañamos a instituciones públicas y empresas en el desarrollo de soluciones tecnológicas, la integración de procesos y la transformación digital."
+            description="Desde 2011 acompañamos a organizaciones del sector público y empresarial en el desarrollo de soluciones tecnológicas, la integración de procesos y la transformación digital."
             className="about-confidence-heading"
           />
           <div className="about-confidence-body">

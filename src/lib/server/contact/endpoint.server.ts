@@ -1,24 +1,27 @@
-import { getRequestIP } from '@tanstack/react-start/server'
-import { createHash, randomBytes } from 'node:crypto'
 import { processContact } from './service.server'
-import { createContactLimiter } from './limiter.server'
-import { unconfiguredCrmTransport } from './crm.server'
+import { consumeContactAttempt } from './shared-limiter.server'
+import { ordsContactTransport, unconfiguredCrmTransport } from './crm.server'
 import { developmentContactSimulation } from './simulation.server'
+import { getClientIp } from '../request-ip.server'
 
-const limiter = createContactLimiter()
-const salt = randomBytes(32)
-
+// Límite por proceso: si el hosting ejecuta varias instancias, hace falta un almacén compartido.
 export function handleContactSubmission(data: unknown) {
-  // No confiar en X-Forwarded-For hasta conocer la infraestructura de despliegue.
-  const identity =
-    getRequestIP({ xForwardedFor: false }) ?? 'shared-unknown-peer'
-  const key = createHash('sha256').update(salt).update(identity).digest('hex')
+  const clientIp = getClientIp()
+  const identity = clientIp ?? 'shared-unknown-peer'
+  // El limitador usa un identificador opaco en vez de conservar la IP en sus claves.
+  const mode = process.env.CONTACT_DELIVERY_MODE
+  const developmentTransport = developmentContactSimulation(
+    process.env.NODE_ENV,
+    mode,
+  )
   return processContact(data, {
-    consume: () => limiter.consume(key),
+    consume: () => consumeContactAttempt(identity),
+    clientIp,
     transport:
-      developmentContactSimulation(
-        process.env.NODE_ENV,
-        process.env.CONTACT_DELIVERY_MODE,
-      ) ?? unconfiguredCrmTransport,
+      // La simulación nunca se habilita en producción, aunque la variable exista.
+      developmentTransport ??
+      (process.env.NODE_ENV === 'development' && mode === 'disabled'
+        ? unconfiguredCrmTransport
+        : ordsContactTransport),
   })
 }

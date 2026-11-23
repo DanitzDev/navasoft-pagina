@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import type { CaseStudy } from '../../../data/cases'
 import { Card, CardContent } from '../../ui/Card'
 import './Cases.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 // Resumen compartido por Inicio, catálogo y proyectos relacionados.
 export default function CaseCard({ caseStudy }: { caseStudy: CaseStudy }) {
@@ -16,12 +17,10 @@ export default function CaseCard({ caseStudy }: { caseStudy: CaseStudy }) {
       >
         <Card className="case-card border-white/10 bg-transparent shadow-none">
           <div className="case-card-media">
-            <img
+            <ResponsiveImage
               src={caseStudy.image}
               alt=""
-              loading="lazy"
-              width="1280"
-              height="720"
+              sizes="(min-width: 1280px) 380px, (min-width: 768px) 50vw, 100vw"
             />
             <div className="case-card-identity">
               <p>

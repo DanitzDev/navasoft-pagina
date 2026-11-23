@@ -32,4 +32,9 @@ export const clients: readonly OrganizationLogo[] = [
     name: 'Municipalidad de La Unión',
     image: '/images/clientes/munilaunion-logo.webp',
   },
+  {
+    id: 'tecnologico-costa-rica',
+    name: 'Tecnológico de Costa Rica',
+    image: '/images/clientes/logo-tec.png',
+  },
 ]

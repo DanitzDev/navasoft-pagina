@@ -5,6 +5,7 @@ import { ArrowLink } from '@/components/ui/ArrowLink'
 import { IconBox } from '@/components/ui/IconBox'
 import type { Product } from '@/types'
 import { cn } from '@/lib/cn'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type EcosystemCardProps = {
   product: Product
@@ -76,10 +77,10 @@ export function EcosystemCard({
         )}
       >
         {product.image && (
-          <img
+          <ResponsiveImage
             src={product.image}
             alt={`Plataforma ${product.name}`}
-            loading="lazy"
+            sizes="(min-width: 1024px) 700px, 100vw"
             className="absolute inset-0 -z-10 h-full w-full object-cover"
           />
         )}
@@ -120,10 +121,10 @@ export function EcosystemCard({
       <article className={cn(card, 'flex flex-col', className)}>
         {product.image && (
           <div className="relative h-44 shrink-0">
-            <img
+            <ResponsiveImage
               src={product.image}
               alt={`Plataforma ${product.name}`}
-              loading="lazy"
+              sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-linear-to-t from-panel to-transparent" />
@@ -150,10 +151,10 @@ export function EcosystemCard({
     <article className={cn(card, 'flex flex-col sm:flex-row', className)}>
       {product.image && (
         <div className="relative h-44 shrink-0 sm:h-auto sm:w-2/5">
-          <img
+          <ResponsiveImage
             src={product.image}
             alt={`Plataforma ${product.name}`}
-            loading="lazy"
+            sizes="(min-width: 1024px) 280px, (min-width: 640px) 40vw, 100vw"
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-linear-to-t from-panel/80 to-transparent sm:bg-linear-to-r sm:from-transparent sm:to-panel/60" />

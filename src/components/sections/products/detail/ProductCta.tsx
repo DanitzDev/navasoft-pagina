@@ -53,7 +53,7 @@ export function ProductCta({
         <p className="text-sm text-white/70">
           Respuesta en horario hábil · WhatsApp (506) 4070-0776
         </p>
-        <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+        <p className="text-xs font-semibold uppercase tracking-widest text-white/60">
           Estamos preparados para ser su socio tecnológico.
         </p>
       </Container>

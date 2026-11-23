@@ -13,7 +13,7 @@
   position: relative;
   isolation: isolate;
   pointer-events: auto;
-  max-width: 1152px;
+  max-width: 1200px;
   margin-inline: auto;
   display: flex;
   align-items: center;
@@ -414,6 +414,25 @@
   }
   .navbar-trigger {
     display: none;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1359px) {
+  /* Ajustar la fila para el ancho intermedio sin ampliar la superficie del navbar. */
+  .navbar-surface {
+    gap: 10px;
+    padding-inline: 16px;
+  }
+  .navbar-desktop:not(.navbar-desktop-actions) {
+    min-width: 0;
+  }
+  .navbar-company {
+    gap: 14px;
+  }
+  .navbar-primary {
+    gap: 12px;
+  }
+  .navbar-actions a {
+    padding-inline: 13px;
   }
 }
 /* Respuesta breve al pulsar; la elevación por hover solo se usa con ratón. */

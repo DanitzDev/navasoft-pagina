@@ -13,4 +13,5 @@ export type Testimonial = {
   author: string
   role?: string
   organization: string
+  isDraft?: boolean
 }

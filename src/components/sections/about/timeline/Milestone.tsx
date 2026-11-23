@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { formatHistoryPeriod } from './history-period'
 import type { HistoryMilestone } from '../../../../data/history'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 type MilestoneProps = { milestone?: HistoryMilestone }
 
@@ -21,11 +22,7 @@ export default function Milestone({ milestone }: MilestoneProps) {
           : 'Detalle del acontecimiento'
       }
       tabIndex={0}
-      className={
-        milestone?.sections?.length
-          ? 'history-detail history-detail-products'
-          : 'history-detail'
-      }
+      className="history-detail"
     >
       <div className="history-detail-copy">
         {milestone ? (
@@ -44,15 +41,24 @@ export default function Milestone({ milestone }: MilestoneProps) {
                 ))}
               </ul>
             )}
-            {milestone.sections && (
-              <ul className="history-subsections">
-                {milestone.sections.map((section) => (
-                  <li key={section.title}>
-                    <h4>{section.title}</h4>
-                    <p className="history-description">{section.description}</p>
-                  </li>
-                ))}
-              </ul>
+            {milestone.recognition && (
+              <aside className="history-recognition" aria-label="Reconocimiento">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <circle cx="12" cy="8" r="5" />
+                  <path d="m8 12-2 9 6-3 6 3-2-9" />
+                </svg>
+                <div>
+                  <h4>{milestone.recognition.title}</h4>
+                  <p className="history-description">
+                    {milestone.recognition.description}
+                  </p>
+                </div>
+              </aside>
             )}
           </>
         ) : (
@@ -74,13 +80,11 @@ export default function Milestone({ milestone }: MilestoneProps) {
       </div>
       <div className="history-image">
         {image && imageSource && !imageFailed ? (
-          <img
+          <ResponsiveImage
             src={imageSource}
             alt={image.alt}
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             onError={() => setFailedSource(imageSource)}
-            loading="lazy"
-            width="640"
-            height="400"
           />
         ) : (
           <div
@@ -102,25 +106,6 @@ export default function Milestone({ milestone }: MilestoneProps) {
           </div>
         )}
       </div>
-      {milestone?.recognition && (
-        <aside className="history-recognition" aria-label="Reconocimiento">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <circle cx="12" cy="8" r="5" />
-            <path d="m8 12-2 9 6-3 6 3-2-9" />
-          </svg>
-          <div>
-            <h4>{milestone.recognition.title}</h4>
-            <p className="history-description">
-              {milestone.recognition.description}
-            </p>
-          </div>
-        </aside>
-      )}
     </div>
   )
 }

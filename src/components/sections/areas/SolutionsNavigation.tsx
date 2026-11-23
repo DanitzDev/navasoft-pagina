@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 const sections = [
-  { id: 'empresas', label: 'Empresas' },
-  { id: 'gobierno', label: 'Gobierno' },
-  { id: 'productos-relacionados', label: 'Productos' },
+  { id: 'empresas', label: 'Empresarial' },
+  { id: 'gobierno', label: 'Público' },
+  { id: 'productos-relacionados', label: 'Ecosistema SaaS' },
 ]
 
 export default function SolutionsNavigation() {
@@ -41,7 +41,7 @@ export default function SolutionsNavigation() {
   return (
     <nav
       className="solutions-navigation"
-      aria-label="Secciones de Gobierno y Empresas"
+      aria-label="Secciones del sector público y empresarial"
     >
       {sections.map((section) => (
         <a

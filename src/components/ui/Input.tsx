@@ -11,7 +11,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 export function fieldStyles(hasError?: boolean, className?: string) {
   // esta función genera las clases de estilo para el input, dependiendo si hay error o no
   return cn(
-    'w-full rounded-lg border bg-field px-4 py-3 text-sm text-white transition-colors',
+    "w-full rounded-lg border bg-field px-4 py-3 text-base text-white transition-colors sm:text-sm",
     'placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-2',
     'disabled:cursor-not-allowed disabled:opacity-50',
     hasError // si hay error, se le asigna un borde rojo y un foco rojo, si no, se le asigna un borde blanco y un foco azul
@@ -29,7 +29,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input( //
   const inputId = id ?? generatedId // si no se le pasa un id, se le asigna uno generado automáticamente
   const hintId = `${inputId}-hint` // genera un id único para el hint, para que se asocie correctamente con el input
   const errorId = `${inputId}-error` // genera un id único para el error, para que se asocie correctamente con el input
-  const describedBy = error ? errorId : hint ? hintId : undefined
+  const describedBy =
+    [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
   // si hay error, se le asigna el id del error, si no, se le asigna el id del hint, si no hay ninguno, se le asigna undefined
 
   return (
@@ -55,15 +56,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input( //
         {...props}
       />
 
-      {error ? (
-        <p id={errorId} aria-live="polite" className="text-xs text-red-300">
-          {error}
-        </p>
-      ) : hint ? (
+      {hint && (
         <p id={hintId} className="text-xs text-white/70">
           {hint}
         </p>
-      ) : null}
+      )}
+      {error && (
+        <p id={errorId} className="text-xs text-red-300">
+          {error}
+        </p>
+      )}
     </div>
   )
 })

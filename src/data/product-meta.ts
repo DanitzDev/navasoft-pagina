@@ -6,12 +6,14 @@ import {
   Sprout,
   ChevronsRight,
   Smartphone,
+  GraduationCap,
   Zap,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { ProductSlug } from '@/types'
 
 export const productIcons: Record<ProductSlug, LucideIcon> = {
+  acadxia: GraduationCap,
   gridxia: Zap,
   navastay: Building2,
   tracxia: Boxes,
@@ -20,11 +22,12 @@ export const productIcons: Record<ProductSlug, LucideIcon> = {
 }
 
 export const productAccent: Record<ProductSlug, string> = {
-  gridxia: '#d96627',
-  navastay: '#d16229',
-  tracxia: '#d46424',
-  ordexia: '#d36220',
-  factxia: '#fb7185',
+  gridxia: '#f47e20',
+  navastay: '#f47e20',
+  tracxia: '#f47e20',
+  ordexia: '#f47e20',
+  factxia: "#f47f20",
+  acadxia: "#f47f20",
 }
 
 // Icono de la marca provisional de cada producto
@@ -34,4 +37,5 @@ export const productMarkIcons: Record<ProductSlug, LucideIcon> = {
   tracxia: Sprout,
   ordexia: ChevronsRight,
   factxia: Receipt,
+  acadxia: GraduationCap,
 }

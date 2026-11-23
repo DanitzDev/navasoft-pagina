@@ -17,9 +17,9 @@ export type ContactData = {
 export type ContactField = keyof ContactData
 export type ContactErrors = Partial<Record<ContactField, string>>
 export const contactLimits = {
-  name: 100,
+  name: 200,
   email: 254,
-  organization: 150,
+  organization: 200,
   phone: 30,
   message: 3000,
 }
@@ -36,6 +36,10 @@ export function validateContact(input: unknown): {
       : {}
   const read = (key: ContactField) =>
     typeof source[key] === 'string' ? source[key].trim() : ''
+  const phoneCountryCode =
+    typeof source.phoneCountryCode === 'string'
+      ? source.phoneCountryCode.trim()
+      : ''
   const data: ContactData = {
     name: read('name'),
     email: read('email'),
@@ -43,6 +47,7 @@ export function validateContact(input: unknown): {
     phone: read('phone'),
     reason: read('reason'),
     message: read('message'),
+    // Aceptar solo el booleano real evita tratar cadenas como "false" como permiso.
     consent: source.consent === true,
   }
   const errors: ContactErrors = {}
@@ -52,11 +57,11 @@ export function validateContact(input: unknown): {
   const messageControls = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/
   /* eslint-enable no-control-regex */
   if (
-    data.name.length < 2 ||
+    data.name.length < 1 ||
     data.name.length > contactLimits.name ||
     singleLineControls.test(data.name)
   )
-    errors.name = 'Escribe tu nombre, entre 2 y 100 caracteres.'
+    errors.name = 'Escribe tu nombre, entre 1 y 200 caracteres.'
   if (
     data.email.length > contactLimits.email ||
     singleLineControls.test(data.email) ||
@@ -67,16 +72,29 @@ export function validateContact(input: unknown): {
     data.organization.length > contactLimits.organization ||
     singleLineControls.test(data.organization)
   )
-    errors.organization = 'Usa un máximo de 150 caracteres en una sola línea.'
-  if (
-    data.phone &&
-    (data.phone.length > contactLimits.phone ||
-      !/^\+?[\d ().-]+$/.test(data.phone) ||
-      data.phone.replace(/\D/g, '').length < 7 ||
-      data.phone.replace(/\D/g, '').length > 15)
-  )
-    errors.phone =
-      'Escribe un teléfono válido, con código de país si corresponde.'
+    errors.organization = 'Usa un máximo de 200 caracteres en una sola línea.'
+  if (data.phone) {
+    // Se valida y cuenta el teléfono nacional junto con el código internacional.
+    const number = data.phone.startsWith(phoneCountryCode)
+      ? data.phone.slice(phoneCountryCode.length).trim()
+      : ''
+    const countryDigits = phoneCountryCode.replace(/\D/g, '')
+    const numberDigits = number.replace(/\D/g, '')
+    if (
+      data.phone.length > contactLimits.phone ||
+      !/^\+[1-9]\d{0,2}$/.test(phoneCountryCode) ||
+      !number ||
+      !/^[\d ().-]+$/.test(number) ||
+      countryDigits.length + numberDigits.length < 7 ||
+      countryDigits.length + numberDigits.length > 15
+    )
+      errors.phone = 'Escribe un teléfono válido, con código de país y número.'
+  } else if (
+    source.phoneCountryCode !== undefined &&
+    typeof source.phoneCountryCode !== 'string'
+  ) {
+    errors.phone = 'Escribe un código de país válido.'
+  }
   if (!contactReasons.some((reason) => reason.value === data.reason))
     errors.reason = 'Selecciona el motivo de tu consulta.'
   if (

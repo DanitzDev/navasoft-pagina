@@ -1,5 +1,12 @@
 import { Link } from '@tanstack/react-router'
-import { Boxes, Building2, Receipt, Smartphone, Zap } from 'lucide-react'
+import {
+  Boxes,
+  Building2,
+  Receipt,
+  Smartphone,
+  Zap,
+  GraduationCap,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
@@ -14,20 +21,21 @@ type CardLayout = {
 }
 
 // Cpmo se acomoda cada producto en la grilla de 6 columnas
-const layout: Partial<Record<string, CardLayout>> = {
+const layout: Record<string, CardLayout> = {
   gridxia: {
     variant: 'featured',
     icon: Zap,
-    className: 'lg:col-span-4 lg:row-span-2',
+    className: 'md:col-span-2 lg:col-span-4 lg:row-span-2',
   },
   navastay: { variant: 'stacked', icon: Building2, className: 'lg:col-span-2' },
   tracxia: { variant: 'stacked', icon: Boxes, className: 'lg:col-span-2' },
-  ordexia: {
-    variant: 'horizontal',
-    icon: Smartphone,
-    className: 'lg:col-span-3',
+  ordexia: { variant: 'stacked', icon: Smartphone, className: 'lg:col-span-2' },
+  factxia: { variant: 'stacked', icon: Receipt, className: 'lg:col-span-2' },
+  acadxia: {
+    variant: 'stacked',
+    icon: GraduationCap,
+    className: 'md:col-span-2 lg:col-span-2',
   },
-  factxia: { variant: 'horizontal', icon: Receipt, className: 'lg:col-span-3' },
 }
 
 export function EcosystemSection() {
@@ -35,8 +43,8 @@ export function EcosystemSection() {
     <section className="bg-night py-20 text-white">
       <Container>
         <SectionTitle
-          eyebrow="Nuestro Ecosistema"
-          title="Transformamos años de experiencia en plataformas que generan impacto real."
+          eyebrow="Ecosistema SaaS"
+          title="Transformamos años de experiencia en plataformas que generan impacto."
           description="Cinco productos SaaS: Gridxia, Tracxia, Ordexia, Factxia y NavaStay. Cada solución nace de desafíos reales resueltos para organizaciones que impulsan el crecimiento y el desarrollo de nuestras comunidades."
           className="max-w-3xl"
         />
@@ -53,10 +61,10 @@ export function EcosystemSection() {
           ))}
         </ul>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-6">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-6">
+          {' '}
           {products.map((product) => {
             const config = layout[product.slug]
-            if (!config) return null
             return (
               <EcosystemCard
                 key={product.slug}

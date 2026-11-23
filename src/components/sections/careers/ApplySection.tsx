@@ -1,5 +1,4 @@
 import { Check } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { Container } from '@/components/ui/Container'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ApplyForm } from '@/components/sections/careers/ApplyForm'
@@ -15,29 +14,6 @@ type ApplySectionProps = {
 
 export function ApplySection(props: ApplySectionProps) {
   const copy = careersCopy.apply
-
-  if (import.meta.env.PROD) {
-    return (
-      <section
-        id="aplicar"
-        className="scroll-mt-28 border-t border-primary/40 bg-deep py-20"
-      >
-        <Container>
-          <SectionTitle
-            title="Consulte cómo postularse"
-            description="Escríbanos para conocer el canal de postulación y los requisitos del perfil que le interesa."
-          />
-          <Link
-            to="/contacto"
-            search={{ motivo: undefined }}
-            className="mt-6 inline-block font-semibold underline underline-offset-4"
-          >
-            Consultar por oportunidades
-          </Link>
-        </Container>
-      </section>
-    )
-  }
 
   return (
     <section

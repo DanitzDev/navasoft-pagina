@@ -18,50 +18,54 @@ import {
   innovationSteps,
 } from '../../../data/innovation'
 import './InnovationPage.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
-const capabilityIcons = [Radio, Cloud, Cpu]
+const capabilityIcons = {
+  iot: Radio,
+  cloud: Cloud,
+  ai: Cpu,
+} as const
+type CapabilityId = keyof typeof capabilityIcons
 
 export default function InnovationPage() {
-  const [selected, setSelected] = useState<string>('iot')
+  const [selected, setSelected] = useState<CapabilityId>('iot')
   return (
     <div className="innovation-page">
-      <Container
-        as="section"
-        className="innovation-hero"
-        aria-labelledby="innovation-title"
-      >
-        <div className="innovation-hero-copy">
-          <p className="innovation-label">Innovation Lab · Navasoft</p>
-          <h1 id="innovation-title">Del desafío real a la próxima solución.</h1>
-          <p className="innovation-lead">
-            Probamos cómo la inteligencia artificial, los dispositivos
-            conectados y la nube pueden mejorar su operación.
-          </p>
-          <div className="innovation-actions">
-            <ButtonLink to="/contacto" search={{ motivo: 'reunion' }} size="lg">
-              Conversemos sobre su idea
-            </ButtonLink>
-            <a href="#capacidades">Explorar capacidades</a>
-          </div>
-        </div>
-        <figure className="innovation-hero-visual">
-          <img
-            src="/images/hero-innovation.jpeg"
-            alt="Ilustración de un laboratorio con sensores, dispositivos y prototipos electrónicos."
-            width="1792"
-            height="1008"
-            fetchPriority="high"
-          />
-          <figcaption>
-            <span>Innovación aplicada</span>
-            <p>
-              Un problema concreto.
-              <br />
-              Una prueba con propósito.
+      <section className="innovation-hero" aria-labelledby="innovation-title">
+        <ResponsiveImage
+          className="innovation-hero-image"
+          src="/images/hero-innovation.jpeg"
+          alt="Laboratorio con dispositivos conectados y prototipos electrónicos."
+          sizes="100vw"
+          priority
+        />
+        <div className="innovation-hero-overlay" aria-hidden="true" />
+        <Container className="innovation-hero-inner">
+          <div className="innovation-hero-copy">
+            <p className="innovation-label">InnovationLab · Navasoft</p>
+            <h1 id="innovation-title">
+              <span>Del desafío real</span>
+              <span className="innovation-title-accent">
+                a la próxima solución.
+              </span>
+            </h1>
+            <p className="innovation-lead">
+              Probamos cómo la inteligencia artificial, los dispositivos
+              conectados y la nube pueden mejorar su operación.
             </p>
-          </figcaption>
-        </figure>
-      </Container>
+            <div className="innovation-actions">
+              <ButtonLink
+                to="/contacto"
+                search={{ motivo: 'reunion' }}
+                size="lg"
+              >
+                Conversemos sobre su idea
+              </ButtonLink>
+              <a href="#capacidades">Explorar capacidades</a>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <div className="innovation-intro-band">
         <Container className="innovation-intro">
@@ -92,8 +96,8 @@ export default function InnovationPage() {
         </div>
         <div className="innovation-explorer">
           <div className="innovation-capability-options">
-            {innovationCapabilities.map((capability, index) => {
-              const Icon = capabilityIcons[index]
+            {innovationCapabilities.map((capability) => {
+              const Icon = capabilityIcons[capability.id]
               const active = selected === capability.id
               return (
                 <button
@@ -129,12 +133,10 @@ export default function InnovationPage() {
                 hidden={selected !== capability.id}
                 className="innovation-capability-panel"
               >
-                <img
+                <ResponsiveImage
                   src={capability.image}
                   alt={capability.alt}
-                  width="1792"
-                  height="1008"
-                  loading="lazy"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
                 <div className="innovation-capability-body">
                   <h3>{capability.headline}</h3>
@@ -219,9 +221,9 @@ export default function InnovationPage() {
         <div className="innovation-related">
           <p>Conozca también nuestras soluciones</p>
           <Link to="/areas/$slug" params={{ slug: 'soluciones' }}>
-            Gobierno y Empresas
+            Público y empresarial
           </Link>
-          <Link to="/productos">Productos</Link>
+          <Link to="/productos">Ecosistema SaaS</Link>
         </div>
       </Container>
 

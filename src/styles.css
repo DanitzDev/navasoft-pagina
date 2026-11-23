@@ -38,7 +38,7 @@ body {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/Montserrat-Regular.ttf') format('truetype');
+  src: url('/Montserrat-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -46,7 +46,7 @@ body {
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('/Montserrat-SemiBold.ttf') format('truetype');
+  src: url('/Montserrat-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -54,7 +54,7 @@ body {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('/poppins.bold.ttf') format('truetype');
+  src: url('/poppins.bold.woff2') format('woff2');
 }
 
 /* Paleta oficial: azul oscuro/claro y naranja vivo/oscuro de la guía de marca. */
@@ -65,7 +65,7 @@ body {
   --color-primary: #415c85;
   --color-primary-hover: #5c7e98;
   --color-accent: #f47e20;
-  --color-accent-hover: #d96627;
+  --color-accent-hover: #f0834a;
   --color-field: #3f5b88;
   /* fondo de los campos */
   --color-panel: #1f3354;
@@ -79,7 +79,7 @@ body {
 
 /* Cuatro utilidades para el color de cada producto, más el scroll suave de las anclas */
 @utility text-product {
-  color: var(--product, var(--color-accent));
+  color: color-mix(in oklab, var(--product, var(--color-accent)) 70%, white);
 }
 
 @utility bg-product {
@@ -87,19 +87,15 @@ body {
 }
 
 @utility bg-product-soft {
-  background-color: color-mix(
-    in oklab,
-    var(--product, var(--color-accent)) 15%,
-    transparent
-  );
+  background-color: color-mix(in oklab,
+      var(--product, var(--color-accent)) 15%,
+      transparent);
 }
 
 @utility border-product {
-  border-color: color-mix(
-    in oklab,
-    var(--product, var(--color-accent)) 45%,
-    transparent
-  );
+  border-color: color-mix(in oklab,
+      var(--product, var(--color-accent)) 45%,
+      transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -107,13 +103,26 @@ body {
     scroll-behavior: smooth;
   }
 }
+
 /* Las etiquetas largas no deben ensanchar la página en pantallas pequeñas. */
 .product-detail-page .grid > *,
 .product-detail-page .flex > * {
   min-width: 0;
 }
+
 .product-detail-page .rounded-full.whitespace-nowrap {
   max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
+}
+
+/* E-01: el marco del video no puede ser más ancho que la página */
+.company-video-section .company-video-frame {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.company-video-section .company-video-background {
+  max-width: 100%;
 }

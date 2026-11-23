@@ -5,6 +5,7 @@ import { ConsultButton } from '@/components/sections/products/ConsultButton'
 import { ProductMark } from '@/components/sections/products/detail/ProductMark'
 import { ProductMockup } from '@/components/sections/products/detail/ProductMockup'
 import type { Product, ProductDetail } from '@/types'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 function HeroPhoto({ src, alt }: { src: string; alt: string }) {
   return (
@@ -14,7 +15,13 @@ function HeroPhoto({ src, alt }: { src: string; alt: string }) {
         className="absolute -inset-6 -z-10 rounded-full bg-product-soft blur-3xl"
       />
       <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-panel shadow-2xl shadow-black/40">
-        <img src={src} alt={alt} className="aspect-4/3 w-full object-cover" />
+        <ResponsiveImage
+          src={src}
+          alt={alt}
+          sizes="(min-width: 1024px) 560px, 100vw"
+          priority
+          className="aspect-4/3 w-full object-cover"
+        />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-linear-to-t from-night/60 via-transparent to-transparent"
@@ -58,7 +65,7 @@ export function ProductHero({
         <div className="space-y-8">
           <nav aria-label="Migas de pan" className="text-sm text-white/60">
             <Link to="/productos" className="hover:text-white">
-              Productos
+              Ecosistema SaaS
             </Link>
             <span aria-hidden="true"> / </span>
             <span className="text-white">{product.name}</span>

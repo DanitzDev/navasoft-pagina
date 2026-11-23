@@ -9,6 +9,7 @@ import { products } from '../../../data/products'
 import { contactBanner } from '../../../data/site'
 import SolutionsNavigation from './SolutionsNavigation'
 import './SolutionsArea.css'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 
 const sectors = [
   { ...sectorPages.privado, id: 'empresas' },
@@ -17,29 +18,56 @@ const sectors = [
 const relatedProducts = products.filter((product) =>
   sectors.some((sector) => sector.products.includes(product.slug)),
 )
+const optimizedClientLogos: Partial<
+  Record<string, { src: string; width: number; height: number }>
+> = {
+  'municipalidad-la-union': {
+    src: '/images/clientes/munilaunion-logo-320.webp',
+    width: 320,
+    height: 373,
+  },
+  ferji: {
+    src: '/images/clientes/ferji-mark-320.webp',
+    width: 320,
+    height: 250,
+  },
+  ina: {
+    src: '/images/clientes/Logo-INA-320.webp',
+    width: 320,
+    height: 137,
+  },
+  arcelormittal: {
+    src: '/images/clientes/ArcelorMittal-Logo-240.webp',
+    width: 240,
+    height: 135,
+  },
+}
 
 function ClientList({ clients }: { clients: typeof clientDirectory }) {
   return (
     <ul className="business-client-list">
-      {clients.map((client) => (
-        <li
-          key={client.id}
-          className={client.image ? undefined : 'business-client-text-only'}
-        >
-          {client.image && (
-            <div className="business-client-logo">
-              <img
-                src={client.image}
-                alt={client.name}
-                width="160"
-                height="72"
-                loading="lazy"
-              />
-            </div>
-          )}
-          {!client.image && <span>{client.name}</span>}
-        </li>
-      ))}
+      {clients.map((client) => {
+        const optimized = optimizedClientLogos[client.id]
+        return (
+          <li
+            key={client.id}
+            className={client.image ? undefined : 'business-client-text-only'}
+          >
+            {client.image && (
+              <div className="business-client-logo" data-client={client.id}>
+                <ResponsiveImage
+                  src={optimized ? optimized.src : client.image}
+                  width={optimized ? optimized.width : undefined}
+                  height={optimized ? optimized.height : undefined}
+                  alt={client.name}
+                  sizes="(max-width: 768px) 120px, 160px"
+                />
+              </div>
+            )}
+            {!client.image && <span>{client.name}</span>}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -50,14 +78,14 @@ export default function SolutionsArea() {
       <section className="business-hero" aria-labelledby="solutions-title">
         <Container className="business-hero-layout">
           <div>
-            <p className="business-kicker">Gobierno y Empresas</p>
+            <p className="business-kicker">Público y empresarial</p>
             <h1 id="solutions-title">
               Software a la medida para su operación.
             </h1>
             <p className="business-hero-description">
-              Desarrollamos y modernizamos sistemas para instituciones públicas
-              y empresas. Conectamos inventarios, facturación, expedientes y
-              finanzas con sus herramientas actuales.
+              Desarrollamos y modernizamos sistemas para organizaciones del
+              sector público y empresarial. Conectamos inventarios, facturación,
+              expedientes y finanzas con sus herramientas actuales.
             </p>
             <div className="business-actions">
               <ButtonLink
@@ -68,25 +96,27 @@ export default function SolutionsArea() {
                 Solicitar reunión
               </ButtonLink>
               <a href="#productos-relacionados" className="business-text-link">
-                <span>Explorar productos</span>
+                <span>Explorar ecosistema SaaS</span>
                 <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
           <nav
             className="solutions-hero-images"
-            aria-label="Explorar Gobierno y Empresas"
+            aria-label="Explorar sectores público y empresarial"
           >
             <a href="#gobierno" className="solutions-sector-access">
-              <img
+              <ResponsiveImage
                 src={sectorPages.gobierno.image}
                 alt=""
-                width="896"
-                height="1008"
+                width={1792}
+                height={1008}
+                priority
+                sizes="(min-width: 1024px) 640px, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>
-                  <strong>Gobierno</strong>
+                  <strong>Sector público</strong>
                   <small>Trámites y gestión institucional</small>
                 </span>
                 <svg
@@ -107,15 +137,16 @@ export default function SolutionsArea() {
               </span>
             </a>
             <a href="#empresas" className="solutions-sector-access">
-              <img
+              <ResponsiveImage
                 src={sectorPages.privado.image}
                 alt=""
-                width="896"
-                height="1008"
+                width={1792}
+                height={1008}
+                sizes="(min-width: 1024px) 640px, 100vw"
               />
               <span className="solutions-access-caption">
                 <span>
-                  <strong>Empresas</strong>
+                  <strong>Sector empresarial</strong>
                   <small>Producción, logística y administración</small>
                 </span>
                 <svg
@@ -207,7 +238,9 @@ export default function SolutionsArea() {
         aria-labelledby="solutions-products-title"
       >
         <Container>
-          <h2 id="solutions-products-title">Productos para su operación</h2>
+          <h2 id="solutions-products-title">
+            Ecosistema SaaS para su operación
+          </h2>
           <div className="business-product-grid">
             {relatedProducts.map((product) => (
               <Link
@@ -216,13 +249,13 @@ export default function SolutionsArea() {
                 params={{ slug: product.slug }}
                 className="business-product"
               >
-                <img
-                  src={product.image}
-                  alt=""
-                  width="480"
-                  height="360"
-                  loading="lazy"
-                />
+                <div className="business-product-media">
+                  <ResponsiveImage
+                    src={product.image ?? ''}
+                    alt=""
+                    sizes="(min-width: 1024px) 16vw, (max-width: 399px) 100vw, 33vw"
+                  />
+                </div>
                 <div>
                   <p className="business-product-category">
                     {product.category}

@@ -1,3 +1,5 @@
+import { ResponsiveImage } from "@/components/ui/ResponsiveImage";
+
 type ProductMockupProps = {
   name: string
   menu: string[]
@@ -23,7 +25,7 @@ export function ProductMockup({
   device = 'browser',
 }: ProductMockupProps) {
   const caption = !screenshot && (
-    <figcaption className="mt-3 text-center text-xs text-white/50">
+    <figcaption className="mt-3 text-center text-xs text-white/60">
       Vista ilustrativa
     </figcaption>
   )
@@ -36,9 +38,10 @@ export function ProductMockup({
           <div className="mx-auto mb-3 h-1.5 w-16 rounded-full bg-white/20" />
 
           {screenshot ? (
-            <img
+            <ResponsiveImage
               src={screenshot}
               alt={`Pantalla de ${name}`}
+              sizes="256px"
               className="w-full rounded-2xl"
             />
           ) : (
@@ -100,17 +103,15 @@ export function ProductMockup({
         </div>
 
         {screenshot ? (
-          <img
+          <ResponsiveImage
             src={screenshot}
             alt={`Pantalla de ${name}`}
+            sizes="(min-width: 1024px) 560px, 100vw"
             className="w-full"
           />
         ) : (
-          <div
-            aria-hidden="true"
-            className="grid min-h-80 grid-cols-[9rem_1fr]"
-          >
-            <ul className="space-y-1 border-r border-white/10 p-3 text-xs">
+          <div aria-hidden="true" className="grid min-h-80 sm:grid-cols-[9rem_1fr]">
+            <ul className="hidden space-y-1 border-r border-white/10 p-3 text-xs sm:block">
               {menu.map((item, i) => (
                 <li
                   key={item}

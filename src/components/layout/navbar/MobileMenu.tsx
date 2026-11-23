@@ -111,7 +111,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           ))}
           <li>
             <NavDropdown
-              label="Productos"
+              label="Ecosistema SaaS"
               sectionHref="/productos"
               items={products}
               mobile
@@ -119,8 +119,8 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             />
           </li>
           <li>
-            <NavLink href="/areas/navalav" onNavigate={closeMenu}>
-              Innovación
+            <NavLink href="/areas/innovationlab" onNavigate={closeMenu}>
+              InnovationLab
             </NavLink>
           </li>
           <li>
