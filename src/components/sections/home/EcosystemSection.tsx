@@ -45,7 +45,7 @@ export function EcosystemSection() {
         <SectionTitle
           eyebrow="Ecosistema SaaS"
           title="Transformamos años de experiencia en plataformas que generan impacto."
-          description="Cinco productos SaaS: Gridxia, Tracxia, Ordexia, Factxia y NavaStay. Cada solución nace de desafíos reales resueltos para organizaciones que impulsan el crecimiento y el desarrollo de nuestras comunidades."
+          description="Cinco productos SaaS: Gridxia, Tracxia, Ordexia, Factxia, NavaStay y Acadxia. Cada solución nace de desafíos reales resueltos para organizaciones que impulsan el crecimiento y el desarrollo de nuestras comunidades."
           className="max-w-3xl"
         />
 
@@ -78,7 +78,7 @@ export function EcosystemSection() {
         </div>
 
         <p className="mt-10 text-center text-sm text-white/70">
-          Cinco plataformas: Gridxia, Tracxia, Ordexia, Factxia y NavaStay.{' '}
+          Cinco plataformas: Gridxia, Tracxia, Ordexia, Factxia, NavaStay y Acadxia.{' '}
           <Link
             to="/productos"
             className="font-semibold text-accent hover:text-accent-hover"
