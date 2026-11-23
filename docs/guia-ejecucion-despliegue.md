@@ -116,6 +116,12 @@ Este procedimiento refleja el arranque Node preparado para el hosting de pruebas
 6. Habilite o reinicie la aplicación Node desde Plesk. IIS/Plesk proporciona `PORT`; `app.js` acepta tanto puerto numérico como canalización nombrada de IISNode.
 7. Revise HTTPS, logs de Node y las rutas esenciales con la lista de abajo.
 
+#### Rutas físicas de `web.config`
+
+Si cambia el dominio y Plesk también cambia la carpeta física del sitio, actualice en `web.config` las rutas absolutas para las páginas de error de IIS (`error_docs`) y `compilation` (`tempDirectory`). Por ejemplo, si Plesk muestra `C:\Inetpub\vhosts\navasoftsoluciones.com` como raíz física, las rutas deben apuntar a sus carpetas `error_docs` y `tmp` dentro de esa raíz. Confirme la ruta exacta en Plesk: el nombre del directorio puede ser distinto del dominio. Si Plesk conserva la misma ruta física, no la cambie solo por el cambio de dominio.
+
+Este ajuste de rutas físicas es independiente del dominio canónico y de las URL sociales; si también cambia el dominio público, actualice la configuración descrita en [Metadatos y dominio](guia-del-proyecto.md#metadatos-y-dominio).
+
 `app.js` sirve archivos públicos únicamente desde `dist/client` y envía otras solicitudes al servidor TanStack. Como Document Root puede coincidir con Application Root, pida al administrador verificar que IIS no exponga por acceso HTTP directo código fuente, `node_modules`, `dist/server`, `.env`, manifiestos, Git u otros archivos internos. No considere una prueba de navegador suficiente para confirmar que esas rutas están bloqueadas.
 
 ### Lista de comprobación después del despliegue
