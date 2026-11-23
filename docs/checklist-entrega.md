@@ -78,13 +78,13 @@ El repositorio tiene un tag histórico `release/2.0`; `package.json` declara `pr
 - [x] Comprobar que cinco intentos por IP dentro de 60 segundos pasan el control y que el sexto se limita; coordinar una ventana de prueba para no afectar a otros usuarios.
 - [x] Confirmar que una respuesta lenta o timeout no muestre éxito falso y consultar ORDS antes de repetir.
 - [x] Revisar que los formularios mantengan sus datos ante errores y que los errores de archivo/consentimiento sean accesibles con teclado y lector de pantalla.
-- [x] Ejecutar la regresión y prueba final del plan QA sobre el commit desplegado; guardar resultado y evidencia en el libro de pruebas.
+- [ ] Ejecutar la regresión y prueba final del plan QA sobre el commit desplegado; guardar resultado y evidencia en el libro de pruebas.
 
 ## Cierre de entrega
 
-- [x] Actualizar el libro de pruebas con los estados finales y referencias a evidencia.
+- [ ] Actualizar el libro de pruebas con los estados finales y referencias a evidencia.
 - [x] Adjuntar README, guía del proyecto, arquitectura, ejecución/despliegue e integraciones de formularios.
-- [x] Registrar pendientes aceptados (por ejemplo, testimonios ocultos hasta recibir contenido aprobado) con responsable, sin clasificarlos como defectos corregidos.
+- [ ] Registrar pendientes aceptados (por ejemplo, testimonios ocultos hasta recibir contenido aprobado) con responsable, sin clasificarlos como defectos corregidos.
 - [x] Entregar commit/tag, ambiente probado, fecha, resultados de pruebas y pasos de reversión.
 
 ## Reversión
