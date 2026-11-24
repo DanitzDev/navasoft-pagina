@@ -5,7 +5,7 @@ Esta guía explica cómo está organizado el sitio institucional de Navasoft, d�
 ## Propósito y decisiones vigentes
 
 - El sitio presenta a Navasoft como una **empresa de tecnología especializada en transformar operaciones críticas**. Mantener esta idea en Nosotros, Inicio, áreas y contenido de marca.
-- El dominio oficial configurado para URL canónicas y vistas previas es `https://navasoft.es`. Se define una sola vez en `src/lib/page-meta.ts`.
+- El dominio oficial configurado para URL canónicas y vistas previas es `https://navasoftsoluciones.com`. Se usa en los generadores de metadatos y la imagen Open Graph de reserva.
 - Inicio y Nosotros comparten el mismo banner institucional, definido en `src/data/site.ts` y renderizado por el componente compartido.
 - No publicar vacantes, beneficios, métricas, nombres de clientes ni promesas que no hayan sido confirmados por Navasoft. Las listas de vacantes y beneficios de oportunidades están vacías deliberadamente.
 - Algunos datos conservan comentarios `MAQUETA`, `GENERADO` u `OMITIDO` en el código. Revisar su origen antes de presentarlos como afirmaciones corporativas. No eliminar esas marcas sin comprobar el contenido.
@@ -101,9 +101,9 @@ Los componentes muestran el contenido, mientras que los catálogos mantienen lis
 
 ## Metadatos y dominio
 
-Usar `pageMeta` en las rutas públicas para que URL canónica y URL social usen el origen compartido. La migración prevista es al dominio `https://navasoftsoluciones.com`; cambiar el origen solo al confirmar que DNS, Plesk y el certificado HTTPS están listos.
+Usar `pageMeta` en las rutas públicas para que URL canónica y URL social usen el origen compartido. El código ya está configurado para `https://navasoftsoluciones.com`; antes de publicar, confirmar que DNS, Plesk y el certificado HTTPS están listos.
 
-Al migrar, buscar y actualizar todas las referencias al dominio anterior. En el código actual, revisar `src/lib/page-meta.ts` (URL canónica y tarjetas sociales), `src/lib/seo.ts` (variable `VITE_SITE_URL` y su valor predeterminado) y `src/routes/__root.tsx` (imagen Open Graph predeterminada). Mantener coherentes el dominio canónico, Open Graph y Twitter Card; no cambiar cada página por separado.
+Los orígenes de `src/lib/page-meta.ts`, `src/lib/seo.ts` y `src/routes/__root.tsx` ya apuntan al dominio nuevo. Si el entorno de compilación define `VITE_SITE_URL`, actualizarlo también a `https://navasoftsoluciones.com`, ya que prevalece sobre el valor predeterminado de `src/lib/seo.ts`. Mantener coherentes URL canónicas, Open Graph y Twitter Card; no cambiar cada página por separado.
 
 Antes del corte, confirmar con quien administra el dominio los registros DNS del dominio raíz y `www`, el destino de hosting y la política de redirección. Instalar un certificado válido para los nombres que se publicarán, forzar HTTPS y acordar si `www` redirige al dominio raíz. Si se conserva `navasoft.es`, redirigir sus URL antiguas al destino equivalente en el nuevo dominio para preservar enlaces.
 

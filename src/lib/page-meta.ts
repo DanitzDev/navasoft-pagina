@@ -1,4 +1,4 @@
-const siteOrigin = 'https://navasoft.es'
+const siteOrigin = 'https://navasoftsoluciones.com'
 const siteName = 'Navasoft Soluciones'
 const defaultShareImage = '/images/brand/navasoft-social-hires.png'
 
