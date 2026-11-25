@@ -199,6 +199,12 @@
 .business-client-logo[data-client='carnes-la-unica'] img {
   height: 124px;
 }
+.business-client-logo[data-client='carnes-la-unica'] {
+  overflow: hidden;
+}
+.business-client-logo[data-client='carnes-la-unica'] img {
+  object-fit: cover;
+}
 .business-client-list li > span {
   color: #202329;
   font-size: 18px;
