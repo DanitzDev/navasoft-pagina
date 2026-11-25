@@ -5,7 +5,8 @@
     "widths": [
       480,
       768,
-      1280
+      1280,
+      1792
     ]
   },
   "/images/area-iot": {
@@ -42,16 +43,34 @@
     "width": 3840,
     "height": 2160,
     "widths": [
+      160,
+      240,
+      320,
       480,
       768,
       1280,
       1920
     ]
   },
+  "/images/clientes/Argri-logo-png": {
+    "width": 1254,
+    "height": 1254,
+    "widths": [
+      160,
+      240,
+      320,
+      480,
+      768,
+      1254
+    ]
+  },
   "/images/clientes/bn-logo": {
     "width": 590,
     "height": 430,
     "widths": [
+      160,
+      240,
+      320,
       480,
       590
     ]
@@ -60,6 +79,8 @@
     "width": 300,
     "height": 300,
     "widths": [
+      160,
+      240,
       300
     ]
   },
@@ -67,6 +88,7 @@
     "width": 200,
     "height": 200,
     "widths": [
+      160,
       200
     ]
   },
@@ -74,13 +96,85 @@
     "width": 474,
     "height": 474,
     "widths": [
+      160,
+      240,
+      320,
       474
+    ]
+  },
+  "/images/clientes/logo-carnesLaUnica": {
+    "width": 899,
+    "height": 895,
+    "widths": [
+      160,
+      240,
+      320,
+      480,
+      768,
+      899
+    ]
+  },
+  "/images/clientes/logo-cliente-unidad": {
+    "width": 288,
+    "height": 261,
+    "widths": [
+      160,
+      240,
+      288
+    ]
+  },
+  "/images/clientes/logo-Elida": {
+    "width": 437,
+    "height": 437,
+    "widths": [
+      160,
+      240,
+      320,
+      437
+    ]
+  },
+  "/images/clientes/logo-fapre": {
+    "width": 1070,
+    "height": 1138,
+    "widths": [
+      160,
+      240,
+      320,
+      480,
+      768,
+      1070
+    ]
+  },
+  "/images/clientes/logo-habitat": {
+    "width": 1470,
+    "height": 1070,
+    "widths": [
+      160,
+      240,
+      320,
+      480,
+      768,
+      1280,
+      1470
+    ]
+  },
+  "/images/clientes/logo-tec": {
+    "width": 600,
+    "height": 315,
+    "widths": [
+      160,
+      240,
+      320,
+      480,
+      600
     ]
   },
   "/images/clientes/logoconape": {
     "width": 281,
     "height": 116,
     "widths": [
+      160,
+      240,
       281
     ]
   },
@@ -102,6 +196,9 @@
     "width": 900,
     "height": 900,
     "widths": [
+      160,
+      240,
+      320,
       480,
       768,
       900
@@ -111,6 +208,9 @@
     "width": 380,
     "height": 80,
     "widths": [
+      160,
+      240,
+      320,
       380
     ]
   },

@@ -5,6 +5,7 @@ import sharp from 'sharp'
 const IMAGES_DIR = 'public/images'
 const MANIFEST = 'src/data/image-manifest.json'
 const WIDTHS = [480, 768, 1280, 1920]
+const CLIENT_LOGO_WIDTHS = [160, 240, 320, 480, 768, 1280, 1920]
 const MAX_WIDTH = 1920
 const QUALITY = 78
 const SKIP_DIRS = new Set(['logos', 'brand']) // logos pequeños y con transparencia: no se tocan
@@ -40,7 +41,8 @@ for (const file of files) {
     const meta = await sharp(file).rotate().metadata()
     const maxWidth = /\.avif$/i.test(file) ? 1280 : MAX_WIDTH
     const cap = Math.min(meta.width ?? maxWidth, maxWidth)
-    const widths = [...new Set([...WIDTHS.filter((width) => width < cap), cap])].sort((a, b) => a - b)
+    const targetWidths = file.split(path.sep).includes('clientes') ? CLIENT_LOGO_WIDTHS : WIDTHS
+    const widths = [...new Set([...targetWidths.filter((width) => width < cap), cap])].sort((a, b) => a - b)
 
     const base = file.replace(SOURCE, '')
     for (const width of widths) {

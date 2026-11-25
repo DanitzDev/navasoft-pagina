@@ -1,8 +1,7 @@
 import { clients } from './clients'
 import type { OrganizationLogo } from '../types/trust'
 
-// Directorio de clientes, con los destacados y referencias adicionales.
-// Los logos pendientes se incorporarán cuando el equipo facilite los archivos.
+// Directorio de clientes. Solo `clients.ts` alimenta el carrusel de Inicio.
 type ClientLogo = Omit<OrganizationLogo, 'image'> & { image?: string }
 
 export const clientDirectory: readonly ClientLogo[] = [
@@ -24,6 +23,36 @@ export const clientDirectory: readonly ClientLogo[] = [
     image: '/images/clientes/bn-logo.png',
   },
   { id: 'ina', name: 'INA', image: '/images/clientes/Logo-INA.webp' },
+  {
+    id: 'argri-carnes',
+    name: 'Argri Carnes',
+    image: '/images/clientes/Argri-logo-png.png',
+  },
+  {
+    id: 'fapre',
+    name: 'FAPRE',
+    image: '/images/clientes/logo-fapre.png',
+  },
+  {
+    id: 'habitat-condominios',
+    name: 'Hábitat Administración de Condominios',
+    image: '/images/clientes/logo-habitat.png',
+  },
+  {
+    id: 'unidad-fraternidad-proteccion',
+    name: 'Unidad Fraternidad Protección',
+    image: '/images/clientes/logo-cliente-unidad.jpeg',
+  },
+  {
+    id: 'ganaderia-elida',
+    name: 'Ganadería Elida',
+    image: '/images/clientes/logo-Elida.jpeg',
+  },
+  {
+    id: 'carnes-la-unica',
+    name: 'Carnes La Única',
+    image: '/images/clientes/logo-carnesLaUnica.jpeg',
+  },
 ]
 
 const publicClientIds = new Set([

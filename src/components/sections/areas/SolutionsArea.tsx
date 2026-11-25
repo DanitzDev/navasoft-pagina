@@ -112,7 +112,7 @@ export default function SolutionsArea() {
                 width={1792}
                 height={1008}
                 priority
-                sizes="(min-width: 1024px) 640px, 100vw"
+                sizes="(min-width: 960px) calc((min(100vw, 1280px) - 120px) / 2), (min-width: 640px) calc((100vw - 68px) / 2), (min-width: 600px) calc((100vw - 52px) / 2), calc(100vw - 32px)"
               />
               <span className="solutions-access-caption">
                 <span>
@@ -142,7 +142,7 @@ export default function SolutionsArea() {
                 alt=""
                 width={1792}
                 height={1008}
-                sizes="(min-width: 1024px) 640px, 100vw"
+                sizes="(min-width: 960px) calc((min(100vw, 1280px) - 120px) / 2), (min-width: 640px) calc((100vw - 68px) / 2), (min-width: 600px) calc((100vw - 52px) / 2), calc(100vw - 32px)"
               />
               <span className="solutions-access-caption">
                 <span>
