@@ -8,12 +8,32 @@ export const companyIntroduction = {
     'Acompañamos a las organizaciones desde el análisis de sus procesos hasta el diseño, desarrollo e implementación de soluciones. Integramos plataformas y sistemas para mejorar la continuidad, eficiencia y capacidad de evolución de sus operaciones.',
 }
 
-export const aboutAreaDescriptions: Record<string, string> = {
-  '/areas/soluciones':
-    'Soluciones tecnológicas para transformar operaciones del sector público y empresarial.',
-  '/productos': 'Conoce las plataformas del ecosistema Navasoft.',
-  '/areas/innovationlab': 'Explora InnovationLab, nuestra área de tecnologías emergentes.',
-}
+export const aboutBusinessAreas = [
+  {
+    label: 'Sector Público',
+    href: '/areas/soluciones',
+    hash: 'gobierno',
+    description:
+      'Modernizamos procesos, servicios y operaciones para instituciones que impactan a miles de ciudadanos.',
+  },
+  {
+    label: 'Sector empresarial',
+    href: '/areas/soluciones',
+    hash: 'empresas',
+    description:
+      'Ayudamos a organizaciones privadas a optimizar operaciones, integrar sistemas y acelerar su crecimiento.',
+  },
+  {
+    label: 'Ecosistema SaaS',
+    href: '/productos',
+    description: 'Conoce las plataformas del ecosistema Navasoft.',
+  },
+  {
+    label: 'InnovationLab',
+    href: '/areas/innovationlab',
+    description: 'Explora InnovationLab, nuestra área de tecnologías emergentes.',
+  },
+] as const
 
 // Misión, visión y valores corresponden al material recibido de la empresa.
 export const companyPurpose = [

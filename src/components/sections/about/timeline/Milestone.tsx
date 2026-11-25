@@ -84,6 +84,7 @@ export default function Milestone({ milestone }: MilestoneProps) {
             src={imageSource}
             alt={image.alt}
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            maxWidth={480}
             onError={() => setFailedSource(imageSource)}
           />
         ) : (

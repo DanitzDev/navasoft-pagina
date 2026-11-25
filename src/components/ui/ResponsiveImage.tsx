@@ -12,6 +12,7 @@ type ResponsiveImageProps = Omit<
   alt: string
   sizes: string // cuánto ocupa la imagen en pantalla; ayuda al navegador a elegir la versión
   priority?: boolean // true solo para la imagen principal de la página
+  maxWidth?: number // limita la variante cuando el contenedor es pequeño
 }
 
 export function ResponsiveImage({
@@ -19,6 +20,7 @@ export function ResponsiveImage({
   alt,
   sizes,
   priority = false,
+  maxWidth,
   ...rest
 }: ResponsiveImageProps) {
   const base = src.replace(/\.(jpe?g|png|webp|avif)$/i, '')
@@ -40,12 +42,17 @@ export function ResponsiveImage({
   // Sin versiones generadas, se comporta como una imagen normal
   if (!entry) return image
 
+  const widths = maxWidth
+    ? entry.widths.filter((width) => width <= maxWidth)
+    : entry.widths
+  const responsiveWidths = widths.length > 0 ? widths : entry.widths
+
   return (
     <picture className="contents">
       <source
         type="image/webp"
         sizes={sizes}
-        srcSet={entry.widths
+        srcSet={responsiveWidths
           .map((width) => `${base}-${width}.webp ${width}w`)
           .join(', ')}
       />
