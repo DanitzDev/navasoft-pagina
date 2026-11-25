@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { footerSolutions } from '../../../../data/site'
-import { aboutAreaDescriptions } from '../../../../data/about'
+import { aboutBusinessAreas } from '../../../../data/about'
 import { SectionTitle } from '../../../ui/SectionTitle'
 
 export default function BusinessAreas() {
@@ -12,14 +11,16 @@ export default function BusinessAreas() {
         className="about-business-title"
       />
       <ul className="about-business-list">
-        {footerSolutions.map((area) => (
-          <li key={area.href}>
-            <Link to={area.href} className="about-business-link">
+        {aboutBusinessAreas.map((area) => (
+          <li key={`${area.label}-${area.href}`}>
+            <Link
+              to={area.href}
+              hash={'hash' in area ? area.hash : undefined}
+              className="about-business-link"
+            >
               <span className="about-business-copy">
                 <span className="about-business-name">{area.label}</span>
-                <span className="about-business-description">
-                  {aboutAreaDescriptions[area.href]}
-                </span>
+                <span className="about-business-description">{area.description}</span>
               </span>
               <svg
                 viewBox="0 0 24 24"

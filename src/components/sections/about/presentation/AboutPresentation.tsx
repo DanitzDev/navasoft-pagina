@@ -50,11 +50,21 @@ export default function AboutPresentation() {
               priority
             />
             <div className="about-hero-brand">
-              <ResponsiveImage
-                src="/images/brand/navasoft-white.png"
-                alt="Navasoft · Tecnología que innova"
-                sizes="(max-width: 768px) 150px, 200px"
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/images/brand/navasoft-white-94.webp 94w, /images/brand/navasoft-white-188.webp 188w, /images/brand/navasoft-white-282.webp 282w"
+                  sizes="(max-width: 768px) 150px, 190px"
+                />
+                <img
+                  src="/images/brand/navasoft-white.png"
+                  width={1200}
+                  height={562}
+                  alt="Navasoft · Tecnología que innova"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
             </div>
             <figcaption>
               Desde 2011, construyendo soluciones a la medida.
