@@ -176,7 +176,7 @@
   display: grid;
   place-items: center;
   width: 100%;
-  height: 92px;
+  height: 120px;
   padding: 10px;
   border-radius: 8px;
   background: #fff;
@@ -184,15 +184,20 @@
 .business-client-logo img {
   display: block;
   width: 100%;
-  height: 72px;
+  height: 104px;
   object-fit: contain;
 }
 .business-client-logo[data-client='ferji'] {
-  height: 112px;
+  height: 120px;
   background: transparent;
 }
-.business-client-logo[data-client='ferji'] img {
-  height: 104px;
+.business-client-logo[data-client='ganaderia-elida'],
+.business-client-logo[data-client='carnes-la-unica'] {
+  height: 140px;
+}
+.business-client-logo[data-client='ganaderia-elida'] img,
+.business-client-logo[data-client='carnes-la-unica'] img {
+  height: 124px;
 }
 .business-client-list li > span {
   color: #202329;
